@@ -1,6 +1,3 @@
-Original App Design Project - README Template
-===
-
 # Stonx
 
 ## Table of Contents
@@ -12,8 +9,7 @@ Original App Design Project - README Template
 ## Overview
 ### Description
 # 
-[Description of your app]
-
+Stonx is a an application that allows users to simulate what it's like to finally win in the stock market. Our app allows every single one of users to invest without losing any money. 
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
