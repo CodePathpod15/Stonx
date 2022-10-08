@@ -13,12 +13,12 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category: Finance, Fintech**
-- **Mobile: iOS**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category: Finance**
+- **Mobile: This app is primarly mobile but could also be expanded to desktop.**
+- **Story: Uses real time data to allow users to trade without actually investing money**
+- **Market: Anyone interesting in investing.**
+- **Habit: This app could be used frequently to check on the status of their app**
+- **Scope: We could expand to a more learning based approach to investing. Allowing users to invest in options**
 
 # 
 
