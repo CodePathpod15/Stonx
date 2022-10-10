@@ -29,6 +29,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 **Required Must-have Stories**
 * User can log in 
 * user can create an account
+* reset password
 * User can search for stock 
 * user can see the information of a stock 
 * User can buy a stock
@@ -37,7 +38,8 @@ Stonx is a an application that allows users to simulate what it's like to finall
 * User can set their favorite stocks 
 * User can see their profit from the stock 
 * User can see their history of trades 
-* [fill in your required user stories here]
+* User can change their profile information
+* user can 
 * ...
 
 **Optional Nice-to-have Stories**
@@ -54,11 +56,11 @@ Stonx is a an application that allows users to simulate what it's like to finall
 ### 2. Screen Archetypes
 
 * Login 
-   * [list associated required story here]
+   * User can log in 
 * Create account 
-  * 
+  *  User can create account 
 * Home (Dashboard) [list second screen here]
-   * Chart of profits and losses 
+   * Chart of profits and losses  
    * Your current porfolio 
 * Favorites (Watch list)
    * Show your favorite
@@ -90,7 +92,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 * Favorites
    * Being able to click on each a stock 
-*  Seaching stock screen 
+* Seaching stock screen 
    * Clicking on a stock 
    * Confirm purchase of a stock 
 * Home 
