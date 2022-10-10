@@ -9,7 +9,7 @@
 ## Overview
 ### Description
 # 
-Stonx is a an application that allows users to simulate what it's like to finally win in the stock market. Our app allows every single one of our users to simuulate buying and selling a stock without losing any money. 
+Stonx is a an application that allows users to simulate what it's like to finally win in the stock market. Our app allows every single one of our users to simulate buying and selling a stock without losing any money. 
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
