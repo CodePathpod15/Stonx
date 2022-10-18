@@ -110,6 +110,10 @@ Stonx is a an application that allows users to simulate what it's like to finall
 [Add picture of your hand sketched wireframes in this section]
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
+
+<img width="600" alt="Screen Shot 2022-10-17 at 6 45 18 PM" src="https://user-images.githubusercontent.com/29695936/196315941-e374d408-7b91-4227-8101-fdc2975e2be3.png">
+
+
 ### [BONUS] Digital Wireframes & Mockups
 
 ### [BONUS] Interactive Prototype
@@ -117,7 +121,36 @@ Stonx is a an application that allows users to simulate what it's like to finall
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### user_stocks
+   | Property      | Type     | Description                                 |
+   | ------------- | -------- | ------------                                |
+   | objectId      | String   | unique id for the user post (default field) |
+   | ticker_id     | string.  | ticker symbol id                            |
+   | ticker_symbol | string   | symbol.                                     |
+   | buying_price  | double   | ticker symbol id                            |
+   | date_purchased| string   | the purchased date                          |
+   | quantity      | integer  | amount purchased                            |
+   
+####  Stocks_Bookmarked
+   | Property      | Type     | Description                                 |
+   | ------------- | -------- | ------------                                |
+   | objectId      | String   | unique id for the user post (default field) |
+   | ticker_id     | string.  | ticker symbol id                            |
+   | ticker_symbol | string   | symbol.                                     |
+  
+  ####  stock_discussion
+   | Property      | Type           | Description                                   |
+   | ------------- | --------       | ------------                                  |
+   | objectId      | String         | unique id for the user post (default field)   |
+   | author        | Pointer to User| author                                        |
+   | ticker_id     | Pointer to User| the id of ticker symbol                       |
+   | ticker_symbol    string        | ticker smbil                                  |
+   | comment_str   | String   |  caption by author                                  |
+   | commentsCount | Number   | number of comments that has been posted to an image |
+   | createdAt     | DateTime | date when post is created (default field)           |
+   | updatedAt     | DateTime | date when post is last updated (default field)      |
+  
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
