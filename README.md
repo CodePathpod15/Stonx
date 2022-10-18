@@ -152,6 +152,23 @@ Stonx is a an application that allows users to simulate what it's like to finall
   
 
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+
+- Home (Dashboard)
+  - (Read/GET) Query all stocks owned by the user from user_stocks
+
+- Favorites (Watch list)
+  - (Read/GET) Query all stocks owned by the user from user_stocks
+- Search Stock 
+  - (Read/GET) Query stock from stocks API 
+  - (Read/GET) Query individual stock from API 
+- View Stock 
+  - (Read/GET) Query stock from stocks API 
+  - (create/POST) Add stock to Stocks_Bookmarked
+  - (create/POST) Add stock to user_stocks
+  - (create/POST) Add stock to stock_discussion
+- Settings
+  - (edit/Patch) edit name of user
+  - (edit/Patch) modifying quantity 
+ 
+
