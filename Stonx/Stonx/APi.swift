@@ -10,7 +10,7 @@ import Foundation
 // TODO: Angel and Sagar
 struct API {
     
-    func search(sr: String) - > String? {
+    func search(sr: String) -> String? {
         return nil
     }
 }
