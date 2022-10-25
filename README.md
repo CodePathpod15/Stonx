@@ -107,8 +107,6 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 
 <img width="600" alt="Screen Shot 2022-10-17 at 6 45 18 PM" src="https://user-images.githubusercontent.com/29695936/196315941-e374d408-7b91-4227-8101-fdc2975e2be3.png">
@@ -116,7 +114,13 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 ### [BONUS] Digital Wireframes & Mockups
 
+https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
+
 ### [BONUS] Interactive Prototype
+
+![video2](https://user-images.githubusercontent.com/29695936/197831462-6cbc6658-9a43-4980-9140-18261de6b14f.gif)
+
+
 
 ## Schema 
 [This section will be completed in Unit 9]
