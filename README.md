@@ -51,7 +51,6 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [ ]user can sell crypto
 - [ ]User can comment on a specific stock (discussion)
 - [ ]News headline 
-- [ ] ...
 
 ### 2. Screen Archetypes
 
