@@ -118,6 +118,10 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
 
 ### [BONUS] Interactive Prototype
 
+![video2](https://user-images.githubusercontent.com/29695936/197831462-6cbc6658-9a43-4980-9140-18261de6b14f.gif)
+
+
+
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
