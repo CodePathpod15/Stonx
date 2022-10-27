@@ -70,9 +70,11 @@ class LoginViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.tintColor = ColorConstants.green
         // TODO: add target for incorrect password
-        
+        button.addTarget(self, action: #selector(forgotPassButtonWasPressed), for: .touchUpInside)
         return button
     }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -228,7 +230,7 @@ class LoginViewController: UIViewController {
 
 
 
-// this is default textfield with left padding
+// this is default textfield with left padding that I stole from stackoverflow
 // https://stackoverflow.com/questions/25367502/create-space-at-the-beginning-of-a-uitextfield
 class TextField: UITextField {
 
