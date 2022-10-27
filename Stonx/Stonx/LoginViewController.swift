@@ -42,7 +42,6 @@ class LoginViewController: UIViewController {
         stackview.axis = .horizontal
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.spacing = 4
-        stackview.backgroundColor = .yellow
         return stackview
     }()
     
@@ -50,7 +49,6 @@ class LoginViewController: UIViewController {
         let stackview: UIStackView = UIStackView()
         stackview.axis = .vertical
         stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.backgroundColor = .purple
         return stackview
     }()
     
@@ -58,6 +56,7 @@ class LoginViewController: UIViewController {
         let button: UIButton = UIButton(type: .system)
         button.setTitle("Create Account", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.tintColor = ColorConstants.green
         return button
     }()
     
@@ -65,6 +64,9 @@ class LoginViewController: UIViewController {
         let button: UIButton = UIButton(type: .system)
         button.setTitle("Forgot Your Password", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.tintColor = ColorConstants.green
+        // TODO: add target for incorrect password
+        
         return button
     }()
     
@@ -77,7 +79,36 @@ class LoginViewController: UIViewController {
     }
     
     
-    // MARK: methods
+    
+    // MARK: IBactions
+    
+    @objc private func loginButtonWasPressed() {
+        //
+        showAlert()
+    }
+    
+    
+    @objc private func forgotPassButtonWasPressed() {
+        
+    }
+    
+    // you want to show an alert when password is wrong
+    private func showAlert() {
+        var dialogMessage = UIAlertController(title: "Confirm", message: "incorrect password", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+         })
+        
+        //Add OK button to a dialog message
+        dialogMessage.addAction(ok)
+        // Present Alert to
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: helper methods
     
     
     /// general set up of our subviews
@@ -106,6 +137,8 @@ class LoginViewController: UIViewController {
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         loginButton.layer.cornerRadius = 25
         loginButton.tintColor = .white
+        loginButton.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
+        
         
         
         // adding stackview
@@ -179,9 +212,6 @@ class LoginViewController: UIViewController {
             vStackviw.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             vStackviw.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 23)
         ])
-        
-        
-        
         
     }
     
