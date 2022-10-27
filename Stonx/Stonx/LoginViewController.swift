@@ -16,6 +16,7 @@ struct ColorConstants {
 struct FontConstants {
     static let regularFont =  UIFont.systemFont(ofSize: 16)
     static let boldFont = UIFont.systemFont(ofSize: 16, weight: .bold)
+    static let boldLargeFont = UIFont.systemFont(ofSize: 24, weight: .bold)
 }
 
 
@@ -84,13 +85,20 @@ class LoginViewController: UIViewController {
         
     }
     
-    
+    let correctPss = true
     
     // MARK: IBactions
     
     @objc private func loginButtonWasPressed() {
-        //
-        showAlert()
+        
+        if correctPss {
+            navigationController?.pushViewController(CreateAnAccountViewcontroller(), animated: true)
+            
+        } else {
+            showAlert()
+        }
+        
+
     }
     
     // This is called when button is pressed
