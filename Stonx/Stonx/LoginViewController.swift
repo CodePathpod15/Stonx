@@ -22,7 +22,27 @@ class LoginViewController: UIViewController {
     
     private let passWordTextfield = TextField()
     
-    private let loginButton = UIButton()
+    private let loginButton = UIButton(type: .system)
+    // horitzontal stack view
+    private let dontHaveAccLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Dont have an account?"
+        return lbl
+    }()
+    
+    private let hstackview: UIStackView = {
+        // setting the properties of the horizontal stack view
+        let stackview: UIStackView = UIStackView()
+        stackview.backgroundColor = .yellow
+        stackview.axis = .horizontal
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        return stackview
+    }()
+    
+    private let createAcc: UIButton = {
+        let button: UIButton = UIButton(type: .system)
+        button.setTitle("Create Account", for: .normal)
+    }
     
     
     
@@ -42,6 +62,10 @@ class LoginViewController: UIViewController {
     /// general set up of our subviews
     private func addViews()
     {
+        
+       
+        
+        
         // setting the background color of the imagefield
         imageField.backgroundColor = .red
         
@@ -61,7 +85,14 @@ class LoginViewController: UIViewController {
         // set up loginButton
         loginButton.backgroundColor = ColorConstants.green
         loginButton.setTitle("Log in", for: .normal)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         loginButton.layer.cornerRadius = 25
+        loginButton.tintColor = .white
+        
+        // adding stackview
+        view.addSubview(hstackview)
+        hstackview.addArrangedSubview(dontHaveAccLbl)
+        
         
     }
     
@@ -115,7 +146,12 @@ class LoginViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        //
+        // adding the dont have account info
+        NSLayoutConstraint.activate([
+            hstackview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            hstackview.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 23)
+        ])
+        
         
         
         
