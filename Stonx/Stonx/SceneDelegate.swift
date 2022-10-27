@@ -23,7 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             
             // if the user is logged in
+            // You will do your parse stuff here
             let loggedIn = false
+            
+            
             if loggedIn {
                 let vc = TabBarController()
                 let root = vc
@@ -37,10 +40,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             } else {
                 let vc = LoginViewController()
                 let root = vc
-              
-                
+                            
                 window.rootViewController = root
-                
                 
                 self.window = window
                 window.makeKeyAndVisible()

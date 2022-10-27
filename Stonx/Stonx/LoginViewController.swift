@@ -33,8 +33,15 @@ class LoginViewController: UIViewController {
     private let hstackview: UIStackView = {
         // setting the properties of the horizontal stack view
         let stackview: UIStackView = UIStackView()
-        stackview.backgroundColor = .yellow
         stackview.axis = .horizontal
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.spacing = 4
+        return stackview
+    }()
+    
+    private let vStackviw: UIStackView = {
+        let stackview: UIStackView = UIStackView()
+        stackview.axis = .vertical
         stackview.translatesAutoresizingMaskIntoConstraints = false
         return stackview
     }()
@@ -42,7 +49,14 @@ class LoginViewController: UIViewController {
     private let createAcc: UIButton = {
         let button: UIButton = UIButton(type: .system)
         button.setTitle("Create Account", for: .normal)
-    }
+        return button
+    }()
+    
+    private let forgotPassword: UIButton = {
+        let button: UIButton = UIButton(type: .system)
+        button.setTitle("Forgot Your Password", for: .normal)
+        return button
+    }()
     
     
     
@@ -89,9 +103,19 @@ class LoginViewController: UIViewController {
         loginButton.layer.cornerRadius = 25
         loginButton.tintColor = .white
         
+        
         // adding stackview
         view.addSubview(hstackview)
         hstackview.addArrangedSubview(dontHaveAccLbl)
+        hstackview.addArrangedSubview(createAcc)
+        
+        
+        // adding vertical stackview
+        view.addSubview(vStackviw)
+        vStackviw.addArrangedSubview(hstackview)
+        vStackviw.addArrangedSubview(forgotPassword)
+        
+       
         
         
     }
@@ -148,8 +172,8 @@ class LoginViewController: UIViewController {
         
         // adding the dont have account info
         NSLayoutConstraint.activate([
-            hstackview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            hstackview.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 23)
+            vStackviw.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            vStackviw.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 23)
         ])
         
         
