@@ -18,9 +18,9 @@ class LoginViewController: UIViewController {
     // MARK: Properties
     private let imageField = UIImageView()
     
-    private let emailTextfield = UITextField()
+    private let emailTextfield = TextField()
     
-    private let passWordTextfield = UITextField()
+    private let passWordTextfield = TextField()
     
     
     
@@ -51,6 +51,7 @@ class LoginViewController: UIViewController {
         
         // adding email textifield
         setUpTextfield(textfield: emailTextfield, defaultText: "Enter your email")
+        setUpTextfield(textfield: passWordTextfield, defaultText: "Enter your password")
         
     }
     
@@ -60,6 +61,7 @@ class LoginViewController: UIViewController {
         textfield.layer.cornerRadius = 8
         textfield.layer.borderWidth = 1
         textfield.layer.borderColor = ColorConstants.darkerGray.cgColor
+        textfield.font = UIFont.systemFont(ofSize: 16)
     }
     
     
@@ -84,8 +86,14 @@ class LoginViewController: UIViewController {
         ])
         
         // adding constraints for the password textfield
+        NSLayoutConstraint.activate([
+            // constraints top anchor of email to the bottom anchor of the image field with padding of 32
+            passWordTextfield.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: padding-15),
+            passWordTextfield.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
+            passWordTextfield.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
+            passWordTextfield.heightAnchor.constraint(equalToConstant: 41)
+        ])
         
-        // adding constraints for the password textfield
         
         
         // adding log in button
@@ -99,4 +107,25 @@ class LoginViewController: UIViewController {
 
  
 
+}
+
+
+
+// this is default textfield with left padding
+// https://stackoverflow.com/questions/25367502/create-space-at-the-beginning-of-a-uitextfield
+class TextField: UITextField {
+
+    let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5)
+
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+
+    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
 }
