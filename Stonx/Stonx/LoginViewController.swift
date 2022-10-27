@@ -104,6 +104,8 @@ class LoginViewController: UIViewController {
     // This is called when button is pressed
     @objc private func forgotPassButtonWasPressed() {
         
+        navigationController?.pushViewController(ForgotPassViewController(), animated: true)
+
     }
     
     @objc private func createAccButtonWasPressed() {
