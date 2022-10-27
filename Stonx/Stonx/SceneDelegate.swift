@@ -20,15 +20,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let vc = TabBarController()
-            let root = vc
-          
-            
-            window.rootViewController = root
             
             
-            self.window = window
-            window.makeKeyAndVisible()
+            // if the user is logged in
+            let loggedIn = false
+            if loggedIn {
+                let vc = TabBarController()
+                let root = vc
+              
+                
+                window.rootViewController = root
+                
+                
+                self.window = window
+                window.makeKeyAndVisible()
+            } else {
+                let vc = LoginViewController()
+                let root = vc
+              
+                
+                window.rootViewController = root
+                
+                
+                self.window = window
+                window.makeKeyAndVisible()
+            }
+            
+            
+         
             
         }
     }
