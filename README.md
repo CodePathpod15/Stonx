@@ -27,9 +27,9 @@ Stonx is a an application that allows users to simulate what it's like to finall
 ### 1. User Stories (Required and Optional)
 
 **Required Must-have Stories**
-- [ ] User can log in 
-- [ ] user can create an account
-- [ ] reset password
+- [x] User can log in [Code has been created for this - need to update our View Controller / SceneDelegate flow]
+- [x] user can create an account [Code has been created for this - need to update our View Controller / SceneDelegate flow]
+- [ ] Reset password
 - [ ] User can search for stock 
 - [ ] user can see the information of a stock 
 - [ ] User can buy a stock
@@ -39,7 +39,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [ ] User can see their profit from the stock 
 - [ ] User can see their history of trades 
 - [ ] User can change their profile information
-- [ ] user can 
+- [x] User can maneuver through dashboard.
 * ...
 
 **Optional Nice-to-have Stories**
@@ -174,4 +174,8 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
   - (edit/Patch) edit name of user
   - (edit/Patch) modifying quantity 
  
+ 1st Submission Gif:
+ 
+ ![Simulator Screen Recording - iPhone 13 Pro - 2022-10-27 at 00 52 27](https://user-images.githubusercontent.com/97072541/198195312-aae5fb52-4120-40bc-9e77-b8be216eaffe.gif)
+
 
