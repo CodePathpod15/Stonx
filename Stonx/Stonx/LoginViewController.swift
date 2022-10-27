@@ -62,6 +62,7 @@ class LoginViewController: UIViewController {
         button.setTitle("Create Account", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.tintColor = ColorConstants.green
+        button.addTarget(self, action: #selector(createAccButtonWasPressed), for: .touchUpInside)
         return button
     }()
     
@@ -85,14 +86,13 @@ class LoginViewController: UIViewController {
         
     }
     
-    let correctPss = true
+    let correctPss = false
     
     // MARK: IBactions
     
     @objc private func loginButtonWasPressed() {
         
         if correctPss {
-            navigationController?.pushViewController(CreateAnAccountViewcontroller(), animated: true)
             
         } else {
             showAlert()
@@ -104,6 +104,10 @@ class LoginViewController: UIViewController {
     // This is called when button is pressed
     @objc private func forgotPassButtonWasPressed() {
         
+    }
+    
+    @objc private func createAccButtonWasPressed() {
+        navigationController?.pushViewController(CreateAnAccountViewcontroller(), animated: true)
     }
     
    
