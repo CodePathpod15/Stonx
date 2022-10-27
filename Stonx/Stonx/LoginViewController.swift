@@ -10,10 +10,10 @@ import UIKit
 struct ColorConstants {
     static let gray = UIColor(red: 252/255, green: 252/255, blue: 253/255, alpha: 1)
     static let darkerGray = UIColor(red: 223/255, green: 223/255, blue: 230/255, alpha: 1)
+    static let green = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
 }
 
 class LoginViewController: UIViewController {
-
     
     // MARK: Properties
     private let imageField = UIImageView()
@@ -21,6 +21,8 @@ class LoginViewController: UIViewController {
     private let emailTextfield = TextField()
     
     private let passWordTextfield = TextField()
+    
+    private let loginButton = UIButton()
     
     
     
@@ -43,15 +45,23 @@ class LoginViewController: UIViewController {
         // setting the background color of the imagefield
         imageField.backgroundColor = .red
         
-        // looping to add them to a 
-        [imageField, emailTextfield, passWordTextfield].forEach { v in
+        // looping to add them to a
+        
+        [imageField, emailTextfield, passWordTextfield, loginButton].forEach { v in
+            // enable programatic constraints
             v.translatesAutoresizingMaskIntoConstraints = false
+            // add view to subview
             view.addSubview(v)
         }
         
-        // adding email textifield
+        // set up for textfield
         setUpTextfield(textfield: emailTextfield, defaultText: "Enter your email")
         setUpTextfield(textfield: passWordTextfield, defaultText: "Enter your password")
+        
+        // set up loginButton
+        loginButton.backgroundColor = ColorConstants.green
+        loginButton.setTitle("Log in", for: .normal)
+        loginButton.layer.cornerRadius = 25
         
     }
     
@@ -69,7 +79,7 @@ class LoginViewController: UIViewController {
     private func addConstraints() {
         // adding constraints for the imagefield
         NSLayoutConstraint.activate([
-            imageField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imageField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
             imageField.widthAnchor.constraint(equalToConstant: 224),
             imageField.heightAnchor.constraint(equalToConstant: 134),
             imageField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -97,7 +107,15 @@ class LoginViewController: UIViewController {
         
         
         // adding log in button
+        NSLayoutConstraint.activate([
+            // constraints top anchor of email to the bottom anchor of the image field with padding of 32
+            loginButton.topAnchor.constraint(equalTo: passWordTextfield.bottomAnchor, constant: padding),
+            loginButton.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
+            loginButton.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
+            loginButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
+        //
         
         
         
