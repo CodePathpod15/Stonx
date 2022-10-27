@@ -13,6 +13,11 @@ struct ColorConstants {
     static let green = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
 }
 
+struct FontConstants {
+    static let regularFont =  UIFont.systemFont(ofSize: 16)
+}
+
+
 class LoginViewController: UIViewController {
     
     // MARK: Properties
@@ -26,6 +31,7 @@ class LoginViewController: UIViewController {
     // horitzontal stack view
     private let dontHaveAccLbl: UILabel = {
         let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 16)
         lbl.text = "Dont have an account?"
         return lbl
     }()
@@ -36,6 +42,7 @@ class LoginViewController: UIViewController {
         stackview.axis = .horizontal
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.spacing = 4
+        stackview.backgroundColor = .yellow
         return stackview
     }()
     
@@ -43,22 +50,23 @@ class LoginViewController: UIViewController {
         let stackview: UIStackView = UIStackView()
         stackview.axis = .vertical
         stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.backgroundColor = .purple
         return stackview
     }()
     
     private let createAcc: UIButton = {
         let button: UIButton = UIButton(type: .system)
         button.setTitle("Create Account", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return button
     }()
     
     private let forgotPassword: UIButton = {
         let button: UIButton = UIButton(type: .system)
         button.setTitle("Forgot Your Password", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return button
     }()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +74,6 @@ class LoginViewController: UIViewController {
         addViews()
         addConstraints()
         
-        // Do any additional setup after loading the view.
     }
     
     
@@ -76,10 +83,7 @@ class LoginViewController: UIViewController {
     /// general set up of our subviews
     private func addViews()
     {
-        
-       
-        
-        
+   
         // setting the background color of the imagefield
         imageField.backgroundColor = .red
         
