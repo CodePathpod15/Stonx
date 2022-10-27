@@ -15,20 +15,22 @@ struct ColorConstants {
 
 struct FontConstants {
     static let regularFont =  UIFont.systemFont(ofSize: 16)
+    static let boldFont = UIFont.systemFont(ofSize: 16, weight: .bold)
 }
 
 
 class LoginViewController: UIViewController {
     
     // MARK: Properties
-    private let imageField = UIImageView()
+    private let logoImageField = UIImageView()
     
     private let emailTextfield = TextField()
     
     private let passWordTextfield = TextField()
     
     private let loginButton = UIButton(type: .system)
-    // horitzontal stack view
+  
+
     private let dontHaveAccLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 16)
@@ -36,6 +38,7 @@ class LoginViewController: UIViewController {
         return lbl
     }()
     
+    // this is a horizontal stack view that is used to hold the donthaveAccLbl and createAccbtn
     private let hstackview: UIStackView = {
         // setting the properties of the horizontal stack view
         let stackview: UIStackView = UIStackView()
@@ -45,6 +48,7 @@ class LoginViewController: UIViewController {
         return stackview
     }()
     
+    /// vertical stack holds the hstackview and the forgotPass button
     private let vStackviw: UIStackView = {
         let stackview: UIStackView = UIStackView()
         stackview.axis = .vertical
@@ -87,10 +91,14 @@ class LoginViewController: UIViewController {
         showAlert()
     }
     
-    
+    // This is called when button is pressed
     @objc private func forgotPassButtonWasPressed() {
         
     }
+    
+   
+    
+    // MARK: helper methods
     
     // you want to show an alert when password is wrong
     private func showAlert() {
@@ -108,19 +116,17 @@ class LoginViewController: UIViewController {
     }
     
     
-    // MARK: helper methods
-    
     
     /// general set up of our subviews
     private func addViews()
     {
    
         // setting the background color of the imagefield
-        imageField.backgroundColor = .red
+        logoImageField.backgroundColor = .red
         
         // looping to add them to a
         
-        [imageField, emailTextfield, passWordTextfield, loginButton].forEach { v in
+        [logoImageField, emailTextfield, passWordTextfield, loginButton].forEach { v in
             // enable programatic constraints
             v.translatesAutoresizingMaskIntoConstraints = false
             // add view to subview
@@ -138,7 +144,6 @@ class LoginViewController: UIViewController {
         loginButton.layer.cornerRadius = 25
         loginButton.tintColor = .white
         loginButton.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
-        
         
         
         // adding stackview
@@ -171,17 +176,17 @@ class LoginViewController: UIViewController {
     private func addConstraints() {
         // adding constraints for the imagefield
         NSLayoutConstraint.activate([
-            imageField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            imageField.widthAnchor.constraint(equalToConstant: 224),
-            imageField.heightAnchor.constraint(equalToConstant: 134),
-            imageField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            logoImageField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            logoImageField.widthAnchor.constraint(equalToConstant: 224),
+            logoImageField.heightAnchor.constraint(equalToConstant: 134),
+            logoImageField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         let padding: CGFloat = 32
         // adding constraints for the email textfield
         NSLayoutConstraint.activate([
             // constraints top anchor of email to the bottom anchor of the image field with padding of 32
-            emailTextfield.topAnchor.constraint(equalTo: imageField.bottomAnchor, constant: padding),
+            emailTextfield.topAnchor.constraint(equalTo: logoImageField.bottomAnchor, constant: padding),
             emailTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             emailTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             emailTextfield.heightAnchor.constraint(equalToConstant: 41)
