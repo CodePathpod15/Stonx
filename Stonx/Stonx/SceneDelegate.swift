@@ -20,15 +20,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let vc = WatchListViewController()
-            let root = vc
-          
-            
-            window.rootViewController = root
             
             
-            self.window = window
-            window.makeKeyAndVisible()
+            // if the user is logged in
+            // You will do your parse stuff here
+            let loggedIn = false
+            
+            
+            if loggedIn {
+                let vc = TabBarController()
+                let root = vc
+              
+                
+                window.rootViewController = root
+                
+                
+                self.window = window
+                window.makeKeyAndVisible()
+            } else {
+                
+                let vc = UINavigationController(rootViewController: LoginViewController())
+                let root = vc
+                            
+                window.rootViewController = root
+                
+                self.window = window
+                window.makeKeyAndVisible()
+            }
+            
+            
+         
             
         }
     }

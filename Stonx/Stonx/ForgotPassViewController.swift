@@ -1,22 +1,18 @@
 //
-//  ViewController.swift
+//  ForgotPassViewController.swift
 //  Stonx
 //
-//  Created by Angel Zambrano on 10/20/22.
+//  Created by Angel Zambrano on 10/27/22.
 //
 
 import UIKit
 
+// TODO: present error as alert if email does not exist in our database.
 
-// TODO: Angel and SAGAR
-
-// TODO: show alert if password is incorrect 
-
-class CreateAnAccountViewcontroller: UIViewController {
+class ForgotPassViewController: UIViewController {
     
     private let emailTextfield = TextField()
     
-    private let passWordTextfield = TextField()
     
     private let createAccButton = UIButton(type: .system)
     
@@ -55,20 +51,18 @@ class CreateAnAccountViewcontroller: UIViewController {
         view.addSubview(whatIsYourEmail)
         view.addSubview(emailTextfield)
         emailTextfield.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passWordTextfield)
-        passWordTextfield.translatesAutoresizingMaskIntoConstraints = false
-
+        
+    
         // set up for textfield
         setUpTextfield(textfield: emailTextfield, defaultText: "Enter your email")
-        setUpTextfield(textfield: passWordTextfield, defaultText: "Enter your password")
         
-        
+                
         // adding button
         // set up loginButton
         view.addSubview(createAccButton)
         createAccButton.translatesAutoresizingMaskIntoConstraints = false
         createAccButton.backgroundColor = ColorConstants.green
-        createAccButton.setTitle("Log in", for: .normal)
+        createAccButton.setTitle("reset password", for: .normal)
         createAccButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         createAccButton.layer.cornerRadius = 25
         createAccButton.tintColor = .white
@@ -98,20 +92,13 @@ class CreateAnAccountViewcontroller: UIViewController {
             emailTextfield.heightAnchor.constraint(equalToConstant: 41)
         ])
         
-        // adding constraints for the password textfield
-        NSLayoutConstraint.activate([
-            // constraints top anchor of email to the bottom anchor of the image field with padding of 32
-            passWordTextfield.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: padding-15),
-            passWordTextfield.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
-            passWordTextfield.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
-            passWordTextfield.heightAnchor.constraint(equalToConstant: 41)
-        ])
+     
         
         
         // adding log in button
         NSLayoutConstraint.activate([
             // constraints top anchor of email to the bottom anchor of the image field with padding of 32
-            createAccButton.topAnchor.constraint(equalTo: passWordTextfield.bottomAnchor, constant: padding),
+            createAccButton.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: padding),
             createAccButton.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
             createAccButton.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
             createAccButton.heightAnchor.constraint(equalToConstant: 50)
@@ -120,5 +107,5 @@ class CreateAnAccountViewcontroller: UIViewController {
     }
     
 
+    
 }
-
