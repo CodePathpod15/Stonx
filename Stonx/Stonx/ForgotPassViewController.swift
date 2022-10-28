@@ -16,8 +16,6 @@ class ForgotPassViewController: UIViewController {
     
     private let createAccButton = UIButton(type: .system)
     
-    
-    
     let whatIsYourEmail: UILabel = {
         let lbl = UILabel()
         lbl.text = "What is your Email?"
