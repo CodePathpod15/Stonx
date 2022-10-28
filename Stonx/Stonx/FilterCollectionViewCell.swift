@@ -10,10 +10,13 @@ import UIKit
 class FilterCollectionViewCell: UICollectionViewCell {
 
     private var filtLabel: UILabel = UILabel()
-       
-       override init(frame: CGRect) {
+    static let identifier = "FilterCollectionViewCell"
+    
+    override init(frame: CGRect) {
            super.init(frame: frame)
           
+           
+        
            filtLabel.translatesAutoresizingMaskIntoConstraints = false
            filtLabel.font = UIFont.systemFont(ofSize: 12)
            filtLabel.textColor = .black
