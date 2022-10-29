@@ -27,31 +27,30 @@ Stonx is a an application that allows users to simulate what it's like to finall
 ### 1. User Stories (Required and Optional)
 
 **Required Must-have Stories**
-* User can log in 
-* user can create an account
-* reset password
-* User can search for stock 
-* user can see the information of a stock 
-* User can buy a stock
-* User Can sell a stock
-* User can see their portfolio
-* User can set their favorite stocks 
-* User can see their profit from the stock 
-* User can see their history of trades 
-* User can change their profile information
-* user can 
+- [x] User can log in [Code has been created for this - need to update our View Controller / SceneDelegate flow]
+- [x] user can create an account [Code has been created for this - need to update our View Controller / SceneDelegate flow]
+- [ ] Reset password
+- [ ] User can search for stock 
+- [ ] user can see the information of a stock 
+- [ ] User can buy a stock
+- [ ] User Can sell a stock
+- [ ] User can see their portfolio
+- [ ] User can set their favorite stocks 
+- [ ] User can see their profit from the stock 
+- [ ] User can see their history of trades 
+- [ ] User can change their profile information
+- [x] User can maneuver through dashboard.
 * ...
 
 **Optional Nice-to-have Stories**
 
-* User can change their profile (e.g. dark mode, ligth mode)
-* User can bookmark a stock so that it appears in the homepage  
-* User can search for crypto 
-* User can Buy crypto
-* user can sell crypto
-* User can comment on a specific stock (discussion)
-* News headline 
-* ...
+- [ ] User can change their profile (e.g. dark mode, ligth mode)
+- [ ] User can bookmark a stock so that it appears in the homepage  
+- [ ]User can search for crypto 
+- [ ]User can Buy crypto
+- [ ]user can sell crypto
+- [ ]User can comment on a specific stock (discussion)
+- [ ]News headline 
 
 ### 2. Screen Archetypes
 
@@ -107,8 +106,6 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 
 <img width="600" alt="Screen Shot 2022-10-17 at 6 45 18 PM" src="https://user-images.githubusercontent.com/29695936/196315941-e374d408-7b91-4227-8101-fdc2975e2be3.png">
@@ -116,7 +113,13 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 ### [BONUS] Digital Wireframes & Mockups
 
+https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
+
 ### [BONUS] Interactive Prototype
+
+![video2](https://user-images.githubusercontent.com/29695936/197831462-6cbc6658-9a43-4980-9140-18261de6b14f.gif)
+
+
 
 ## Schema 
 [This section will be completed in Unit 9]
@@ -171,4 +174,8 @@ Stonx is a an application that allows users to simulate what it's like to finall
   - (edit/Patch) edit name of user
   - (edit/Patch) modifying quantity 
  
+ 1st Submission Gif:
+ 
+ ![Simulator Screen Recording - iPhone 13 Pro - 2022-10-27 at 00 52 27](https://user-images.githubusercontent.com/97072541/198195312-aae5fb52-4120-40bc-9e77-b8be216eaffe.gif)
+
 
