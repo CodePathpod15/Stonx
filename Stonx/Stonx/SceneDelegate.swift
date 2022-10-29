@@ -31,7 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let vc = TabBarController()
                 let root = vc
               
-                
                 window.rootViewController = root
                 
                 
