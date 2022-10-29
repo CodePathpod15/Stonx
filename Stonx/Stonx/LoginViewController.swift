@@ -18,6 +18,7 @@ struct FontConstants {
     static let boldFont = UIFont.systemFont(ofSize: 16, weight: .bold)
     static let boldLargeFont = UIFont.systemFont(ofSize: 24, weight: .bold)
     static let cellSmallFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+    static let cellMediumFont = UIFont.systemFont(ofSize: 14, weight: .regular)
 }
 
 
