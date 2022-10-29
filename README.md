@@ -29,7 +29,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 **Required Must-have Stories**
 - [x] User can log in [Code has been created for this - need to update our View Controller / SceneDelegate flow]
 - [x] user can create an account [Code has been created for this - need to update our View Controller / SceneDelegate flow]
-- [ ] Reset password
+- [x] Reset password
 - [ ] User can search for stock 
 - [ ] user can see the information of a stock 
 - [ ] User can buy a stock
@@ -39,7 +39,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [ ] User can see their profit from the stock 
 - [ ] User can see their history of trades 
 - [ ] User can change their profile information
-- [x] User can maneuver through dashboard.
+- [ ] User can maneuver through dashboard.
 * ...
 
 **Optional Nice-to-have Stories**
