@@ -86,6 +86,7 @@ class WatchListViewController: UIViewController {
 //        stocksTableview.backgroundColor = .red
         stocksTableview.alwaysBounceVertical = false
         stocksTableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        stocksTableview.register(StockTableViewCell.self, forCellReuseIdentifier: StockTableViewCell.identifier)
         stocksTableview.translatesAutoresizingMaskIntoConstraints = false
 
         
@@ -159,16 +160,22 @@ extension WatchListViewController: UITableViewDataSource {
         return 10
     }
     
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return filters[section].name
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
         
         return cell
 
     }
     
-    
+}
+
+extension WatchListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
 }
