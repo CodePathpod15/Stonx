@@ -114,3 +114,34 @@ struct TimeSeries5Min: Codable {
         case the5Volume = "5. volume"
     }
 }
+
+
+
+// MARK: - GlobalQuote
+struct GlobalQuote: Codable {
+    let globalQuote: GlobalQuoteClass
+
+    enum CodingKeys: String, CodingKey {
+        case globalQuote = "Global Quote"
+    }
+}
+
+// MARK: - GlobalQuoteClass
+struct GlobalQuoteClass: Codable {
+    let the01Symbol, the02Open, the03High, the04Low: String
+    let the05Price, the06Volume, the07LatestTradingDay, the08PreviousClose: String
+    let the09Change, the10ChangePercent: String
+
+    enum CodingKeys: String, CodingKey {
+        case the01Symbol = "01. symbol"
+        case the02Open = "02. open"
+        case the03High = "03. high"
+        case the04Low = "04. low"
+        case the05Price = "05. price"
+        case the06Volume = "06. volume"
+        case the07LatestTradingDay = "07. latest trading day"
+        case the08PreviousClose = "08. previous close"
+        case the09Change = "09. change"
+        case the10ChangePercent = "10. change percent"
+    }
+}
