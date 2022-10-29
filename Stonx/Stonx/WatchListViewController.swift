@@ -173,7 +173,8 @@ extension WatchListViewController: UITableViewDataSource {
         return cell
 
     }
-        
+    
+    // overrided this to change the font size of the header
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
         let header = view as! UITableViewHeaderFooterView
