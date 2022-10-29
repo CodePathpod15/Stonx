@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  UserDashboardViewController.swift
 //  Stonx
 //
 //  Created by Angel Zambrano on 10/22/22.
@@ -7,17 +7,16 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+
+// TODO: write viewcontroller implementation stuff here
+
+class UserDashboardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        print("heh")
-        
-        // Do any additional setup after loading the view.
-    }
-    
 
- 
+
+    }
 
 }
