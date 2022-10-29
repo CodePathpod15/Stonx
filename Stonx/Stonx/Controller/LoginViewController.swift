@@ -84,7 +84,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        addViews()
+        setupViews()
         addConstraints()
         
     }
@@ -94,6 +94,16 @@ class LoginViewController: UIViewController {
     // MARK: IBactions
     
     @objc private func loginButtonWasPressed() {
+        
+        
+        // making sure text esits
+        if usernameTextfield.text ==  nil || passWordTextfield.text == nil {
+            self.showAlert(with: "enter valid email or password")
+            return
+        }
+        
+        
+        
         
         PFUser.logInWithUsername(inBackground: usernameTextfield.text ?? "", password:passWordTextfield.text ?? "") {
           (user: PFUser?, error: Error?) -> Void in
@@ -151,7 +161,7 @@ class LoginViewController: UIViewController {
     
     
     /// general set up of our subviews
-    private func addViews()
+    private func setupViews()
     {
    
         // setting the background color of the imagefield
@@ -165,9 +175,11 @@ class LoginViewController: UIViewController {
             // add view to subview
             view.addSubview(v)
         }
+        // making textifled be password
+        passWordTextfield.isSecureTextEntry = true
         
         // set up for textfield
-        setUpTextfield(textfield: usernameTextfield, defaultText: "Enter your user")
+        setUpTextfield(textfield: usernameTextfield, defaultText: "Enter your username")
         setUpTextfield(textfield: passWordTextfield, defaultText: "Enter your password")
         
         // set up loginButton
@@ -282,7 +294,7 @@ class TextField: UITextField {
 
 // extending the viewcontronller parent class to containt this alert..
 // got tired of writing this again and again and again!!! :(((
-// UWU 
+// UWU
 
 extension UIViewController {
      func showAlert(with test: String) {
@@ -299,3 +311,6 @@ extension UIViewController {
         self.present(dialogMessage, animated: true, completion: nil)
     }
 }
+
+
+
