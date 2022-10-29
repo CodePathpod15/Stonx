@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Parse
 
 
-// TODO: Angel and SAGAR
+
 
 // TODO: show alert if password is incorrect 
 
@@ -68,7 +69,7 @@ class CreateAnAccountViewcontroller: UIViewController {
         view.addSubview(createAccButton)
         createAccButton.translatesAutoresizingMaskIntoConstraints = false
         createAccButton.backgroundColor = ColorConstants.green
-        createAccButton.setTitle("Log in", for: .normal)
+        createAccButton.setTitle("Create Account", for: .normal)
         createAccButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         createAccButton.layer.cornerRadius = 25
         createAccButton.tintColor = .white
@@ -78,6 +79,24 @@ class CreateAnAccountViewcontroller: UIViewController {
     
     
     @objc private func createAccButtonWasPressed() {
+        // create the account
+        var user = PFUser()
+        user.username = emailTextfield.text
+        user.password = passWordTextfield.text
+        
+        user.signUpInBackground {
+            (succeeded: Bool, error: Error?) -> Void in
+            if let error = error {
+              let errorString = error.localizedDescription
+              // Show the errorString somewhere and let the user try again.
+                
+                print(errorString)
+            } else {
+              // Hooray! Let them use the app now.
+                // Segue way to loggin in
+            }
+          }
+        
         // TODO: if account with this email exists already, present error as an alert..
     }
     
