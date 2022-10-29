@@ -12,7 +12,7 @@ import Foundation
 // MARK: all the ticker symbols have to be either all upper case or all lower case
 
 
-
+// TODO: refactor this
 struct FunctionConstants {
     static let global =  "GLOBAL_QUOTE"
     static let overview = "OVERVIEW"
@@ -20,14 +20,18 @@ struct FunctionConstants {
     
 }
 
+// TODO: refactor this into one function
+// made different methods for simplicity
 
+
+/// this API is in charge of fetching data from the stocks API
 struct API {
-    private static let key  = "JPHF6VLB2O59XH8K"
-    let baseUrl = "https://www.alphavantage.co"
     
+    private static let key  = "JPHF6VLB2O59XH8K"
+    /// this is our base url
+    let baseUrl = "https://www.alphavantage.co/query"
     
     // get the latest price of the stock
-    //
     static func getLatestStockPrice(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void){
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
         
@@ -131,7 +135,7 @@ struct API {
         
     }
     
-    
+    /// searches through the api using the a string 
     static func search(searchingString: String, completion: @escaping (Result<Search?, Error>) -> Void) {
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
     
