@@ -25,6 +25,20 @@ class SearchStocksViewController: UIViewController{
         title = "Search"
         setUpViews()
         setUpConstrainrs()
+        
+        // this is how you use the API 
+//        API.search(searchingString: "apple") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                }
+//            case .failure(let error):
+//                // otherwise, print an error to the console
+//                print(error)
+//            }
+//        }
+        
+        
     }
     
     func setUpViews() {
