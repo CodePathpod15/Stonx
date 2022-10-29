@@ -24,14 +24,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             // if the user is logged in
             // You will do your parse stuff here
-            let loggedIn = false
+            let loggedIn = true
             
             
             if loggedIn {
                 let vc = TabBarController()
                 let root = vc
               
-                
                 window.rootViewController = root
                 
                 
