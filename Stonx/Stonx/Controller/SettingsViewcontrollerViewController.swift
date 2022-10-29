@@ -49,13 +49,14 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
 
             return cell
         case "Turn off the Lights Off":
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
-            cell.textLabel?.text = settings[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeTableViewCell.identifier, for: indexPath) as! DarkModeTableViewCell
+            
+            
             return cell
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
-
+            
             return cell
         }
         
@@ -94,6 +95,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
    private func setUpViews() {
         settingsTableviw.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
+        settingsTableviw.register(DarkModeTableViewCell.self, forCellReuseIdentifier: DarkModeTableViewCell.identifier)
         settingsTableviw.translatesAutoresizingMaskIntoConstraints = false
         settingsTableviw.dataSource = self
 //        settingsTableviw.backgroundColor = .red

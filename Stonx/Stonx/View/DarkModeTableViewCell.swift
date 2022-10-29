@@ -52,7 +52,7 @@ class DarkModeTableViewCell: UITableViewCell {
 
         lbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
         
-        lbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        lbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         
         
         contentView.addSubview(settingsSwitch)
