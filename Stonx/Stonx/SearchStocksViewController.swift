@@ -36,6 +36,8 @@ class SearchStocksViewController: UIViewController{
         
         // set up tableview
         view.addSubview(tableview)
+        tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
         tableview.backgroundColor = .red
         tableview.dataSource = self
         tableview.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +56,17 @@ class SearchStocksViewController: UIViewController{
 
 }
 
-// 
+//
 extension SearchStocksViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+        
+        return cell
+    }
+    
     
 }
