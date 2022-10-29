@@ -168,6 +168,20 @@ struct API {
 
 
 // Using the APIS
+// TUTORIAL
+
+//API.getLatestStockPrice(tickerSymbol: "aapl") { result in
+//    switch result {
+//       case .success(let items):
+//           DispatchQueue.main.async {
+//               print(items)
+//           }
+//       case .failure(let error):
+//           // otherwise, print an error to the console
+//           print(error)
+//       }
+//}
+
 //        API.getStockAboutMe(tickerSymbol: "aapl") { result in
 //            switch result {
 //            case .success(let items):
