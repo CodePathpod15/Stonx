@@ -73,12 +73,13 @@ class CreateAnAccountViewcontroller: UIViewController {
         createAccButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         createAccButton.layer.cornerRadius = 25
         createAccButton.tintColor = .white
-        createAccButton.addTarget(self, action: #selector(createAccButtonWasPressed), for: .touchUpInside)
+        createAccButton.addTarget(self, action: #selector(createAccountButtonWasPressed), for: .touchUpInside)
         
     }
     
     
-    @objc private func createAccButtonWasPressed() {
+    // this creates an account for the user 
+    @objc private func createAccountButtonWasPressed() {
         // create the account
         var user = PFUser()
         user.username = emailTextfield.text
@@ -89,17 +90,25 @@ class CreateAnAccountViewcontroller: UIViewController {
             if let error = error {
               let errorString = error.localizedDescription
               // Show the errorString somewhere and let the user try again.
+                self.showAlert(with: errorString)
+                // log the usr in
                 
-                print(errorString)
             } else {
-              // Hooray! Let them use the app now.
-                // Segue way to loggin in
+            // Should I dimiss the previous viewcontroller?
+            
+            let FeedViewController = UINavigationController(rootViewController: TabBarController())
+                FeedViewController.modalPresentationStyle = .fullScreen
+            self.present(FeedViewController, animated: true)
+                
+                
             }
           }
         
         // TODO: if account with this email exists already, present error as an alert..
     }
     
+
+//
     private func addConstraints() {
         // constraints for albel
         NSLayoutConstraint.activate([
