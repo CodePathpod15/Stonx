@@ -96,6 +96,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C1A74FC290D0BE200C3310C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C291DD229048D110058E291 /* APi.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1C1A74FD290D0BE800C3310C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */,
+				1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */,
+				1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1C1A74FE290D0BEC00C3310C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1CC306B32908DCC600CA2125 /* TabBarController.swift */,
+				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,
+				1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */,
+				1C291DD029048CC80058E291 /* LoginViewController.swift */,
+				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
+				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
+				1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		1C5F0E372901C5EE00101093 = {
 			isa = PBXGroup;
 			children = (
@@ -119,19 +151,11 @@
 		1C5F0E422901C5EE00101093 /* Stonx */ = {
 			isa = PBXGroup;
 			children = (
-				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,
-				1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */,
-				1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */,
-				1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */,
-				1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */,
-				1CC306B32908DCC600CA2125 /* TabBarController.swift */,
+				1C1A74FC290D0BE200C3310C /* Model */,
+				1C1A74FD290D0BE800C3310C /* View */,
+				1C1A74FE290D0BEC00C3310C /* Controller */,
 				1C5F0E432901C5EE00101093 /* AppDelegate.swift */,
 				1C5F0E452901C5EE00101093 /* SceneDelegate.swift */,
-				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
-				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
-				1C291DD229048D110058E291 /* APi.swift */,
-				1C291DD029048CC80058E291 /* LoginViewController.swift */,
-				1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */,
 				1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */,
 				1C5F0E4C2901C5EF00101093 /* Assets.xcassets */,
 				1C5F0E4E2901C5EF00101093 /* LaunchScreen.storyboard */,
