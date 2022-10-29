@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Parse
 
 // TODO: present error as alert if email does not exist in our database.
 
@@ -14,7 +15,7 @@ class ForgotPassViewController: UIViewController {
     private let emailTextfield = TextField()
     
     
-    private let createAccButton = UIButton(type: .system)
+    private let resetButton = UIButton(type: .system)
     
     let whatIsYourEmail: UILabel = {
         let lbl = UILabel()
@@ -34,7 +35,6 @@ class ForgotPassViewController: UIViewController {
     }
     
     
-    
     func setUpTextfield(textfield: UITextField, defaultText: String) {
         textfield.backgroundColor = ColorConstants.gray
         textfield.placeholder = defaultText
@@ -43,6 +43,7 @@ class ForgotPassViewController: UIViewController {
         textfield.layer.borderColor = ColorConstants.darkerGray.cgColor
         textfield.font = UIFont.systemFont(ofSize: 16)
     }
+   
     
     
     private func addViews() {
@@ -57,20 +58,48 @@ class ForgotPassViewController: UIViewController {
                 
         // adding button
         // set up loginButton
-        view.addSubview(createAccButton)
-        createAccButton.translatesAutoresizingMaskIntoConstraints = false
-        createAccButton.backgroundColor = ColorConstants.green
-        createAccButton.setTitle("reset password", for: .normal)
-        createAccButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        createAccButton.layer.cornerRadius = 25
-        createAccButton.tintColor = .white
-        createAccButton.addTarget(self, action: #selector(createAccButtonWasPressed), for: .touchUpInside)
+        view.addSubview(resetButton)
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.backgroundColor = ColorConstants.green
+        resetButton.setTitle("reset password", for: .normal)
+        resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        resetButton.layer.cornerRadius = 25
+        resetButton.tintColor = .white
+        resetButton.addTarget(self, action: #selector(resetButtonWasPressed), for: .touchUpInside)
         
     }
     
     
-    @objc private func createAccButtonWasPressed() {
+    // this is called whenever we want to reset our account
+    @objc private func resetButtonWasPressed() {
         // TODO: if account with this email exists already, present error as an alert..
+        
+        if let email = emailTextfield.text {
+            // TODO: Check if email is valid
+            let isValid = emailIsValidFormat(email: email)
+            
+            if isValid {
+                forgotPassword(with: email)
+            } else {
+                
+            }
+        
+        } else {
+            // Throw
+        }
+        
+        
+    }
+    
+    private func emailIsValidFormat(email: String) -> Bool{
+        return false
+    }
+    
+    
+    
+    // add forgot password
+    private func forgotPassword(with validEmail: String) {
+        PFUser.requestPasswordResetForEmail(inBackground: validEmail)
     }
     
     private func addConstraints() {
@@ -91,15 +120,13 @@ class ForgotPassViewController: UIViewController {
         ])
         
      
-        
-        
         // adding log in button
         NSLayoutConstraint.activate([
             // constraints top anchor of email to the bottom anchor of the image field with padding of 32
-            createAccButton.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: padding),
-            createAccButton.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
-            createAccButton.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
-            createAccButton.heightAnchor.constraint(equalToConstant: 50)
+            resetButton.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: padding),
+            resetButton.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
+            resetButton.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
+            resetButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
     }

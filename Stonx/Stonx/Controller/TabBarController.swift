@@ -41,7 +41,7 @@ class TabBarController: UITabBarController {
         let home = UINavigationController(rootViewController: UserDashboardViewController())
         let favorites = UINavigationController(rootViewController: WatchListViewController())
         let search = UINavigationController(rootViewController: SearchStocksViewController())
-        let profile = UINavigationController(rootViewController: sampleVC4())
+        let profile = UINavigationController(rootViewController: SettingsViewcontrollerViewController())
         
         home.title = "Home"
         favorites.title = "Favorites"

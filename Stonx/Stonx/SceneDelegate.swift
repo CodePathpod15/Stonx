@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Parse
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -18,38 +18,67 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        
+        func parseLogInImplementation() {
+            if let windowScene = scene as? UIWindowScene {
+
+                let window = UIWindow(windowScene: windowScene)
+
+                if PFUser.current() != nil {
+                    let vc = TabBarController()
+                    let root = vc
+                    window.rootViewController = root
+                    
+                    self.window = window
+                    window.makeKeyAndVisible()
+                } else {
+                    let vc = UINavigationController(rootViewController: LoginViewController())
+                    let root = vc
+                                
+                    window.rootViewController = root
+                    
+                    self.window = window
+                    window.makeKeyAndVisible()
+                }
+
+
+            }
+        }
+        
+        // commented out the parse implementation here
+//        parseLogInImplementation()
+        
+        
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            
-            
+
             // if the user is logged in
             // You will do your parse stuff here
-            let loggedIn = true
-            
-            
+            let loggedIn = false
+
+
+
+
             if loggedIn {
                 let vc = TabBarController()
                 let root = vc
-              
+
                 window.rootViewController = root
-                
-                
+
+
                 self.window = window
                 window.makeKeyAndVisible()
             } else {
-                
+
                 let vc = UINavigationController(rootViewController: LoginViewController())
                 let root = vc
-                            
+
                 window.rootViewController = root
-                
+
                 self.window = window
                 window.makeKeyAndVisible()
             }
-            
-            
-         
-            
+
         }
     }
 

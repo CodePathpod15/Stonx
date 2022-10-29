@@ -6,20 +6,8 @@
 //
 
 import UIKit
+import Parse
 
-struct ColorConstants {
-    static let gray = UIColor(red: 252/255, green: 252/255, blue: 253/255, alpha: 1)
-    static let darkerGray = UIColor(red: 223/255, green: 223/255, blue: 230/255, alpha: 1)
-    static let green = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
-}
-
-struct FontConstants {
-    static let regularFont =  UIFont.systemFont(ofSize: 16)
-    static let boldFont = UIFont.systemFont(ofSize: 16, weight: .bold)
-    static let boldLargeFont = UIFont.systemFont(ofSize: 24, weight: .bold)
-    static let cellSmallFont = UIFont.systemFont(ofSize: 12, weight: .regular)
-    static let cellMediumFont = UIFont.systemFont(ofSize: 14, weight: .regular)
-}
 
 
 class LoginViewController: UIViewController {
@@ -27,7 +15,7 @@ class LoginViewController: UIViewController {
     // MARK: Properties
     private let logoImageField = UIImageView()
     
-    private let emailTextfield = TextField()
+    private let usernameTextfield = TextField()
     
     private let passWordTextfield = TextField()
     
@@ -83,25 +71,41 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        addViews()
+        setupViews()
         addConstraints()
         
     }
-    
-    let correctPss = false
     
     // MARK: IBactions
     
     @objc private func loginButtonWasPressed() {
         
-        if correctPss {
-            
-        } else {
-            showAlert()
+        // making sure text esits
+        if usernameTextfield.text ==  "" || passWordTextfield.text == "" {
+            self.showAlert(with: "enter valid email or password")
+            return
         }
         
-
+        PFUser.logInWithUsername(inBackground: usernameTextfield.text ?? "", password:passWordTextfield.text ?? "") {
+          (user: PFUser?, error: Error?) -> Void in
+          
+            if user != nil {
+            // Do stuff after successful login.
+              let FeedViewController = UINavigationController(rootViewController: TabBarController())
+              FeedViewController.modalPresentationStyle = .fullScreen
+              self.present(FeedViewController, animated: true)
+          } else {
+            // The login failed. Check error to see why.
+              let err = error?.localizedDescription
+              self.showAlert(with: err ?? "error")
+          }
+            
+        }
+        
     }
+    
+    
+    // MARK: Navigation buttons
     
     // This is called when button is pressed
     @objc private func forgotPassButtonWasPressed() {
@@ -115,28 +119,10 @@ class LoginViewController: UIViewController {
     }
     
    
-    
-    // MARK: helper methods
-    
-    // you want to show an alert when password is wrong
-    private func showAlert() {
-        var dialogMessage = UIAlertController(title: "Confirm", message: "incorrect password", preferredStyle: .alert)
-        
-        // Create OK button with action handler
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-            print("Ok button tapped")
-         })
-        
-        //Add OK button to a dialog message
-        dialogMessage.addAction(ok)
-        // Present Alert to
-        self.present(dialogMessage, animated: true, completion: nil)
-    }
-    
-    
+   // MARK: view set up
     
     /// general set up of our subviews
-    private func addViews()
+    private func setupViews()
     {
    
         // setting the background color of the imagefield
@@ -144,15 +130,17 @@ class LoginViewController: UIViewController {
         
         // looping to add them to a
         
-        [logoImageField, emailTextfield, passWordTextfield, loginButton].forEach { v in
+        [logoImageField, usernameTextfield, passWordTextfield, loginButton].forEach { v in
             // enable programatic constraints
             v.translatesAutoresizingMaskIntoConstraints = false
             // add view to subview
             view.addSubview(v)
         }
+        // making textifled be password
+        passWordTextfield.isSecureTextEntry = true
         
         // set up for textfield
-        setUpTextfield(textfield: emailTextfield, defaultText: "Enter your email")
+        setUpTextfield(textfield: usernameTextfield, defaultText: "Enter your username")
         setUpTextfield(textfield: passWordTextfield, defaultText: "Enter your password")
         
         // set up loginButton
@@ -180,6 +168,7 @@ class LoginViewController: UIViewController {
         
     }
     
+
     func setUpTextfield(textfield: UITextField, defaultText: String) {
         textfield.backgroundColor = ColorConstants.gray
         textfield.placeholder = defaultText
@@ -204,18 +193,18 @@ class LoginViewController: UIViewController {
         // adding constraints for the email textfield
         NSLayoutConstraint.activate([
             // constraints top anchor of email to the bottom anchor of the image field with padding of 32
-            emailTextfield.topAnchor.constraint(equalTo: logoImageField.bottomAnchor, constant: padding),
-            emailTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            emailTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            emailTextfield.heightAnchor.constraint(equalToConstant: 41)
+            usernameTextfield.topAnchor.constraint(equalTo: logoImageField.bottomAnchor, constant: padding),
+            usernameTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            usernameTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            usernameTextfield.heightAnchor.constraint(equalToConstant: 41)
         ])
         
         // adding constraints for the password textfield
         NSLayoutConstraint.activate([
             // constraints top anchor of email to the bottom anchor of the image field with padding of 32
-            passWordTextfield.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: padding-15),
-            passWordTextfield.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
-            passWordTextfield.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
+            passWordTextfield.topAnchor.constraint(equalTo: usernameTextfield.bottomAnchor, constant: padding-15),
+            passWordTextfield.leadingAnchor.constraint(equalTo: usernameTextfield.leadingAnchor),
+            passWordTextfield.trailingAnchor.constraint(equalTo: usernameTextfield.trailingAnchor),
             passWordTextfield.heightAnchor.constraint(equalToConstant: 41)
         ])
         
@@ -225,8 +214,8 @@ class LoginViewController: UIViewController {
         NSLayoutConstraint.activate([
             // constraints top anchor of email to the bottom anchor of the image field with padding of 32
             loginButton.topAnchor.constraint(equalTo: passWordTextfield.bottomAnchor, constant: padding),
-            loginButton.leadingAnchor.constraint(equalTo: emailTextfield.leadingAnchor),
-            loginButton.trailingAnchor.constraint(equalTo: emailTextfield.trailingAnchor),
+            loginButton.leadingAnchor.constraint(equalTo: usernameTextfield.leadingAnchor),
+            loginButton.trailingAnchor.constraint(equalTo: usernameTextfield.trailingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
@@ -264,3 +253,26 @@ class TextField: UITextField {
         return bounds.inset(by: padding)
     }
 }
+
+// extending the viewcontronller parent class to containt this alert..
+// got tired of writing this again and again and again!!! :(((
+// UWU
+
+extension UIViewController {
+     func showAlert(with test: String) {
+        var dialogMessage = UIAlertController(title: "Confirm", message: test, preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            // We dont print anything 
+         })
+        
+        //Add OK button to a dialog message
+        dialogMessage.addAction(ok)
+        // Present Alert to
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+}
+
+
+
