@@ -39,7 +39,7 @@ class SearchStocksViewController: UIViewController{
         tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableview.register(SearchStockTableviewCell.self, forCellReuseIdentifier: SearchStockTableviewCell.identifier)
         
-        tableview.backgroundColor = .red
+//        tableview.backgroundColor = .red
         tableview.dataSource = self
         tableview.delegate = self
         tableview.translatesAutoresizingMaskIntoConstraints = false
