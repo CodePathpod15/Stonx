@@ -28,6 +28,7 @@
 		1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
+		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
 		81B612AC10D0091BF0A09FCB /* Pods_Stonx_StonxUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3FCE78D503BF9336F40CE9 /* Pods_Stonx_StonxUITests.framework */; };
 		9DBB5ED189DA26AFFE67A0CE /* Pods_Stonx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68A2A9DB7BA6A32B98852571 /* Pods_Stonx.framework */; };
 		D825BCBBF2E885A72A7692F2 /* Pods_StonxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94185B74ED0AB28934C1D3B1 /* Pods_StonxTests.framework */; };
@@ -76,6 +77,7 @@
 		1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
+		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2ABFD521B36AE67DCC1090CD /* Pods-Stonx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stonx.release.xcconfig"; path = "Target Support Files/Pods-Stonx/Pods-Stonx.release.xcconfig"; sourceTree = "<group>"; };
 		304DFE0699EDECB5C9C4EAED /* Pods-Stonx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stonx.debug.xcconfig"; path = "Target Support Files/Pods-Stonx/Pods-Stonx.debug.xcconfig"; sourceTree = "<group>"; };
 		5C3FCE78D503BF9336F40CE9 /* Pods_Stonx_StonxUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stonx_StonxUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,7 @@
 				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,
 				1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */,
 				1C291DD029048CC80058E291 /* LoginViewController.swift */,
+				1CEBCADD290DBDB7007B45DE /* Constants.swift */,
 				1CEBCADB290DB95F007B45DE /* Validate.swift */,
 				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
 				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
@@ -466,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C291DD529048DA60058E291 /* UserDashboardViewController.swift in Sources */,
+				1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */,
 				1C1A74F9290D007500C3310C /* SearchStocksViewController.swift in Sources */,
 				1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */,
 				1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */,

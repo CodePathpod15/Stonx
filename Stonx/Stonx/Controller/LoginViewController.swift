@@ -8,19 +8,6 @@
 import UIKit
 import Parse
 
-struct ColorConstants {
-    static let gray = UIColor(red: 252/255, green: 252/255, blue: 253/255, alpha: 1)
-    static let darkerGray = UIColor(red: 223/255, green: 223/255, blue: 230/255, alpha: 1)
-    static let green = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
-}
-
-struct FontConstants {
-    static let regularFont =  UIFont.systemFont(ofSize: 16)
-    static let boldFont = UIFont.systemFont(ofSize: 16, weight: .bold)
-    static let boldLargeFont = UIFont.systemFont(ofSize: 24, weight: .bold)
-    static let cellSmallFont = UIFont.systemFont(ofSize: 12, weight: .regular)
-    static let cellMediumFont = UIFont.systemFont(ofSize: 14, weight: .regular)
-}
 
 
 class LoginViewController: UIViewController {
@@ -89,21 +76,15 @@ class LoginViewController: UIViewController {
         
     }
     
-    let correctPss = false
-    
     // MARK: IBactions
     
     @objc private func loginButtonWasPressed() {
         
-        
         // making sure text esits
-        if usernameTextfield.text ==  nil || passWordTextfield.text == nil {
+        if usernameTextfield.text ==  "" || passWordTextfield.text == "" {
             self.showAlert(with: "enter valid email or password")
             return
         }
-        
-        
-        
         
         PFUser.logInWithUsername(inBackground: usernameTextfield.text ?? "", password:passWordTextfield.text ?? "") {
           (user: PFUser?, error: Error?) -> Void in
@@ -121,12 +102,10 @@ class LoginViewController: UIViewController {
             
         }
         
-        
-        
-      
-        
-
     }
+    
+    
+    // MARK: Navigation buttons
     
     // This is called when button is pressed
     @objc private func forgotPassButtonWasPressed() {
@@ -140,25 +119,7 @@ class LoginViewController: UIViewController {
     }
     
    
-    
-    // MARK: helper methods
-    
-    // you want to show an alert when password is wrong
-//    private func showAlert(with test: String) {
-//        var dialogMessage = UIAlertController(title: "Confirm", message: test, preferredStyle: .alert)
-//        
-//        // Create OK button with action handler
-//        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-//            print("Ok button tapped")
-//         })
-//        
-//        //Add OK button to a dialog message
-//        dialogMessage.addAction(ok)
-//        // Present Alert to
-//        self.present(dialogMessage, animated: true, completion: nil)
-//    }
-    
-    
+   // MARK: view set up
     
     /// general set up of our subviews
     private func setupViews()
@@ -207,6 +168,7 @@ class LoginViewController: UIViewController {
         
     }
     
+
     func setUpTextfield(textfield: UITextField, defaultText: String) {
         textfield.backgroundColor = ColorConstants.gray
         textfield.placeholder = defaultText
@@ -302,7 +264,7 @@ extension UIViewController {
         
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-            print("Ok button tapped")
+            // We dont print anything 
          })
         
         //Add OK button to a dialog message
