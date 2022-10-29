@@ -27,9 +27,6 @@ class BalanceTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if let access = accessoryView {
-            print("hey")
-        }
         
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

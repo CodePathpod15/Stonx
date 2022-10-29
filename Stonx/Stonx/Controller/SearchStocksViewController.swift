@@ -15,7 +15,7 @@ class SearchStocksViewController: UIViewController{
     
     private  let searchController = UISearchController(searchResultsController: nil)
     
-    private let tableview = UITableView()
+    private let tableview = UITableView(frame: .zero, style: .grouped)
     
     
     override func viewDidLoad() {

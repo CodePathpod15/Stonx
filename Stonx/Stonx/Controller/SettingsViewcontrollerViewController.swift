@@ -9,6 +9,10 @@ import UIKit
 import Parse
 
 class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
     }
@@ -46,6 +50,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
             return cell
         case "Turn off the Lights Off":
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+            cell.textLabel?.text = settings[indexPath.row]
             return cell
             
         default:
@@ -72,7 +77,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+        title = "Settings"
         
 //        view.addSubview(logOutButton)
 //        logOutButton.setTitle("log out", for: .normal)
@@ -91,7 +96,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
         settingsTableviw.translatesAutoresizingMaskIntoConstraints = false
         settingsTableviw.dataSource = self
-        settingsTableviw.backgroundColor = .red
+//        settingsTableviw.backgroundColor = .red
         view.addSubview(settingsTableviw)
     }
     
