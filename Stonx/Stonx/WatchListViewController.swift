@@ -91,7 +91,7 @@ class WatchListViewController: UIViewController {
 
         
         stocksTableview.dataSource = self
-        
+        stocksTableview.delegate = self
     }
     
 
@@ -165,12 +165,23 @@ extension WatchListViewController: UITableViewDataSource {
         return filters[section].name
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
         
         return cell
 
     }
+        
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        header.textLabel?.textColor = .black
+
+    }
+    
     
 }
 
@@ -178,4 +189,6 @@ extension WatchListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
+    
+   
 }

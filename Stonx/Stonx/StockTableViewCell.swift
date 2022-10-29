@@ -14,6 +14,9 @@ class StockTableViewCell: UITableViewCell {
     
     let fullStockName = UILabel()
     
+    private let stockPrice = UILabel()
+    
+    private let priceChange = UILabel()
     
     
     
@@ -28,7 +31,6 @@ class StockTableViewCell: UITableViewCell {
         setUpConstraints()
         
     }
-    
     
     private func setUPViews() {
         contentView.addSubview(stockLbl)
@@ -49,9 +51,20 @@ class StockTableViewCell: UITableViewCell {
         chart.backgroundColor = .green
         
         // setting up the stock price
-        contentView.addSubview(fullStockName)
-        fullStockName.translatesAutoresizingMaskIntoConstraints = false
-        fullStockName.text = "155.74"
+        contentView.addSubview(stockPrice)
+        stockPrice.translatesAutoresizingMaskIntoConstraints = false
+        stockPrice.font = FontConstants.boldFont
+        stockPrice.textAlignment = .right
+        stockPrice.text = "155.74"
+        
+        // setting up the price change
+        contentView.addSubview(priceChange)
+        priceChange.translatesAutoresizingMaskIntoConstraints = false
+        priceChange.textAlignment = .right
+        priceChange.font = FontConstants.cellSmallFont
+        priceChange.text = "(2.49%)"
+        priceChange.textColor = ColorConstants.green
+        
         
         
     }
@@ -69,6 +82,7 @@ class StockTableViewCell: UITableViewCell {
         
         ])
         
+        
         NSLayoutConstraint.activate([
             chart.bottomAnchor.constraint(equalTo: fullStockName.bottomAnchor),
             chart.leadingAnchor.constraint(equalTo: fullStockName.trailingAnchor, constant: 10),
@@ -76,9 +90,22 @@ class StockTableViewCell: UITableViewCell {
             chart.widthAnchor.constraint(equalToConstant: 60)
         ])
         
+        // setting up constraints for stock price
+        NSLayoutConstraint.activate([
+            stockPrice.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            stockPrice.centerYAnchor.constraint(equalTo: stockLbl.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            priceChange.trailingAnchor.constraint(equalTo: stockPrice.trailingAnchor),
+            priceChange.centerYAnchor.constraint(equalTo: fullStockName.centerYAnchor)
+        
+        ])
+        
+        
+        
+        
     }
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
