@@ -24,7 +24,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         
         let setting = settings[indexPath.row]
         
-        ["Personal info", "Balance", "retire", "delete Account", "Turn off the Lights Off"]
+        
         
         switch setting {
         case "Personal info":
@@ -80,6 +80,8 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         view.backgroundColor = .white
         title = "Settings"
         
+        
+        
 //        view.addSubview(logOutButton)
 //        logOutButton.setTitle("log out", for: .normal)
 //        logOutButton.translatesAutoresizingMaskIntoConstraints = false
@@ -93,6 +95,13 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
     
     // setting  up the tableview
    private func setUpViews() {
+       
+       let rbutton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logOutButtonWasPressed))
+       let rightButton: UIBarButtonItem = rbutton
+       self.navigationItem.rightBarButtonItem = rightButton
+       
+       
+       
         settingsTableviw.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
         settingsTableviw.register(DarkModeTableViewCell.self, forCellReuseIdentifier: DarkModeTableViewCell.identifier)
