@@ -92,7 +92,10 @@ class CreateAnAccountViewcontroller: UIViewController {
         // check if either of them is empty
         
         // make sure that email is correct format
-
+        if !Validate.isValidEmail(emailtxtField.text ?? " ") || usernametxtfield.text == nil || usernametxtfield.text == nil {
+            self.showAlert(with: "enter correct information")
+            return
+        }
         
         // create the account
         
