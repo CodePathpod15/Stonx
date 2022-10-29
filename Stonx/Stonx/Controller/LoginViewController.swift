@@ -91,7 +91,7 @@ class LoginViewController: UIViewController {
           
             if user != nil {
             // Do stuff after successful login.
-              let FeedViewController = UINavigationController(rootViewController: TabBarController())
+              let FeedViewController = TabBarController()
               FeedViewController.modalPresentationStyle = .fullScreen
               self.present(FeedViewController, animated: true)
           } else {
