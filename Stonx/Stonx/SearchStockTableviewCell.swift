@@ -7,8 +7,12 @@
 
 import UIKit
 
+
+// this is the tableview cell that contains no chart
 class SearchStockTableviewCell: UITableViewCell {
 
+    
+    // MARK: properties
     
      static let identifier = "SearchStockTableviewCell"
      let stockLbl = UILabel()
@@ -67,11 +71,6 @@ class SearchStockTableviewCell: UITableViewCell {
 
          contentView.addSubview(rightvStackView)
          
-         
-//         // setting up the chart
-//         contentView.addSubview(chart)
-//         chart.translatesAutoresizingMaskIntoConstraints = false
-//         chart.backgroundColor = .green
 //
 //         // setting up the stock price
          rightvStackView.addArrangedSubview(stockPrice)
@@ -105,41 +104,7 @@ class SearchStockTableviewCell: UITableViewCell {
             rightvStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
 
          ])
-         
-//         NSLayoutConstraint.activate([
-//             stockLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-//             stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
-//         ])
-//
-//         NSLayoutConstraint.activate([
-//             fullStockName.topAnchor.constraint(equalTo: stockLbl.bottomAnchor, constant: 0),
-//             fullStockName.leadingAnchor.constraint(equalTo: stockLbl.leadingAnchor),
-//             fullStockName.widthAnchor.constraint(equalToConstant: contentView.frame.width/2)
-//
-//         ])
-//
-//
-//         NSLayoutConstraint.activate([
-//             chart.bottomAnchor.constraint(equalTo: fullStockName.bottomAnchor),
-//             chart.leadingAnchor.constraint(equalTo: fullStockName.trailingAnchor, constant: 10),
-//             chart.heightAnchor.constraint(equalToConstant: 23),
-//             chart.widthAnchor.constraint(equalToConstant: 60)
-//         ])
-//
-//         // setting up constraints for stock price
-//         NSLayoutConstraint.activate([
-//             stockPrice.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-//             stockPrice.centerYAnchor.constraint(equalTo: stockLbl.centerYAnchor)
-//         ])
-//
-//         NSLayoutConstraint.activate([
-//             priceChange.trailingAnchor.constraint(equalTo: stockPrice.trailingAnchor),
-//             priceChange.centerYAnchor.constraint(equalTo: fullStockName.centerYAnchor)
-//
-//         ])
-         
-         
-         
+
          
      }
      
