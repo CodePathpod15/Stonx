@@ -7,56 +7,108 @@
 
 import Foundation
 
-// MARK: - Welcome
-struct Welcome: Codable {
-    let bestMatches: [BestMatch]
-}
 
-// MARK: - BestMatch
-struct BestMatch: Codable {
-    let the1Symbol, the2Name, the3Type, the4Region: String
-    let the5MarketOpen, the6MarketClose, the7Timezone, the8Currency: String
-    let the9MatchScore: String
-
-    enum CodingKeys: String, CodingKey {
-        case the1Symbol = "1. symbol"
-        case the2Name = "2. name"
-        case the3Type = "3. type"
-        case the4Region = "4. region"
-        case the5MarketOpen = "5. marketOpen"
-        case the6MarketClose = "6. marketClose"
-        case the7Timezone = "7. timezone"
-        case the8Currency = "8. currency"
-        case the9MatchScore = "9. matchScore"
-    }
-}
 
 
 
 
 // TODO: Angel and Sagar
 struct API {
-    let key  = "JPHF6VLB2O59XH8K"
+    private static let key  = "JPHF6VLB2O59XH8K"
     let baseUrl = "https://www.alphavantage.co"
     
-    func search(sr: String) -> String? {
-        //https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=apple&apikey=JPHF6VLB2O59XH8K
-       
+    
+    // get the latest pric
+    static func getLatestStockPrice() {
+        
+    }
+    
+    
+    // gives you the description, EPS,PERatio, and sector.
+    // https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=JPHF6VLB2O59XH8K .. try this link in your browser
+    static func getStockAboutMe(tickerSymbol:String, completion: @escaping (Result<StockAbout?, Error>) -> Void) {
+        guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
+        
+        let queryItems = [
+            URLQueryItem(name: "function", value: "OVERVIEW"),
+            URLQueryItem(name: "symbol", value: tickerSymbol),
+            URLQueryItem(name: "apikey", value: key)
+        ]
+        
+        url.queryItems = queryItems
+        
+        var request = URLRequest(url: url.url!)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let searchResponse = try decoder.decode(StockAbout.self, from: data) // gets the artists
+                    completion(.success(searchResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+        task.resume()
         
         
-        return nil
+    }
+    
+    
+    // requires the exact name of the stock
+    // this gets
+    // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=JPHF6VLB2O59XH8K
+    static func getStockWithTimeSeries(tickerSymbol:String, completion: @escaping (Result<StockData?, Error>) -> Void)  {
+        guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
+        
+        let queryItems = [
+            URLQueryItem(name: "function", value: "TIME_SERIES_INTRADAY"),
+            URLQueryItem(name: "symbol", value: tickerSymbol),
+            URLQueryItem(name: "interval", value: "5min"),
+            URLQueryItem(name: "apikey", value: key)
+        ]
+        
+        url.queryItems = queryItems
+        
+        var request = URLRequest(url: url.url!)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let searchResponse = try decoder.decode(StockData.self, from: data) // gets the artists
+                    completion(.success(searchResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+        task.resume()
+        
+        
     }
     
     
     
     
     
-    static func search(searchingString: String, completion: @escaping (Result<Welcome?, Error>) -> Void) {
+    
+    
+    
+    static func search(searchingString: String, completion: @escaping (Result<Search?, Error>) -> Void) {
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
+    
         let queryItems = [
             URLQueryItem(name: "function", value: "SYMBOL_SEARCH"),
             URLQueryItem(name: "keywords", value: "apple"),
-            URLQueryItem(name: "apikey", value: "JPHF6VLB2O59XH8K"),
+            URLQueryItem(name: "apikey", value: key),
         ]
         
         
@@ -70,7 +122,7 @@ struct API {
             } else if let data = data {
                 do {
                     let decoder = JSONDecoder()
-                    let searchResponse = try decoder.decode(Welcome.self, from: data) // gets the artists
+                    let searchResponse = try decoder.decode(Search.self, from: data) // gets the artists
                     completion(.success(searchResponse))
                 } catch {
                     completion(.failure(error))
@@ -83,3 +135,40 @@ struct API {
     }
     
 }
+
+
+// Using the APIS
+//        API.getStockAboutMe(tickerSymbol: "aapl") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    print(items)
+//                }
+//            case .failure(let error):
+//                // otherwise, print an error to the console
+//                print(error)
+//            }
+//        }
+
+//        API.getStockWithTimeSeries(tickerSymbol: "aapl") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    print(items)
+//                }
+//            case .failure(let error):
+//                // otherwise, print an error to the console
+//                print(error)
+//            }
+//
+//        }
+//        API.search(searchingString: "apple") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                }
+//            case .failure(let error):
+//                // otherwise, print an error to the console
+//                print(error)
+//            }
+//        }
