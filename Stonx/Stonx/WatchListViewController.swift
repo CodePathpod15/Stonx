@@ -31,6 +31,7 @@ class WatchListViewController: UIViewController {
     
     // adding the collection view
     private var filtCollectionView: UICollectionView! // the filter collection view
+    private var stocksTableview: UITableView = UITableView(frame: .zero, style: .grouped)
     private let cellPadding: CGFloat = 8
     private var filters: [Filter] = [] // the filters
     
@@ -40,19 +41,26 @@ class WatchListViewController: UIViewController {
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         title = "Watch List"
-        filters = [Filter(name:"Industry 1", selected:  false), Filter(name:"industry 2", selected:  false), Filter(name:"industry 3", selected:  false), Filter(name:"industry 4", selected:  false)]
         
-      
+        getFilterData()
         
         setUpViews()
         setUpConstraints()
     }
     
+    // here we will call the api to get all of the data
+    func getFilterData() {
+        filters = [Filter(name:"all", selected:  false), Filter(name:"industry 2", selected:  false), Filter(name:"industry 3", selected:  false), Filter(name:"industry 4", selected:  false)]
+        
+    }
+    
+    
+    
     
     //MARK: setting up the layout of the UI
     
     private func setUpViews() {
-        
+        // collection view set up
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = cellPadding
@@ -61,22 +69,33 @@ class WatchListViewController: UIViewController {
         
         filtCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         filtCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        filtCollectionView.backgroundColor = .red
+        filtCollectionView.backgroundColor = .clear
         
         
-        // setting up the filter collection view
+        // registering a cell
         filtCollectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: FilterCollectionViewCell.identifier)
         
         filtCollectionView.dataSource = self
         filtCollectionView.delegate = self
         
-
         view.addSubview(filtCollectionView)
+        
+        // setting up the tableview
+    
+        view.addSubview(stocksTableview)
+//        stocksTableview.backgroundColor = .red
+        stocksTableview.alwaysBounceVertical = false
+        stocksTableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        stocksTableview.translatesAutoresizingMaskIntoConstraints = false
+
+        
+        stocksTableview.dataSource = self
+        
     }
     
 
     private func setUpConstraints() {
-        // setting up the constraints
+        // setting up the constraints for filter collectionview cell
         let collectionViewPadding: CGFloat = 12
         
         NSLayoutConstraint.activate([
@@ -85,6 +104,15 @@ class WatchListViewController: UIViewController {
            filtCollectionView.heightAnchor.constraint(equalToConstant: 60),
            filtCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -collectionViewPadding)
                ])
+        
+        // setting up the tableview
+        NSLayoutConstraint.activate([
+            stocksTableview.topAnchor.constraint(equalTo: filtCollectionView.bottomAnchor),
+            stocksTableview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stocksTableview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stocksTableview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
     }
 
     
@@ -121,4 +149,26 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 0, height: 0)
 
       }
+}
+
+extension WatchListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return filters.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return filters[section].name
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+        
+        return cell
+
+    }
+    
+    
 }
