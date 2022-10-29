@@ -133,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				1CEBCADB290DB95F007B45DE /* Validate.swift */,
-				1CEBCADF290DD5E7007B45DE /* BalanceTableViewCell.swift */,
 				1C291DD229048D110058E291 /* APi.swift */,
 			);
 			path = Model;
@@ -143,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */,
+				1CEBCADF290DD5E7007B45DE /* BalanceTableViewCell.swift */,
 				1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */,
 				1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */,
 			);

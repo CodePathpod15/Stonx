@@ -19,7 +19,6 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
 //        let c = UITableViewCell(style: .default, reuseIdentifier: "cell")
         
         let setting = settings[indexPath.row]
-        print(setting)
         
         ["Personal info", "Balance", "retire", "delete Account", "Turn off the Lights Off"]
         
@@ -30,10 +29,14 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
             cell.textLabel?.text = settings[indexPath.row]
             return cell
         case "Balance":
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
+            // configuring the title
+            cell.accessoryType = .disclosureIndicator
+            cell.configure(with: settings[indexPath.row])
             return cell
         case "retire":
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+            
             cell.textLabel?.text = settings[indexPath.row]
             return cell
         case "delete Account":
@@ -85,7 +88,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
     // setting  up the tableview
    private func setUpViews() {
         settingsTableviw.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-//       settingsTableviw.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellReuseIdentifier: <#T##String#>)
+        settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
         settingsTableviw.translatesAutoresizingMaskIntoConstraints = false
         settingsTableviw.dataSource = self
         settingsTableviw.backgroundColor = .red
