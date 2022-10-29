@@ -14,14 +14,25 @@ class SearchStockTableviewCell: UITableViewCell {
     
     // MARK: properties
     
-     static let identifier = "SearchStockTableviewCell"
-     let stockLbl = UILabel()
+    static let identifier = "SearchStockTableviewCell"
+    private let stockLbl = UILabel()
      
-     let fullStockName = UILabel()
+    private let fullStockName = UILabel()
      
-     private let stockPrice = UILabel()
+    private let stockPrice = UILabel()
      
-     private let priceChange = UILabel()
+    private let priceChange = UILabel()
+    
+    private let marketLbl: UILabel = UILabel()
+    
+    
+    private let hStackView: UIStackView = {
+        let hv = UIStackView(frame: .zero)
+        hv.translatesAutoresizingMaskIntoConstraints = false
+        hv.axis = .horizontal
+        hv.spacing = 3
+        return hv
+    }()
     
     private let vStackview: UIStackView = {
         let sv = UIStackView(frame: .zero)
@@ -39,9 +50,7 @@ class SearchStockTableviewCell: UITableViewCell {
      
      
      
-     
-     // TODO: use chart pod to create a chart
-     let chart: UIView = UIView()
+ 
 
      
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -55,9 +64,10 @@ class SearchStockTableviewCell: UITableViewCell {
          contentView.addSubview(vStackview)
          
 //         vStackview.backgroundColor = .red
+   
+         vStackview.addArrangedSubview(hStackView)
+         hStackView.addArrangedSubview(stockLbl)
          
-         
-         vStackview.addArrangedSubview(stockLbl)
          stockLbl.text = "APPL"
          stockLbl.font = FontConstants.boldFont
          stockLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -87,24 +97,34 @@ class SearchStockTableviewCell: UITableViewCell {
          priceChange.text = "(2.49%)"
          priceChange.textColor = ColorConstants.green
 //
+         // adding market label
+         hStackView.addArrangedSubview(marketLbl)
+         marketLbl.text = "· NASDAQ"
+         marketLbl.font = FontConstants.cellMediumFont
+         marketLbl.textColor = .systemGray
+         marketLbl.translatesAutoresizingMaskIntoConstraints = false
+         
          
          
          
          
      }
      
+    /// in charge of constraints
      private func setUpConstraints() {
+         // setting up the constrains of left stackview
          NSLayoutConstraint.activate([
             vStackview.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             vStackview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
          ])
-         
+         // setting up the constrains of right stackview
          NSLayoutConstraint.activate([
             rightvStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             rightvStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
 
          ])
-
+         // setting up constrains of marketLbl
+        
          
      }
      
