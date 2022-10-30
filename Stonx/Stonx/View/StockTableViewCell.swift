@@ -5,12 +5,11 @@
 //  Created by Angel Zambrano on 10/28/22.
 //
 
-import UIKit
 import Charts
+import UIKit
 
 // stock inside of watch list
 class StockTableViewCell: UITableViewCell {
-   
     static let identifier = "StockTableViewCell"
     let stockLbl = UILabel()
     
@@ -20,13 +19,10 @@ class StockTableViewCell: UITableViewCell {
     
     private let priceChange = UILabel()
     
-    
-    
-    
     // TODO: use chart pod to create a chart
     // TODO: add gradient
     lazy var lineChartView: LineChartView = {
-        let chartView  =  LineChartView()
+        let chartView = LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
@@ -34,9 +30,9 @@ class StockTableViewCell: UITableViewCell {
         chartView.xAxis.axisLineWidth = 0
         chartView.xAxis.enabled = false
         chartView.legend.enabled = false
+        chartView.isUserInteractionEnabled = false
         
         chartView.leftYAxisRenderer.axis.enabled = false
-        
         
         return chartView
     }()
@@ -44,8 +40,6 @@ class StockTableViewCell: UITableViewCell {
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
         
-        
-//        set1.mode = .
         set1.drawCirclesEnabled = false
         set1.lineWidth = 1
         set1.setColor(UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1))
@@ -55,8 +49,6 @@ class StockTableViewCell: UITableViewCell {
         set1.fillColor = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
         set1.drawFilledEnabled = true
         
-        
-        
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
@@ -65,25 +57,25 @@ class StockTableViewCell: UITableViewCell {
     // fake data
     // sets the data entry for the data
     let yvalue: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 10.0) ,
+        ChartDataEntry(x: 0.0, y: 10.0),
         ChartDataEntry(x: 1.0, y: 5.0),
         ChartDataEntry(x: 2.0, y: 7.0),
         ChartDataEntry(x: 3.0, y: 5.0),
-        ChartDataEntry(x:4.0, y: 10.0),
+        ChartDataEntry(x: 4.0, y: 10.0),
         ChartDataEntry(x: 5.0, y: 6.0),
-        ChartDataEntry(x: 6.0, y: 5.0) ,
+        ChartDataEntry(x: 6.0, y: 5.0),
         ChartDataEntry(x: 7.0, y: 7.0),
         ChartDataEntry(x: 8.0, y: 8.0),
-        ChartDataEntry(x: 9.0, y: 12.0) ,
+        ChartDataEntry(x: 9.0, y: 12.0),
         ChartDataEntry(x: 10.0, y: 13.0),
-        ChartDataEntry (x: 11.0, y:5.0),
+        ChartDataEntry(x: 11.0, y: 5.0),
         ChartDataEntry(x: 12.0, y: 7.0),
-        ChartDataEntry(x: 13.0, y: 3.0) ,
+        ChartDataEntry(x: 13.0, y: 3.0),
         ChartDataEntry(x: 14.0, y: 15.0),
         ChartDataEntry(x: 15.0, y: 6.0),
         ChartDataEntry(x: 16.0, y: 6.0),
         ChartDataEntry(x: 17.0, y: 7.0),
-        ChartDataEntry (x: 18.0, y:3.0),
+        ChartDataEntry(x: 18.0, y: 3.0),
         ChartDataEntry(x: 19.0, y: 10.0),
         ChartDataEntry(x: 20.0, y: 12.0),
         ChartDataEntry(x: 21.0, y: 15.0),
@@ -98,26 +90,22 @@ class StockTableViewCell: UITableViewCell {
         ChartDataEntry(x: 30.0, y: 24.0),
         ChartDataEntry(x: 31.0, y: 25.0),
         ChartDataEntry(x: 32.0, y: 27.0),
-        ChartDataEntry(x: 33.0, y: 25.0) ,
-        ChartDataEntry(x:34.0,y: 30.0),
-        ChartDataEntry(x: 35.0, y: 55.0) ,
+        ChartDataEntry(x: 33.0, y: 25.0),
+        ChartDataEntry(x: 34.0, y: 30.0),
+        ChartDataEntry(x: 35.0, y: 55.0),
         ChartDataEntry(x: 36.0, y: 58.0),
-        ChartDataEntry(x: 37.0, y:40.0),
+        ChartDataEntry(x: 37.0, y: 40.0),
         ChartDataEntry(x: 38.0, y: 43.0),
         ChartDataEntry(x: 39.0, y: 53.0),
-        ChartDataEntry(x:40.9,y: 55.0)
+        ChartDataEntry(x: 40.9, y: 55.0)
     ]
 
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUPViews()
         setUpConstraints()
         setData()
-        
     }
-    
-
     
     private func setUPViews() {
         contentView.addSubview(stockLbl)
@@ -133,10 +121,7 @@ class StockTableViewCell: UITableViewCell {
         fullStockName.translatesAutoresizingMaskIntoConstraints = false
         
         // setting up the chart
-//        contentView.addSubview(chart)
         contentView.addSubview(lineChartView)
-//        chart.translatesAutoresizingMaskIntoConstraints = false
-//        chart.backgroundColor = .green
         
         // setting up the stock price
         contentView.addSubview(stockPrice)
@@ -152,9 +137,6 @@ class StockTableViewCell: UITableViewCell {
         priceChange.font = FontConstants.cellSmallFont
         priceChange.text = "(2.49%)"
         priceChange.textColor = ColorConstants.green
-        
-        
-        
     }
     
     private func setUpConstraints() {
@@ -162,41 +144,36 @@ class StockTableViewCell: UITableViewCell {
             stockLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
         ])
-        
+            
         NSLayoutConstraint.activate([
             fullStockName.topAnchor.constraint(equalTo: stockLbl.bottomAnchor, constant: 0),
             fullStockName.leadingAnchor.constraint(equalTo: stockLbl.leadingAnchor),
             fullStockName.widthAnchor.constraint(equalToConstant: contentView.frame.width/2)
-        
-        ])
-        
-        
-        NSLayoutConstraint.activate([
-            lineChartView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
-            lineChartView.leadingAnchor.constraint(equalTo: fullStockName.trailingAnchor, constant: 10),
             
-//            lineChartView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            lineChartView.heightAnchor.constraint(equalToConstant: 48),
-            lineChartView.widthAnchor.constraint(equalToConstant: 80)
         ])
-        
+            
+        // constraints for chart view
+        NSLayoutConstraint.activate([
+            lineChartView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            lineChartView.leadingAnchor.constraint(equalTo: fullStockName.trailingAnchor),
+            lineChartView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            lineChartView.trailingAnchor.constraint(equalTo: stockPrice.leadingAnchor, constant: -20)
+        ])
+            
         // setting up constraints for stock price
         NSLayoutConstraint.activate([
             stockPrice.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             stockPrice.centerYAnchor.constraint(equalTo: stockLbl.centerYAnchor)
         ])
-        
+            
         NSLayoutConstraint.activate([
             priceChange.trailingAnchor.constraint(equalTo: stockPrice.trailingAnchor),
             priceChange.centerYAnchor.constraint(equalTo: fullStockName.centerYAnchor)
-        
+            
         ])
-        
-        
-        
-        
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
