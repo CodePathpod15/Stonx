@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Parse
 
 // filter
 class Filter {
@@ -35,6 +36,8 @@ class WatchListViewController: UIViewController {
     private let cellPadding: CGFloat = 8
     private var filters: [Filter] = [] // the filters
     
+    var stocks = [PFObject]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +49,36 @@ class WatchListViewController: UIViewController {
         
         setUpViews()
         setUpConstraints()
+        getData()
     }
+    
+    // ths is how you would get all of user
+    func getData() {
+        // First get the data from here
+        
+        let query = PFQuery(className:"stocks_booked")
+        query.whereKey("user", equalTo:PFUser.current()!)
+        
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                // Log details of the failure
+                print(error.localizedDescription)
+            } else if let objects = objects {
+                // The find succeeded.
+//                print("Successfully retrieved \(objects.count) scores.")
+//                let object = objects[0]
+                
+//                print(object["ticker_symbol"])
+//                print(objects[0]["DIS"] as! String)
+                self.stocks = objects
+                self.stocksTableview.reloadData()
+            
+                
+            }
+        }
+        
+    }
+    
     
     // here we will call the api to get all of the data
     func getFilterData() {
@@ -115,6 +147,48 @@ class WatchListViewController: UIViewController {
         ])
         
     }
+    
+    
+    // We might have to do something here to make sure data gets here on time 
+    func configure(cell: StockTableViewCell, indexpath: IndexPath) {
+        
+        let stock = stocks[indexpath.row]
+        let nStock = stock["ticker_symbol"] as! String
+    
+        // getting the correct name
+        API.getStockAboutMe(tickerSymbol: nStock) { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    let fullName = items!.name
+                    cell.configureName(stockName: nStock, fullStockName: fullName )
+                   
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+        }
+        // getting the correct price
+        API.getLatestStockPrice(tickerSymbol: nStock) { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    
+                    cell.configure(stockPrice: Double(items!.globalQuote.the05Price)!, priceChange: items!.globalQuote.the10ChangePercent)
+//                    let fullName = items!.name
+//                    cell.configureName(stockName: nStock, fullStockName: fullName )
+                   
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print("the error", error)
+            }
+        }
+        
+        
+        
+    }
 
     
 }
@@ -154,10 +228,10 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
 
 extension WatchListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return filters.count
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return stocks.count
     }
     
     
@@ -169,6 +243,7 @@ extension WatchListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
+        configure(cell: cell, indexpath: indexPath)
         
         return cell
 

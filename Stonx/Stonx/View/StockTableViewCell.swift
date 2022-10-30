@@ -19,6 +19,31 @@ class StockTableViewCell: UITableViewCell {
     private let priceChange = UILabel()
     
     
+    func configureName(stockName: String, fullStockName: String) {
+        self.stockLbl.text = stockName
+        self.fullStockName.text = fullStockName
+        
+    }
+    
+    // configures the label
+    func configure(sticker: String, fullStockName: String, stockPrice: String, priceChange: String) {
+        self.stockLbl.text = sticker
+        self.fullStockName.text = fullStockName
+        self.stockPrice.text = stockPrice
+        self.priceChange.text = priceChange
+    }
+    
+    func configure(stockPrice: Double, priceChange: String) {
+        self.stockPrice.text = String(stockPrice)
+        
+        if priceChange.contains("-") {
+            self.priceChange.textColor = .red
+            
+        }
+            
+        self.priceChange.text = priceChange
+    
+    }
     
     
     // TODO: use chart pod to create a chart
