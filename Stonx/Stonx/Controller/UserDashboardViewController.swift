@@ -15,18 +15,13 @@ class UserDashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-//        API.search(searchingString: "apple") { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                }
-//            case .failure(let error):
-//                // otherwise, print an error to the console
-//                print(error)
-//            }
-//        }
+        print("here")
 
+        
+
+
+        
+        
 
     }
 

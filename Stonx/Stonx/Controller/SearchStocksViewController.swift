@@ -31,6 +31,7 @@ class SearchStocksViewController: UIViewController{
 //            switch result {
 //            case .success(let items):
 //                DispatchQueue.main.async {
+//                    // updae UI here and data. reload stuff etc
 //                }
 //            case .failure(let error):
 //                // otherwise, print an error to the console
