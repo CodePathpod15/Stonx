@@ -12,6 +12,7 @@
 		1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */; };
 		1C1A74F9290D007500C3310C /* SearchStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */; };
 		1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */; };
+		1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */; };
 		1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD029048CC80058E291 /* LoginViewController.swift */; };
 		1C291DD329048D110058E291 /* APi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD229048D110058E291 /* APi.swift */; };
 		1C291DD529048DA60058E291 /* UserDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD429048DA60058E291 /* UserDashboardViewController.swift */; };
@@ -61,6 +62,7 @@
 		1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
 		1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchStocksViewController.swift; sourceTree = "<group>"; };
 		1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockTableviewCell.swift; sourceTree = "<group>"; };
+		1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		1C291DD029048CC80058E291 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C291DD229048D110058E291 /* APi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APi.swift; sourceTree = "<group>"; };
 		1C291DD429048DA60058E291 /* UserDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				1C5F0E432901C5EE00101093 /* AppDelegate.swift */,
 				1C5F0E452901C5EE00101093 /* SceneDelegate.swift */,
+				1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */,
 				1C1A74FC290D0BE200C3310C /* Model */,
 				1C1A74FD290D0BE800C3310C /* View */,
 				1C1A74FE290D0BEC00C3310C /* Controller */,
@@ -496,6 +499,7 @@
 				1C5F0E442901C5EE00101093 /* AppDelegate.swift in Sources */,
 				1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
+				1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */,
 				1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,

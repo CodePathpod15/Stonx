@@ -8,6 +8,7 @@ target 'Stonx' do
   # Pods for Stonx
    pod 'Parse'
    pod 'AlamofireImage'
+   pod 'Charts'
 
   target 'StonxTests' do
     inherit! :search_paths

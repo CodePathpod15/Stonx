@@ -6,20 +6,9 @@
 //
 
 import UIKit
-import Parse
 
 // filter
-class Filter: Comparable {
-    // DO not use this
-    static func < (lhs: Filter, rhs: Filter) -> Bool {
-        return false
-    }
-    
-    // checking if two filters are the same
-    static func == (lhs: Filter, rhs: Filter) -> Bool {
-        return  lhs.name == rhs.name
-    }
-    
+class Filter {
     var name: String
     var selected: Bool = false
     
@@ -46,8 +35,6 @@ class WatchListViewController: UIViewController {
     private let cellPadding: CGFloat = 8
     private var filters: [Filter] = [] // the filters
     
-    var stocks = [PFObject]()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,49 +46,16 @@ class WatchListViewController: UIViewController {
         
         setUpViews()
         setUpConstraints()
-        getData()
     }
-    
-    // ths is how you would get all of user
-    func getData() {
-        // First get the data from here
-        
-        let query = PFQuery(className:"stocks_booked")
-        query.whereKey("user", equalTo:PFUser.current()!)
-        
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            if let error = error {
-                // Log details of the failure
-                print(error.localizedDescription)
-            } else if let objects = objects {
-                // The find succeeded.
-                
-                self.stocks = objects
-                self.stocksTableview.reloadData()
-
-                // initializing sectors
-                self.filters = [Filter(name:"all", selected:  false)]
-
-                for object in objects {
-                    let sector = object["sector"] as! String
-                    let filter = Filter(name: sector, selected: false)
-                    if !self.filters.contains(filter) {
-                        self.filters.append(filter)
-                    }
-                
-                }
-                self.filtCollectionView.reloadData()
-            }
-        }
-        
-    }
-    
     
     // here we will call the api to get all of the data
     func getFilterData() {
         filters = [Filter(name:"all", selected:  false), Filter(name:"industry 2", selected:  false), Filter(name:"industry 3", selected:  false), Filter(name:"industry 4", selected:  false)]
         
     }
+    
+    
+    
     
     //MARK: setting up the layout of the UI
     
@@ -138,6 +92,9 @@ class WatchListViewController: UIViewController {
         
         stocksTableview.dataSource = self
         stocksTableview.delegate = self
+        
+        view.backgroundColor = .systemGray6
+        
     }
     
 
@@ -155,57 +112,14 @@ class WatchListViewController: UIViewController {
         // setting up the tableview
         NSLayoutConstraint.activate([
             stocksTableview.topAnchor.constraint(equalTo: filtCollectionView.bottomAnchor),
-            stocksTableview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stocksTableview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stocksTableview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stocksTableview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             stocksTableview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
     }
     
-    
-    // We might have to do something here to make sure data gets here on time 
-    func configure(cell: StockTableViewCell, indexpath: IndexPath) {
-        
-        let stock = stocks[indexpath.row]
-        let nStock = stock["ticker_symbol"] as! String
-        print(nStock)
-    
-        // getting the correct name
-        API.getStockAboutMe(tickerSymbol: nStock) { result in
-            switch result {
-            case .success(let items):
-                DispatchQueue.main.async {
-                    let fullName = items!.name
-                    cell.configureName(stockName: nStock, fullStockName: fullName! )
-                   
-                }
-            case .failure(let error):
-                // otherwise, print an error to the console
-                print(error)
-            }
-        }
-        
-        
-        // getting the correct price
-        API.getLatestStockPrice(tickerSymbol: nStock) { result in
-            switch result {
-            case .success(let items):
-                DispatchQueue.main.async {
-                    cell.configure(stockPrice: Double(items!.globalQuote.the05Price)!, priceChange: items!.globalQuote.the10ChangePercent)
-                }
-                break
-
-            case .failure(let error):
-                print(error)
-                break
-                // otherwise, print an error to the console
-            }
-        }
-        
-        
-        
-    }
-
+  
     
 }
 
@@ -243,13 +157,11 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension WatchListViewController: UITableViewDataSource {
-
- 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return filters.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stocks.count
+        return 10
     }
     
     
@@ -261,7 +173,6 @@ extension WatchListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
-        configure(cell: cell, indexpath: indexPath)
         
         return cell
 
@@ -284,14 +195,5 @@ extension WatchListViewController: UITableViewDelegate {
         return 44
     }
     
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // we should probably pass the PFObject as
-        let vc  = StockViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
    
 }
-
-
