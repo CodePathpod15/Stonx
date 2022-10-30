@@ -117,6 +117,7 @@ class WatchListViewController: UIViewController {
             stocksTableview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
+        
     }
     
   
