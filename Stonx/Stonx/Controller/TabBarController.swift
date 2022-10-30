@@ -56,6 +56,11 @@ class TabBarController: UITabBarController {
         profile.tabBarItem.image = UIImage(systemName: "person")
         
         tabBar.tintColor = .label
+        tabBar.tintColor = ColorConstants.green
+//        tabBar.isTranslucent = false
+         
+        
+        
         
         
         setViewControllers([home,favorites,search,profile], animated: true)
