@@ -9,7 +9,17 @@ import UIKit
 import Parse
 
 // filter
-class Filter {
+class Filter: Comparable {
+    // DO not use this
+    static func < (lhs: Filter, rhs: Filter) -> Bool {
+        return false
+    }
+    
+    // checking if two filters are the same
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
+        return  lhs.name == rhs.name
+    }
+    
     var name: String
     var selected: Bool = false
     
@@ -65,15 +75,22 @@ class WatchListViewController: UIViewController {
                 print(error.localizedDescription)
             } else if let objects = objects {
                 // The find succeeded.
-//                print("Successfully retrieved \(objects.count) scores.")
-//                let object = objects[0]
                 
-//                print(object["ticker_symbol"])
-//                print(objects[0]["DIS"] as! String)
                 self.stocks = objects
                 self.stocksTableview.reloadData()
-            
+
+                // initializing sectors
+                self.filters = [Filter(name:"all", selected:  false)]
+
+                for object in objects {
+                    let sector = object["sector"] as! String
+                    let filter = Filter(name: sector, selected: false)
+                    if !self.filters.contains(filter) {
+                        self.filters.append(filter)
+                    }
                 
+                }
+                self.filtCollectionView.reloadData()
             }
         }
         
@@ -85,9 +102,6 @@ class WatchListViewController: UIViewController {
         filters = [Filter(name:"all", selected:  false), Filter(name:"industry 2", selected:  false), Filter(name:"industry 3", selected:  false), Filter(name:"industry 4", selected:  false)]
         
     }
-    
-    
-    
     
     //MARK: setting up the layout of the UI
     
@@ -154,6 +168,7 @@ class WatchListViewController: UIViewController {
         
         let stock = stocks[indexpath.row]
         let nStock = stock["ticker_symbol"] as! String
+        print(nStock)
     
         // getting the correct name
         API.getStockAboutMe(tickerSymbol: nStock) { result in
@@ -161,7 +176,7 @@ class WatchListViewController: UIViewController {
             case .success(let items):
                 DispatchQueue.main.async {
                     let fullName = items!.name
-                    cell.configureName(stockName: nStock, fullStockName: fullName )
+                    cell.configureName(stockName: nStock, fullStockName: fullName! )
                    
                 }
             case .failure(let error):
@@ -169,20 +184,21 @@ class WatchListViewController: UIViewController {
                 print(error)
             }
         }
+        
+        
         // getting the correct price
         API.getLatestStockPrice(tickerSymbol: nStock) { result in
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
-                    
                     cell.configure(stockPrice: Double(items!.globalQuote.the05Price)!, priceChange: items!.globalQuote.the10ChangePercent)
-//                    let fullName = items!.name
-//                    cell.configureName(stockName: nStock, fullStockName: fullName )
-                   
                 }
+                break
+
             case .failure(let error):
+                print(error)
+                break
                 // otherwise, print an error to the console
-                print("the error", error)
             }
         }
         

@@ -20,6 +20,8 @@ struct FunctionConstants {
     
 }
 
+import Alamofire
+
 // TODO: refactor this into one function
 // made different methods for simplicity
 
@@ -39,12 +41,13 @@ struct API {
         let queryItems = [
             URLQueryItem(name: "function", value: "GLOBAL_QUOTE"),
             URLQueryItem(name: "symbol", value: tickerSymbol),
-            URLQueryItem(name: "apikey", value: key)
+            URLQueryItem(name: "apikey", value: "95V0WPM7CYRS7AO3")
         ]
         
         url.queryItems = queryItems
         
         var request = URLRequest(url: url.url!)
+        print(request)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -52,9 +55,14 @@ struct API {
             } else if let data = data {
                 do {
                     let decoder = JSONDecoder()
+                    
                     let searchResponse = try decoder.decode(GlobalQuote.self, from: data) // gets the artists
+                    
+                    
                     completion(.success(searchResponse))
                 } catch {
+                    
+                    
                     completion(.failure(error))
                 }
             }
@@ -62,10 +70,11 @@ struct API {
         
         task.resume()
         
-        
     }
     
+    
     // gives you the description, EPS,PERatio, and sector.
+    // we can only do a few requests and then it stops working 
     // https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=JPHF6VLB2O59XH8K .. try this link in your browser
     static func getStockAboutMe(tickerSymbol:String, completion: @escaping (Result<StockAbout?, Error>) -> Void) {
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}

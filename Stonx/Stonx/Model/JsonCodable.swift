@@ -11,8 +11,8 @@ import Foundation
 // for more info look into codable please or ask me
 
 struct StockAbout: Codable {
-    let symbol, assetType, name, stockAboutDescription: String
-    let cik, exchange, currency, country: String
+    let symbol, assetType, name, stockAboutDescription: String?
+    let cik, exchange, currency, country: String?
     let sector, industry, address, peRatio: String
     let eps, revenuePerShareTTM, profitMargin, operatingMarginTTM: String
     let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String
@@ -46,6 +46,7 @@ struct StockAbout: Codable {
         case analystTargetPrice = "AnalystTargetPrice"
         case trailingPE = "TrailingPE"
         case forwardPE = "ForwardPE"
+        
     }
 }
 
@@ -145,3 +146,4 @@ struct GlobalQuoteClass: Codable {
         case the10ChangePercent = "10. change percent"
     }
 }
+
