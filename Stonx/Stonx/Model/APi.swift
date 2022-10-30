@@ -25,6 +25,7 @@ struct FunctionConstants {
 
 
 /// this API is in charge of fetching data from the stocks API
+/// for more info: https://www.alphavantage.co/documentation/#symbolsearch
 struct API {
     
     private static let key  = "JPHF6VLB2O59XH8K"
@@ -135,7 +136,7 @@ struct API {
         
     }
     
-    /// searches through the api using the a string 
+    /// searches through the api using the a string
     static func search(searchingString: String, completion: @escaping (Result<Search?, Error>) -> Void) {
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
     
@@ -167,6 +168,12 @@ struct API {
         task.resume()
         
     }
+    
+    // TODO: fetch news data from from API
+    // https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&topics=technology&apikey=JPHF6VLB2O59XH8K
+    
+    
+    
     
 }
 
