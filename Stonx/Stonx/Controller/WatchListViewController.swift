@@ -243,6 +243,8 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension WatchListViewController: UITableViewDataSource {
+
+ 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -282,5 +284,14 @@ extension WatchListViewController: UITableViewDelegate {
         return 44
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // we should probably pass the PFObject as
+        let vc  = StockViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
    
 }
+
+

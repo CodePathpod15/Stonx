@@ -28,6 +28,7 @@ import Alamofire
 
 /// this API is in charge of fetching data from the stocks API
 /// for more info: https://www.alphavantage.co/documentation/#symbolsearch
+/// contains 5 calls per minute
 struct API {
     
     private static let key  = "JPHF6VLB2O59XH8K"
@@ -248,3 +249,8 @@ struct API {
 //           print(error)
 //       }
 //}
+
+
+// https://finnhub.io/docs/api/authentication
+// has 30 calls per minute
+

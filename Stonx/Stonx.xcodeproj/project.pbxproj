@@ -23,6 +23,7 @@
 		1C5F0E5B2901C5EF00101093 /* StonxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E5A2901C5EF00101093 /* StonxTests.swift */; };
 		1C5F0E652901C5EF00101093 /* StonxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E642901C5EF00101093 /* StonxUITests.swift */; };
 		1C5F0E672901C5EF00101093 /* StonxUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E662901C5EF00101093 /* StonxUITestsLaunchTests.swift */; };
+		1C7E5B97290F1632002C71E1 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7E5B96290F1632002C71E1 /* StockViewController.swift */; };
 		1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B32908DCC600CA2125 /* TabBarController.swift */; };
 		1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */; };
 		1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */; };
@@ -75,6 +76,7 @@
 		1C5F0E602901C5EF00101093 /* StonxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StonxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C5F0E642901C5EF00101093 /* StonxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StonxUITests.swift; sourceTree = "<group>"; };
 		1C5F0E662901C5EF00101093 /* StonxUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StonxUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1C7E5B96290F1632002C71E1 /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
 		1CC306B32908DCC600CA2125 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				1CC306B32908DCC600CA2125 /* TabBarController.swift */,
 				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,
 				1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */,
+				1C7E5B96290F1632002C71E1 /* StockViewController.swift */,
 				1C291DD029048CC80058E291 /* LoginViewController.swift */,
 				1CEBCADD290DBDB7007B45DE /* Constants.swift */,
 				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
@@ -478,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CEBCAE4290DED4D007B45DE /* JsonCodable.swift in Sources */,
+				1C7E5B97290F1632002C71E1 /* StockViewController.swift in Sources */,
 				1C291DD529048DA60058E291 /* UserDashboardViewController.swift in Sources */,
 				1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */,
 				1C1A74F9290D007500C3310C /* SearchStocksViewController.swift in Sources */,
