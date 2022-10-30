@@ -3,13 +3,19 @@ PODS:
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
   - Bolts/Tasks (1.9.1)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - Parse (1.19.3):
     - Parse/Core (= 1.19.3)
   - Parse/Core (1.19.3):
     - Bolts/Tasks (= 1.9.1)
+  - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
   - AlamofireImage
+  - Charts
   - Parse
 
 SPEC REPOS:
@@ -17,14 +23,18 @@ SPEC REPOS:
     - Alamofire
     - AlamofireImage
     - Bolts
+    - Charts
     - Parse
+    - SwiftAlgorithms
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: 21cc702f445a972eb627b18f2c6b5d0030a360c8
+PODFILE CHECKSUM: 9ca66da9db0e497fe172bc9b0593c524d2bb6290
 
 COCOAPODS: 1.11.3
