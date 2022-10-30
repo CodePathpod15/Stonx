@@ -24,7 +24,7 @@ class StockTableViewCell: UITableViewCell {
     
     
     // TODO: use chart pod to create a chart
-    // TODO: add gradient 
+    // TODO: add gradient
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
