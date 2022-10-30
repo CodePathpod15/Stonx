@@ -92,6 +92,9 @@ class WatchListViewController: UIViewController {
         
         stocksTableview.dataSource = self
         stocksTableview.delegate = self
+        
+        view.backgroundColor = .systemGray6
+        
     }
     
 
@@ -109,13 +112,14 @@ class WatchListViewController: UIViewController {
         // setting up the tableview
         NSLayoutConstraint.activate([
             stocksTableview.topAnchor.constraint(equalTo: filtCollectionView.bottomAnchor),
-            stocksTableview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stocksTableview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stocksTableview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stocksTableview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             stocksTableview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
     }
-
+    
+  
     
 }
 
