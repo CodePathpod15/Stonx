@@ -2,208 +2,229 @@ import Charts
 import UIKit
 
 class StocksViewController: UIViewController {
-  private lazy var tickerSymbol: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "Apple"
-    textLabel.textAlignment = .center
-    textLabel.font = FontConstants.boldLargeFont
-    return textLabel
-  }()
+    private lazy var tickerSymbol: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Apple"
+        textLabel.textAlignment = .left
+        textLabel.font = FontConstants.boldLargeFont
+        return textLabel
+    }()
 
-  private lazy var aboutLabelHeader: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "About"
-    textLabel.textAlignment = .center
-    textLabel.font = FontConstants.boldLargeFont
-    return textLabel
-  }()
+    private lazy var aboutLabelHeader: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "About"
+        textLabel.textAlignment = .center
+        textLabel.font = FontConstants.boldLargeFont
+        return textLabel
+    }()
     
-  private lazy var aboutTextLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "Apple Inc. is an American multinational technology company specializing in consumer electronics, software and online services headquartered in Cupertino, California, United States."
-    textLabel.textAlignment = .center
-    textLabel.textColor = ColorConstants.darkerGray
-    return textLabel
-  }()
+    private lazy var aboutTextLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Apple Inc. is an American multinational technology company specializing in consumer electronics, software and online services headquartered in Cupertino, California, United States."
+        textLabel.textAlignment = .left
+        textLabel.numberOfLines = 0
+        textLabel.textColor = UIColor.darkGray
+        return textLabel
+    }()
     
-  private lazy var typeHeaderLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "Type"
-    textLabel.textAlignment = .center
-    textLabel.font = FontConstants.boldLargeFont
-    return textLabel
-  }()
+    private lazy var typeHeaderLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Type"
+        textLabel.textAlignment = .center
+        textLabel.font = FontConstants.boldLargeFont
+        return textLabel
+    }()
     
-  private lazy var typeTextLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "Commercial Banking"
-    textLabel.textAlignment = .center
-    textLabel.textColor = ColorConstants.darkerGray
-    return textLabel
-  }()
+    private lazy var typeTextLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Commercial Banking"
+        textLabel.textAlignment = .center
+        textLabel.numberOfLines = 0
+        textLabel.textColor = UIColor.darkGray
+        return textLabel
+    }()
     
-  private lazy var marketStatsHeaderLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "Market Stats"
-    textLabel.textAlignment = .center
-    textLabel.font = FontConstants.boldLargeFont
-    return textLabel
-  }()
+    private lazy var marketStatsHeaderLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Market Stats"
+        textLabel.textAlignment = .center
+        textLabel.font = FontConstants.boldLargeFont
+        return textLabel
+    }()
     
-  private lazy var marketCapHStackView: UIStackView = {
-    let hStackView = UIStackView()
-    hStackView.translatesAutoresizingMaskIntoConstraints = false
-    hStackView.distribution = .equalSpacing
-    hStackView.axis = .horizontal
-    hStackView.alignment = .leading
-    hStackView.addArrangedSubview(marketCapHeaderLabel)
-    hStackView.addArrangedSubview(marketCapTextLabel)
-    return hStackView
-  }()
+    private lazy var marketCapHStackView: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.distribution = .equalSpacing
+        hStackView.axis = .horizontal
+        hStackView.alignment = .leading
+        hStackView.addArrangedSubview(marketCapHeaderLabel)
+        hStackView.addArrangedSubview(marketCapTextLabel)
+        return hStackView
+    }()
     
-  private lazy var stockVolumeHStackView: UIStackView = {
-    let hStackView = UIStackView()
-    hStackView.translatesAutoresizingMaskIntoConstraints = false
-    hStackView.distribution = .equalSpacing
-    hStackView.axis = .horizontal
-    hStackView.alignment = .leading
-    hStackView.addArrangedSubview(stockVolumeHeaderLabel)
-    hStackView.addArrangedSubview(stockVolumeTextLabel)
-    return hStackView
-  }()
+    private lazy var stockVolumeHStackView: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.distribution = .equalSpacing
+        hStackView.axis = .horizontal
+        hStackView.alignment = .leading
+        hStackView.addArrangedSubview(stockVolumeHeaderLabel)
+        hStackView.addArrangedSubview(stockVolumeTextLabel)
+        return hStackView
+    }()
 
-  private lazy var stockPERatioHStackView: UIStackView = {
-    let hStackView = UIStackView()
-    hStackView.translatesAutoresizingMaskIntoConstraints = false
-    hStackView.distribution = .equalSpacing
-    hStackView.axis = .horizontal
-    hStackView.alignment = .leading
-    hStackView.addArrangedSubview(stockPERatioHeaderLabel)
-    hStackView.addArrangedSubview(stockPERatioTextLabel)
-    return hStackView
-  }()
+    private lazy var stockPERatioHStackView: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.distribution = .equalSpacing
+        hStackView.axis = .horizontal
+        hStackView.alignment = .leading
+        hStackView.addArrangedSubview(stockPERatioHeaderLabel)
+        hStackView.addArrangedSubview(stockPERatioTextLabel)
+        return hStackView
+    }()
     
-  private lazy var stockEPSHStackView: UIStackView = {
-    let hStackView = UIStackView()
-    hStackView.translatesAutoresizingMaskIntoConstraints = false
-    hStackView.distribution = .equalSpacing
-    hStackView.axis = .horizontal
-    hStackView.alignment = .leading
-    hStackView.addArrangedSubview(stockEPSHeaderLabel)
-    hStackView.addArrangedSubview(stockEPSTextLabel)
-    return hStackView
-  }()
+    private lazy var stockEPSHStackView: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.distribution = .equalSpacing
+        hStackView.axis = .horizontal
+        hStackView.alignment = .leading
+        hStackView.addArrangedSubview(stockEPSHeaderLabel)
+        hStackView.addArrangedSubview(stockEPSTextLabel)
+        return hStackView
+    }()
     
-  private lazy var stockEPSTextLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "2.33"
-    textLabel.textAlignment = .right
-    return textLabel
-  }()
+    private lazy var stockPriceHStackView: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.distribution = .equalSpacing
+        hStackView.axis = .horizontal
+        hStackView.alignment = .leading
+        hStackView.addArrangedSubview(stockPriceLabel)
+        hStackView.addArrangedSubview(stockPriceChangeLabel)
+        hStackView.addArrangedSubview(stockPricePercentChangeLabel)
+        return hStackView
+    }()
     
-  private lazy var stockEPSHeaderLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "EPS"
-    textLabel.textAlignment = .left
-    return textLabel
-  }()
+    private lazy var stockPriceLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "$20.50"
+        textLabel.textAlignment = .left
+        textLabel.font = FontConstants.boldFont
+        textLabel.textColor = .systemGreen
+        return textLabel
+    }()
     
-  private lazy var stockPERatioHeaderLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "P/E Ratio"
-    textLabel.textAlignment = .left
-    return textLabel
-  }()
+    private lazy var stockPricePercentChangeLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "(2.51%)"
+        textLabel.textAlignment = .left
+        textLabel.font = FontConstants.boldFont
+        textLabel.textColor = .systemGreen
+        return textLabel
+    }()
     
-  private lazy var stockPERatioTextLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "21.50"
-    textLabel.textAlignment = .right
-    return textLabel
-  }()
     
-  private lazy var marketCapHeaderLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.backgroundColor = .yellow
-    textLabel.text = "Market Cap"
-    textLabel.textAlignment = .left
-        
-    return textLabel
-        
-  }()
+    private lazy var stockPriceChangeLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "+2.32"
+        textLabel.textAlignment = .right
+        return textLabel
+    }()
     
-  private lazy var marketCapTextLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "1.10B"
-    textLabel.textAlignment = .right
-    return textLabel
-  }()
+    private lazy var stockEPSTextLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "2.33"
+        return textLabel
+    }()
+    
+    private lazy var stockEPSHeaderLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "EPS"
+        return textLabel
+    }()
+    
+    private lazy var stockPERatioHeaderLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "P/E Ratio"
+        return textLabel
+    }()
+    
+    private lazy var stockPERatioTextLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "21.50"
+        return textLabel
+    }()
+    
+    private lazy var marketCapHeaderLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Market Cap"
+        return textLabel
+    }()
+    
+    private lazy var marketCapTextLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "1.10B"
+        return textLabel
+    }()
 
-  private lazy var stockVolumeHeaderLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "Volume"
-    textLabel.textAlignment = .left
-    return textLabel
-  }()
+    private lazy var stockVolumeHeaderLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Volume"
+        return textLabel
+    }()
     
-  private lazy var stockVolumeTextLabel: UILabel = {
-    let textLabel = UILabel()
-    textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.text = "1799234M"
-    textLabel.textAlignment = .right
-    return textLabel
-  }()
-
-  private let tradeButton: UIButton = {
-    let floatingButton = UIButton()
-    floatingButton.setTitle("Trade", for: .normal)
-    floatingButton.translatesAutoresizingMaskIntoConstraints = false
-    floatingButton.backgroundColor = .black
-    floatingButton.layer.cornerRadius = 25
-    floatingButton.layer.borderWidth = 1
-
-    return floatingButton
-  }()
+    private lazy var stockVolumeTextLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "1799234M"
+        return textLabel
+    }()
     
-  private let tradeButtonBottom: UIButton = {
-    let floatingButton = UIButton()
-    floatingButton.setTitle("Trade", for: .normal)
-    floatingButton.translatesAutoresizingMaskIntoConstraints = false
-    floatingButton.backgroundColor = .label
-    floatingButton.layer.cornerRadius = 25
-    floatingButton.layer.borderWidth = 1
+    private let tradeButtonBottom: UIButton = {
+        let floatingButton = UIButton()
+        floatingButton.setTitle("Trade", for: .normal)
+        floatingButton.translatesAutoresizingMaskIntoConstraints = false
+        floatingButton.backgroundColor = .label
+        floatingButton.layer.cornerRadius = 25
+        floatingButton.layer.borderWidth = 1
 
-    return floatingButton
-  }()
+        return floatingButton
+    }()
 
-  private lazy var scrollView: UIScrollView = {
-    let scrollView = UIScrollView()
-    scrollView.backgroundColor = .white
-    scrollView.translatesAutoresizingMaskIntoConstraints = false
-    return scrollView
-  }()
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
 
-  private lazy var stackView: UIStackView = {
-    let stackView = UIStackView()
-    stackView.axis = .vertical
-    stackView.alignment = .leading
-    stackView.spacing = 16
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    return stackView
-  }()
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 16
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
@@ -284,107 +305,104 @@ class StocksViewController: UIViewController {
         ChartDataEntry(x: 40.9, y: 55.0)
     ]
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    navigationItem.title = "AAPL"
-    configureSubviews()
-    setupConstraints()
-    setData()
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "AAPL"
+        configureSubviews()
+        setupConstraints()
+        setData()
+    }
 
-  private func configureSubviews() {
-    view.addSubview(scrollView)
-    scrollView.addSubview(stackView)
-    scrollView.addSubview(tradeButtonBottom)
-    stackView.addArrangedSubview(tickerSymbol)
-    stackView.addArrangedSubview(lineChartView)
-    stackView.addArrangedSubview(aboutLabelHeader)
-    stackView.addArrangedSubview(aboutTextLabel)
-    stackView.addArrangedSubview(typeHeaderLabel)
-    stackView.addArrangedSubview(typeTextLabel)
-    stackView.addArrangedSubview(marketStatsHeaderLabel)
-    stackView.addArrangedSubview(marketCapHStackView)
-    stackView.addArrangedSubview(stockVolumeHStackView)
-    stackView.addArrangedSubview(stockPERatioHStackView)
-    stackView.addArrangedSubview(stockEPSHStackView)
-  }
+    private func configureSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        scrollView.addSubview(tradeButtonBottom)
+        stackView.addArrangedSubview(tickerSymbol)
+        stackView.addArrangedSubview(stockPriceHStackView)
+        stackView.addArrangedSubview(lineChartView)
+        stackView.addArrangedSubview(aboutLabelHeader)
+        stackView.addArrangedSubview(aboutTextLabel)
+        stackView.addArrangedSubview(typeHeaderLabel)
+        stackView.addArrangedSubview(typeTextLabel)
+        stackView.addArrangedSubview(marketStatsHeaderLabel)
+        stackView.addArrangedSubview(marketCapHStackView)
+        stackView.addArrangedSubview(stockVolumeHStackView)
+        stackView.addArrangedSubview(stockPERatioHStackView)
+        stackView.addArrangedSubview(stockEPSHStackView)
+    }
 
-  private func setupConstraints() {
-    NSLayoutConstraint.activate([
-      scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-      scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-      scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      scrollView.leftAnchor.constraint(equalTo: view.leftAnchor)
-    ])
-    NSLayoutConstraint.activate([
-      tradeButtonBottom.widthAnchor.constraint(equalToConstant: 150),
-      tradeButtonBottom.heightAnchor.constraint(equalToConstant: 50),
-      tradeButtonBottom.centerXAnchor.constraint(equalTo: view.trailingAnchor),
-      tradeButtonBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-      tradeButtonBottom.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
-    ]
-    )
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            tradeButtonBottom.widthAnchor.constraint(equalToConstant: 150),
+            tradeButtonBottom.heightAnchor.constraint(equalToConstant: 50),
+            tradeButtonBottom.centerXAnchor.constraint(equalTo: view.trailingAnchor),
+            tradeButtonBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tradeButtonBottom.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
+        ])
 
-    NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-      stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-      stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-      stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
-    ])
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -100),
+            stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
+        ])
 
-    NSLayoutConstraint.activate([
-      // Ticker Symbol layout
-      stackView.arrangedSubviews[0].widthAnchor.constraint(equalToConstant: 100),
-      stackView.arrangedSubviews[0].heightAnchor.constraint(equalToConstant: 50),
-      
-      // Chart layout
-      stackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor),
-      stackView.arrangedSubviews[1].heightAnchor.constraint(equalToConstant: 200),
-      
-      // About Section Header
-      stackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor),
-      stackView.arrangedSubviews[2].heightAnchor.constraint(equalToConstant: 50),
-      
-      // About Section text
-      stackView.arrangedSubviews[3].rightAnchor.constraint(equalTo: view.rightAnchor),
-      stackView.arrangedSubviews[3].heightAnchor.constraint(equalToConstant: 50),
-      
-      // Type Section Header
-      stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
-      stackView.arrangedSubviews[4].heightAnchor.constraint(equalToConstant: 50),
-      
-      // Type Text Label
-      stackView.arrangedSubviews[5].leftAnchor.constraint(equalTo: view.leftAnchor),
-      stackView.arrangedSubviews[5].heightAnchor.constraint(equalToConstant: 50),
-      
-      // Market Stats Section Header
-      stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
-      stackView.arrangedSubviews[6].heightAnchor.constraint(equalToConstant: 50)
-    ])
         
-    NSLayoutConstraint.activate([
-      stockEPSHStackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor),
-      
-      stockEPSHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor)
+        // Constraints for views that are not horizontal stack views in the main vertical satck view
+        NSLayoutConstraint.activate([
+            // Ticker Symbol layout
+            stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            stackView.arrangedSubviews[0].rightAnchor.constraint(equalTo: view.rightAnchor),
 
-    ])
-    NSLayoutConstraint.activate([
-      // Market cap header label layout
-      marketCapHStackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor),
-      
-      // Market cap text layout
-      marketCapHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor)
+            // Chart Layout
+            stackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[2].heightAnchor.constraint(equalToConstant: 200),
+            stackView.arrangedSubviews[2].leftAnchor.constraint(equalTo: view.leftAnchor),
 
-    ])
-    NSLayoutConstraint.activate([
-      stockVolumeHStackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor),
-      stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor)
-    ])
-      
-    NSLayoutConstraint.activate([
-      stockPERatioHStackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor),
-      
-      stockPERatioHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor)
-    ])
-  }
+            // About Section text
+            stackView.arrangedSubviews[3].rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            // Type Section Header
+            stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
+           
+            // Type Section Label
+            stackView.arrangedSubviews[5].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[5].heightAnchor.constraint(equalToConstant: 50),
+
+            // Type Section Text Label
+            stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[6].heightAnchor.constraint(equalToConstant: 50),
+            
+            // Market Stats Section Label
+            stackView.arrangedSubviews[7].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[7].heightAnchor.constraint(equalToConstant: 50)
+        ])
+                
+        // Layout for the horizontal stack view for displaying price, price change, and percent change
+        NSLayoutConstraint.activate([
+            
+            stockPriceHStackView.arrangedSubviews[0].widthAnchor.constraint(equalToConstant: 150),
+
+            stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
+            
+            stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
+
+            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+        ])
+        
+        // No need to set layout for left hand labels as it will inherit the leading vertical stackView layout
+        NSLayoutConstraint.activate([
+            marketCapHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            stockPERatioHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            stockEPSHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+        ])
+    }
 }
