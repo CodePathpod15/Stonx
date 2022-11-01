@@ -133,7 +133,7 @@ class StocksViewController: UIViewController {
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.setTitle("1D", for: .normal)
         textLabel.layer.cornerRadius = 12
-        textLabel.backgroundColor = UIColor.systemGreen
+        textLabel.backgroundColor = ColorConstants.green
         return textLabel
     }()
     
@@ -178,16 +178,16 @@ class StocksViewController: UIViewController {
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "$20.50"
         textLabel.font = FontConstants.boldFont
-        textLabel.textColor = .systemGreen
+        textLabel.textColor = ColorConstants.green
         return textLabel
     }()
     
     private lazy var stockPricePercentChangeLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "(2.51%)"
+        textLabel.text = " (2.51%)"
         textLabel.font = FontConstants.boldFont
-        textLabel.textColor = .systemGreen
+        textLabel.textColor = ColorConstants.green
         return textLabel
     }()
     
