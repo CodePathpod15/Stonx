@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// TODO: present errors. For example when information is incorrect. 
 class PersonalnfoViewController: UIViewController {
     let tableview = UITableView(frame: .zero, style: .grouped)
     let settings = ["username", "full name"]
