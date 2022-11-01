@@ -14,8 +14,6 @@ class BalanceTableViewCell: UITableViewCell {
     private let titleLbl: UILabel = {
         let lbl = UILabel()
         lbl.textAlignment = .left
-//        lbl.backgroundColor = .red
-        
         return lbl
     }()
     

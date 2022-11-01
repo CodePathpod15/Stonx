@@ -29,6 +29,8 @@
 		1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */; };
 		1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */; };
 		1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */; };
+		1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */; };
+		1CE84F352911CD2A0001F970 /* modifyAttributeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
@@ -84,6 +86,8 @@
 		1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
 		1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generalSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyBalanceViewController.swift; sourceTree = "<group>"; };
+		1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modifyAttributeTableViewCell.swift; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */,
 				1CEBCAE1290DDBA7007B45DE /* DarkModeTableViewCell.swift */,
 				1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */,
+				1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 			children = (
 				1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */,
 				1C86BA2F2910C0920034730F /* PersonalnfoViewController.swift */,
+				1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -505,9 +511,11 @@
 				1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */,
 				1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */,
 				1C5F0E482901C5EE00101093 /* CreateAnAccountViewcontroller.swift in Sources */,
+				1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */,
 				1CEBCAE0290DD5E7007B45DE /* BalanceTableViewCell.swift in Sources */,
 				1C1A74F5290C9E6000C3310C /* FilterCollectionViewCell.swift in Sources */,
 				1C5F0E442901C5EE00101093 /* AppDelegate.swift in Sources */,
+				1CE84F352911CD2A0001F970 /* modifyAttributeTableViewCell.swift in Sources */,
 				1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
 				1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */,

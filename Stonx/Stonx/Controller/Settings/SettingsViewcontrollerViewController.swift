@@ -169,7 +169,7 @@ extension SettingsViewcontrollerViewController: UITableViewDelegate {
             
             break
         case "Balance":
-            let personalInfoVC = UIViewController()
+            let personalInfoVC = ModifyBalanceViewController()
             navigationController?.pushViewController(personalInfoVC, animated: true)
             
             
