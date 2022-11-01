@@ -49,19 +49,33 @@ class DarkModeTableViewCell: UITableViewCell {
         contentView.addSubview(lbl)
         lbl.text = "Turn the lights Off?"
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        
+        var inset = separatorInset.left * 2 + 4
+        
+        if UIDevice().userInterfaceIdiom == .phone {
+               switch UIScreen.main.nativeBounds.height {
+               case 2436:
+                   inset = 16
+                   break
 
+               default:
+                   print("UNDETERMINED")
+               }
+            
+        }
+        
+        print(self.layoutMargins.left + self.separatorInset.left)
         lbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
         
         lbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        
-        
+                
         contentView.addSubview(settingsSwitch)
         settingsSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         settingsSwitch.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
         
         settingsSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-        
+
     }
     
     required init?(coder: NSCoder) {
