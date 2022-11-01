@@ -31,6 +31,7 @@
 		1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */; };
 		1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */; };
 		1CE84F352911CD2A0001F970 /* modifyAttributeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */; };
+		1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F382911D9410001F970 /* StocksViewController.swift */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
@@ -88,6 +89,7 @@
 		1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generalSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyBalanceViewController.swift; sourceTree = "<group>"; };
 		1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modifyAttributeTableViewCell.swift; sourceTree = "<group>"; };
+		1CE84F382911D9410001F970 /* StocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksViewController.swift; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				1C5F0E432901C5EE00101093 /* AppDelegate.swift */,
 				1C5F0E452901C5EE00101093 /* SceneDelegate.swift */,
+				1CE84F382911D9410001F970 /* StocksViewController.swift */,
 				1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */,
 				1C1A74FC290D0BE200C3310C /* Model */,
 				1C1A74FD290D0BE800C3310C /* View */,
@@ -517,6 +520,7 @@
 				1C5F0E442901C5EE00101093 /* AppDelegate.swift in Sources */,
 				1CE84F352911CD2A0001F970 /* modifyAttributeTableViewCell.swift in Sources */,
 				1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */,
+				1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
 				1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */,
 				1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */,

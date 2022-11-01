@@ -93,4 +93,9 @@ extension SearchStocksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = StocksViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
