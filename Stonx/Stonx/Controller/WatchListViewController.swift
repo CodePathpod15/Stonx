@@ -195,5 +195,10 @@ extension WatchListViewController: UITableViewDelegate {
         return 44
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tb = StocksViewController()
+        navigationController?.pushViewController(tb, animated: true)
+    }
+    
    
 }
