@@ -29,28 +29,43 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         
         switch setting {
         case "Personal info":
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            
             cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = settings[indexPath.row]
+            cell.configure(with: settings[indexPath.row])
+//            cell.textLabel?.text =
+//            print(cell.separatorInset.left)
+        
             return cell
         case "Balance":
             let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
             // configuring the title
             cell.accessoryType = .disclosureIndicator
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            
             cell.configure(with: settings[indexPath.row])
+           
+//            cell.textlabe
             return cell
         case "retire":
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
             
-            cell.textLabel?.text = settings[indexPath.row]
+            cell.configure(with: settings[indexPath.row])
+            
             return cell
         case "delete Account":
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
-            cell.textLabel?.text = settings[indexPath.row]
-
+            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            cell.configure(with: settings[indexPath.row])
+            
             return cell
         case "Turn off the Lights Off":
             let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeTableViewCell.identifier, for: indexPath) as! DarkModeTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
             
             
             return cell
@@ -82,6 +97,10 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         title = "Settings"
         
         
+        settingsTableviw.layoutMargins = UIEdgeInsets.zero
+        settingsTableviw.separatorInset = UIEdgeInsets.zero
+        
+        
         
 //        view.addSubview(logOutButton)
 //        logOutButton.setTitle("log out", for: .normal)
@@ -104,6 +123,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
        
        
         settingsTableviw.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+       settingsTableviw.register(generalSettingsTableViewCell.self, forCellReuseIdentifier: generalSettingsTableViewCell.identifier)
         settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
         settingsTableviw.register(DarkModeTableViewCell.self, forCellReuseIdentifier: DarkModeTableViewCell.identifier)
         settingsTableviw.translatesAutoresizingMaskIntoConstraints = false

@@ -13,6 +13,8 @@ class BalanceTableViewCell: UITableViewCell {
     
     private let titleLbl: UILabel = {
         let lbl = UILabel()
+        lbl.textAlignment = .left
+//        lbl.backgroundColor = .red
         
         return lbl
     }()
@@ -35,6 +37,7 @@ class BalanceTableViewCell: UITableViewCell {
        
         setUpView()
         setUpContraints()
+        
     }
     
     
@@ -52,8 +55,29 @@ class BalanceTableViewCell: UITableViewCell {
     
     private func setUpContraints() {
         // setting constraints for title
+        
+        var inset = separatorInset.left * 2 + 4
+        
+        if UIDevice().userInterfaceIdiom == .phone {
+               switch UIScreen.main.nativeBounds.height {
+               case 2436:
+                   inset = 16
+                   break
+
+               default:
+                   print("UNDETERMINED")
+               }
+            
+        }
+        
+        
+        
+       
+        
+       
+        
         titleLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        titleLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+        titleLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         amountLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         amountLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
     
