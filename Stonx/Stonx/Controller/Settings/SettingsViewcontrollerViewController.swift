@@ -18,6 +18,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
     }
     
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        let c = UITableViewCell(style: .default, reuseIdentifier: "cell")
@@ -107,6 +108,7 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         settingsTableviw.register(DarkModeTableViewCell.self, forCellReuseIdentifier: DarkModeTableViewCell.identifier)
         settingsTableviw.translatesAutoresizingMaskIntoConstraints = false
         settingsTableviw.dataSource = self
+       settingsTableviw.delegate = self
 //        settingsTableviw.backgroundColor = .red
         view.addSubview(settingsTableviw)
     }
@@ -136,3 +138,36 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
 
 }
 
+
+extension SettingsViewcontrollerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let setting = settings[indexPath.row]
+        switch setting {
+        case "Personal info":
+            let personalInfoVC = PersonalnfoViewController()
+            navigationController?.pushViewController(personalInfoVC, animated: true)
+            
+            break
+        case "Balance":
+            let personalInfoVC = UIViewController()
+            navigationController?.pushViewController(personalInfoVC, animated: true)
+            
+            
+            break
+        case "retire":
+            let personalInfoVC = UIViewController()
+            navigationController?.pushViewController(personalInfoVC, animated: true)
+            break
+        case "delete Account":
+            let personalInfoVC = UIViewController()
+            navigationController?.pushViewController(personalInfoVC, animated: true)
+            break
+        case "Turn off the Lights Off":
+            
+            break
+            
+        default:
+            return
+        }
+    }
+}

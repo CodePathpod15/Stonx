@@ -37,6 +37,10 @@ class BalanceTableViewCell: UITableViewCell {
         setUpContraints()
     }
     
+    
+    func configure(name: String) {
+        self.amountLbl.text = name
+    }
    private func setUpView() {
        contentView.addSubview(titleLbl)
        titleLbl.translatesAutoresizingMaskIntoConstraints = false
