@@ -354,7 +354,8 @@ class StocksViewController: UIViewController {
         ])
 
         
-        // Constraints for views that are not horizontal stack views in the main vertical satck view
+        // Constraints for views that are not horizontal stack views in the main vertical stack view
+        // Let auto layout handle each stack height
         NSLayoutConstraint.activate([
             // Ticker Symbol layout
             stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
@@ -365,23 +366,20 @@ class StocksViewController: UIViewController {
             stackView.arrangedSubviews[2].heightAnchor.constraint(equalToConstant: 200),
             stackView.arrangedSubviews[2].leftAnchor.constraint(equalTo: view.leftAnchor),
 
-            // About Section text
+            // About Section Header
             stackView.arrangedSubviews[3].rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            // Type Section Header
+            // About Section Text
             stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
            
             // Type Section Label
             stackView.arrangedSubviews[5].rightAnchor.constraint(equalTo: view.rightAnchor),
-            stackView.arrangedSubviews[5].heightAnchor.constraint(equalToConstant: 50),
 
             // Type Section Text Label
             stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
-            stackView.arrangedSubviews[6].heightAnchor.constraint(equalToConstant: 50),
             
             // Market Stats Section Label
             stackView.arrangedSubviews[7].rightAnchor.constraint(equalTo: view.rightAnchor),
-            stackView.arrangedSubviews[7].heightAnchor.constraint(equalToConstant: 50)
         ])
                 
         // Layout for the horizontal stack view for displaying price, price change, and percent change
