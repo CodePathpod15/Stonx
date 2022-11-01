@@ -30,19 +30,19 @@ class StocksViewController: UIViewController {
         return textLabel
     }()
     
-    private lazy var typeHeaderLabel: UILabel = {
+    private lazy var sectorHeaderLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "Type"
+        textLabel.text = "Sector"
         textLabel.textAlignment = .center
         textLabel.font = FontConstants.boldLargeFont
         return textLabel
     }()
     
-    private lazy var typeTextLabel: UILabel = {
+    private lazy var sectorTextLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "Commercial Banking"
+        textLabel.text = "Technology"
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
         textLabel.textColor = UIColor.darkGray
@@ -114,11 +114,69 @@ class StocksViewController: UIViewController {
         return hStackView
     }()
     
+    private lazy var timeFrameHStackView: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.distribution = .equalSpacing
+        hStackView.axis = .horizontal
+        hStackView.alignment = .leading
+        hStackView.addArrangedSubview(oneDayTimeFrame)
+        hStackView.addArrangedSubview(weeklyTimeFrame)
+        hStackView.addArrangedSubview(monthlyTimeFrame)
+        hStackView.addArrangedSubview(yearlyTimeFrame)
+        hStackView.addArrangedSubview(allTimeFrame)
+        return hStackView
+    }()
+    
+    private lazy var oneDayTimeFrame: UIButton = {
+        let textLabel = UIButton()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.setTitle("1D", for: .normal)
+        textLabel.layer.cornerRadius = 12
+        textLabel.backgroundColor = UIColor.systemGreen
+        return textLabel
+    }()
+    
+    private lazy var weeklyTimeFrame: UIButton = {
+        let textLabel = UIButton()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.setTitle("1W", for: .normal)
+        textLabel.layer.cornerRadius = 12
+        textLabel.setTitleColor(.label, for: .normal)
+        return textLabel
+    }()
+    
+    private lazy var monthlyTimeFrame: UIButton = {
+        let textLabel = UIButton()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.setTitle("1M", for: .normal)
+        textLabel.setTitleColor(.label, for: .normal)
+        textLabel.layer.cornerRadius = 12
+        return textLabel
+    }()
+    
+    private lazy var yearlyTimeFrame: UIButton = {
+        let textLabel = UIButton()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.setTitle("1Y", for: .normal)
+        textLabel.setTitleColor(.label, for: .normal)
+        textLabel.layer.cornerRadius = 12
+        return textLabel
+    }()
+    
+    private lazy var allTimeFrame: UIButton = {
+        let textLabel = UIButton()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.setTitle("All", for: .normal)
+        textLabel.setTitleColor(.label, for: .normal)
+        textLabel.layer.cornerRadius = 12
+        return textLabel
+    }()
+    
     private lazy var stockPriceLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "$20.50"
-        textLabel.textAlignment = .left
         textLabel.font = FontConstants.boldFont
         textLabel.textColor = .systemGreen
         return textLabel
@@ -128,7 +186,6 @@ class StocksViewController: UIViewController {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "(2.51%)"
-        textLabel.textAlignment = .left
         textLabel.font = FontConstants.boldFont
         textLabel.textColor = .systemGreen
         return textLabel
@@ -206,7 +263,6 @@ class StocksViewController: UIViewController {
         floatingButton.backgroundColor = .label
         floatingButton.layer.cornerRadius = 25
         floatingButton.layer.borderWidth = 1
-
         return floatingButton
     }()
 
@@ -320,10 +376,11 @@ class StocksViewController: UIViewController {
         stackView.addArrangedSubview(tickerSymbol)
         stackView.addArrangedSubview(stockPriceHStackView)
         stackView.addArrangedSubview(lineChartView)
+        stackView.addArrangedSubview(timeFrameHStackView)
         stackView.addArrangedSubview(aboutLabelHeader)
         stackView.addArrangedSubview(aboutTextLabel)
-        stackView.addArrangedSubview(typeHeaderLabel)
-        stackView.addArrangedSubview(typeTextLabel)
+        stackView.addArrangedSubview(sectorHeaderLabel)
+        stackView.addArrangedSubview(sectorTextLabel)
         stackView.addArrangedSubview(marketStatsHeaderLabel)
         stackView.addArrangedSubview(marketCapHStackView)
         stackView.addArrangedSubview(stockVolumeHStackView)
@@ -332,12 +389,10 @@ class StocksViewController: UIViewController {
     }
 
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor)
-        ])
+
+        scrollView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+            
+   
         NSLayoutConstraint.activate([
             tradeButtonBottom.widthAnchor.constraint(equalToConstant: 150),
             tradeButtonBottom.heightAnchor.constraint(equalToConstant: 50),
@@ -345,17 +400,17 @@ class StocksViewController: UIViewController {
             tradeButtonBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tradeButtonBottom.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
         ])
-
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -100),
             stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
         ])
+                
 
-        
         // Constraints for views that are not horizontal stack views in the main vertical stack view
-        // Let auto layout handle each stack height
+        // Let auto layout handle each stack height, chart height must be explicit though
         NSLayoutConstraint.activate([
             // Ticker Symbol layout
             stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
@@ -367,26 +422,24 @@ class StocksViewController: UIViewController {
             stackView.arrangedSubviews[2].leftAnchor.constraint(equalTo: view.leftAnchor),
 
             // About Section Header
-            stackView.arrangedSubviews[3].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
             
             // About Section Text
-            stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[5].rightAnchor.constraint(equalTo: view.rightAnchor),
            
             // Type Section Label
-            stackView.arrangedSubviews[5].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
 
             // Type Section Text Label
-            stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[7].rightAnchor.constraint(equalTo: view.rightAnchor),
             
             // Market Stats Section Label
-            stackView.arrangedSubviews[7].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[8].rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
                 
-        // Layout for the horizontal stack view for displaying price, price change, and percent change
+        // Layout only needed for the price and % change to clip it to right hand side
         NSLayoutConstraint.activate([
             
-            stockPriceHStackView.arrangedSubviews[0].widthAnchor.constraint(equalToConstant: 150),
-
             stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
             
             stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
@@ -394,13 +447,19 @@ class StocksViewController: UIViewController {
             stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
         ])
         
-        // No need to set layout for left hand labels as it will inherit the leading vertical stackView layout
+        // Provide layout for the right hand side labels
         NSLayoutConstraint.activate([
             marketCapHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             stockPERatioHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             stockEPSHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+        ])
+        
+        // offset the all time frame button to match right hand side offsets
+        NSLayoutConstraint.activate([
+            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+
         ])
     }
 }
