@@ -7,7 +7,10 @@
 
 import UIKit
 
+// general settings tableviewCell
+
 class generalSettingsTableViewCell: UITableViewCell {
+    
     
     static let identifier = "generalSettingsTableViewCell"
     private let title = UILabel()
@@ -25,8 +28,6 @@ class generalSettingsTableViewCell: UITableViewCell {
         setUpViews()
         setUpConstraints()
     }
-    
-    
     
     private func setUpViews() {
         contentView.addSubview(title)

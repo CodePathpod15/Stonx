@@ -24,6 +24,31 @@ class ModifyBalanceViewController: UIViewController {
     // we are going to present
     @objc func addTapped() {
         
+        let alertController: UIAlertController = UIAlertController(title: "Adding Money", message: "", preferredStyle: .alert)
+
+            //cancel button
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+                //cancel code
+                
+            }
+            alertController.addAction(cancelAction)
+
+            //Create an optional action
+        let nextAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { action -> Void in
+                let text = (alertController.textFields?.first as! UITextField).text
+            
+                // TODO: update this
+                print(text)
+                
+            }
+        
+            alertController.addAction(nextAction)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Add money"
+        }
+        
+        present(alertController, animated: true)
     }
     
     private func setUpViews() {
@@ -59,6 +84,8 @@ extension ModifyBalanceViewController: UITableViewDataSource {
       
         return cell
     }
+
     
     
 }
+

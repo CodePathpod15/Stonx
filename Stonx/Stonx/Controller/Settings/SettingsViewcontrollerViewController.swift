@@ -153,6 +153,50 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         
     }
     
+    //
+    
+    enum UserAction {
+        case delete
+        case retire
+    }
+    
+    private func presentingAlertWithDestruction(action: UserAction) {
+        
+        let title = action == .delete ? "Deleting Account" : "Going bankrupt"
+        let supportingText = action == .delete ? "Are you sure you want to delete your account?" : "You will be resetting all of your transactions"
+        
+        let nActionTitle = action == .delete ? "Delete Account" : "Reset"
+        
+        
+        let alertController: UIAlertController = UIAlertController(title: title, message: supportingText, preferredStyle: .alert)
+
+            //cancel button
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+                //cancel code
+                
+            }
+            alertController.addAction(cancelAction)
+
+            //Create an optional action
+        let nextAction: UIAlertAction = UIAlertAction(title: nActionTitle, style: .destructive) { action -> Void in
+                
+                
+                // TODO: delete user
+                // take them to home page
+            
+            
+                // TODO: reset the user's transactions
+                //
+                
+            }
+        
+            alertController.addAction(nextAction)
+        
+    
+        present(alertController, animated: true)
+    }
+    
+    
     
     
 
@@ -172,15 +216,12 @@ extension SettingsViewcontrollerViewController: UITableViewDelegate {
             let personalInfoVC = ModifyBalanceViewController()
             navigationController?.pushViewController(personalInfoVC, animated: true)
             
-            
             break
         case "retire":
-            let personalInfoVC = UIViewController()
-            navigationController?.pushViewController(personalInfoVC, animated: true)
+            presentingAlertWithDestruction(action: .retire)
             break
         case "delete Account":
-            let personalInfoVC = UIViewController()
-            navigationController?.pushViewController(personalInfoVC, animated: true)
+            presentingAlertWithDestruction(action: .delete)
             break
         case "Turn off the Lights Off":
             
