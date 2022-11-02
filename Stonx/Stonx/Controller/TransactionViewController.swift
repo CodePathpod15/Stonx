@@ -60,6 +60,8 @@ class TransactionViewController: UIViewController {
         button.backgroundColor = ColorConstants.green
         button.setTitle("Buy", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 6
         return button
     }()
     
@@ -119,6 +121,7 @@ class TransactionViewController: UIViewController {
 
         
         view.addSubview(verticalSV)
+        view.addSubview(transactionButton)
         
         numberOfSharesToPurchase.text = "Number of Shares"
         [numberOfSharesToPurchase, usernameTextfield, marketPricehorizontalSV, totalHorizontalSV].forEach { v in
@@ -134,12 +137,24 @@ class TransactionViewController: UIViewController {
             object: nil
         )
         
+        // keyboard set up
         setUpTextfield(textfield: usernameTextfield, defaultText: "# number of shares")
+        usernameTextfield.keyboardType = .decimalPad
+        usernameTextfield.heightAnchor.constraint(equalToConstant: 41).isActive = true
         
         usernameTextfield.becomeFirstResponder()
         
+        // adding done button
+        let add = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
+        navigationItem.rightBarButtonItem = add
+
         
         
+        
+    }
+    
+    @objc func doneButtonPressed() {
+        self.dismiss(animated: true)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -147,18 +162,20 @@ class TransactionViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
 //            print(keyboardHeight)
+            print("here: \(keyboardHeight + 30)")
             
+            transactionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(keyboardHeight + 30)).isActive = true
             // adding the button
-            
             
         }
     }
     
     private func setupConstraints() {
         // adding constraints to labels
-        verticalSV.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom:nil, trailing: view.trailingAnchor, padding: .init(top: 50, left: 32, bottom: 0, right: 32))
-        usernameTextfield.keyboardType = .decimalPad
-        usernameTextfield.heightAnchor.constraint(equalToConstant: 41).isActive = true
+        verticalSV.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom:nil, trailing: view.trailingAnchor, padding: .init(top: 50, left: 32, bottom: 0, right: 32))
+       
+        transactionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        transactionButton.widthAnchor.constraint(equalToConstant: 134).isActive = true
 
     }
     

@@ -482,7 +482,8 @@ extension StocksViewController: TradingDelegate {
     func sell() {
         print("sell")
         let view = UINavigationController(rootViewController: TransactionViewController())
-    
+        view.modalPresentationStyle = .fullScreen
+
         self.present(view, animated: true)
     }
     
