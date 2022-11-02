@@ -7,7 +7,12 @@
 
 import UIKit
 
+// we can repurpose this view for both buying and cell
 class TransactionViewController: UIViewController {
+    
+    enum TransactionType {
+        case buy, sell
+    }
 
     let numberOfSharesToPurchase = UILabel()
     
@@ -50,6 +55,20 @@ class TransactionViewController: UIViewController {
         return lbl
     }()
     
+    private let transactionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = ColorConstants.green
+        button.setTitle("Buy", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        return button
+    }()
+    
+    func createLbl(with str: String)-> UILabel {
+        let lbl = UILabel()
+        lbl.text = "$20.00"
+        return lbl
+    }
+    
     
     
     // vertical stackview
@@ -74,15 +93,8 @@ class TransactionViewController: UIViewController {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
-//        sv.spacing = 12
-        
-        
         return sv
     }()
-    
-    
-    
-    
     
     
     override func viewDidLoad() {
@@ -114,23 +126,40 @@ class TransactionViewController: UIViewController {
             verticalSV.addArrangedSubview(v)
         }
         
-//
+        // adding observer to be able to get the size of the keyboard
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
         setUpTextfield(textfield: usernameTextfield, defaultText: "# number of shares")
         
         usernameTextfield.becomeFirstResponder()
         
+        
+        
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+//            print(keyboardHeight)
+            
+            // adding the button
+            
+            
+        }
     }
     
     private func setupConstraints() {
         // adding constraints to labels
         verticalSV.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom:nil, trailing: view.trailingAnchor, padding: .init(top: 50, left: 32, bottom: 0, right: 32))
-        
         usernameTextfield.keyboardType = .decimalPad
-
         usernameTextfield.heightAnchor.constraint(equalToConstant: 41).isActive = true
 
-        
-        
     }
     
     
