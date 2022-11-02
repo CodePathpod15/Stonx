@@ -392,7 +392,7 @@ class StocksViewController: UIViewController {
      @objc private func tradeButtonWaspressed() {
          let tradeView = TradeView()
          tradeView.translatesAutoresizingMaskIntoConstraints = false
-         
+         tradeView.delegate = self
          let currentWindow: UIWindow? = UIApplication.shared.keyWindow
          currentWindow?.addSubview(tradeView)
          
@@ -475,4 +475,21 @@ class StocksViewController: UIViewController {
 
         ])
     }
+}
+
+// implementation of delegates
+extension StocksViewController: TradingDelegate {
+    func sell() {
+        print("sell")
+        let view = UINavigationController(rootViewController: TransactionViewController())
+        view.modalPresentationStyle = .fullScreen
+
+        self.present(view, animated: true)
+    }
+    
+    func buy() {
+        print("buy")
+    }
+    
+    
 }
