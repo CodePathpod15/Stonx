@@ -9,22 +9,130 @@ import UIKit
 
 class TransactionViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .white
-        // Do any additional setup after loading the view.
+    let numberOfSharesToPurchase = UILabel()
+    
+    private let usernameTextfield = TextField()
+    
+    func setUpTextfield(textfield: UITextField, defaultText: String) {
+        textfield.backgroundColor = ColorConstants.gray
+        textfield.placeholder = defaultText
+        textfield.layer.cornerRadius = 8
+        textfield.layer.borderWidth = 1
+        textfield.layer.borderColor = ColorConstants.darkerGray.cgColor
+        textfield.font = UIFont.systemFont(ofSize: 16)
     }
     
+    // title of the marketprice
+    private let marketPriceTitle: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Market Price: "
+        return lbl
+    }()
+    
+    // title of the totalLblTitle
+    private let totalLblTitle: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "total: "
+        return lbl
+    }()
+    
+    // the actual market price value
+    private let marketPriceLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "$3.99"
+        return lbl
+    }()
+    
+    // the actual total price
+    private let totalLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "$20.00"
+        return lbl
+    }()
+    
+    
+    
+    // vertical stackview
+    private let verticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 12
+        return sv
+        
+    }()
+    
+    private let marketPricehorizontalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 12
+        return sv
+    }()
+    
+    private let totalHorizontalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+//        sv.spacing = 12
+        
+        
+        return sv
+    }()
+    
+    
+    
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Buy Apple"
+        
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        view.backgroundColor = ColorConstants.backgroundColor
+        // Do any additional setup after loading the view.
+        viewSetup()
+        setupConstraints()
     }
-    */
+    
+    private func viewSetup() {
+        // set up for number of shares
+        marketPricehorizontalSV.addArrangedSubview(marketPriceTitle)
+        marketPricehorizontalSV.addArrangedSubview(marketPriceLbl)
+        
+        totalHorizontalSV.addArrangedSubview(totalLblTitle)
+        totalHorizontalSV.addArrangedSubview(totalLbl)
+
+        
+        view.addSubview(verticalSV)
+        
+        numberOfSharesToPurchase.text = "Number of Shares"
+        [numberOfSharesToPurchase, usernameTextfield, marketPricehorizontalSV, totalHorizontalSV].forEach { v in
+            v.translatesAutoresizingMaskIntoConstraints = false
+            verticalSV.addArrangedSubview(v)
+        }
+        
+//
+        setUpTextfield(textfield: usernameTextfield, defaultText: "# number of shares")
+        
+        usernameTextfield.becomeFirstResponder()
+        
+    }
+    
+    private func setupConstraints() {
+        // adding constraints to labels
+        verticalSV.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom:nil, trailing: view.trailingAnchor, padding: .init(top: 50, left: 32, bottom: 0, right: 32))
+        
+        usernameTextfield.keyboardType = .decimalPad
+
+        usernameTextfield.heightAnchor.constraint(equalToConstant: 41).isActive = true
+
+        
+        
+    }
+    
+    
 
 }
