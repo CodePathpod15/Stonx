@@ -7,6 +7,14 @@
 
 import UIKit
 
+
+protocol TradingDelegate: AnyObject {
+    func sell()
+    func buy()
+
+}
+
+
 // this view contains the view that asks the user if they want to buy or sell
 class TradeView: UIView {
 
@@ -21,8 +29,13 @@ class TradeView: UIView {
         button.setTitle("Buy", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
        button.layer.cornerRadius = 6
+       button.addTarget(self, action: #selector(buyButtonWasPressed), for: .touchUpInside)
         return button
     }()
+    
+    // implementing the delegate
+    weak var delegate: TradingDelegate?
+    
     
     private let sellButton: UIButton = {
         let button = UIButton(type: .system)
@@ -31,14 +44,12 @@ class TradeView: UIView {
         button.setTitle("Sell", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 6
+        button.addTarget(self, action: #selector(sellButtonWasPressed), for: .touchUpInside)
+
         return button
     }()
     
     private let orLbl = UILabel()
-    
-    
-
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -116,18 +127,19 @@ class TradeView: UIView {
         sellButton.topAnchor.constraint(equalTo: orLbl.bottomAnchor, constant: 3).isActive = true
         sellButton.leadingAnchor.constraint(equalTo: cContent.leadingAnchor, constant: 32).isActive = true
         sellButton.trailingAnchor.constraint(equalTo: cContent.trailingAnchor, constant: -32).isActive = true
-
-        
-        
-        
-//        cContent.centerXAnchor.constraint(equalTo: orLbl.bottomAnchor, constant: 3).isActive = true
-//        cContent.leadingAnchor.constraint(equalTo: cContent.leadingAnchor, constant: 32).isActive = true
-        
-        
-        
+  
         
     }
     
+    // MARK: implementation of delegates
+    @objc private func buyButtonWasPressed() {
+        delegate?.buy()
+    }
+    
+    @objc private func sellButtonWasPressed() {
+        delegate?.sell()
+    }
+
     
     
     required init?(coder: NSCoder) {
