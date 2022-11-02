@@ -257,12 +257,13 @@ class StocksViewController: UIViewController {
     }()
     
     private let tradeButtonBottom: UIButton = {
-        let floatingButton = UIButton()
+        let floatingButton = UIButton(type: .system)
         floatingButton.setTitle("Trade", for: .normal)
         floatingButton.translatesAutoresizingMaskIntoConstraints = false
         floatingButton.backgroundColor = .label
         floatingButton.layer.cornerRadius = 25
         floatingButton.layer.borderWidth = 1
+        floatingButton.addTarget(self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
         return floatingButton
     }()
 
@@ -386,6 +387,18 @@ class StocksViewController: UIViewController {
         stackView.addArrangedSubview(stockVolumeHStackView)
         stackView.addArrangedSubview(stockPERatioHStackView)
         stackView.addArrangedSubview(stockEPSHStackView)
+    }
+    
+     @objc private func tradeButtonWaspressed() {
+         let tradeView = TradeView()
+         tradeView.translatesAutoresizingMaskIntoConstraints = false
+         
+         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+         currentWindow?.addSubview(tradeView)
+         
+         
+//         view.addSubview(tradeView)
+         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
 
     private func setupConstraints() {
