@@ -481,7 +481,7 @@ class StocksViewController: UIViewController {
 extension StocksViewController: TradingDelegate {
     func sell() {
         print("sell")
-        let view = UIViewController()
+        let view = TransactionViewController()
         self.present(view, animated: true)
     }
     

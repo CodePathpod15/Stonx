@@ -33,6 +33,7 @@
 		1CE84F352911CD2A0001F970 /* modifyAttributeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */; };
 		1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F382911D9410001F970 /* StocksViewController.swift */; };
 		1CE84F3B291223650001F970 /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3A291223650001F970 /* TradeView.swift */; };
+		1CE84F3D29122D210001F970 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3C29122D210001F970 /* TransactionViewController.swift */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
@@ -92,6 +93,7 @@
 		1CE84F342911CD2A0001F970 /* modifyAttributeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modifyAttributeTableViewCell.swift; sourceTree = "<group>"; };
 		1CE84F382911D9410001F970 /* StocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksViewController.swift; sourceTree = "<group>"; };
 		1CE84F3A291223650001F970 /* TradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeView.swift; sourceTree = "<group>"; };
+		1CE84F3C29122D210001F970 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		1C1A74FE290D0BEC00C3310C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1CE84F3C29122D210001F970 /* TransactionViewController.swift */,
 				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
 				1CC306B32908DCC600CA2125 /* TabBarController.swift */,
 				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,
@@ -521,6 +524,7 @@
 				1CE84F3B291223650001F970 /* TradeView.swift in Sources */,
 				1CEBCAE0290DD5E7007B45DE /* BalanceTableViewCell.swift in Sources */,
 				1C1A74F5290C9E6000C3310C /* FilterCollectionViewCell.swift in Sources */,
+				1CE84F3D29122D210001F970 /* TransactionViewController.swift in Sources */,
 				1C5F0E442901C5EE00101093 /* AppDelegate.swift in Sources */,
 				1CE84F352911CD2A0001F970 /* modifyAttributeTableViewCell.swift in Sources */,
 				1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */,

@@ -133,11 +133,26 @@ class TradeView: UIView {
     
     // MARK: implementation of delegates
     @objc private func buyButtonWasPressed() {
-        delegate?.buy()
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+            self.alpha = 0
+        } completion: { _ in
+            // we remove the view from the superview
+            self.removeFromSuperview()
+            self.delegate?.buy()
+        }
+       
     }
     
     @objc private func sellButtonWasPressed() {
-        delegate?.sell()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+            self.alpha = 0
+        } completion: { _ in
+            // we remove the view from the superview
+            self.removeFromSuperview()
+            self.delegate?.sell()
+        }
+       
     }
 
     
