@@ -241,11 +241,8 @@ class UserDashboardViewController: UIViewController {
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubview(investingLabel)
-        stackView.addArrangedSubview(stockPriceHStackView)
-        stackView.addArrangedSubview(lineChartView)
-        stackView.addArrangedSubview(timeFrameHStackView)
-        stackView.addArrangedSubview(stocksTableview)
+        // adding the views
+        [investingLabel, stockPriceHStackView, lineChartView, timeFrameHStackView, stocksTableview].forEach({stackView.addArrangedSubview($0) })
     }
     
     private func setUpConstraints(){

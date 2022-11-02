@@ -1,7 +1,7 @@
 import Charts
 import UIKit
 
-class StocksViewController: UIViewController {
+class StocksViewController: UIViewController, UINavigationControllerDelegate {
     private lazy var tickerSymbol: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -402,7 +402,7 @@ class StocksViewController: UIViewController {
     }
 
     private func setupConstraints() {
-
+        let padding: CGFloat = 16
         scrollView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
             
    
@@ -426,7 +426,7 @@ class StocksViewController: UIViewController {
         // Let auto layout handle each stack height, chart height must be explicit though
         NSLayoutConstraint.activate([
             // Ticker Symbol layout
-            stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: padding),
             stackView.arrangedSubviews[0].rightAnchor.constraint(equalTo: view.rightAnchor),
 
             // Chart Layout
@@ -457,21 +457,21 @@ class StocksViewController: UIViewController {
             
             stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
 
-            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
         ])
         
         // Provide layout for the right hand side labels
         NSLayoutConstraint.activate([
-            marketCapHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            stockPERatioHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            stockEPSHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+            marketCapHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            stockVolumeHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            stockPERatioHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            stockEPSHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding)
         ])
         
         // offset the all time frame button to match right hand side offsets
         NSLayoutConstraint.activate([
-            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding)
 
         ])
     }
@@ -480,15 +480,26 @@ class StocksViewController: UIViewController {
 // implementation of delegates
 extension StocksViewController: TradingDelegate {
     func sell() {
-        print("sell")
-        let view = UINavigationController(rootViewController: TransactionViewController())
+        let vc = TransactionViewController()
+        vc.delegate = self
+        let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
-
         self.present(view, animated: true)
     }
     
     func buy() {
         print("buy")
+    }
+    
+    
+}
+
+
+extension StocksViewController: TransactionDelegate {
+    func transac(of type: TransactionType) {
+        let vc = TransactionSuccessfulViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
     }
     
     
