@@ -13,12 +13,13 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category: Finance**
+- **Category: Finance + Education**
 - **Mobile: This app is primarly mobile but could also be expanded to desktop.**
 - **Story: Uses real time data to allow users to trade without actually investing money**
 - **Market: Anyone interesting in investing.**
 - **Habit: This app could be used frequently to check on the status of their app**
 - **Scope: We could expand to a more learning based approach to investing. Allowing users to invest in options**
+
 
 # 
 
@@ -155,7 +156,8 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
   
 
 ### Networking
-
+API: 
+https://www.alphavantage.co/documentation/
 
 - Home (Dashboard)
   - (Read/GET) Query all stocks owned by the user from user_stocks
