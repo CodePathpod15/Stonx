@@ -98,6 +98,8 @@ class TradeView: UIView {
         self.addSubview(cContent)
         cContent.backgroundColor = .white
         cContent.translatesAutoresizingMaskIntoConstraints = false
+        cContent.clipsToBounds = true
+        cContent.layer.cornerRadius = 6
         
         cContent.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         cContent.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

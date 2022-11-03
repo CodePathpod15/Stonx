@@ -541,6 +541,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
          let tradeView = TradeView()
          tradeView.translatesAutoresizingMaskIntoConstraints = false
          tradeView.delegate = self
+         
+         
          let currentWindow: UIWindow? = UIApplication.shared.keyWindow
          currentWindow?.addSubview(tradeView)
          
