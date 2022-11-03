@@ -21,20 +21,13 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     
     
    // MARK: This is how you do an initializer
-//    init(fromSettings: Bool = false) {
-//        super.init(nibName: nil, bundle: nil)
-//        self.fromSettings = fromSettings
-//
-//    }
-//
+
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
        
         if let textfield = textField.text {
             // we fetch the stocks using the api
             fetchStocks(query: textfield)
-            
-            
             
         }
         
@@ -94,6 +87,16 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
                     
                     if let matches = items?.bestMatches {
                         self.filteredStocks = matches
+                        
+                    // MARK: refactor this
+                    self.filteredStocks.removeAll { bestMatch in
+                        return (bestMatch.the8Currency != "USD")
+                    }
+                    
+                    self.filteredStocks.removeAll { bestMatch in
+                        return (bestMatch.the4Region != "United States")
+                    }
+                         
                         self.tableview.reloadData()
                     }
                         
@@ -106,7 +109,6 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
             }
         }
         
-//        self.filteredStocks = ["stock 1", "stock 2", "stock 3"]
         self.tableview.reloadData()
         
     }
@@ -143,7 +145,7 @@ extension SearchStocksViewController: UITableViewDataSource {
 
 extension SearchStocksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return 44
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

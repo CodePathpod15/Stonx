@@ -8,7 +8,7 @@
 import UIKit
 
 
-// this is the tableview cell that contains no chart
+// this is the tableview cell that contains no chart, primarly used for searchign
 class SearchStockTableviewCell: UITableViewCell {
 
     
@@ -16,20 +16,11 @@ class SearchStockTableviewCell: UITableViewCell {
     
     static let identifier = "SearchStockTableviewCell"
     private let stockLbl = UILabel()
-     
-    private let fullStockName = UILabel()
-     
-    private let stockPrice = UILabel()
-     
-    private let priceChange = UILabel()
-    
-    private let marketLbl: UILabel = UILabel()
-    
-    
+    private let stockFullName = UILabel()
+         
     private let hStackView: UIStackView = {
         let hv = UIStackView(frame: .zero)
         hv.translatesAutoresizingMaskIntoConstraints = false
-//        hv.backgroundColor = .green
         hv.distribution = .fill
         
         hv.axis = .horizontal
@@ -37,7 +28,6 @@ class SearchStockTableviewCell: UITableViewCell {
         return hv
     }()
     
-    private let 
     
     private let vStackview: UIStackView = {
         let sv = UIStackView(frame: .zero)
@@ -54,11 +44,7 @@ class SearchStockTableviewCell: UITableViewCell {
         return sv
     }()
      
-     
-     
- 
-
-     
+    
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: style, reuseIdentifier: reuseIdentifier)
          setUPViews()
@@ -69,8 +55,6 @@ class SearchStockTableviewCell: UITableViewCell {
      private func setUPViews() {
          contentView.addSubview(vStackview)
          
-//         vStackview.backgroundColor = .red
-   
          vStackview.addArrangedSubview(hStackView)
 
          hStackView.addArrangedSubview(stockLbl)
@@ -79,41 +63,15 @@ class SearchStockTableviewCell: UITableViewCell {
          stockLbl.font = FontConstants.boldFont
          stockLbl.translatesAutoresizingMaskIntoConstraints = false
          
-//         // setting up the name of the stock
-         vStackview.addArrangedSubview(fullStockName)
-         fullStockName.text = "Apple Inc"
-         fullStockName.font = FontConstants.cellMediumFont
-         fullStockName.textColor = .systemGray
-         fullStockName.translatesAutoresizingMaskIntoConstraints = false
-
          contentView.addSubview(rightvStackView)
-         
 //
 //         // setting up the stock price
-         rightvStackView.addArrangedSubview(stockPrice)
-         stockPrice.translatesAutoresizingMaskIntoConstraints = false
-         stockPrice.font = FontConstants.boldFont
-         stockPrice.textAlignment = .right
-         stockPrice.text = "155.74"
-//
-//         // setting up the price change
-         rightvStackView.addArrangedSubview(priceChange)
-         priceChange.translatesAutoresizingMaskIntoConstraints = false
-         priceChange.textAlignment = .right
-         priceChange.font = FontConstants.cellMediumFont
-         priceChange.text = "(2.49%)"
-         priceChange.textColor = ColorConstants.green
-//
-         // adding market label
-         hStackView.addArrangedSubview(marketLbl)
-         marketLbl.text = "· NASDAQ"
-         marketLbl.font = FontConstants.cellMediumFont
-         marketLbl.textColor = .systemGray
-         marketLbl.translatesAutoresizingMaskIntoConstraints = false
-         
-         
-         
-         
+         rightvStackView.addArrangedSubview(stockFullName)
+         stockFullName.translatesAutoresizingMaskIntoConstraints = false
+         stockFullName.font = FontConstants.regularFont
+         stockFullName.textAlignment = .center
+         stockFullName.numberOfLines = 2
+         stockFullName.text = "155.74"
          
      }
     
@@ -121,8 +79,9 @@ class SearchStockTableviewCell: UITableViewCell {
     // this is configuirng the sell when we're searching for a stock
      func configure(ticker: String = "Error", fullName: String? = "Error", market: String? = "error") {
         self.stockLbl.text = ticker
-        self.fullStockName.text = fullName
-        self.marketLbl.text = "· \(market!)"
+
+         self.stockFullName.text = fullName
+
     }
      
     /// in charge of constraints
@@ -134,17 +93,18 @@ class SearchStockTableviewCell: UITableViewCell {
          ])
          // setting up the constrains of right stackview
          NSLayoutConstraint.activate([
+            
             rightvStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            rightvStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-
+            rightvStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            rightvStackView.widthAnchor.constraint(equalToConstant: 130)
          ])
-         // setting up constrains of marketLbl
-        
-         
      }
      
+    
+    
      required init?(coder: NSCoder) {
          fatalError("init(coder:) has not been implemented")
      }
+    
 
 }

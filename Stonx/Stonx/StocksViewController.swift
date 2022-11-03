@@ -370,7 +370,16 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         setupConstraints()
         setData()
     }
-
+    
+    
+    // TODO: add intializer
+    //    init(fromSettings: Bool = false) {
+    //        super.init(nibName: nil, bundle: nil)
+    //        self.fromSettings = fromSettings
+    //
+    //    }
+    
+    
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
