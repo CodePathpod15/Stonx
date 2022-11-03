@@ -178,7 +178,8 @@ https://www.alphavantage.co/documentation/
  
  1st Submission Gif:
  
-![video2](https://user-images.githubusercontent.com/29695936/198857086-b4245d68-8468-449d-9d0c-0a8e6e09d639.gif)
+![video2](https://user-images.githubusercontent.com/29695936/199633533-55cd7cdf-e20d-4c80-8389-1913481650e4.gif)
+
 
 
 
