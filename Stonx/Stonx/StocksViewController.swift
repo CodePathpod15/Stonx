@@ -405,7 +405,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let padding: CGFloat = 16
         scrollView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
             
-   
+        //
         NSLayoutConstraint.activate([
             tradeButtonBottom.widthAnchor.constraint(equalToConstant: 150),
             tradeButtonBottom.heightAnchor.constraint(equalToConstant: 50),
