@@ -77,9 +77,12 @@ class UserDashboardViewController: UIViewController {
     
     private lazy var investingLabel: UILabel = {
         let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Investing"
+        textLabel.textAlignment = .left
         textLabel.font = FontConstants.boldLargeFont
         return textLabel
+        
     }()
     
     
@@ -93,20 +96,19 @@ class UserDashboardViewController: UIViewController {
     }()
     
     private lazy var scrollView: UIScrollView = {
-        
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
-        
     }()
+
     
     private lazy var stockPriceHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
         hStackView.distribution = .equalSpacing
         hStackView.axis = .horizontal
-        hStackView.alignment = .leading
+        hStackView.alignment = .center
         hStackView.addArrangedSubview(stockPriceLabel)
         hStackView.addArrangedSubview(stockPriceChangeLabel)
         hStackView.addArrangedSubview(stockPricePercentChangeLabel)
@@ -178,6 +180,8 @@ class UserDashboardViewController: UIViewController {
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "$20.50"
         textLabel.font = FontConstants.boldFont
+        textLabel.backgroundColor = .yellow
+
         textLabel.textColor = ColorConstants.green
         return textLabel
     }()
@@ -185,8 +189,10 @@ class UserDashboardViewController: UIViewController {
     private lazy var stockPricePercentChangeLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = " (2.51%)"
+        textLabel.text = "(2.51%)"
         textLabel.font = FontConstants.boldFont
+        textLabel.backgroundColor = .blue
+
         textLabel.textColor = ColorConstants.green
         return textLabel
     }()
@@ -200,7 +206,6 @@ class UserDashboardViewController: UIViewController {
         return textLabel
     }()
 
-    
     
     
 
@@ -241,11 +246,12 @@ class UserDashboardViewController: UIViewController {
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
+        scrollView.addSubview(stocksTableview)
         stackView.addArrangedSubview(investingLabel)
         stackView.addArrangedSubview(stockPriceHStackView)
         stackView.addArrangedSubview(lineChartView)
         stackView.addArrangedSubview(timeFrameHStackView)
-        stackView.addArrangedSubview(stocksTableview)
+        //stackView.addArrangedSubview(stocksTableview)
     }
     
     private func setUpConstraints(){
@@ -258,22 +264,10 @@ class UserDashboardViewController: UIViewController {
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -100),
             stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
         ])
-        
+                
         NSLayoutConstraint.activate([
             
-            stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
-            
-            stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
-
-            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-        ])
-
-        NSLayoutConstraint.activate([
-            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
-
-        ])
-        
-        NSLayoutConstraint.activate([
+            //investin label
             stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             stackView.arrangedSubviews[0].rightAnchor.constraint(equalTo: view.rightAnchor),
 
@@ -282,19 +276,30 @@ class UserDashboardViewController: UIViewController {
             stackView.arrangedSubviews[2].heightAnchor.constraint(equalToConstant: 200),
             stackView.arrangedSubviews[2].leftAnchor.constraint(equalTo: view.leftAnchor),
             
-            stackView.arrangedSubviews[4].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            stackView.arrangedSubviews[4].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            stackView.arrangedSubviews[4].bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            
+            // Table view layout
+            stocksTableview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            stocksTableview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            stocksTableview.topAnchor.constraint(equalTo: stackView.arrangedSubviews[2].bottomAnchor, constant: -10),
+            stocksTableview.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
 
-            
-            
+
         ])
         
-//        NSLayoutConstraint.activate([
-//            stocksTableview.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-//            stocksTableview.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-//            stocksTableview.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        ])
+        NSLayoutConstraint.activate([
+            stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
+            
+            stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
+
+            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+
+        ])
+
+        
     }
 
 }
