@@ -144,6 +144,8 @@ class StockTableViewCell: UITableViewCell {
             stockLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
         ])
+        stockLbl.setContentHuggingPriority(UILayoutPriority.init(rawValue: 252), for: .horizontal)
+        
             
         NSLayoutConstraint.activate([
             fullStockName.topAnchor.constraint(equalTo: stockLbl.bottomAnchor, constant: 0),

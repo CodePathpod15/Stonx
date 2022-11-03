@@ -142,7 +142,7 @@ struct API {
     
         let queryItems = [
             URLQueryItem(name: "function", value: "SYMBOL_SEARCH"),
-            URLQueryItem(name: "keywords", value: "apple"),
+            URLQueryItem(name: "keywords", value: searchingString),
             URLQueryItem(name: "apikey", value: key),
         ]
         

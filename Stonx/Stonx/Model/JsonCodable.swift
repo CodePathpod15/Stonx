@@ -57,7 +57,7 @@ struct Search: Codable {
 
 // MARK: - BestMatch
 struct BestMatch: Codable {
-    let the1Symbol, the2Name, the3Type, the4Region: String
+    var the1Symbol, the2Name, the3Type, the4Region: String
     let the5MarketOpen, the6MarketClose, the7Timezone, the8Currency: String
     let the9MatchScore: String
 

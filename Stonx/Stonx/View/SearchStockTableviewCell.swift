@@ -29,15 +29,21 @@ class SearchStockTableviewCell: UITableViewCell {
     private let hStackView: UIStackView = {
         let hv = UIStackView(frame: .zero)
         hv.translatesAutoresizingMaskIntoConstraints = false
+//        hv.backgroundColor = .green
+        hv.distribution = .fill
+        
         hv.axis = .horizontal
-        hv.spacing = 3
+        hv.spacing = 0
         return hv
     }()
+    
+    private let 
     
     private let vStackview: UIStackView = {
         let sv = UIStackView(frame: .zero)
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
+        sv.alignment = .leading
         return sv
     }()
     
@@ -66,6 +72,7 @@ class SearchStockTableviewCell: UITableViewCell {
 //         vStackview.backgroundColor = .red
    
          vStackview.addArrangedSubview(hStackView)
+
          hStackView.addArrangedSubview(stockLbl)
          
          stockLbl.text = "APPL"
@@ -109,6 +116,14 @@ class SearchStockTableviewCell: UITableViewCell {
          
          
      }
+    
+    //configuring the cell
+    // this is configuirng the sell when we're searching for a stock
+     func configure(ticker: String = "Error", fullName: String? = "Error", market: String? = "error") {
+        self.stockLbl.text = ticker
+        self.fullStockName.text = fullName
+        self.marketLbl.text = "· \(market!)"
+    }
      
     /// in charge of constraints
      private func setUpConstraints() {
