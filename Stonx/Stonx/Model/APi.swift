@@ -39,7 +39,7 @@ struct API {
         let queryItems = [
             URLQueryItem(name: "function", value: "GLOBAL_QUOTE"),
             URLQueryItem(name: "symbol", value: tickerSymbol),
-            URLQueryItem(name: "apikey", value: key)
+            URLQueryItem(name: "apikey", value: "838A10HD6X0SVMMM")
         ]
         
         url.queryItems = queryItems
@@ -73,7 +73,7 @@ struct API {
         let queryItems = [
             URLQueryItem(name: "function", value: "OVERVIEW"),
             URLQueryItem(name: "symbol", value: tickerSymbol),
-            URLQueryItem(name: "apikey", value: key)
+            URLQueryItem(name: "apikey", value: "838A10HD6X0SVMMM")
         ]
         
         url.queryItems = queryItems

@@ -18,6 +18,8 @@ struct StockAbout: Codable {
     let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String
     let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String
     let trailingPE, forwardPE: String
+    let marketCap: String
+
 
     enum CodingKeys: String, CodingKey {
         case symbol = "Symbol"
@@ -46,6 +48,7 @@ struct StockAbout: Codable {
         case analystTargetPrice = "AnalystTargetPrice"
         case trailingPE = "TrailingPE"
         case forwardPE = "ForwardPE"
+        case marketCap = "MarketCapitalization"
     }
 }
 

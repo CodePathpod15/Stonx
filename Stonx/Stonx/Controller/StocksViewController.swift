@@ -197,7 +197,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     private lazy var stockPriceChangeLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "+2.32"
+//        textLabel.text = "+2.32"
         textLabel.textAlignment = .right
         return textLabel
     }()
@@ -349,6 +349,9 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         ChartDataEntry(x: 39.0, y: 53.0),
         ChartDataEntry(x: 40.9, y: 55.0)
     ]
+    
+    
+    
     var tickerName = ""
     
     
@@ -368,6 +371,57 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         
         tickerSymbol.text = stockInfo.the2Name
         tickerName = stockInfo.the1Symbol
+        
+        API.getStockAboutMe(tickerSymbol: tickerName) { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    //
+                    self.aboutTextLabel.text = items?.stockAboutDescription
+                    self.sectorTextLabel.text = items?.sector
+                    self.stockEPSTextLabel.text =  items?.eps
+                    self.stockPERatioTextLabel.text = items?.peRatio
+                    // market cap
+                    self.marketCapTextLabel.text = items?.marketCap
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+        }
+        
+        // we update the volume,  price and percent change
+        API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+            
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    // update the price and
+                    self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
+                    self.stockPriceLabel.text = items?.globalQuote.the05Price
+                    
+                    
+                    // so here we know we have items
+                    if let items = items {
+                        
+                        if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
+                               self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+                        } else {
+                            self.stockPricePercentChangeLabel.textColor = ColorConstants.green
+                        }
+                        
+                        self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
+                    }
+                }
+                
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+            
+        }
+
+        
   
     }
     
