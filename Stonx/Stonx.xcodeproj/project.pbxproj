@@ -186,6 +186,7 @@
 		1C1A74FE290D0BEC00C3310C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1CE84F382911D9410001F970 /* StocksViewController.swift */,
 				1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */,
 				1CE84F3C29122D210001F970 /* TransactionViewController.swift */,
 				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
@@ -228,7 +229,6 @@
 			children = (
 				1C5F0E432901C5EE00101093 /* AppDelegate.swift */,
 				1C5F0E452901C5EE00101093 /* SceneDelegate.swift */,
-				1CE84F382911D9410001F970 /* StocksViewController.swift */,
 				1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */,
 				1C1A74FC290D0BE200C3310C /* Model */,
 				1C1A74FD290D0BE800C3310C /* View */,

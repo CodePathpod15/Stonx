@@ -2,6 +2,8 @@ import Charts
 import UIKit
 
 class StocksViewController: UIViewController, UINavigationControllerDelegate {
+    
+    /// MARK:  propeties
     private lazy var tickerSymbol: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -195,7 +197,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     private lazy var stockPriceChangeLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "+2.32"
+//        textLabel.text = "+2.32"
         textLabel.textAlignment = .right
         return textLabel
     }()
@@ -256,6 +258,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return textLabel
     }()
     
+  
     private let tradeButtonBottom: UIButton = {
         let floatingButton = UIButton(type: .system)
         floatingButton.setTitle("Trade", for: .normal)
@@ -299,27 +302,13 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return chartView
     }()
     
-    func setData() {
-        let set1 = LineChartDataSet(entries: yvalue)
-        
-        set1.drawCirclesEnabled = false
-        set1.lineWidth = 1
-        set1.setColor(UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1))
-        set1.fillAlpha = 0.2
-        set1.gradientPositions = [0, 0.1, 0.9, 1]
-        set1.isDrawLineWithGradientEnabled = true
-        set1.fillColor = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
-        set1.drawFilledEnabled = true
-        set1.drawHorizontalHighlightIndicatorEnabled = false
-        
-        let data = LineChartData(dataSet: set1)
-        data.setDrawValues(false)
-        lineChartView.data = data
-    }
+    
     
     // fake data
     // sets the data entry for the data
+    // https://dremployee.com/time-to-decimal-calculator.php
     let yvalue: [ChartDataEntry] = [
+//        ChartDataEntry(x: <#T##Double#>, y: <#T##Double#>)
         ChartDataEntry(x: 0.0, y: 10.0),
         ChartDataEntry(x: 1.0, y: 5.0),
         ChartDataEntry(x: 2.0, y: 7.0),
@@ -362,15 +351,97 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         ChartDataEntry(x: 39.0, y: 53.0),
         ChartDataEntry(x: 40.9, y: 55.0)
     ]
-
+    
+    
+    
+    var tickerName = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "AAPL"
+        navigationItem.title = tickerName
         configureSubviews()
         setupConstraints()
         setData()
     }
+    
+    // TODO: intializer
+    
+    // so we pass the bestMatch from the previos vc
+    init(stockInfo: BestMatch) {
+        super.init(nibName: nil, bundle: nil)
+        
+        tickerSymbol.text = stockInfo.the2Name
+        tickerName = stockInfo.the1Symbol
+        
+        API.getStockAboutMe(tickerSymbol: tickerName) { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    //
+                    self.aboutTextLabel.text = items?.stockAboutDescription
+                    self.sectorTextLabel.text = items?.sector
+                    self.stockEPSTextLabel.text =  items?.eps
+                    self.stockPERatioTextLabel.text = items?.peRatio
+                    // market cap
+                    self.marketCapTextLabel.text = items?.marketCap
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+        }
+        
+        // we update the volume,  price and percent change
+        API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+            
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    // update the price and
+                    self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
+                    self.stockPriceLabel.text = items?.globalQuote.the05Price
+                    
+                    
+                    // so here we know we have items
+                    if let items = items {
+                        
+                        if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
+                               self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+                        } else {
+                            self.stockPricePercentChangeLabel.textColor = ColorConstants.green
+                        }
+                        
+                        self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
+                    }
+                }
+                
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+            
+        }
 
+        
+  
+    }
+    
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    // this is actually fake data no needed
+    // ignore
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: view set up
+    
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -390,17 +461,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         stackView.addArrangedSubview(stockEPSHStackView)
     }
     
-     @objc private func tradeButtonWaspressed() {
-         let tradeView = TradeView()
-         tradeView.translatesAutoresizingMaskIntoConstraints = false
-         tradeView.delegate = self
-         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
-         currentWindow?.addSubview(tradeView)
-         
-         
-//         view.addSubview(tradeView)
-         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-    }
 
     private func setupConstraints() {
         let padding: CGFloat = 16
@@ -476,6 +536,47 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
 
         ])
     }
+    
+    // MARK: Action methods
+    
+     @objc private func tradeButtonWaspressed() {
+         let tradeView = TradeView()
+         tradeView.translatesAutoresizingMaskIntoConstraints = false
+         tradeView.delegate = self
+         
+         
+         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+         currentWindow?.addSubview(tradeView)
+         
+         
+//         view.addSubview(tradeView)
+         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+    }
+
+    //MARK: Chart set up
+    
+    func setData() {
+        let set1 = LineChartDataSet(entries: yvalue)
+        
+        set1.drawCirclesEnabled = false
+        set1.lineWidth = 1
+        set1.setColor(UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1))
+        set1.fillAlpha = 0.2
+        set1.gradientPositions = [0, 0.1, 0.9, 1]
+        set1.isDrawLineWithGradientEnabled = true
+        set1.fillColor = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
+        set1.drawFilledEnabled = true
+        set1.drawHorizontalHighlightIndicatorEnabled = false
+        
+        let data = LineChartData(dataSet: set1)
+        data.setDrawValues(false)
+        lineChartView.data = data
+    }
+    
+    
+    
+    
+    
 }
 
 // implementation of delegates
