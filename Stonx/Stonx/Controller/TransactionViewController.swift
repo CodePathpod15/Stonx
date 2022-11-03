@@ -7,16 +7,26 @@
 
 import UIKit
 
+//
+
+enum TransactionType {
+    case buy, sell
+}
+
+protocol TransactionDelegate: AnyObject {
+    func transac(of type: TransactionType) // this is called when we press the button
+}
+
 // we can repurpose this view for both buying and cell
 class TransactionViewController: UIViewController {
     
-    enum TransactionType {
-        case buy, sell
-    }
+    weak var delegate: TransactionDelegate?
 
     let numberOfSharesToPurchase = UILabel()
     
     private let usernameTextfield = TextField()
+    
+    let tType: TransactionType = .buy
     
     func setUpTextfield(textfield: UITextField, defaultText: String) {
         textfield.backgroundColor = ColorConstants.gray
@@ -55,6 +65,7 @@ class TransactionViewController: UIViewController {
         return lbl
     }()
     
+    
     private let transactionButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.green
@@ -62,6 +73,7 @@ class TransactionViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 6
+        button.addTarget(self, action: #selector(transactionButtonWaspressed), for: .touchUpInside)
         return button
     }()
     
@@ -99,6 +111,9 @@ class TransactionViewController: UIViewController {
     }()
     
     
+    // MARK: add custom initializer
+    //
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -109,6 +124,15 @@ class TransactionViewController: UIViewController {
         // Do any additional setup after loading the view.
         viewSetup()
         setupConstraints()
+    }
+    
+    
+    @objc func transactionButtonWaspressed() {
+       
+        self.dismiss(animated: true)
+        self.dismiss(animated: true) { [self] in
+            self.delegate?.transac(of: tType)
+        }
     }
     
     private func viewSetup() {
