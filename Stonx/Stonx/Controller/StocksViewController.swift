@@ -306,7 +306,9 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     // fake data
     // sets the data entry for the data
+    // https://dremployee.com/time-to-decimal-calculator.php
     let yvalue: [ChartDataEntry] = [
+//        ChartDataEntry(x: <#T##Double#>, y: <#T##Double#>)
         ChartDataEntry(x: 0.0, y: 10.0),
         ChartDataEntry(x: 1.0, y: 5.0),
         ChartDataEntry(x: 2.0, y: 7.0),
