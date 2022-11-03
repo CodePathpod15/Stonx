@@ -164,10 +164,6 @@ class TransactionSuccessfulViewController: UIViewController {
         
         
 
-        
-        
-        
-    
         view.addSubview(animationView!)
        
         view.backgroundColor = ColorConstants.green
@@ -180,7 +176,7 @@ class TransactionSuccessfulViewController: UIViewController {
         animationView?.widthAnchor.constraint(equalToConstant: 1000).isActive = true
         animationView?.heightAnchor.constraint(equalToConstant: 1000).isActive = true
         
-        
+
         
        
         animationView?.contentMode = .scaleAspectFit

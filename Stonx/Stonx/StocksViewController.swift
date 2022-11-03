@@ -260,9 +260,10 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let floatingButton = UIButton(type: .system)
         floatingButton.setTitle("Trade", for: .normal)
         floatingButton.translatesAutoresizingMaskIntoConstraints = false
-        floatingButton.backgroundColor = .label
+        floatingButton.backgroundColor = ColorConstants.green
         floatingButton.layer.cornerRadius = 25
-        floatingButton.layer.borderWidth = 1
+        floatingButton.setTitleColor(UIColor.white, for: .normal)
+
         floatingButton.addTarget(self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
         return floatingButton
     }()
