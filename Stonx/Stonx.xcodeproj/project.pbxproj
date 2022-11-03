@@ -36,6 +36,8 @@
 		1CE84F3D29122D210001F970 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3C29122D210001F970 /* TransactionViewController.swift */; };
 		1CE84F3F291239810001F970 /* StockMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3E291239810001F970 /* StockMarket.swift */; };
 		1CE84F41291311BA0001F970 /* TransactionSuccessfulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */; };
+		1CE84F432913480C0001F970 /* 74694-confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE84F422913480C0001F970 /* 74694-confetti.json */; };
+		1CE84F4529134AE10001F970 /* 90469-confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE84F4429134AE10001F970 /* 90469-confetti.json */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
@@ -98,6 +100,8 @@
 		1CE84F3C29122D210001F970 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		1CE84F3E291239810001F970 /* StockMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockMarket.swift; sourceTree = "<group>"; };
 		1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSuccessfulViewController.swift; sourceTree = "<group>"; };
+		1CE84F422913480C0001F970 /* 74694-confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "74694-confetti.json"; sourceTree = "<group>"; };
+		1CE84F4429134AE10001F970 /* 90469-confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "90469-confetti.json"; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 				1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */,
 				1C5F0E4C2901C5EF00101093 /* Assets.xcassets */,
 				1C5F0E4E2901C5EF00101093 /* LaunchScreen.storyboard */,
+				1CE84F4429134AE10001F970 /* 90469-confetti.json */,
+				1CE84F422913480C0001F970 /* 74694-confetti.json */,
 				1C5F0E512901C5EF00101093 /* Info.plist */,
 			);
 			path = Stonx;
@@ -386,6 +392,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CE84F4529134AE10001F970 /* 90469-confetti.json in Resources */,
+				1CE84F432913480C0001F970 /* 74694-confetti.json in Resources */,
 				1C5F0E502901C5EF00101093 /* LaunchScreen.storyboard in Resources */,
 				1C5F0E4D2901C5EF00101093 /* Assets.xcassets in Resources */,
 			);

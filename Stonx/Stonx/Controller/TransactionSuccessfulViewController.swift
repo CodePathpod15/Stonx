@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import Lottie
+
+
 
 class TransactionSuccessfulViewController: UIViewController {
 
     // MARK: properties
+    
+    var animationView: AnimationView?
+
     
    private let whiteVIew = UIView()
     private let label: UILabel = {
@@ -153,9 +159,37 @@ class TransactionSuccessfulViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        animationView = .init(name: "90469-confetti")
+        
+        
+
+        
+        
+        
+    
+        view.addSubview(animationView!)
+       
         view.backgroundColor = ColorConstants.green
         viewSetUp()
         setUpContraints()
+        
+        animationView?.translatesAutoresizingMaskIntoConstraints = false
+        animationView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animationView?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animationView?.widthAnchor.constraint(equalToConstant: 1000).isActive = true
+        animationView?.heightAnchor.constraint(equalToConstant: 1000).isActive = true
+        
+        
+        
+       
+        animationView?.contentMode = .scaleAspectFit
+        animationView?.animationSpeed = 1.5
+        
+        animationView?.play()
+        
+       
+        
 
     }
     
