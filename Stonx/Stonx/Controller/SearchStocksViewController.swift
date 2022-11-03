@@ -22,7 +22,6 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     
    // MARK: This is how you do an initializer
 
-    
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
        
         if let textfield = textField.text {
@@ -30,7 +29,6 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
             fetchStocks(query: textfield)
             
         }
-        
     }
     
     override func viewDidLoad() {
@@ -110,19 +108,14 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         }
         
         self.tableview.reloadData()
-        
     }
     
 
-    
-    
-    
+
 
     private func setUpConstrainrs() {
         tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
-    
-
 }
 
 //
@@ -149,7 +142,8 @@ extension SearchStocksViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = StocksViewController()
+        let bestMatch = filteredStocks[indexPath.row]
+        let vc = StocksViewController(stockInfo: bestMatch)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
