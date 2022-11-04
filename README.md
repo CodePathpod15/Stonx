@@ -32,11 +32,11 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [x] user can create an account 
 - [x] Reset password
 - [x] User can search for stock 
-- [ ] user can see the information of a stock 
+- [x] user can see the information of a stock 
 - [ ] User can buy a stock
 - [ ] User Can sell a stock
 - [ ] User can see their portfolio
-- [ ] User can set their favorite stocks 
+- [x] User can set their favorite stocks 
 - [ ] User can see their profit from the stock 
 - [ ] User can see their history of trades 
 - [ ] User can change their profile information
