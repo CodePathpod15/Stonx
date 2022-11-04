@@ -31,7 +31,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [x] User can log in 
 - [x] user can create an account 
 - [x] Reset password
-- [ ] User can search for stock 
+- [x] User can search for stock 
 - [ ] user can see the information of a stock 
 - [ ] User can buy a stock
 - [ ] User Can sell a stock
