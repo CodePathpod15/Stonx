@@ -68,8 +68,6 @@ class TransactionSuccessfulViewController: UIViewController {
         return sv
     }()
     
-    
-    
     let vsharesStackview: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
@@ -183,9 +181,6 @@ class TransactionSuccessfulViewController: UIViewController {
         animationView?.animationSpeed = 1.5
         
         animationView?.play()
-        
-       
-        
 
     }
     

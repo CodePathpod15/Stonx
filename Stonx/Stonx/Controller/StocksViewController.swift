@@ -1,5 +1,7 @@
 import Charts
 import UIKit
+import Parse
+
 
 class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
@@ -8,6 +10,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Apple"
+        textLabel.numberOfLines = 0
         textLabel.textAlignment = .left
         textLabel.font = FontConstants.boldLargeFont
         return textLabel
@@ -367,6 +370,9 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     // TODO: intializer
     
+    var sect: String? = nil
+    var stockObject: PFObject? = nil
+    
     // so we pass the bestMatch from the previos vc
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)
@@ -381,6 +387,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                     //
                     self.aboutTextLabel.text = items?.stockAboutDescription
                     self.sectorTextLabel.text = items?.sector
+                    self.sect = items?.sector
                     self.stockEPSTextLabel.text =  items?.eps
                     self.stockPERatioTextLabel.text = items?.peRatio
                     // market cap
@@ -422,9 +429,109 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             }
             
         }
+        
+        //TODO: check if the user has the stock saved in their watch list and if they do then we add the unsave button
+        
+        // query to check if this stock exists in the database
+        let query = PFQuery(className:"stocks_booked")
+        query.whereKey("ticker_symbol", equalTo:tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
 
         
-  
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                // The request failed
+                print(error.localizedDescription)
+            } else {
+                // if the object exists in the user's database
+                if let objects = objects {
+                    // if it doesnt exist in the database
+                    // Can probably clean this up as well
+                    if objects.isEmpty {
+                        let rbutton = UIBarButtonItem(title: "favorite", style: .plain, target: self, action: #selector(self.addToWatchList))
+                        let rightButton: UIBarButtonItem = rbutton
+                        self.navigationItem.rightBarButtonItem = rightButton
+                        
+                    } else {
+                        let rbutton = UIBarButtonItem(title: "remove", style: .plain, target: self, action: #selector(self.addToWatchList))
+                        let rightButton: UIBarButtonItem = rbutton
+                        self.navigationItem.rightBarButtonItem = rightButton
+                        self.stockObject = objects[0]
+                        
+                    }
+                }
+                
+                
+                
+                
+            }
+        }
+        
+        
+        
+//        // add right navigation button
+   
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    @objc func addToWatchList() {
+        // create parse object
+        
+        if  self.navigationItem.rightBarButtonItem?.title == "favorite" {
+            let watchlist = PFObject(className: "stocks_booked")
+            // saves the ticker name
+            watchlist["ticker_symbol"] = tickerName
+            // saves it to the current user
+            watchlist["user"] = PFUser.current()!
+            
+            // adding the sector
+            if let sect = sect {
+                watchlist["sector"] = sect
+            }
+            
+            
+            // saves the sector
+            watchlist.saveInBackground { success, error in
+                if success {
+                    self.stockObject = watchlist
+                    self.navigationItem.rightBarButtonItem?.title = "remove"
+                } else {
+                    self.showAlert(with: error?.localizedDescription ?? "Errror")
+                    
+                    
+                }
+            }
+            
+        } else { // delete object from
+            if let stockObject = stockObject {
+                let array = [stockObject]
+              
+                PFObject.deleteAll(inBackground: array) { (succeeded, error) in
+                    if (succeeded) {
+                        // The array of objects was successfully deleted.
+                        self.navigationItem.rightBarButtonItem?.title = "favorite"
+                    } else {
+                        // There was an error. Check the errors localizedDescription.
+                        self.showAlert(with: error?.localizedDescription ?? "Errror")
+                    }
+                }
+            }
+
+        }
+        
+      
+        
+        
+    }
+    
+    @objc func unaddFromWatchList() {
+        // deletes parse objects from database
+        
     }
     
     
