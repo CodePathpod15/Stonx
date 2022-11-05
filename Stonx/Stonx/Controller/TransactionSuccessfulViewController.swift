@@ -183,12 +183,28 @@ class TransactionSuccessfulViewController: UIViewController {
         animationView?.play()
         
         
-        // TODO: 
+        // TODO:
         // check the transaction type
         let query = PFQuery(className: "user_transaction")
-        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byAscending: "createdAt")
+        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
         query.limit = 1
         
+        // get the balance of the use r
+        // we need to get the most recent balance from the user
+        let user  = PFUser.current()!
+        user.fetchInBackground() {obj,err in
+            if let obj = obj {
+                let balance = obj.value(forKey: "Balance") as? Double
+                self.creditLeftTitle.text = "$\(balance!)"
+                
+            } else {
+                self.showAlert(with: "There was an error with your balance")
+
+            }
+        }
+        
+    
+        // this finds the latest transaction
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
                 // The request failed
@@ -198,21 +214,66 @@ class TransactionSuccessfulViewController: UIViewController {
                 // if the object exists in the user's database
                 if let objects = objects {
                     let obj = objects[0]
-                    let tt = obj["ticker_symbol"]
-                    let amount  = obj["Quantity"]
+                    let tt = obj["ticker_symbol"] as? String
+                    let amount  = obj["Quantity"] as? Int
+                    let price = obj["price"] as? Double
+                    let transaction = obj["purchase"] as? Bool
                     
-//                    self.numberOfSharesBoughtLbl.text =  obj["ticker_symbol"]
-//                    self.label.text = "\()"
+                    var type: String = transaction! ? "Purchased" : "Sold"
+                    
+                    self.label.text = "\(tt!) \(type)"
+                    self.numberOfSharesBoughtLbl.text = "\(String(amount!))"
+                    self.priceperShare.text = "\(String(price!))"
+                    
+                    // display the current credit of user
+                    // finds it synchronously as
+                    let secondQuery = PFQuery(className: "user_transaction")
+                    secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt)
+                    
+
+                    do {
+                        var totalBought = 0
+                        var sold = 0
+                        let objects = try secondQuery.findObjects()
+                        for obj in objects {
+                            let pur = obj["purchase"] as? Bool
+                            let quantity = obj["Quantity"] as? Int
+                            if pur == true {
+                                totalBought += quantity!
+                            } else {
+                                sold += quantity!
+                            }
+                            
+                            
+                            
+                            let total = totalBought - sold
+                            self.numberOfSharesBoughtLbl.text = "\(total)"
+                            
+                        }
+                                
+                        
+                        
+                        
+                    } catch {
+                        self.showAlert(with: error.localizedDescription)
+                    }
+                    
+                    
                     
                     
                     
                 }
-                
-                
-                
-                
             }
         }
+        
+        
+        // display the total number of stock that were purchased owned by the user
+        // check the transaction type
+     
+
+        
+        
+        
         
         
         
@@ -295,4 +356,29 @@ class TransactionSuccessfulViewController: UIViewController {
     }
 
 
+}
+
+
+
+class Stock: Comparable {
+    static func < (lhs: Stock, rhs: Stock) -> Bool {
+        return false
+    }
+    
+    static func == (lhs: Stock, rhs: Stock) -> Bool {
+        return lhs.typeOfTransactaction == rhs.typeOfTransactaction
+    }
+    
+    var ticker_symbol: String
+    var price: Double
+    var quantity: Int
+    var typeOfTransactaction: TransactionType
+    
+    init(ticker: String, price: Double, quantity: Int, typeOfTransaction: TransactionType) {
+        self.ticker_symbol = ticker
+        self.price = price
+        self.quantity = quantity
+        self.typeOfTransactaction = typeOfTransaction
+    }
+    
 }

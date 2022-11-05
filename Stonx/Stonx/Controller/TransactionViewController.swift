@@ -192,11 +192,13 @@ class TransactionViewController: UIViewController {
             if !numberStr.isInt {
                 
                 showAlert(with: "Please enter a valid number")
+                return
     } else {
                 
                 // check if the user has enough purchasing power
                 if usrBalance < (latestPrice * Double(numberStr)!) {
                     showAlert(with: "No enough purchasing power")
+                    return
                 }
                 // we perform the transaction
                 let obj = PFObject(className: "user_transaction")
@@ -313,7 +315,7 @@ class TransactionViewController: UIViewController {
                 self.purchasingPower.text = "$\(self.usrBalance)"
             } else {
                 self.showAlert(with: "There was an error with your balance")
-
+                
             }
         }
         self.marketPriceLbl.text = ("$\(latestPrice)")
