@@ -359,7 +359,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     var tickerName = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        navigationItem.title = tickerName

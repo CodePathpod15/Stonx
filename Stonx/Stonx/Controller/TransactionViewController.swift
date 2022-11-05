@@ -316,13 +316,8 @@ class TransactionViewController: UIViewController {
 
             }
         }
-        
-    
-        // setting the properties
         self.marketPriceLbl.text = ("$\(latestPrice)")
-//
-        
-        
+    
     }
     
     private func setupConstraints() {

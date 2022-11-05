@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+import Parse
 
 
 
@@ -163,8 +164,6 @@ class TransactionSuccessfulViewController: UIViewController {
        
         animationView = .init(name: "90469-confetti")
         
-        
-
         view.addSubview(animationView!)
        
         view.backgroundColor = ColorConstants.green
@@ -178,12 +177,47 @@ class TransactionSuccessfulViewController: UIViewController {
         animationView?.heightAnchor.constraint(equalToConstant: 1000).isActive = true
         
 
-        
-       
         animationView?.contentMode = .scaleAspectFit
         animationView?.animationSpeed = 1.5
         
         animationView?.play()
+        
+        
+        // TODO: 
+        // check the transaction type
+        let query = PFQuery(className: "user_transaction")
+        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byAscending: "createdAt")
+        query.limit = 1
+        
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                // The request failed
+                print(error.localizedDescription)
+            } else {
+                print("printiung")
+                // if the object exists in the user's database
+                if let objects = objects {
+                    let obj = objects[0]
+                    let tt = obj["ticker_symbol"]
+                    let amount  = obj["Quantity"]
+                    
+//                    self.numberOfSharesBoughtLbl.text =  obj["ticker_symbol"]
+//                    self.label.text = "\()"
+                    
+                    
+                    
+                }
+                
+                
+                
+                
+            }
+        }
+        
+        
+        
+        
+        
 
     }
     
@@ -254,13 +288,8 @@ class TransactionSuccessfulViewController: UIViewController {
             
         ])
     
-       
-
-        
         button.anchor(top:verticalSVForPricePerShareAndPosition.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 35, left: 0, bottom: 44, right: 0), size: .init(width: 150, height: 30))
-        
-        
-        
+
         button.centerXAnchor.constraint(equalTo: whiteVIew.centerXAnchor).isActive = true
 
     }
