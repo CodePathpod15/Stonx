@@ -33,7 +33,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [x] Reset password
 - [x] User can search for stock 
 - [x] user can see the information of a stock 
-- [ ] User can buy a stock
+- [x] User can buy a stock
 - [ ] User Can sell a stock
 - [ ] User can see their portfolio
 - [x] User can set their favorite stocks 
@@ -47,11 +47,14 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 - [ ] User can change their profile (e.g. dark mode, ligth mode)
 - [ ] User can bookmark a stock so that it appears in the homepage  
-- [ ]User can search for crypto 
-- [ ]User can Buy crypto
-- [ ]user can sell crypto
-- [ ]User can comment on a specific stock (discussion)
-- [ ]News headline 
+- [ ] User can search for crypto 
+- [ ] User can Buy crypto
+- [ ] user can sell crypto
+- [ ] User can comment on a specific stock (discussion)
+- [ ] News headline 
+- [ ] ask the user for the number of experiences (1 to 2 years)
+- [ ] Comparing two different stocks
+- [ ] add scaling to stocks for recommendations 
 
 ### 2. Screen Archetypes
 
