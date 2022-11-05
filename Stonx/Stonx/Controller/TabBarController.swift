@@ -38,10 +38,11 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         // TODO: add your viewcontroller here 
-        let home = UINavigationController(rootViewController: UserDashboardViewController())
+        let home = UINavigationController(rootViewController: DashboardVCViewController())
         let favorites = UINavigationController(rootViewController: WatchListViewController())
         let search = UINavigationController(rootViewController: SearchStocksViewController())
         let profile = UINavigationController(rootViewController: SettingsViewcontrollerViewController())
+        
         
         home.title = "Home"
         favorites.title = "Favorites"
