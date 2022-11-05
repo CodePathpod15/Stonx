@@ -246,21 +246,17 @@ class TransactionSuccessfulViewController: UIViewController {
                             
                             
                             
-                            let total = totalBought - sold
-                            self.numberOfSharesBoughtLbl.text = "\(total)"
+                           
+                            
                             
                         }
-                                
-                        
-                        
+                        // this gets the shares the user current owns of the specific stock
+                        let total = totalBought - sold
+                        self.newPositionNumber.text = "\(total)"
                         
                     } catch {
                         self.showAlert(with: error.localizedDescription)
                     }
-                    
-                    
-                    
-                    
                     
                 }
             }
