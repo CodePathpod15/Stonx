@@ -57,7 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let loggedIn = true
 
             if loggedIn {
-                let vc =  UINavigationController(rootViewController: DashboardVCViewController())
+                let vc = TabBarController()
                 let root = vc
 
                 window.rootViewController = root
