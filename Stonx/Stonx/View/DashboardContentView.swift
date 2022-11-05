@@ -100,6 +100,8 @@ class DashboardContentView: UIView {
         let sp = UILabel()
         sp.text = "apple inc"
         sp.font = FontConstants.boldLargeFont
+        sp.textColor = .black
+
         return sp
     }()
     

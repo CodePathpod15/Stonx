@@ -375,11 +375,7 @@ class TransactionViewController: UIViewController {
             
         }
     }
-    
-
-   
-    
-    
+       
 
 }
 

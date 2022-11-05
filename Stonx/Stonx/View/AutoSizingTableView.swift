@@ -27,8 +27,6 @@ final class AutoSizingTableView: UITableView {
         }
     }
     
-   
-
     override func reloadData() {
         super.reloadData()
         invalidateIntrinsicContentSize()
