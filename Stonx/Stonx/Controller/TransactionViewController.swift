@@ -192,7 +192,7 @@ class TransactionViewController: UIViewController {
             if !numberStr.isInt {
                 
                 showAlert(with: "Please enter a valid number")
-            } else {
+    } else {
                 
                 // check if the user has enough purchasing power
                 if usrBalance < (latestPrice * Double(numberStr)!) {
@@ -216,28 +216,33 @@ class TransactionViewController: UIViewController {
                 
                 obj.saveInBackground { success, error in
                     if success {
-
+                        let newBalance = self.usrBalance - (self.latestPrice * Double(numberStr)!)
                         
-                        self.navigationItem.rightBarButtonItem?.title = "remove"
+                        let usr = PFUser.current()!
+                        usr["Balance"] = newBalance
+                        
+                        do {
+                            try usr.save()
+                            
+                        } catch {
+                            self.showAlert(with: error.localizedDescription)
+                        }
+                        
+//                        self.navigationItem.rightBarButtonItem?.title = "remove"
                     } else {
                         self.showAlert(with: error?.localizedDescription ?? "Errror")
                     }
                 }
-                let newBalance = usrBalance - latestPrice * Double(numberStr)!
                 
-                let usr = PFUser.current()!
-                usr["Balance"] = newBalance
-                
-                do {
-                    try usr.save()
-                    self.dismiss(animated: true) { [self] in
-                        self.delegate?.transac(of: tType)
-                    }
-                    
-                } catch {
-                    showAlert(with: error.localizedDescription)
+        
+                self.dismiss(animated: true) { [self] in
+                    self.delegate?.transac(of: tType)
                 }
+        
+        
             }
+            
+           
             
         }
         
@@ -301,21 +306,21 @@ class TransactionViewController: UIViewController {
         
         
         let user  = PFUser.current()!
-        let balance = user.value(forKey: "Balance") as? Double
+        user.fetchInBackground() {obj,err in
+            if let obj = obj {
+                let balance = obj.value(forKey: "Balance") as? Double
+                self.usrBalance = balance!
+                self.purchasingPower.text = "$\(self.usrBalance)"
+            } else {
+                self.showAlert(with: "There was an error with your balance")
 
-        if balance == nil {
-            showAlert(with: "There was an error with your balance")
-            self.dismiss(animated: true)
+            }
         }
         
-        usrBalance = balance!
-        
-        
-        
-        
+    
         // setting the properties
         self.marketPriceLbl.text = ("$\(latestPrice)")
-        self.purchasingPower.text = "$\(usrBalance)"
+//
         
         
     }
