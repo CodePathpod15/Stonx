@@ -114,12 +114,16 @@ class DashboardContentView: UIView {
     lazy var stockPrice: UILabel = {
         let sp = UILabel()
         sp.text = "1470.00"
+        sp.font = FontConstants.boldLargeFont
+        sp.textColor = ColorConstants.green
         return sp
     }()
     
     lazy var priceChange: UILabel = {
         let sp = UILabel()
         sp.text = "2.49%"
+        sp.font = FontConstants.boldLargeFont
+        sp.textColor = ColorConstants.green
         sp.translatesAutoresizingMaskIntoConstraints = false
         return sp
     }()
@@ -161,7 +165,6 @@ class DashboardContentView: UIView {
         ChartView.backgroundColor = UIColor.purple
         
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
-        lineChartView.widthAnchor.constraint(equalToConstant: 366).isActive = true
         lineChartView.heightAnchor.constraint(equalToConstant: 212.35).isActive = true
         setData()
     
@@ -171,7 +174,7 @@ class DashboardContentView: UIView {
         
         verticalSV.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
-        
+        tableView.delegate = self
         
         self.addSubview(verticalSV)
 
@@ -216,8 +219,7 @@ extension DashboardContentView: UITableViewDataSource {
 
 
 extension DashboardContentView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 30
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        44
     }
 }
