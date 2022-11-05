@@ -10,13 +10,13 @@ import Lottie
 
 
 
+
 class TransactionSuccessfulViewController: UIViewController {
 
     // MARK: properties
     
     var animationView: AnimationView?
 
-    
    private let whiteVIew = UIView()
     private let label: UILabel = {
        let titleLbl = UILabel()
@@ -151,6 +151,9 @@ class TransactionSuccessfulViewController: UIViewController {
     }()
   
     
+  
+    
+    
     @objc func buttonWasPressed() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -190,8 +193,7 @@ class TransactionSuccessfulViewController: UIViewController {
     private func viewSetUp() {
         view.addSubview(label)
         
-        
-        
+    
         whiteVIew.backgroundColor = .white
         whiteVIew.layer.cornerRadius = 8
         view.addSubview(whiteVIew)

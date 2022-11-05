@@ -7,6 +7,7 @@
 
 import UIKit
 import Charts
+import Parse
 
 // TODO: write viewcontroller implementation stuff here
 
@@ -292,6 +293,8 @@ class UserDashboardViewController: UIViewController {
             
             
         ])
+        
+        
         
 //        NSLayoutConstraint.activate([
 //            stocksTableview.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),

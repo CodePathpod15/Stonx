@@ -3,6 +3,7 @@ import UIKit
 import Parse
 
 
+// TODO: clean up
 class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     /// MARK:  propeties
@@ -269,7 +270,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         floatingButton.backgroundColor = ColorConstants.green
         floatingButton.layer.cornerRadius = 25
         floatingButton.setTitleColor(UIColor.white, for: .normal)
-
         floatingButton.addTarget(self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
         return floatingButton
     }()
@@ -362,7 +362,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = tickerName
+//        navigationItem.title = tickerName
         configureSubviews()
         setupConstraints()
         setData()
@@ -373,12 +373,17 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     var sect: String? = nil
     var stockObject: PFObject? = nil
     
+    
+    
     // so we pass the bestMatch from the previos vc
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)
+        self.title = stockInfo.the1Symbol
         
         tickerSymbol.text = stockInfo.the2Name
+        
         tickerName = stockInfo.the1Symbol
+//        navigationItem.title  = tickerName
         
         API.getStockAboutMe(tickerSymbol: tickerName) { result in
             switch result {
@@ -502,8 +507,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                     self.navigationItem.rightBarButtonItem?.title = "remove"
                 } else {
                     self.showAlert(with: error?.localizedDescription ?? "Errror")
-                    
-                    
                 }
             }
             
@@ -696,8 +699,15 @@ extension StocksViewController: TradingDelegate {
         self.present(view, animated: true)
     }
     
+    
+    // enabling the buying of a stock
     func buy() {
-        print("buy")
+        print("going into buy: ", self.tickerName)
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
+        vc.delegate = self
+        let view = UINavigationController(rootViewController: vc)
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true)
     }
     
     

@@ -187,8 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				1CE84F382911D9410001F970 /* StocksViewController.swift */,
-				1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */,
 				1CE84F3C29122D210001F970 /* TransactionViewController.swift */,
+				1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */,
 				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
 				1CC306B32908DCC600CA2125 /* TabBarController.swift */,
 				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,
