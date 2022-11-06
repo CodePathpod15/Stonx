@@ -39,6 +39,7 @@ class BalanceTableViewCell: UITableViewCell {
     }
     
     
+    
     func configure(name: String) {
         self.amountLbl.text = name
     }
