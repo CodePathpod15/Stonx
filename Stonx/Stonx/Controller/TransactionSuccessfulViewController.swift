@@ -213,17 +213,18 @@ class TransactionSuccessfulViewController: UIViewController {
                     let transaction = obj["purchase"] as? Bool
                     
                     var type: String = transaction! ? "Purchased" : "Sold"
+                    var type2: String = transaction! ? "bought" : "Sold"
                     
                     self.label.text = "\(tt!) \(type)"
                     self.numberOfSharesBoughtLbl.text = "\(String(amount!))"
                     self.priceperShare.text = "\(String(price!))"
-                    
+                    self.numberOfSharesBoughtTitle.text = "Shares \(type2)"
+                           
                     // display the current credit of user
                     // finds it synchronously as
                     let secondQuery = PFQuery(className: "user_transaction")
                     secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt)
                     
-
                     do {
                         var totalBought = 0
                         var sold = 0
@@ -236,7 +237,6 @@ class TransactionSuccessfulViewController: UIViewController {
                             } else {
                                 sold += quantity!
                             }
-              
                             
                         }
                         // this gets the shares the user current owns of the specific stock
