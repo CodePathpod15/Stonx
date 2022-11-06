@@ -5,14 +5,13 @@
 //  Created by Angel Zambrano on 10/31/22.
 //
 
-import UIKit
 import Parse
-// TODO: present errors. For example when information is incorrect.
+import UIKit
+
 class PersonalnfoViewController: UIViewController {
     let tableview = UITableView(frame: .zero, style: .grouped)
     let settings = ["username", "full name"]
     let currentUser = PFUser.current()!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,22 +20,7 @@ class PersonalnfoViewController: UIViewController {
         viewSetups()
         addconstraints()
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        let query = PFQuery(className: "User")
-//        query.includeKeys(["Username","Email"])
-//        query.limit = 20
-//
-//        query.findObjectsInBackground { posts, _ in
-//            if posts != nil {
-//                self.posts = posts!
-//                self.tableView.reloadData()
-//            }
-//        }
-//
-//    }
-    
+        
     private func viewSetups() {
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
@@ -55,19 +39,19 @@ extension PersonalnfoViewController: UITableViewDataSource {
         return 2
     }
     
-    
     // Username and email
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
-            if indexPath.row == 0 {
+        if indexPath.row == 0 {
             cell.accessoryType = .disclosureIndicator
-            cell.configure(with: "username")
+            cell.configure(with: "Username")
             cell.configure(name: currentUser.username!)
             return cell
         } else {
             cell.accessoryType = .disclosureIndicator
             cell.configure(with: "Email")
             cell.configure(name: currentUser.email!)
+            cell.isUserInteractionEnabled = false
         }
         
         return cell
@@ -77,34 +61,32 @@ extension PersonalnfoViewController: UITableViewDataSource {
 extension PersonalnfoViewController: UITableViewDelegate {
     // you might want to get the name of the user from parse and show it in the textfield
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let setting = settings[indexPath.row]
-        
-        let alertController = UIAlertController(title: "Editing \(setting)", message: "", preferredStyle: .alert)
+        if indexPath.row == 0 {
+            let setting = "Username"
+            
+            let alertController = UIAlertController(title: "Editing \(setting)", message: "", preferredStyle: .alert)
 
-        // cancel button
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            // cancel code
-        }
-        alertController.addAction(cancelAction)
+            // cancel button
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                // cancel code
+            }
+            alertController.addAction(cancelAction)
 
-        // Create an optional action
-        let nextAction = UIAlertAction(title: "Ok", style: .default) { _ in
-            let text = (alertController.textFields?.first as! UITextField).text
-            if indexPath.row == 1{
+            // Save the new username
+            let nextAction = UIAlertAction(title: "Ok", style: .default) { _ in
+                let text = (alertController.textFields?.first as! UITextField).text
                 
-                self.currentUser["Email"] = text
+                self.currentUser["Username"] = text
                 self.currentUser.saveInBackground()
             }
             
+            alertController.addAction(nextAction)
             
+            alertController.addTextField { textField in
+                textField.placeholder = "Enter \(setting)"
+            }
+            
+            present(alertController, animated: true)
         }
-        
-        alertController.addAction(nextAction)
-        
-        alertController.addTextField { textField in
-            textField.placeholder = "Enter \(setting)"
-        }
-        
-        present(alertController, animated: true)
     }
 }
