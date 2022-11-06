@@ -94,3 +94,13 @@ extension UIView {
     }
 
 }
+
+
+// this checks if a string is an integer
+// Source: https://stackoverflow.com/questions/38159397/how-to-check-if-a-string-is-an-int-in-swift
+extension String {
+    var isInt: Bool {
+        return Int(self) != nil
+    }
+}
+

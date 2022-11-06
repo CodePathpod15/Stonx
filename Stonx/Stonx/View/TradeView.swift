@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Parse
 
 
 protocol TradingDelegate: AnyObject {
@@ -37,7 +38,7 @@ class TradeView: UIView {
     weak var delegate: TradingDelegate?
     
     
-    private let sellButton: UIButton = {
+    let sellButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = ColorConstants.red
@@ -50,6 +51,7 @@ class TradeView: UIView {
     }()
     
     private let orLbl = UILabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

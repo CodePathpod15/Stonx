@@ -13,9 +13,7 @@ class DashboardVCViewController: UIViewController {
     let contentView = DashboardContentView(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        overrideUserInterfaceStyle = .dark
-//        navigationController?.overrideUserInterfaceStyle =  .dark
+
         view.backgroundColor = .white
         view.addSubview(scrollView)
         title = "Dashboard"
