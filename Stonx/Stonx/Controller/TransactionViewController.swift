@@ -226,41 +226,92 @@ class TransactionViewController: UIViewController {
     
     
     
+    func isValidInteger(str: String) -> Bool {
+       
+        if !str.isInt {
+            return false
+        }
+        
+        let amount = Int(str)!
+
+        if amount == 0 || amount < 0 {
+            return false
+        }
+        
+        return true
+    }
+    
     @objc func sellingButtonWasPressed() {
     
-        if let number = numberOfSharesTextfield.text {
-            if !number.isInt {
-                showAlert(with: "Enter a valid integer")
-                return
-            }
-            
-          
-            // we know it is a number
-            let amount = Int(number)!
-
-            if amount == 0 || amount < 0 {
-                showAlert(with: "enter a positive integer")
-            }
-            
-            
-            if amount > sharesOwned {
-                showAlert(with: "You do not owened that many stocks")
-            }
-            
-            //
-            showAlert(with: "peforming transaction!!!!!!!!!!")
-        
-        } else {
-            // showing an error
-            showAlert(with: "Enter a valid integer")
+        if numberOfSharesTextfield.text == nil {
+            showAlert(with: "enter a valid integer")
             return
         }
         
+        if !isValidInteger(str: numberOfSharesTextfield.text!) {
+            showAlert(with: "enter a valid integer")
+            return
+        }
+            
         
+        let number = Int(numberOfSharesTextfield.text!)!
+        
+        if number > sharesOwned {
+            showAlert(with: "You do not owened that many stocks")
+        }
+        
+        // we perform the transaction
+        let obj = PFObject(className: "user_transaction")
+        obj["user"] = PFUser.current()!
+        obj["price"] = latestPrice
+        obj["ticker_symbol"] = tickerSym!
+        obj["Quantity"] = number
+        
+        if transacType == .buy {
+            obj["purchase"] = true
+        } else if transacType == .sell {
+            obj["purchase"] = false
+        } else {
+            showAlert(with: "there is an error!!!")
+            return
+        }
+    
+        // TODO: fix the
+        obj.saveInBackground { success, error in
+            if success {
+//                do {
+//                    try usr.save()
+//
+//                } catch {
+//                    self.showAlert(with: error.localizedDescription)
+//                }
 
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                return
+            }
+        }
         
         
+        let newBalance = self.usrBalance + (self.latestPrice * Double(number))
+        let usr = PFUser.current()!
+        usr["Balance"] = newBalance
         
+        usr.saveInBackground() { success, error in
+            if success {
+                // do nothing
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "an error")
+            }
+        }
+        
+    
+        self.dismiss(animated: true) { [self] in
+            self.delegate?.transac(of: tType)
+        }
+        
+        
+    
     }
     
     
@@ -358,8 +409,6 @@ class TransactionViewController: UIViewController {
         if let numberStr = numberOfSharesTextfield.text {
             if numberStr.isInt {
                 totalLbl.text = "$\(latestPrice * Double(numberStr)!)"
-                
-//                showAlert(with: "Please enter a whole number")
             }  else {
                 totalLbl.text = ""
             }
@@ -417,7 +466,7 @@ class TransactionViewController: UIViewController {
                     showAlert(with: "there is an error!!!")
                     return
                 }
-                
+        
                 obj.saveInBackground { success, error in
                     if success {
                         let newBalance = self.usrBalance - (self.latestPrice * Double(numberStr)!)
@@ -436,6 +485,9 @@ class TransactionViewController: UIViewController {
                         self.showAlert(with: error?.localizedDescription ?? "Errror")
                     }
                 }
+        
+        
+        
                 self.dismiss(animated: true) { [self] in
                     self.delegate?.transac(of: tType)
                 }
