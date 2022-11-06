@@ -7,59 +7,25 @@
 
 import UIKit
 import Charts
+import Parse
 
 // TODO: write viewcontroller implementation stuff here
 
 class UserDashboardViewController: UIViewController {
-    let yvalue: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 10.0),
-        ChartDataEntry(x: 1.0, y: 5.0),
-        ChartDataEntry(x: 2.0, y: 7.0),
-        ChartDataEntry(x: 3.0, y: 5.0),
-        ChartDataEntry(x: 4.0, y: 10.0),
-        ChartDataEntry(x: 5.0, y: 6.0),
-        ChartDataEntry(x: 6.0, y: 5.0),
-        ChartDataEntry(x: 7.0, y: 7.0),
-        ChartDataEntry(x: 8.0, y: 8.0),
-        ChartDataEntry(x: 9.0, y: 12.0),
-        ChartDataEntry(x: 10.0, y: 13.0),
-        ChartDataEntry(x: 11.0, y: 5.0),
-        ChartDataEntry(x: 12.0, y: 7.0),
-        ChartDataEntry(x: 13.0, y: 3.0),
-        ChartDataEntry(x: 14.0, y: 15.0),
-        ChartDataEntry(x: 15.0, y: 6.0),
-        ChartDataEntry(x: 16.0, y: 6.0),
-        ChartDataEntry(x: 17.0, y: 7.0),
-        ChartDataEntry(x: 18.0, y: 3.0),
-        ChartDataEntry(x: 19.0, y: 10.0),
-        ChartDataEntry(x: 20.0, y: 12.0),
-        ChartDataEntry(x: 21.0, y: 15.0),
-        ChartDataEntry(x: 22.0, y: 17.0),
-        ChartDataEntry(x: 23.0, y: 15.0),
-        ChartDataEntry(x: 24.0, y: 10.0),
-        ChartDataEntry(x: 25.0, y: 10.0),
-        ChartDataEntry(x: 26.0, y: 10.0),
-        ChartDataEntry(x: 27.0, y: 17.0),
-        ChartDataEntry(x: 28.0, y: 13.0),
-        ChartDataEntry(x: 29.0, y: 20.0),
-        ChartDataEntry(x: 30.0, y: 24.0),
-        ChartDataEntry(x: 31.0, y: 25.0),
-        ChartDataEntry(x: 32.0, y: 27.0),
-        ChartDataEntry(x: 33.0, y: 25.0),
-        ChartDataEntry(x: 34.0, y: 30.0),
-        ChartDataEntry(x: 35.0, y: 55.0),
-        ChartDataEntry(x: 36.0, y: 58.0),
-        ChartDataEntry(x: 37.0, y: 40.0),
-        ChartDataEntry(x: 38.0, y: 43.0),
-        ChartDataEntry(x: 39.0, y: 53.0),
-        ChartDataEntry(x: 40.9, y: 55.0)
-    ]
+    
+    
+    var yvalue: [ChartDataEntry] = [ChartDataEntry]()
     
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
+        
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
+//        chartView.isFullyZoomedOut = true
+        chartView.dragEnabled = false
+        
+//        chartView.isPinchZoomEnabled = false
         
         chartView.xAxis.axisLineWidth = 0
         chartView.xAxis.enabled = false
@@ -206,14 +172,13 @@ class UserDashboardViewController: UIViewController {
         return textLabel
     }()
 
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubviews()
         setUpConstraints()
-        setData()
+        createCharData()
+        
         view.backgroundColor = .systemGray6
         
         stocksTableview.dataSource = self
@@ -223,6 +188,49 @@ class UserDashboardViewController: UIViewController {
         stocksTableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         stocksTableview.register(StockTableViewCell.self, forCellReuseIdentifier: StockTableViewCell.identifier)
         stocksTableview.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    
+    var data = [ChartDataEntry]()
+    
+    // create fake stock data
+    func createCharData() {
+        // seperated time
+        API.getStockWithTimeSeries(tickerSymbol: "aapl") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    if let item = items {
+                        let content2 = item.timeSeries5Min
+                        for (time, val) in content2 {
+                            let nTime = time.components(separatedBy: " ")[1]
+                            let SeperatedTime = nTime.components(separatedBy: ":")
+                            let totalTime:Double = Double(SeperatedTime[0])! + Double(SeperatedTime[1])!
+                            self.yvalue.append(.init(x: totalTime, y: Double(val.the4Close)!))
+                            
+                        }
+                        // sorted
+                        let val2 = self.yvalue.sorted { val1, val2 in return val1.x < val2.x }
+                       
+                        self.yvalue = val2
+                    
+                        self.setData()
+                        
+                    }
+                    
+                    
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+
+        }
+        
+        
+        
+        
     }
     
     func setData() {
@@ -246,12 +254,10 @@ class UserDashboardViewController: UIViewController {
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-        scrollView.addSubview(stocksTableview)
-        stackView.addArrangedSubview(investingLabel)
-        stackView.addArrangedSubview(stockPriceHStackView)
-        stackView.addArrangedSubview(lineChartView)
-        stackView.addArrangedSubview(timeFrameHStackView)
-        //stackView.addArrangedSubview(stocksTableview)
+
+        // adding the views
+        [investingLabel, stockPriceHStackView, lineChartView, timeFrameHStackView, stocksTableview].forEach({stackView.addArrangedSubview($0) })
+
     }
     
     private func setUpConstraints(){
@@ -286,20 +292,12 @@ class UserDashboardViewController: UIViewController {
 
         ])
         
-        NSLayoutConstraint.activate([
-            stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
-            
-            stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
+//        NSLayoutConstraint.activate([
+//            stocksTableview.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+//            stocksTableview.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+//            stocksTableview.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
 
-            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
-        ])
-        
-        NSLayoutConstraint.activate([
-            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
-
-        ])
-
-        
     }
 
 }

@@ -18,6 +18,8 @@ struct StockAbout: Codable {
     let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String
     let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String
     let trailingPE, forwardPE: String
+    let marketCap: String
+
 
     enum CodingKeys: String, CodingKey {
         case symbol = "Symbol"
@@ -46,6 +48,7 @@ struct StockAbout: Codable {
         case analystTargetPrice = "AnalystTargetPrice"
         case trailingPE = "TrailingPE"
         case forwardPE = "ForwardPE"
+        case marketCap = "MarketCapitalization"
     }
 }
 
@@ -57,7 +60,7 @@ struct Search: Codable {
 
 // MARK: - BestMatch
 struct BestMatch: Codable {
-    let the1Symbol, the2Name, the3Type, the4Region: String
+    var the1Symbol, the2Name, the3Type, the4Region: String
     let the5MarketOpen, the6MarketClose, the7Timezone, the8Currency: String
     let the9MatchScore: String
 

@@ -13,12 +13,13 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category: Finance**
+- **Category: Finance + Education**
 - **Mobile: This app is primarly mobile but could also be expanded to desktop.**
 - **Story: Uses real time data to allow users to trade without actually investing money**
 - **Market: Anyone interesting in investing.**
 - **Habit: This app could be used frequently to check on the status of their app**
 - **Scope: We could expand to a more learning based approach to investing. Allowing users to invest in options**
+
 
 # 
 
@@ -30,12 +31,12 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [x] User can log in 
 - [x] user can create an account 
 - [x] Reset password
-- [ ] User can search for stock 
-- [ ] user can see the information of a stock 
-- [ ] User can buy a stock
+- [x] User can search for stock 
+- [x] user can see the information of a stock 
+- [x] User can buy a stock
 - [ ] User Can sell a stock
 - [ ] User can see their portfolio
-- [ ] User can set their favorite stocks 
+- [x] User can set their favorite stocks 
 - [ ] User can see their profit from the stock 
 - [ ] User can see their history of trades 
 - [ ] User can change their profile information
@@ -46,11 +47,14 @@ Stonx is a an application that allows users to simulate what it's like to finall
 
 - [ ] User can change their profile (e.g. dark mode, ligth mode)
 - [ ] User can bookmark a stock so that it appears in the homepage  
-- [ ]User can search for crypto 
-- [ ]User can Buy crypto
-- [ ]user can sell crypto
-- [ ]User can comment on a specific stock (discussion)
-- [ ]News headline 
+- [ ] User can search for crypto 
+- [ ] User can Buy crypto
+- [ ] user can sell crypto
+- [ ] User can comment on a specific stock (discussion)
+- [ ] News headline 
+- [ ] ask the user for the number of experiences (1 to 2 years)
+- [ ] Comparing two different stocks
+- [ ] add scaling to stocks for recommendations 
 
 ### 2. Screen Archetypes
 
@@ -155,7 +159,8 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
   
 
 ### Networking
-
+API: 
+https://www.alphavantage.co/documentation/
 
 - Home (Dashboard)
   - (Read/GET) Query all stocks owned by the user from user_stocks
@@ -176,7 +181,8 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
  
  1st Submission Gif:
  
-![video2](https://user-images.githubusercontent.com/29695936/198857086-b4245d68-8468-449d-9d0c-0a8e6e09d639.gif)
+![video2](https://user-images.githubusercontent.com/29695936/199633533-55cd7cdf-e20d-4c80-8389-1913481650e4.gif)
+
 
 
 

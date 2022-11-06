@@ -105,6 +105,11 @@ class StockTableViewCell: UITableViewCell {
         setUPViews()
         setUpConstraints()
         setData()
+        
+        layoutMargins = UIEdgeInsets.zero
+        preservesSuperviewLayoutMargins = false
+           separatorInset = UIEdgeInsets.zero
+         layoutMargins = UIEdgeInsets.zero
     }
     
     private func setUPViews() {
@@ -142,8 +147,10 @@ class StockTableViewCell: UITableViewCell {
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
             stockLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+            stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 9)
         ])
+        stockLbl.setContentHuggingPriority(UILayoutPriority.init(rawValue: 252), for: .horizontal)
+        
             
         NSLayoutConstraint.activate([
             fullStockName.topAnchor.constraint(equalTo: stockLbl.bottomAnchor, constant: 0),
@@ -178,3 +185,4 @@ class StockTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
