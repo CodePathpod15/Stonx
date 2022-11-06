@@ -51,13 +51,10 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         super.viewDidAppear(animated)
         
         // only
-//        if calledOnce {
-//            displayQuestionaireIfUserHasOwnedStock()
-//            calledOnce = !calledOnce
-//        }
-        
     
     }
+    
+  
     
     
     
@@ -249,30 +246,34 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         usr.saveInBackground() { success, error in
             if success {
                 // do nothing
-                print("survey date was done")
+                print("rating was saved in user ")
+                self.saveTickerRating(ticker: self.surveyedTicker, rating: number)
             } else {
                 self.showAlert(with: error?.localizedDescription ?? "an error")
             }
         }
-        
-        print(surveyedTicker)
-        
     }
-
-}
-
-
-class Stok {
     
-}
-
-
-extension Calendar {
-    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
-        let fromDate = startOfDay(for: from)
-        let toDate = startOfDay(for: to)
-        let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
+    
+    func saveTickerRating(ticker: String, rating: Int) {
+        // we perform the transaction
+        let obj = PFObject(className: "ticker_rating")
+        obj["user"] = PFUser.current()!
+        obj["ticker_symbol"] = ticker
+        obj["rating"] = rating
         
-        return numberOfDays.day! + 1 // <1>
+        // TODO: fix the
+        obj.saveInBackground { success, error in
+            if success {
+                // do nothing
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                return
+            }
+        }
     }
+
 }
+
+
+
