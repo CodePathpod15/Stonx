@@ -34,20 +34,16 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
             
             cell.accessoryType = .disclosureIndicator
             cell.configure(with: settings[indexPath.row])
-//            cell.textLabel?.text =
-//            print(cell.separatorInset.left)
-        
             return cell
         case "Balance":
             let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
-            // configuring the title
+            cell.configure(name: String(usBalance))
+            
             cell.accessoryType = .disclosureIndicator
             cell.layoutMargins = UIEdgeInsets.zero
             
-            
             cell.configure(with: settings[indexPath.row])
            
-//            cell.textlabe
             return cell
         case "retire":
             let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
@@ -83,34 +79,44 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
 
     }
     
-
     let logOutButton = UIButton(type: .system)
     private var settingsTableviw: UITableView = UITableView(frame: .zero, style: .grouped)
     
     let settings = ["Personal info", "Balance", "retire", "delete Account", "Turn off the Lights Off"]
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getBalance()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         title = "Settings"
-        
+        getBalance()
         
         settingsTableviw.layoutMargins = UIEdgeInsets.zero
         settingsTableviw.separatorInset = UIEdgeInsets.zero
         
-        
-        
-//        view.addSubview(logOutButton)
-//        logOutButton.setTitle("log out", for: .normal)
-//        logOutButton.translatesAutoresizingMaskIntoConstraints = false
-//        logOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        logOutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed), for: .touchUpInside)
-        
         setUpViews()
         setUpConstraints()
+    }
+    
+    var usBalance:Double = 0
+    
+    // getting the balance of the user
+    func getBalance() {
+        let user  = PFUser.current()!
+        user.fetchInBackground() {obj,err in
+            if let obj = obj {
+                let balance = obj.value(forKey: "Balance") as? Double
+                self.usBalance = balance!
+                self.settingsTableviw.reloadData()
+            } else {
+                self.showAlert(with: "There was an error with your balance")
+                
+            }
+        }
     }
     
     // setting  up the tableview
@@ -139,10 +145,6 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
     }
 
 
-    
-    
-    
-    
     @objc func logOutButtonWasPressed() {
         PFUser.logOut()
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -152,8 +154,6 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         delegate.window?.rootViewController = vc
         
     }
-    
-    //
     
     enum UserAction {
         case delete

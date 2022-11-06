@@ -17,7 +17,10 @@ protocol TransactionDelegate: AnyObject {
     func transac(of type: TransactionType) // this is called when we press the button
 }
 
+
+// TODO: probably make
 // we can repurpose this view for both buying and cell
+// this view controller is in charge of both selling and buying of a stock
 class TransactionViewController: UIViewController {
     
     weak var delegate: TransactionDelegate?
@@ -28,7 +31,6 @@ class TransactionViewController: UIViewController {
     
     let tType: TransactionType = .buy
     
-  
     // title of the marketprice
     private let marketPriceTitle: UILabel = {
         let lbl = UILabel()
@@ -64,15 +66,33 @@ class TransactionViewController: UIViewController {
         return lbl
     }()
     
-    
 
     private let purchasingPower: UILabel = {
         let lbl = UILabel()
         lbl.text = "0.00$"
         return lbl
     }()
-
-
+    
+    private let stockOwnerShiptitle: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Stock Ownership:"
+        return lbl
+    }()
+    
+    private let stockOwnerShip: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "0"
+        return lbl
+    }()
+    
+    private let stockOwnerSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 12
+        return sv
+    }()
+    
     
     private let transactionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -81,7 +101,6 @@ class TransactionViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 6
-        button.addTarget(self, action: #selector(transactionButtonWaspressed), for: .touchUpInside)
         return button
     }()
     
@@ -124,25 +143,48 @@ class TransactionViewController: UIViewController {
         return sv
     }()
     
-    
     /// defines the type of transaction the user will perform
     var transacType: TransactionType? =  nil
-    
     // sets the initial price to
     var latestPrice: Double = 0.0
     var usrBalance: Double = 0.0
     
+    private var tickerSym: String? = nil
     
     
     // MARK: add custom initializer
-    
     init() {
         super.init(nibName: nil, bundle: nil)
         
     }
     
-    private var tickerSym: String? = nil
-  
+    // this contains the number being sold
+    private var sharesOwned = 0
+    
+    // Would recommend using this initializer since it contains the shares owned
+    init(typeOfTransaction: TransactionType, ticker: String, latestPrice: Double, sharesOwned: Int) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.tickerSym = ticker
+        self.transacType = typeOfTransaction
+        self.latestPrice = latestPrice
+        switch transacType {
+        case .buy:
+            self.title = "buying \(ticker)"
+            self.transactionButton.addTarget(self, action: #selector(transactionButtonWaspressed), for: .touchUpInside)
+            break
+        case .sell:
+            self.title = "selling \(ticker)"
+            self.stockOwnerShip.text = "\(sharesOwned)"
+            self.stockOwnerSV.addArrangedSubview(stockOwnerShiptitle)
+            self.stockOwnerSV.addArrangedSubview(stockOwnerShip)
+            self.transactionButton.addTarget(self, action: #selector(sellingButtonWasPressed), for: .touchUpInside)
+            self.sharesOwned = sharesOwned
+            break
+        case .none:
+            break
+        }
+    }
     
     
     init(typeOfTransaction: TransactionType, ticker: String, latestPrice: Double) {
@@ -154,15 +196,17 @@ class TransactionViewController: UIViewController {
         switch transacType {
         case .buy:
             self.title = "buying \(ticker)"
+            self.transactionButton.addTarget(self, action: #selector(transactionButtonWaspressed), for: .touchUpInside)
             break
         case .sell:
             self.title = "selling \(ticker)"
-             
+            self.stockOwnerSV.addArrangedSubview(stockOwnerShiptitle)
+            self.stockOwnerSV.addArrangedSubview(stockOwnerShip)
+            self.transactionButton.addTarget(self, action: #selector(sellingButtonWasPressed), for: .touchUpInside)
             break
         case .none:
             break
         }
-
         
     }
     
@@ -173,82 +217,101 @@ class TransactionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        
-
         view.backgroundColor = ColorConstants.backgroundColor
         // Do any additional setup after loading the view.
         viewSetup()
         setupConstraints()
     }
     
-    // this will check if the usr is even able to buy the stock
-    // if the usr has enough balance the stock will be purchased, else error will be thrownedspot
-    @objc func transactionButtonWaspressed() {
+    
+    
+    
+    func isValidInteger(str: String) -> Bool {
        
-        if let numberStr = numberOfSharesTextfield.text {
-            // we check if the textfield str is an integer
-            if !numberStr.isInt {
-                
-                showAlert(with: "Please enter a valid number")
-                return
-    } else {
-                
-                // check if the user has enough purchasing power
-                if usrBalance < (latestPrice * Double(numberStr)!) {
-                    showAlert(with: "No enough purchasing power")
-                    return
-                }
-                // we perform the transaction
-                let obj = PFObject(className: "user_transaction")
-                obj["user"] = PFUser.current()!
-                obj["price"] = latestPrice
-                obj["ticker_symbol"] = tickerSym!
-                obj["Quantity"] = Int(numberStr)!
-                
-                if transacType == .buy {
-                    obj["purchase"] = true
-                } else if transacType == .sell {
-                    obj["purchase"] = false
-                } else {
-                    showAlert(with: "there is an error!!!")
-                    return
-                }
-                
-                obj.saveInBackground { success, error in
-                    if success {
-                        let newBalance = self.usrBalance - (self.latestPrice * Double(numberStr)!)
-                        
-                        let usr = PFUser.current()!
-                        usr["Balance"] = newBalance
-                        
-                        do {
-                            try usr.save()
-                            
-                        } catch {
-                            self.showAlert(with: error.localizedDescription)
-                        }
-                        
-//                        self.navigationItem.rightBarButtonItem?.title = "remove"
-                    } else {
-                        self.showAlert(with: error?.localizedDescription ?? "Errror")
-                    }
-                }
-                
-        
-                self.dismiss(animated: true) { [self] in
-                    self.delegate?.transac(of: tType)
-                }
-        
-        
-            }
-            
-           
-            
+        if !str.isInt {
+            return false
         }
         
+        let amount = Int(str)!
+
+        if amount == 0 || amount < 0 {
+            return false
+        }
+        
+        return true
+    }
+    
+    @objc func sellingButtonWasPressed() {
+    
+        if numberOfSharesTextfield.text == nil {
+            showAlert(with: "enter a valid integer")
+            return
+        }
+        
+        if !isValidInteger(str: numberOfSharesTextfield.text!) {
+            showAlert(with: "enter a valid integer")
+            return
+        }
+            
+        
+        let number = Int(numberOfSharesTextfield.text!)!
+        
+        if number > sharesOwned {
+            showAlert(with: "You do not owened that many stocks")
+        }
+        
+        // we perform the transaction
+        let obj = PFObject(className: "user_transaction")
+        obj["user"] = PFUser.current()!
+        obj["price"] = latestPrice
+        obj["ticker_symbol"] = tickerSym!
+        obj["Quantity"] = number
+        
+        if transacType == .buy {
+            obj["purchase"] = true
+        } else if transacType == .sell {
+            obj["purchase"] = false
+        } else {
+            showAlert(with: "there is an error!!!")
+            return
+        }
+    
+        // TODO: fix the
+        obj.saveInBackground { success, error in
+            if success {
+//                do {
+//                    try usr.save()
 //
+//                } catch {
+//                    self.showAlert(with: error.localizedDescription)
+//                }
+
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                return
+            }
+        }
+        
+        
+        let newBalance = self.usrBalance + (self.latestPrice * Double(number))
+        let usr = PFUser.current()!
+        usr["Balance"] = newBalance
+        
+        usr.saveInBackground() { success, error in
+            if success {
+                // do nothing
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "an error")
+            }
+        }
+        
+    
+        self.dismiss(animated: true) { [self] in
+            self.delegate?.transac(of: tType)
+        }
+        
+        
+    
     }
     
     
@@ -270,7 +333,7 @@ class TransactionViewController: UIViewController {
         numberOfSharesToPurchase.text = "Number of Shares"
         
         // adding the subviews into the vertical SV
-        [numberOfSharesToPurchase, numberOfSharesTextfield, purchasingPowerHorizontalSV,marketPricehorizontalSV, totalHorizontalSV].forEach { v in
+        [numberOfSharesToPurchase, numberOfSharesTextfield, stockOwnerSV, purchasingPowerHorizontalSV,marketPricehorizontalSV, totalHorizontalSV].forEach { v in
             v.translatesAutoresizingMaskIntoConstraints = false
             verticalSV.addArrangedSubview(v)
         }
@@ -296,16 +359,13 @@ class TransactionViewController: UIViewController {
         // adding done button
         let add = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
         navigationItem.rightBarButtonItem = add
-
         
         // set the title of the trasaction button
         if transacType == .buy {
             transactionButton.setTitle("Buy", for: .normal)
         } else if transacType == .sell {
             transactionButton.setTitle("Sell", for: .normal)
-            transactionButton.setTitleColor(ColorConstants.red, for: .normal)
         }
-        
         
         let user  = PFUser.current()!
         user.fetchInBackground() {obj,err in
@@ -349,8 +409,6 @@ class TransactionViewController: UIViewController {
         if let numberStr = numberOfSharesTextfield.text {
             if numberStr.isInt {
                 totalLbl.text = "$\(latestPrice * Double(numberStr)!)"
-                
-//                showAlert(with: "Please enter a whole number")
             }  else {
                 totalLbl.text = ""
             }
@@ -375,15 +433,72 @@ class TransactionViewController: UIViewController {
             
         }
     }
+    
+    // this will check if the usr is even able to buy the stock
+    // if the usr has enough balance the stock will be purchased, else error will be thrownedspot
+    @objc func transactionButtonWaspressed() {
+       
+        if let numberStr = numberOfSharesTextfield.text {
+            // we check if the textfield str is an integer
+            if !numberStr.isInt {
+                
+                showAlert(with: "Please enter a valid number")
+                return
+    } else {
+                
+                // check if the user has enough purchasing power
+                if usrBalance < (latestPrice * Double(numberStr)!) {
+                    showAlert(with: "No enough purchasing power")
+                    return
+                }
+                // we perform the transaction
+                let obj = PFObject(className: "user_transaction")
+                obj["user"] = PFUser.current()!
+                obj["price"] = latestPrice
+                obj["ticker_symbol"] = tickerSym!
+                obj["Quantity"] = Int(numberStr)!
+                
+                if transacType == .buy {
+                    obj["purchase"] = true
+                } else if transacType == .sell {
+                    obj["purchase"] = false
+                } else {
+                    showAlert(with: "there is an error!!!")
+                    return
+                }
+        
+                obj.saveInBackground { success, error in
+                    if success {
+                        let newBalance = self.usrBalance - (self.latestPrice * Double(numberStr)!)
+                        
+                        let usr = PFUser.current()!
+                        usr["Balance"] = newBalance
+                        
+                        do {
+                            try usr.save()
+                            
+                        } catch {
+                            self.showAlert(with: error.localizedDescription)
+                        }
+                        
+                    } else {
+                        self.showAlert(with: error?.localizedDescription ?? "Errror")
+                    }
+                }
+        
+        
+        
+                self.dismiss(animated: true) { [self] in
+                    self.delegate?.transac(of: tType)
+                }
+        
+        
+            }
+            
+        }
+    }
        
 
 }
 
 
-// this checks if a string is an integer
-// Source: https://stackoverflow.com/questions/38159397/how-to-check-if-a-string-is-an-int-in-swift
-extension String {
-    var isInt: Bool {
-        return Int(self) != nil
-    }
-}

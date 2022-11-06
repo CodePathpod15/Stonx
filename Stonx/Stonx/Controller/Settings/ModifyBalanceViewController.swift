@@ -6,13 +6,43 @@
 //
 
 import UIKit
+import Parse
 
 class ModifyBalanceViewController: UIViewController {
     let tableview = UITableView(frame: .zero, style: .grouped)
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    
+    var usBalance:Double = 0
+    
+    // getting the balance of the user
+    func getBalance() {
+        let user  = PFUser.current()!
+        user.fetchInBackground() {obj,err in
+            if let obj = obj {
+                let balance = obj.value(forKey: "Balance") as? Double
+                self.usBalance = balance!
+                self.tableview.reloadData()
+            } else {
+                self.showAlert(with: "There was an error with your balance")
+                
+            }
+        }
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add, style: .plain, target: self, action:  #selector(addTapped))
+        getBalance()
+        
         
         view.backgroundColor = .white
         setUpViews()
@@ -36,9 +66,26 @@ class ModifyBalanceViewController: UIViewController {
             //Create an optional action
         let nextAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { action -> Void in
                 let text = (alertController.textFields?.first as! UITextField).text
+                if text == nil {
+                    return
+                }
             
-                // TODO: update this
-                print(text)
+                if let convertedtext = Double(text!) {
+                    let newBalance = self.usBalance + (convertedtext)
+                    let usr = PFUser.current()!
+                    usr["Balance"] = newBalance
+                    
+                    usr.saveInBackground() { success, error in
+                        if success {
+                            // do nothing
+                            self.usBalance = newBalance
+                            self.tableview.reloadData()
+                        } else {
+                            self.showAlert(with: error?.localizedDescription ?? "an error")
+                        }
+                    }
+                }
+                
                 
             }
         
@@ -80,7 +127,7 @@ extension ModifyBalanceViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
         cell.configure(with: "Balance")
-        cell.configure(name: "$1,200")
+        cell.configure(name: "$\(usBalance)")
       
         return cell
     }
