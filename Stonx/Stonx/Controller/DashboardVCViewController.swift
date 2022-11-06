@@ -6,15 +6,22 @@
 //
 
 import UIKit
+import Parse
 
 
-class DashboardVCViewController: UIViewController {
+class DashboardVCViewController: UIViewController, RateDelegate {
+ 
+    
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
+    var calledOnce = true
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
+        getMostRecentInfoOfUser()
+        
+
+        
         view.addSubview(scrollView)
         title = "Dashboard"
 
@@ -29,7 +36,243 @@ class DashboardVCViewController: UIViewController {
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
+            
+//
+     
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+      
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // only
+//        if calledOnce {
+//            displayQuestionaireIfUserHasOwnedStock()
+//            calledOnce = !calledOnce
+//        }
+        
+    
+    }
+    
+    
+    
+    // getting all of the stocks the user owns
+    // TODO: refactor this
+    func getAllOfTheStocksTheUserOwns() {
+
+        let query = PFQuery(className: "user_transaction")
+        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
+        
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                // The request failed
+                print(error.localizedDescription)
+            } else {
+                print("printiung")
+                // if the object exists in the user's database
+                if let objects = objects {
+                    
+                    var tickerToOwn:[String: Int] = [String: Int]()
+                    
+                    var tickerToHash:[String: Date] = [:]
+                    
+                    if objects.isEmpty {
+                        // no need to to anything
+                        return
+                    }
+                    
+                    for obj in objects {
+                      
+                        let tt = obj["ticker_symbol"] as? String
+                        let amount  = obj["Quantity"] as? Int
+                        let price = obj["price"] as? Double
+                        let transaction = obj["purchase"] as! Bool
+                       
+                        // we had intitiliazing the ticker_to_hash
+                        let diffInDays = Calendar.current.dateComponents([.day], from:  obj.createdAt!, to: Date()).day
+                    
+                        // give us the amount of days
+                        
+                        if transaction {
+                            tickerToOwn[tt!, default: 0] += amount!
+                        } else {
+                            tickerToOwn[tt!, default: 0] -= amount!
+                        }
+                        
+                        // check if the ticker exist in the hash table
+                        if tickerToHash[tt!] != nil {
+                            // comparing the two dates,
+                            if tickerToHash[tt!]! > obj.createdAt! {
+                                tickerToHash[tt!] = obj.createdAt!
+                            }
+                            // you keeep the same one
+                        } else {
+                            tickerToHash[tt!] = obj.createdAt!
+                        }
+
+                        
+                    }
+                    
+                    // remove all of the stocks where you
+                    tickerToOwn.forEach { key, value in
+                        if value == 0 {
+                            tickerToOwn.removeValue(forKey: key)
+                            tickerToHash.removeValue(forKey: key)
+                        }
+                    }
+                    
+                    self.surveyedStocks.forEach({
+                        tickerToOwn.removeValue(forKey: $0)
+                        tickerToHash.removeValue(forKey: $0)
+                    })
+                    
+                    print(tickerToHash)
+                    
+                    // we now have all of the stocks that the user hasnt been surveyd own
+
+                    
+                    // here we check how many days the
+                    for (key,val) in tickerToHash {
+                        // we had intitiliazing the ticker_to_hash
+                        let diffInDays = Calendar.current.dateComponents([.day], from:  val, to: Date()).day
+                        if diffInDays! < 7 {
+                            tickerToHash.removeValue(forKey: key)
+                        }
+                    }
+                    
+                    if tickerToHash.isEmpty {
+                        return
+                    }
+                    
+                    let  n = tickerToHash.first!
+                    
+                    
+                    // save the last time questionaire was presented
+                    self.saveTheSurveyDate()
+                    self.surveyedTicker = n.key
+                    self.displayQuestionaireIfUserHasOwnedStock(with: n.key)
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    private var surveyedTicker = ""
+    
+    
+    func saveTheSurveyDate() {
+        let usr = PFUser.current()!
+        usr["last_surveyed"] = Date()
+        
+        usr.saveInBackground() { success, error in
+            if success {
+                // do nothing
+                print("survey date was done")
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "an error")
+            }
+        }
+    }
+    
+
+    
+
+    var surveyedStocks = [String]()
+    
+    
+    func getMostRecentInfoOfUser() {
+        let user  = PFUser.current()!
+        user.fetchInBackground() {obj,err in
+            if let obj = obj {
+                let surveyed = obj.value(forKey: "Surveyed") as? [String]
+                self.surveyedStocks = surveyed ?? []
                 
+                let last_survey_Date =  user["last_surveyed"] as? Date
+                
+                // no need to survey the user
+                if last_survey_Date == nil {
+                    self.getAllOfTheStocksTheUserOwns()
+                }
+  
+                let diffInDays = Calendar.current.dateComponents([.day], from:  last_survey_Date!, to: Date()).day
+                
+                if diffInDays! >= 7 {
+                    self.getAllOfTheStocksTheUserOwns()
+                }
+                
+            } else {
+                self.showAlert(with: "There was an error with your balance")
+                
+            }
+        }
+    }
+    
+    
+    
+    func displayQuestionaireIfUserHasOwnedStock(with recommended: String) {
+        // we need to get all of the stocks the user
+        
+        let userGaveUsPermissons = true
+        
+        if userGaveUsPermissons {
+            let rstock = RateTheStock()
+            rstock.titleLbl.text = "Please rate your experience with \(recommended)"
+            // user has owned any of his stocks for seven days
+            
+            rstock.translatesAutoresizingMaskIntoConstraints = false
+            rstock.delegate = self
+            
+            let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+            currentWindow?.addSubview(rstock)
+            
+            rstock.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        
+        }
+        
+    }
+    
+    // conforing to the procol
+    // this is called when the user has rated the
+    // TODO: figure out how to insert unique elements
+    func rate(number: Int) {
+        surveyedStocks.append(surveyedTicker)
+        
+        let usr = PFUser.current()!
+        usr["Surveyed"] = surveyedStocks
+        
+        usr.saveInBackground() { success, error in
+            if success {
+                // do nothing
+                print("survey date was done")
+            } else {
+                self.showAlert(with: error?.localizedDescription ?? "an error")
+            }
+        }
+        
+        print(surveyedTicker)
+        
     }
 
+}
+
+
+class Stok {
+    
+}
+
+
+extension Calendar {
+    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let fromDate = startOfDay(for: from)
+        let toDate = startOfDay(for: to)
+        let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
+        
+        return numberOfDays.day! + 1 // <1>
+    }
 }

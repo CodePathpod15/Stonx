@@ -441,7 +441,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let query = PFQuery(className:"stocks_booked")
         query.whereKey("ticker_symbol", equalTo:tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
 
-        
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
                 // The request failed
@@ -604,7 +603,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         stackView.addArrangedSubview(stockEPSHStackView)
     }
     
-
     private func setupConstraints() {
         let padding: CGFloat = 16
         scrollView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
