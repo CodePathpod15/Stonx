@@ -362,6 +362,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        navigationItem.title = tickerName
+        getOwnedStocks()
         configureSubviews()
         setupConstraints()
         setData()
@@ -475,8 +476,41 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
 //        // add right navigation button
    
         
+    }
+    
+    var stocksOwned = [String: Int]()
+    
+    
+    func getOwnedStocks() {
         
+        let query = PFQuery(className: "user_transaction")
+        query.whereKey("ticker_symbol", equalTo: self.tickerName)
         
+        do{
+            var totalBought = 0
+           var sold = 0
+            let obj = try query.findObjects()
+            for object in obj {
+                let pur = object["purchase"] as? Bool
+                let quantity = object["Quantity"] as? Int
+                if pur == true {
+                   totalBought += quantity!
+                 } else {
+                     sold += quantity!
+                 }
+            }
+            
+            
+            stocksOwned[self.tickerName] = totalBought - sold
+            
+        }
+        catch {
+            print("error")
+            
+            
+        }
+        
+       
         
         
         
@@ -649,7 +683,17 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     // MARK: Action methods
     
      @objc private func tradeButtonWaspressed() {
+         
          let tradeView = TradeView()
+         
+         if stocksOwned[self.tickerName] != nil {
+             let owned = stocksOwned[self.tickerName]!
+             if owned == 0 {
+                 tradeView.sellButton.isEnabled = false
+                 tradeView.sellButton.backgroundColor = .systemGray
+             }
+         }
+         
          tradeView.translatesAutoresizingMaskIntoConstraints = false
          tradeView.delegate = self
          
@@ -684,14 +728,14 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     
     
-    
-    
+ 
 }
 
 // implementation of delegates
 extension StocksViewController: TradingDelegate {
     func sell() {
-        let vc = TransactionViewController()
+        
+        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
@@ -708,8 +752,7 @@ extension StocksViewController: TradingDelegate {
         view.modalPresentationStyle = .fullScreen
         self.present(view, animated: true)
     }
-    
-    
+
 }
 
 
