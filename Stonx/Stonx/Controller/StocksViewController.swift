@@ -701,13 +701,11 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
          let currentWindow: UIWindow? = UIApplication.shared.keyWindow
          currentWindow?.addSubview(tradeView)
          
-         
-//         view.addSubview(tradeView)
          tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
 
-    //MARK: Chart set up
     
+    //MARK: Chart set up
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
         
@@ -726,16 +724,19 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         lineChartView.data = data
     }
     
-    
-    
- 
+
 }
 
 // implementation of delegates
 extension StocksViewController: TradingDelegate {
     func sell() {
         
-        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
+//        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
+        
+        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!, sharesOwned: stocksOwned[self.tickerName]!)
+        
+        
+        
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
