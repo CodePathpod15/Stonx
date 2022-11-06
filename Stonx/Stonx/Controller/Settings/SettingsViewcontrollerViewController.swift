@@ -79,13 +79,10 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
 
     }
     
-
     let logOutButton = UIButton(type: .system)
     private var settingsTableviw: UITableView = UITableView(frame: .zero, style: .grouped)
     
     let settings = ["Personal info", "Balance", "retire", "delete Account", "Turn off the Lights Off"]
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -148,10 +145,6 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
     }
 
 
-    
-    
-    
-    
     @objc func logOutButtonWasPressed() {
         PFUser.logOut()
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -161,8 +154,6 @@ class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSou
         delegate.window?.rootViewController = vc
         
     }
-    
-    //
     
     enum UserAction {
         case delete
