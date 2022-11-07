@@ -75,7 +75,8 @@ extension PersonalnfoViewController: UITableViewDelegate {
             let nextAction = UIAlertAction(title: "Ok", style: .default) { _ in
                 let text = (alertController.textFields?.first as! UITextField).text
                 
-                self.currentUser["Username"] = text
+                // 
+                self.currentUser[UserConstants.username] = text
                 self.currentUser.saveInBackground()
             }
             
