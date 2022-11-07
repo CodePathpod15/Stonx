@@ -136,3 +136,15 @@ extension ModifyBalanceViewController: UITableViewDataSource {
     
 }
 
+
+
+class UserConstants {
+    static let username = "username"
+    static let password = "password"
+    static let fullname = "full_name"
+    static let email = "email"
+    static let last_surveyed = "last_surveyed"
+    static let balance = "Balance"
+    static let surveyed = "Surveyed"
+    
+}
