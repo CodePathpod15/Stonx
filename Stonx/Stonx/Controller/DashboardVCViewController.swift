@@ -10,8 +10,7 @@ import Parse
 
 
 class DashboardVCViewController: UIViewController, RateDelegate {
- 
-    
+
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
     var calledOnce = true
@@ -19,9 +18,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         getMostRecentInfoOfUser()
-        
-
-        
+    
         view.addSubview(scrollView)
         title = "Dashboard"
 
@@ -36,9 +33,37 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
-            
-//
-     
+        
+        // adding light bulb
+//        let rbutton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(lightBulbWasPressed))
+        let rbutton = UIBarButtonItem(image: UIImage(systemName: "lightbulb.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green), landscapeImagePhone: nil, style: .done, target: self, action: #selector(lightBulbWasPressed))
+        
+        let rightButton: UIBarButtonItem = rbutton
+        self.navigationItem.rightBarButtonItem = rightButton
+        
+    }
+    
+    
+    @objc func  lightBulbWasPressed() {
+//        self.present(StocksViewController(), animated: true)
+        
+        // get the recommended stock along with it's rating
+        
+        
+        
+        // get the
+        
+        let rstock = RecommendedStocks()
+        rstock.configure(rating: 2, tickerName: "MFST")
+        rstock.delegate = self
+        rstock.translatesAutoresizingMaskIntoConstraints = false
+        
+        let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+        currentWindow?.addSubview(rstock)
+        
+        rstock.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+    
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -50,8 +75,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // only
-    
     }
     
   
@@ -177,9 +200,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         }
     }
     
-
-    
-
     var surveyedStocks = [String]()
     
     
@@ -202,6 +222,10 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 if diffInDays! >= 7 {
                     self.getAllOfTheStocksTheUserOwns()
                 }
+                
+                //
+                
+                
                 
             } else {
                 self.showAlert(with: "There was an error with your balance")
@@ -253,7 +277,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             }
         }
     }
-    
     
     func saveTickerRating(ticker: String, rating: Int) {
         // we perform the transaction

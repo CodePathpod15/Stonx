@@ -1,5 +1,5 @@
 //
-//  RateTheStock.swift
+//  RecommendedStocks.swift
 //  Stonx
 //
 //  Created by Angel Zambrano on 11/6/22.
@@ -7,33 +7,32 @@
 
 import UIKit
 
-
-
-protocol RateDelegate: AnyObject {
-    func rate(number: Int)
+protocol RecommendedStockDelegate: AnyObject {
+    func userWantsToBuy()
 }
 
-
-class RateTheStock: UIView {
+class RecommendedStocks: UIView {
     //MARK: properties
-    let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    let cContent = UIView()
+    private let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    private let cContent = UIView()
     
-    let doneButton: UIButton = {
+    weak var delegate: RecommendedStockDelegate?
+    
+    private let doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = ColorConstants.green
-        button.setTitle("Rate", for: .normal)
+        button.setTitle("Buy", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 6
-        button.addTarget(self, action: #selector(rateButtonwasPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buyButtonWasPressed), for: .touchUpInside)
 
         return button
     }()
     
-    var titleLbl: UILabel = {
+    private var titleLbl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Please rate your experience with XXXX"
+        lbl.text = "Today's Recommend Stock: \nXXXX"
         lbl.font = FontConstants.cellMediumFont
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
@@ -41,9 +40,9 @@ class RateTheStock: UIView {
         return lbl
     }()
 
-    var buttons = [UIButton]()
+    private var buttons = [UIButton]()
     
-    let horizontalSV: UIStackView = {
+    private let horizontalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
 //        sv.backgroundColor = .red
@@ -51,9 +50,7 @@ class RateTheStock: UIView {
         sv.distribution = .equalSpacing
         return sv
     }()
-    
-    weak var delegate: RateDelegate?
-    
+
     
     
     // MARK: initializer
@@ -64,18 +61,87 @@ class RateTheStock: UIView {
         self.layer.cornerRadius = 6
         self.clipsToBounds = true
         self.layer.masksToBounds = true
+        recommendedStock(with: 0)
+    }
+    
+
+    private func changeTheColorOFAllButtons(till count: Int, lastElementIsHalf: Bool) {
+        
+        for i in 0..<count {
+            let button = buttons[i]
+            button.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.yellow), for: .normal)
+        }
+        
+        if lastElementIsHalf {
+            buttons[count-1].setImage(UIImage(systemName: "star.leadinghalf.filled")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.yellow), for: .normal)
+        }
+        
+    }
+    
+    //
+    func configure(rating:Double, tickerName: String) {
+        self.recommendedStock(with: rating)
+        self.titleLbl.text = "Today's Recommend Stock: \n\(tickerName)"
+        
+        
+    }
+    
+    private func recommendedStock(with stars: Double) {
+        
+        switch stars{
+        case 1..<1.5:
+            // fill the one star
+            changeTheColorOFAllButtons(till: 1, lastElementIsHalf: false)
+        break
+            
+        case 1.5..<2:
+            changeTheColorOFAllButtons(till: 2, lastElementIsHalf: true)
+
+        break
+            
+        case 2..<2.5:
+            changeTheColorOFAllButtons(till: 2, lastElementIsHalf: false)
+        break
+            
+        case 2.5..<3:
+            changeTheColorOFAllButtons(till: 3, lastElementIsHalf: true)
+        break
+            
+        case 3..<3.5:
+            changeTheColorOFAllButtons(till: 3, lastElementIsHalf: false)
+        break
+            
+        case 3.5..<4:
+            changeTheColorOFAllButtons(till: 4, lastElementIsHalf: true)
+        break
+            
+        case 4..<4.5:
+            changeTheColorOFAllButtons(till: 4, lastElementIsHalf: false)
+        break
+            
+        case 4.5..<5:
+            changeTheColorOFAllButtons(till: 5, lastElementIsHalf: true)
+        case 5:
+            changeTheColorOFAllButtons(till: 5, lastElementIsHalf: false)
+        break
+        default:
+            break
+        }
+  
     }
     
     
-    func createButtons(with color: UIColor) -> UIButton {
+    
+    
+    private func createButtons(with color: UIColor) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(starWasPressed), for: .touchUpInside)
+        button.isEnabled = false
         button.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(color), for: .normal)
         return button
     }
     
-    var numberOfStars = 1
+    
     
     // deals with setting up layout
     private func setUpLayout() {
@@ -99,11 +165,7 @@ class RateTheStock: UIView {
         cContent.addSubview(horizontalSV)
         
         // setting up the buttons
-        for n in 0..<5{
-            if n == 0 {
-                buttons.append(createButtons(with: UIColor(red: 245/255, green: 191/255, blue: 65/255, alpha: 1)))
-                continue
-            }
+        for _ in 0..<5{
             buttons.append(createButtons(with: .systemGray5))
         }
         
@@ -121,9 +183,9 @@ class RateTheStock: UIView {
         
     }
 
-    @objc func rateButtonwasPressed() {
+    @objc func buyButtonWasPressed() {
         // number of stars
-        delegate?.rate(number: numberOfStars)
+        delegate?.userWantsToBuy()
         handleDimiss()
     }
     
@@ -137,38 +199,7 @@ class RateTheStock: UIView {
         }
     }
     
-    
-    
-    @objc func starWasPressed(button: UIButton) {
 
-        let index = buttons.firstIndex{$0 === button} as? Int
-        
-        numberOfStars = index! + 1
-        
-        if let index = index {
-            // updating the stars to yellow
-            for i in 0..<(index + 1) {
-                buttons[i].setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.yellow), for: .normal)
-            }
-            
-            // updating the stars to
-            let newIndex = (index + 1)
-            for i in newIndex..<buttons.count {
-                buttons[i].setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor.systemGray5), for: .normal)
-            }
-            
-        }
-
-        
-        
-    }
-    
-    
-    
-    
-    func createLayout() {
-        
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -202,5 +233,6 @@ class RateTheStock: UIView {
             self.removeFromSuperview()
         }
     }
+
 
 }

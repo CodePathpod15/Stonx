@@ -8,3 +8,10 @@
 import Foundation
 import Parse
 
+extension DashboardVCViewController: RecommendedStockDelegate {
+    func userWantsToBuy() {
+        print("here I am")
+    }
+    
+    
+}

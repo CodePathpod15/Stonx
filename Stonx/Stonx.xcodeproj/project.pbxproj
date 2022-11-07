@@ -43,6 +43,7 @@
 		1CE84F4F2916F7180001F970 /* AutoSizingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F4E2916F7180001F970 /* AutoSizingTableView.swift */; };
 		1CE84FC32918333A0001F970 /* RateTheStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC22918333A0001F970 /* RateTheStock.swift */; };
 		1CE84FC5291874410001F970 /* DashBoardVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */; };
+		1CE84FC729188ADD0001F970 /* RecommendedStocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
@@ -112,6 +113,7 @@
 		1CE84F4E2916F7180001F970 /* AutoSizingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSizingTableView.swift; sourceTree = "<group>"; };
 		1CE84FC22918333A0001F970 /* RateTheStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTheStock.swift; sourceTree = "<group>"; };
 		1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVCExtension.swift; sourceTree = "<group>"; };
+		1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedStocks.swift; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				1CE84F482916D6E40001F970 /* DashboardContentView.swift */,
 				1CE84F4E2916F7180001F970 /* AutoSizingTableView.swift */,
 				1CE84FC22918333A0001F970 /* RateTheStock.swift */,
+				1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				1CE84F492916D6E40001F970 /* DashboardContentView.swift in Sources */,
 				1CEBCAE2290DDBA7007B45DE /* DarkModeTableViewCell.swift in Sources */,
 				1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */,
+				1CE84FC729188ADD0001F970 /* RecommendedStocks.swift in Sources */,
 				1CE84F4F2916F7180001F970 /* AutoSizingTableView.swift in Sources */,
 				1C86BA302910C0920034730F /* PersonalnfoViewController.swift in Sources */,
 				1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */,
