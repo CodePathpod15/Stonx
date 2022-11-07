@@ -126,7 +126,8 @@ class LoginViewController: UIViewController {
     {
    
         // setting the background color of the imagefield
-        logoImageField.backgroundColor = .red
+        logoImageField.image = UIImage(named: "Logo")
+        logoImageField.contentMode = .scaleAspectFill
         
         // looping to add them to a
         
