@@ -179,9 +179,12 @@ https://www.alphavantage.co/documentation/
   - (edit/Patch) modifying quantity 
  
  1st Submission Gif:
- 
+ version 1
 ![video2](https://user-images.githubusercontent.com/29695936/199633533-55cd7cdf-e20d-4c80-8389-1913481650e4.gif)
 
+
+Version 2: 
+![video2](https://user-images.githubusercontent.com/29695936/200395220-3c1a61ec-a35d-4a44-af91-8a3be1ce1eb7.gif)
 
 
 
