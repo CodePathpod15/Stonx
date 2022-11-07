@@ -117,7 +117,7 @@ class CreateAnAccountViewcontroller: UIViewController {
             } else {
             // Should I dimiss the previous viewcontroller?
             
-            let FeedViewController = UINavigationController(rootViewController: TabBarController())
+            let FeedViewController = TabBarController()
                 FeedViewController.modalPresentationStyle = .fullScreen
             self.present(FeedViewController, animated: true)
                 
