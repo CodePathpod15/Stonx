@@ -43,10 +43,10 @@ a stock
 - [x] user is able to look at the recommended sotck 
 - [x] User can set their favorite stocks 
 - [x] User can see their profit from the stock 
-- [ ] User can see their dashboard
-- [ ] User can see their history of trades 
 - [x] User can change their profile information
 - [x] user can delete their account 
+- [ ] User can see their dashboard
+- [ ] User can see their history of trades 
 - [ ] Comparing two different stocks
 * ...
 
