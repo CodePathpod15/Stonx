@@ -374,11 +374,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     var stockObject: PFObject? = nil
     
     
-    
-    init(str: String) {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
+//    
     // so we pass the bestMatch from the previos vc
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)

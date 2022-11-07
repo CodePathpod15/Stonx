@@ -13,7 +13,31 @@ extension DashboardVCViewController: RecommendedStockDelegate {
     // TODO: display the the stock
     func userWantsToBuy() {
         
-        navigationController?.pushViewController(StocksViewController(), animated: true)
+      
+        API.getStockAboutMe(tickerSymbol:   recommendedStr) { result in
+            switch result {
+            case .success(let items):
+                if let items = items {
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(StocksViewController(symbol: self.recommendedStr, full_name:  items.name ), animated: true)
+                        }
+                        
+                   
+                } else {
+                    print("error: heheh")
+                }
+                
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+        }
+        // do the request here
+        
+        
+        
+        
+       
     }
     
     
