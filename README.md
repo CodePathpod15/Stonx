@@ -41,12 +41,12 @@ a stock
 - [x] User Can sell a stock
 - [x] user gets a recommened stock 
 - [x] user is able to look at the recommended sotck 
-- [ ] User can see their portfolio
 - [x] User can set their favorite stocks 
 - [x] User can see their profit from the stock 
+- [ ] User can see their dashboard
 - [ ] User can see their history of trades 
-- [ ] User can change their profile information
-- [ ] User can maneuver through dashboard.
+- [x] User can change their profile information
+- [x] user can delete their account 
 - [ ] Comparing two different stocks
 * ...
 
