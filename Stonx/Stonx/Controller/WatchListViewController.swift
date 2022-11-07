@@ -88,12 +88,12 @@ class WatchListViewController: UIViewController {
         stocksTableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         stocksTableview.register(StockTableViewCell.self, forCellReuseIdentifier: StockTableViewCell.identifier)
         stocksTableview.translatesAutoresizingMaskIntoConstraints = false
-
+        stocksTableview.backgroundColor = .clear
         
         stocksTableview.dataSource = self
         stocksTableview.delegate = self
         
-        view.backgroundColor = .systemGray6
+//        view.backgroundColor = .systemGray6
         
     }
     

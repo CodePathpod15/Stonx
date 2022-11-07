@@ -59,6 +59,6 @@ class TabBarController: UITabBarController {
         tabBar.tintColor = .label
         
         
-        setViewControllers([home,favorites,search,profile], animated: true)
+        setViewControllers([home,search,favorites,profile], animated: true)
     }
 }
