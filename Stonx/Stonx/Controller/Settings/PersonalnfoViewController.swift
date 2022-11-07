@@ -38,7 +38,7 @@ extension PersonalnfoViewController: UITableViewDataSource {
         return 2
     }
     
-    // Username and email
+    // Username and full name
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
         if indexPath.row == 0 {
@@ -48,8 +48,15 @@ extension PersonalnfoViewController: UITableViewDataSource {
             return cell
         } else {
             cell.accessoryType = .disclosureIndicator
-            cell.configure(with: "email")
-            cell.configure(name: currentUser.email!)
+            cell.configure(with: "full name")
+            
+            // TODO: clean this up
+            if currentUser.value(forKey: "full_name") as? String  == nil {
+                cell.configure(name: "")
+            } else {
+                cell.configure(name:  currentUser.value(forKey: "full_name") as! String)
+            }
+        
             cell.isUserInteractionEnabled = false
         }
         
