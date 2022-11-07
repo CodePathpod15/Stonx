@@ -32,13 +32,9 @@ class BalanceTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
      
-       
         setUpView()
         setUpContraints()
-        
     }
-    
-    
     
     func configure(name: String) {
         self.amountLbl.text = name
@@ -51,10 +47,8 @@ class BalanceTableViewCell: UITableViewCell {
        amountLbl.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    
     private func setUpContraints() {
         // setting constraints for title
-        
         var inset = separatorInset.left * 2 + 4
         
         if UIDevice().userInterfaceIdiom == .phone {
@@ -69,22 +63,12 @@ class BalanceTableViewCell: UITableViewCell {
             
         }
         
-        
-        
-       
-        
-       
-        
         titleLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         titleLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         amountLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         amountLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
     
         }
-    
-  
-        
-        
     
     func configure(with title: String) {
         self.titleLbl.text = title
@@ -94,17 +78,4 @@ class BalanceTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-   
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
