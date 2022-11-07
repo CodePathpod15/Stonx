@@ -46,7 +46,7 @@ class ModifyBalanceViewController: UIViewController {
         let user  = PFUser.current()!
         user.fetchInBackground() {obj,err in
             if let obj = obj {
-                let balance = obj.value(forKey: "Balance") as? Double
+                let balance = obj.value(forKey: UserConstants.balance) as? Double
                 self.usBalance = balance!
                 self.tableview.reloadData()
             } else {
@@ -78,7 +78,7 @@ class ModifyBalanceViewController: UIViewController {
                 if let convertedtext = Double(text!) {
                     let newBalance = self.usBalance + (convertedtext)
                     let usr = PFUser.current()!
-                    usr["Balance"] = newBalance
+                    usr[UserConstants.balance] = newBalance
                     
                     usr.saveInBackground() { success, error in
                         if success {
