@@ -49,10 +49,6 @@ Stonx is a an application that allows users to simulate what it's like to finall
 **Optional Nice-to-have Stories**
 
 - [ ] User can change their profile (e.g. dark mode, ligth mode)
-- [ ] User can bookmark a stock so that it appears in the homepage  
-- [ ] User can search for crypto 
-- [ ] User can Buy crypto
-- [ ] user can sell crypto
 - [ ] User can comment on a specific stock (discussion)
 - [ ] News headline 
 - [ ] ask the user for the number of experiences (1 to 2 years)
