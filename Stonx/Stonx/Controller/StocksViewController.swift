@@ -473,12 +473,13 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     // gets all of the stocks that the user owns
     func getOwnedStocks() {
         let query = PFQuery(className: "user_transaction")
-        query.whereKey("ticker_symbol", equalTo: self.tickerName)
+        query.whereKey("ticker_symbol", equalTo: self.tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
         do{
             var totalBought = 0
            var sold = 0
             let obj = try query.findObjects()
             for object in obj {
+                
                 let pur = object["purchase"] as? Bool
                 let quantity = object["Quantity"] as? Int
                 if pur == true {

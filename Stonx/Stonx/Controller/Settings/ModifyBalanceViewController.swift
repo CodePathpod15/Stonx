@@ -47,7 +47,12 @@ class ModifyBalanceViewController: UIViewController {
         user.fetchInBackground() {obj,err in
             if let obj = obj {
                 let balance = obj.value(forKey: UserConstants.balance) as? Double
-                self.usBalance = balance!
+                if let balance = balance {
+                    self.usBalance = balance
+                } else {
+                    self.usBalance = 0
+                }
+               
                 self.tableview.reloadData()
             } else {
                 self.showAlert(with: "There was an error with your balance")
