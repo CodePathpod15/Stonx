@@ -127,7 +127,7 @@ class RateTheStock: UIView {
         handleDimiss()
     }
     
-    
+    // deals witht the dismissing of the view
     func handleDimiss() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
             self.alpha = 0
@@ -138,11 +138,9 @@ class RateTheStock: UIView {
     }
     
     
-    
+    // enables the stock to be pressed
     @objc func starWasPressed(button: UIButton) {
-
         let index = buttons.firstIndex{$0 === button} as? Int
-        
         numberOfStars = index! + 1
         
         if let index = index {
@@ -150,24 +148,12 @@ class RateTheStock: UIView {
             for i in 0..<(index + 1) {
                 buttons[i].setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.yellow), for: .normal)
             }
-            
             // updating the stars to
             let newIndex = (index + 1)
             for i in newIndex..<buttons.count {
                 buttons[i].setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor.systemGray5), for: .normal)
             }
-            
         }
-
-        
-        
-    }
-    
-    
-    
-    
-    func createLayout() {
-        
     }
     
     required init?(coder: NSCoder) {
@@ -190,8 +176,6 @@ class RateTheStock: UIView {
         }
 
     }
-    
-    
     
     @objc fileprivate func handleTapDimiss() {
  

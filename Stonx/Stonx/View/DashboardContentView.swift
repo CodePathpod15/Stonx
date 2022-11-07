@@ -22,27 +22,19 @@ class DashboardContentView: UIView {
         chartView.xAxis.enabled = false
         
         chartView.leftYAxisRenderer.axis.enabled = false
-        
-        
-        
+    
         return chartView
     }()
     
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
-        
-        
-//        set1.mode = .
         set1.drawCirclesEnabled = false
         set1.lineWidth = 2
-        set1.setColor(UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1))
-//        set1.fillAlpha = 0.8
+        set1.setColor(ColorConstants.green)
         set1.gradientPositions = [0, 1]
-        set1.fillColor = UIColor(red: 238/255, green: 254/255, blue: 242/255, alpha: 1)
+        set1.fillColor = ColorConstants.lightGreen
         set1.drawFilledEnabled = true
-        
-        
-        
+  
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
@@ -143,7 +135,6 @@ class DashboardContentView: UIView {
     lazy var verticalSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [stockLbl, horizontalSV, lineChartView, StocksOwnedLbl])
         sv.axis = .vertical
-//        sv.backgroundColor = .yellow
         sv.distribution = .equalSpacing
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 10
@@ -162,7 +153,6 @@ class DashboardContentView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        self.backgroundColor = .green
         ChartView.translatesAutoresizingMaskIntoConstraints = false
         ChartView.backgroundColor = UIColor.purple
         
@@ -201,9 +191,6 @@ extension DashboardContentView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-  
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
@@ -212,11 +199,8 @@ extension DashboardContentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
         cell.layoutMargins = UIEdgeInsets.zero
-        
         return cell
-
     }
-    
 }
 
 

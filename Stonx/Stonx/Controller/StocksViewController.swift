@@ -4,6 +4,7 @@ import Parse
 
 
 // TODO: clean up
+// ANGY: try subclassing the 
 class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     /// MARK:  propeties
@@ -373,8 +374,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     var sect: String? = nil
     var stockObject: PFObject? = nil
     
-    
-//    
     // so we pass the bestMatch from the previos vc
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)
@@ -383,7 +382,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         tickerSymbol.text = stockInfo.the2Name
         
         tickerName = stockInfo.the1Symbol
-//        navigationItem.title  = tickerName
+
         
         API.getStockAboutMe(tickerSymbol: tickerName) { result in
             switch result {
@@ -435,8 +434,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             
         }
         
-        //TODO: check if the user has the stock saved in their watch list and if they do then we add the unsave button
-        
         // query to check if this stock exists in the database
         let query = PFQuery(className:"stocks_booked")
         query.whereKey("ticker_symbol", equalTo:tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
@@ -463,28 +460,20 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                         
                     }
                 }
-                
-                
-                
-                
+       
             }
         }
-        
-        
-        
-//        // add right navigation button
-   
+
         
     }
     
     var stocksOwned = [String: Int]()
     
     
+    // gets all of the stocks that the user owns
     func getOwnedStocks() {
-        
         let query = PFQuery(className: "user_transaction")
         query.whereKey("ticker_symbol", equalTo: self.tickerName)
-        
         do{
             var totalBought = 0
            var sold = 0
@@ -498,21 +487,12 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                      sold += quantity!
                  }
             }
-            
-            
             stocksOwned[self.tickerName] = totalBought - sold
             
         }
         catch {
             print("error")
-            
-            
         }
-        
-       
-        
-        
-        
     }
     
     
@@ -530,8 +510,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             if let sect = sect {
                 watchlist["sector"] = sect
             }
-            
-            
+
             // saves the sector
             watchlist.saveInBackground { success, error in
                 if success {
@@ -558,17 +537,12 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             }
 
         }
-        
-      
-        
-        
     }
     
     @objc func unaddFromWatchList() {
         // deletes parse objects from database
         
     }
-    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -728,12 +702,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
 // implementation of delegates
 extension StocksViewController: TradingDelegate {
     func sell() {
-        
-//        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
-        
         let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!, sharesOwned: stocksOwned[self.tickerName]!)
-        
-        
         
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)

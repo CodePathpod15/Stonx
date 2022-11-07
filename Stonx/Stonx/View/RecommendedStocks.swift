@@ -146,7 +146,6 @@ class RecommendedStocks: UIView {
     // deals with setting up layout
     private func setUpLayout() {
         self.addSubview(cContent)
-//
         cContent.backgroundColor = .white
         cContent.translatesAutoresizingMaskIntoConstraints = false
         cContent.clipsToBounds = true
@@ -221,9 +220,7 @@ class RecommendedStocks: UIView {
         }
 
     }
-    
-    
-    
+
     @objc fileprivate func handleTapDimiss() {
  
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {

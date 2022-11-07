@@ -43,7 +43,8 @@ class FilterCollectionViewCell: UICollectionViewCell {
            ])
        
        }
-       
+        
+        // IGNORE: will fix later
        func configure(filter: Filter) {
          let greyCol  = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
          let blueCol = UIColor(red: 99/255, green: 203/255, blue: 217/255, alpha: 1)
