@@ -43,6 +43,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [ ] User can see their history of trades 
 - [ ] User can change their profile information
 - [ ] User can maneuver through dashboard.
+- [ ] Comparing two different stocks
 * ...
 
 **Optional Nice-to-have Stories**
@@ -55,7 +56,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [ ] User can comment on a specific stock (discussion)
 - [ ] News headline 
 - [ ] ask the user for the number of experiences (1 to 2 years)
-- [ ] Comparing two different stocks
+
 
 
 ### 2. Screen Archetypes
