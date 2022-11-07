@@ -72,7 +72,7 @@ extension PersonalnfoViewController: UITableViewDelegate {
         alertToUpdateParseAttribute(at: indexPath)
     }
     
-    // takes care of the alerting of users 
+    // takes care of the alerting of users
     func alertToUpdateParseAttribute(at indexpath: IndexPath) {
         let name = settings[indexpath.row]
         let parseColumnName = settingConstants[indexpath.row]
