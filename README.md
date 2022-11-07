@@ -43,7 +43,7 @@ a stock
 - [x] user is able to look at the recommended sotck 
 - [ ] User can see their portfolio
 - [x] User can set their favorite stocks 
-- [ ] User can see their profit from the stock 
+- [x] User can see their profit from the stock 
 - [ ] User can see their history of trades 
 - [ ] User can change their profile information
 - [ ] User can maneuver through dashboard.
