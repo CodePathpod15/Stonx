@@ -65,14 +65,71 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return textLabel
     }()
     
+    lazy var imageIconVolume: UIButton = {
+        let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
+        let button = UIButton(type: .system)
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
+    lazy var imageIconPERatio: UIButton = {
+        let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
+        let button = UIButton(type: .system)
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
+    lazy var imageIconEPS: UIButton = {
+        let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
+        let button = UIButton(type: .system)
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
+
+    
+    
+    lazy var imageIcon: UIButton = {
+        let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
+        let button = UIButton(type: .system)
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
+    private lazy var marketCapAndIconSV: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.axis = .horizontal
+        hStackView.spacing = 2
+        hStackView.alignment = .center
+        hStackView.addArrangedSubview(imageIcon)
+        hStackView.addArrangedSubview(marketCapHeaderLabel)
+        
+        return hStackView
+    }()
+    
+    
     private lazy var marketCapHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
         hStackView.distribution = .equalSpacing
         hStackView.axis = .horizontal
         hStackView.alignment = .leading
-        hStackView.addArrangedSubview(marketCapHeaderLabel)
+        
+        hStackView.addArrangedSubview(marketCapAndIconSV)
         hStackView.addArrangedSubview(marketCapTextLabel)
+        return hStackView
+    }()
+    
+    private lazy var stockVolumeAndIconSV: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.axis = .horizontal
+        hStackView.spacing = 2
+        hStackView.alignment = .center
+        hStackView.addArrangedSubview(imageIconVolume)
+        hStackView.addArrangedSubview(stockVolumeHeaderLabel)
+        
         return hStackView
     }()
     
@@ -82,21 +139,49 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         hStackView.distribution = .equalSpacing
         hStackView.axis = .horizontal
         hStackView.alignment = .leading
-        hStackView.addArrangedSubview(stockVolumeHeaderLabel)
+        hStackView.addArrangedSubview(stockVolumeAndIconSV)
         hStackView.addArrangedSubview(stockVolumeTextLabel)
         return hStackView
     }()
 
+    private lazy var stockPERatioAndIconSV: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.axis = .horizontal
+        hStackView.spacing = 2
+        hStackView.alignment = .center
+        hStackView.addArrangedSubview(imageIconPERatio)
+        hStackView.addArrangedSubview(stockPERatioHeaderLabel)
+        
+        return hStackView
+    }()
+    
+    
     private lazy var stockPERatioHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
         hStackView.distribution = .equalSpacing
         hStackView.axis = .horizontal
         hStackView.alignment = .leading
-        hStackView.addArrangedSubview(stockPERatioHeaderLabel)
+        hStackView.addArrangedSubview(stockPERatioAndIconSV)
         hStackView.addArrangedSubview(stockPERatioTextLabel)
         return hStackView
     }()
+    
+    
+    private lazy var stockEPSAndIconSV: UIStackView = {
+        let hStackView = UIStackView()
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.axis = .horizontal
+        hStackView.spacing = 2
+        hStackView.alignment = .center
+        hStackView.addArrangedSubview(imageIconEPS)
+        hStackView.addArrangedSubview(stockEPSHeaderLabel)
+        
+        return hStackView
+    }()
+    
+    
     
     private lazy var stockEPSHStackView: UIStackView = {
         let hStackView = UIStackView()
@@ -104,10 +189,13 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         hStackView.distribution = .equalSpacing
         hStackView.axis = .horizontal
         hStackView.alignment = .leading
-        hStackView.addArrangedSubview(stockEPSHeaderLabel)
+        hStackView.addArrangedSubview(stockEPSAndIconSV)
         hStackView.addArrangedSubview(stockEPSTextLabel)
         return hStackView
     }()
+    
+    
+    
     
     private lazy var stockPriceHStackView: UIStackView = {
         let hStackView = UIStackView()
