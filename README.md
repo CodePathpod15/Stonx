@@ -54,6 +54,7 @@ a stock
 
 - [ ] User can change their profile (e.g. dark mode, ligth mode)
 - [ ] User can comment on a specific stock (discussion)
+- [ ] Walkthrough of the app
 - [ ] News headline 
 - [ ] ask the user for the number of experiences (1 to 2 years)
 
