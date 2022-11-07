@@ -25,3 +25,17 @@ struct FontConstants {
     static let cellSmallFont = UIFont.systemFont(ofSize: 12, weight: .regular)
     static let cellMediumFont = UIFont.systemFont(ofSize: 14, weight: .regular)
 }
+
+
+// related to parse column
+
+class UserConstants {
+     static let username = "username"
+     static let password = "password"
+     static let fullname = "full_name"
+     static let email = "email"
+     static let last_surveyed = "last_surveyed"
+     static let balance = "Balance"
+     static let surveyed = "Surveyed"
+
+ }
