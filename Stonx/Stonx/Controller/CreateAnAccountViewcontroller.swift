@@ -103,6 +103,8 @@ class CreateAnAccountViewcontroller: UIViewController {
         user.username = usernametxtfield.text
         user.email = emailtxtField.text
         user.password = passwordtxtField.text
+        user["last_surveyed"] = user.createdAt ?? Date()
+        
         
         user.signUpInBackground {
             (succeeded: Bool, error: Error?) -> Void in

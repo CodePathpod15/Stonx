@@ -132,8 +132,6 @@ extension ModifyBalanceViewController: UITableViewDataSource {
         return cell
     }
 
-    
-    
 }
 
 

@@ -224,7 +224,7 @@ class TransactionSuccessfulViewController: UIViewController {
                     // finds it synchronously as
                     let secondQuery = PFQuery(className: "user_transaction")
                     secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt)
-                    
+//                    
                     do {
                         var totalBought = 0
                         var sold = 0
