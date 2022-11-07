@@ -1,12 +1,11 @@
 import Charts
-import UIKit
 import Parse
-
+import UIKit
 
 // TODO: clean up
 class StocksViewController: UIViewController, UINavigationControllerDelegate {
-    
-    /// MARK:  propeties
+    // MARK: propeties
+
     private lazy var tickerSymbol: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -197,7 +196,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return textLabel
     }()
     
-    
     private lazy var stockPriceChangeLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -262,7 +260,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return textLabel
     }()
     
-  
     private let tradeButtonBottom: UIButton = {
         let floatingButton = UIButton(type: .system)
         floatingButton.setTitle("Trade", for: .normal)
@@ -293,6 +290,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
+        chartView.setScaleEnabled(false)
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
         
@@ -305,13 +303,11 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return chartView
     }()
     
-    
-    
     // fake data
     // sets the data entry for the data
     // https://dremployee.com/time-to-decimal-calculator.php
     let yvalue: [ChartDataEntry] = [
-//        ChartDataEntry(x: <#T##Double#>, y: <#T##Double#>)
+        //        ChartDataEntry(x: <#T##Double#>, y: <#T##Double#>)
         ChartDataEntry(x: 0.0, y: 10.0),
         ChartDataEntry(x: 1.0, y: 5.0),
         ChartDataEntry(x: 2.0, y: 7.0),
@@ -355,8 +351,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         ChartDataEntry(x: 40.9, y: 55.0)
     ]
     
-    
-    
     var tickerName = ""
     
     override func viewDidLoad() {
@@ -370,15 +364,13 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     // TODO: intializer
     
-    var sect: String? = nil
-    var stockObject: PFObject? = nil
-    
-    
+    var sect: String?
+    var stockObject: PFObject?
     
     // so we pass the bestMatch from the previos vc
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)
-        self.title = stockInfo.the1Symbol
+        title = stockInfo.the1Symbol
         
         tickerSymbol.text = stockInfo.the2Name
         
@@ -393,7 +385,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                     self.aboutTextLabel.text = items?.stockAboutDescription
                     self.sectorTextLabel.text = items?.sector
                     self.sect = items?.sector
-                    self.stockEPSTextLabel.text =  items?.eps
+                    self.stockEPSTextLabel.text = items?.eps
                     self.stockPERatioTextLabel.text = items?.peRatio
                     // market cap
                     self.marketCapTextLabel.text = items?.marketCap
@@ -414,12 +406,10 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                     self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
                     self.stockPriceLabel.text = items?.globalQuote.the05Price
                     
-                    
                     // so here we know we have items
                     if let items = items {
-                        
-                        if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
-                               self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+                        if items.globalQuote.the10ChangePercent.contains(where: { $0 == "-" }) {
+                            self.stockPricePercentChangeLabel.textColor = ColorConstants.red
                         } else {
                             self.stockPricePercentChangeLabel.textColor = ColorConstants.green
                         }
@@ -432,16 +422,14 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                 // otherwise, print an error to the console
                 print(error)
             }
-            
         }
         
-        //TODO: check if the user has the stock saved in their watch list and if they do then we add the unsave button
+        // TODO: check if the user has the stock saved in their watch list and if they do then we add the unsave button
         
         // query to check if this stock exists in the database
-        let query = PFQuery(className:"stocks_booked")
-        query.whereKey("ticker_symbol", equalTo:tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
+        let query = PFQuery(className: "stocks_booked")
+        query.whereKey("ticker_symbol", equalTo: tickerName).whereKey("user", contains: PFUser.current()!.objectId)
 
-        
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
                 // The request failed
@@ -461,66 +449,44 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                         let rightButton: UIBarButtonItem = rbutton
                         self.navigationItem.rightBarButtonItem = rightButton
                         self.stockObject = objects[0]
-                        
                     }
                 }
-                
-                
-                
-                
             }
         }
         
-        
-        
 //        // add right navigation button
-   
-        
     }
     
     var stocksOwned = [String: Int]()
     
-    
     func getOwnedStocks() {
-        
         let query = PFQuery(className: "user_transaction")
-        query.whereKey("ticker_symbol", equalTo: self.tickerName)
+        query.whereKey("ticker_symbol", equalTo: tickerName)
         
-        do{
+        do {
             var totalBought = 0
-           var sold = 0
+            var sold = 0
             let obj = try query.findObjects()
             for object in obj {
                 let pur = object["purchase"] as? Bool
                 let quantity = object["Quantity"] as? Int
                 if pur == true {
-                   totalBought += quantity!
-                 } else {
-                     sold += quantity!
-                 }
+                    totalBought += quantity!
+                } else {
+                    sold += quantity!
+                }
             }
             
-            
-            stocksOwned[self.tickerName] = totalBought - sold
-            
-        }
-        catch {
+            stocksOwned[tickerName] = totalBought - sold
+        } catch {
             print("error")
-            
-            
         }
-        
-       
-        
-        
-        
     }
-    
     
     @objc func addToWatchList() {
         // create parse object
         
-        if  self.navigationItem.rightBarButtonItem?.title == "favorite" {
+        if navigationItem.rightBarButtonItem?.title == "favorite" {
             let watchlist = PFObject(className: "stocks_booked")
             // saves the ticker name
             watchlist["ticker_symbol"] = tickerName
@@ -531,7 +497,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             if let sect = sect {
                 watchlist["sector"] = sect
             }
-            
             
             // saves the sector
             watchlist.saveInBackground { success, error in
@@ -547,8 +512,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             if let stockObject = stockObject {
                 let array = [stockObject]
               
-                PFObject.deleteAll(inBackground: array) { (succeeded, error) in
-                    if (succeeded) {
+                PFObject.deleteAll(inBackground: array) { succeeded, error in
+                    if succeeded {
                         // The array of objects was successfully deleted.
                         self.navigationItem.rightBarButtonItem?.title = "favorite"
                     } else {
@@ -557,31 +522,23 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                     }
                 }
             }
-
         }
-        
-      
-        
-        
     }
     
     @objc func unaddFromWatchList() {
         // deletes parse objects from database
-        
     }
-    
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     // this is actually fake data no needed
     // ignore
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     // MARK: view set up
     
@@ -604,7 +561,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         stackView.addArrangedSubview(stockEPSHStackView)
     }
     
-
     private func setupConstraints() {
         let padding: CGFloat = 16
         scrollView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
@@ -625,43 +581,41 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
         ])
                 
-
         // Constraints for views that are not horizontal stack views in the main vertical stack view
         // Let auto layout handle each stack height, chart height must be explicit though
         NSLayoutConstraint.activate([
             // Ticker Symbol layout
             stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: padding),
             stackView.arrangedSubviews[0].rightAnchor.constraint(equalTo: view.rightAnchor),
-
+            
             // Chart Layout
             stackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor),
             stackView.arrangedSubviews[2].heightAnchor.constraint(equalToConstant: 200),
             stackView.arrangedSubviews[2].leftAnchor.constraint(equalTo: view.leftAnchor),
-
+            
             // About Section Header
             stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
             
             // About Section Text
             stackView.arrangedSubviews[5].rightAnchor.constraint(equalTo: view.rightAnchor),
-           
+            
             // Type Section Label
             stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
-
+            
             // Type Section Text Label
             stackView.arrangedSubviews[7].rightAnchor.constraint(equalTo: view.rightAnchor),
             
             // Market Stats Section Label
-            stackView.arrangedSubviews[8].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[8].rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
                 
         // Layout only needed for the price and % change to clip it to right hand side
         NSLayoutConstraint.activate([
-            
             stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
             
             stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
-
-            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            
+            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding)
         ])
         
         // Provide layout for the right hand side labels
@@ -682,30 +636,28 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     // MARK: Action methods
     
-     @objc private func tradeButtonWaspressed() {
+    @objc private func tradeButtonWaspressed() {
+        let tradeView = TradeView()
          
-         let tradeView = TradeView()
+        if stocksOwned[tickerName] != nil {
+            let owned = stocksOwned[tickerName]!
+            if owned == 0 {
+                tradeView.sellButton.isEnabled = false
+                tradeView.sellButton.backgroundColor = .systemGray
+            }
+        }
          
-         if stocksOwned[self.tickerName] != nil {
-             let owned = stocksOwned[self.tickerName]!
-             if owned == 0 {
-                 tradeView.sellButton.isEnabled = false
-                 tradeView.sellButton.backgroundColor = .systemGray
-             }
-         }
+        tradeView.translatesAutoresizingMaskIntoConstraints = false
+        tradeView.delegate = self
          
-         tradeView.translatesAutoresizingMaskIntoConstraints = false
-         tradeView.delegate = self
+        let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+        currentWindow?.addSubview(tradeView)
          
-         
-         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
-         currentWindow?.addSubview(tradeView)
-         
-         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
 
-    
-    //MARK: Chart set up
+    // MARK: Chart set up
+
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
         
@@ -723,46 +675,36 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         data.setDrawValues(false)
         lineChartView.data = data
     }
-    
-
 }
 
 // implementation of delegates
 extension StocksViewController: TradingDelegate {
     func sell() {
-        
 //        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
         
-        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!, sharesOwned: stocksOwned[self.tickerName]!)
-        
-        
+        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: tickerName, latestPrice: Double(stockPriceLabel.text!)!, sharesOwned: stocksOwned[tickerName]!)
         
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
-        self.present(view, animated: true)
+        present(view, animated: true)
     }
-    
     
     // enabling the buying of a stock
     func buy() {
-        print("going into buy: ", self.tickerName)
-        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
+        print("going into buy: ", tickerName)
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: tickerName, latestPrice: Double(stockPriceLabel.text!)!)
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
-        self.present(view, animated: true)
+        present(view, animated: true)
     }
-
 }
-
 
 extension StocksViewController: TransactionDelegate {
     func transac(of type: TransactionType) {
         let vc = TransactionSuccessfulViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        present(vc, animated: true)
     }
-    
-    
 }

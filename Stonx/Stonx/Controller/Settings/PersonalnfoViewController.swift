@@ -48,7 +48,7 @@ extension PersonalnfoViewController: UITableViewDataSource {
             return cell
         } else {
             cell.accessoryType = .disclosureIndicator
-            cell.configure(with: "Email")
+            cell.configure(with: "email")
             cell.configure(name: currentUser.email!)
             cell.isUserInteractionEnabled = false
         }
