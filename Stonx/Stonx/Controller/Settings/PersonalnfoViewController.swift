@@ -10,6 +10,8 @@ import UIKit
 class PersonalnfoViewController: UIViewController {
     let tableview = UITableView(frame: .zero, style: .grouped)
     let settings = ["username", "full name"]
+    let settingConstants = [UserConstants.username, UserConstants.fullname]
+    
     let currentUser = PFUser.current()!
     
     override func viewDidLoad() {
@@ -35,7 +37,7 @@ class PersonalnfoViewController: UIViewController {
 
 extension PersonalnfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return settings.count
     }
     
     // Username and full name
@@ -57,7 +59,7 @@ extension PersonalnfoViewController: UITableViewDataSource {
                 cell.configure(name:  currentUser.value(forKey: "full_name") as! String)
             }
         
-            cell.isUserInteractionEnabled = false
+            cell.isUserInteractionEnabled = true
         }
         
         return cell
@@ -67,33 +69,46 @@ extension PersonalnfoViewController: UITableViewDataSource {
 extension PersonalnfoViewController: UITableViewDelegate {
     // you might want to get the name of the user from parse and show it in the textfield
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            let setting = "Username"
-            
-            let alertController = UIAlertController(title: "Editing \(setting)", message: "", preferredStyle: .alert)
+        alertToUpdateParseAttribute(at: indexPath)
+    }
+    
+    // takes care of the alerting of users 
+    func alertToUpdateParseAttribute(at indexpath: IndexPath) {
+        let name = settings[indexpath.row]
+        let parseColumnName = settingConstants[indexpath.row]
+        
+        let alertController = UIAlertController(title: "Editing \(name)", message: "", preferredStyle: .alert)
 
-            // cancel button
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-                // cancel code
-            }
-            alertController.addAction(cancelAction)
-
-            // Save the new username
-            let nextAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                let text = (alertController.textFields?.first as! UITextField).text
-                
-                // 
-                self.currentUser[UserConstants.username] = text
-                self.currentUser.saveInBackground()
-            }
-            
-            alertController.addAction(nextAction)
-            
-            alertController.addTextField { textField in
-                textField.placeholder = "Enter \(setting)"
-            }
-            
-            present(alertController, animated: true)
+        // cancel button
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            // cancel code
         }
+        
+        alertController.addAction(cancelAction)
+        
+        let nextAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            let text = (alertController.textFields?.first as! UITextField).text
+            
+            //
+            self.currentUser[parseColumnName] = text
+            self.currentUser.saveInBackground() { success, error in
+                if success {
+                    self.tableview.reloadData()
+                }
+                
+            }
+        }
+        
+        alertController.addAction(nextAction)
+
+        alertController.addTextField { textField in
+            textField.placeholder = "Enter \(name)"
+        }
+
+        present(alertController, animated: true)
+        
+        
     }
 }
+
+// by angel
