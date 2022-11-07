@@ -29,7 +29,6 @@ struct FontConstants {
 
 
 // related to parse column
-
 class UserConstants {
      static let username = "username"
      static let password = "password"
@@ -40,3 +39,4 @@ class UserConstants {
      static let surveyed = "Surveyed"
 
  }
+
