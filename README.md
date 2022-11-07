@@ -35,6 +35,8 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [x] user can see the information of a stock 
 - [x] User can buy a stock
 - [x] User Can sell a stock
+- [x] user gets a recommened stock 
+- [ ] user is able to look at the recommended sotck 
 - [ ] User can see their portfolio
 - [x] User can set their favorite stocks 
 - [ ] User can see their profit from the stock 
@@ -54,7 +56,7 @@ Stonx is a an application that allows users to simulate what it's like to finall
 - [ ] News headline 
 - [ ] ask the user for the number of experiences (1 to 2 years)
 - [ ] Comparing two different stocks
-- [ ] add scaling to stocks for recommendations 
+
 
 ### 2. Screen Archetypes
 
