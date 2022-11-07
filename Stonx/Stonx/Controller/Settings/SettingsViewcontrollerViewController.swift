@@ -8,81 +8,13 @@
 import UIKit
 import Parse
 
-class SettingsViewcontrollerViewController: UIViewController, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings.count
-    }
-    
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let c = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        
-        let setting = settings[indexPath.row]
-        
-        
-        
-        switch setting {
-        case "Personal info":
-            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            
-            cell.accessoryType = .disclosureIndicator
-            cell.configure(with: settings[indexPath.row])
-            return cell
-        case "Balance":
-            let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
-            cell.configure(name: String(usBalance))
-            
-            cell.accessoryType = .disclosureIndicator
-            cell.layoutMargins = UIEdgeInsets.zero
-            
-            cell.configure(with: settings[indexPath.row])
-           
-            return cell
-        case "retire":
-            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            
-            cell.configure(with: settings[indexPath.row])
-            
-            return cell
-        case "delete Account":
-            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            
-            cell.configure(with: settings[indexPath.row])
-            
-            return cell
-        case "Turn off the Lights Off":
-            let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeTableViewCell.identifier, for: indexPath) as! DarkModeTableViewCell
-            cell.layoutMargins = UIEdgeInsets.zero
-            
-            
-            return cell
-            
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
-            
-            return cell
-        }
-        
-        
-  
-        
-        
+class SettingsViewcontrollerViewController: UIViewController {
 
-    }
     
     let logOutButton = UIButton(type: .system)
     private var settingsTableviw: UITableView = UITableView(frame: .zero, style: .grouped)
     
-    let settings = ["Personal info", "Balance", "retire", "delete Account", "Turn off the Lights Off"]
+    let settings = ["Personal info", "Balance", "delete Account"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -230,5 +162,78 @@ extension SettingsViewcontrollerViewController: UITableViewDelegate {
         default:
             return
         }
+    }
+}
+
+
+extension SettingsViewcontrollerViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settings.count
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+//        let c = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        
+        let setting = settings[indexPath.row]
+        
+        
+        
+        switch setting {
+        case "Personal info":
+            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            cell.accessoryType = .disclosureIndicator
+            cell.configure(with: settings[indexPath.row])
+            return cell
+        case "Balance":
+            let cell = tableView.dequeueReusableCell(withIdentifier: BalanceTableViewCell.identifier, for: indexPath) as! BalanceTableViewCell
+            cell.configure(name: String(usBalance))
+            
+            cell.accessoryType = .disclosureIndicator
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            cell.configure(with: settings[indexPath.row])
+           
+            return cell
+        case "retire":
+            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            cell.configure(with: settings[indexPath.row])
+            
+            return cell
+        case "delete Account":
+            let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            cell.configure(with: settings[indexPath.row])
+            
+            return cell
+        case "Turn off the Lights Off":
+            let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeTableViewCell.identifier, for: indexPath) as! DarkModeTableViewCell
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+            
+            return cell
+        }
+        
+        
+  
+        
+        
+
     }
 }
