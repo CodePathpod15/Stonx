@@ -9,8 +9,11 @@ import Foundation
 import Parse
 
 extension DashboardVCViewController: RecommendedStockDelegate {
+    
+    // TODO: display the the stock
     func userWantsToBuy() {
-        print("here I am")
+        
+        navigationController?.pushViewController(StocksViewController(), animated: true)
     }
     
     

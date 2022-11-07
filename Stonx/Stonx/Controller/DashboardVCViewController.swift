@@ -8,12 +8,12 @@
 import UIKit
 import Parse
 
-
 class DashboardVCViewController: UIViewController, RateDelegate {
 
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
     var calledOnce = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -43,25 +43,69 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
     }
     
+    var recommendedStr = ""
     
     @objc func  lightBulbWasPressed() {
-//        self.present(StocksViewController(), animated: true)
+
         
-        // get the recommended stock along with it's rating
+        let query = PFQuery(className: "ticker_rating")
         
-        
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            
+            var symbolToRating = [String: Int]()
+            var symbolToAmountOfRatings = [String: Int]()
+            
+            var symtolToAvgRating = [String:Double]()
+            
+            if let objects = objects {
+                
+                if objects.isEmpty {
+                    print("no ratings to show")
+                    return
+                }
+                
+                for object in objects {
+                    let symbol = object["ticker_symbol"] as! String
+                    let rating = object["rating"]  as! Int
+                    symbolToRating[symbol, default: 0] += rating
+                    symbolToAmountOfRatings[symbol, default: 0] += 1
+                }
+            
+                var maxRating = 0
+                var ticker = ""
+                
+                for (tik, rating) in symbolToRating {
+                    symtolToAvgRating[tik] = Double(symbolToRating[tik]!) / Double(symbolToAmountOfRatings[tik]!)
+                }
+                
+                let recommendedSymbol = symtolToAvgRating.max { $0.value < $1.value }
+                self.recommendedStr = recommendedSymbol!.key
+
+                if let recommendedSymbol = recommendedSymbol {
+                    let rstock = RecommendedStocks()
+                    rstock.configure(rating: recommendedSymbol.value, tickerName: recommendedSymbol.key)
+                    rstock.delegate = self
+                    rstock.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+                    currentWindow?.addSubview(rstock)
+                    
+                    rstock.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+                }
+            
+                
+            }
+            
+            if error != nil {
+                self.showAlert(with: error?.localizedDescription ?? "an error retrieving the reconmmended stock")
+            }
+            
+        }
+
         
         // get the
         
-        let rstock = RecommendedStocks()
-        rstock.configure(rating: 2, tickerName: "MFST")
-        rstock.delegate = self
-        rstock.translatesAutoresizingMaskIntoConstraints = false
         
-        let currentWindow: UIWindow? = UIApplication.shared.keyWindow
-        currentWindow?.addSubview(rstock)
-        
-        rstock.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     
         
     }
@@ -71,15 +115,10 @@ class DashboardVCViewController: UIViewController, RateDelegate {
       
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
     }
-    
-  
-    
-    
     
     // getting all of the stocks the user owns
     // TODO: refactor this
@@ -223,10 +262,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     self.getAllOfTheStocksTheUserOwns()
                 }
                 
-                //
-                
-                
-                
             } else {
                 self.showAlert(with: "There was an error with your balance")
                 
@@ -257,6 +292,9 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         }
         
     }
+    
+    
+    
     
     // conforing to the procol
     // this is called when the user has rated the
