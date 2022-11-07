@@ -8,13 +8,15 @@
 import UIKit
 import Parse
 
-class SettingsViewcontrollerViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
-    
+    // MARK: properties
     let logOutButton = UIButton(type: .system)
     private var settingsTableviw: UITableView = UITableView(frame: .zero, style: .grouped)
-    
+    var usBalance:Double = 0
     let settings = ["Personal info", "Balance", "delete Account"]
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,15 +35,41 @@ class SettingsViewcontrollerViewController: UIViewController {
         setUpViews()
         setUpConstraints()
     }
+
+    // MARK: setting up the UI
     
-    var usBalance:Double = 0
+    // setting  up the tableview
+   private func setUpViews() {
+       
+       let rbutton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logOutButtonWasPressed))
+       let rightButton: UIBarButtonItem = rbutton
+       self.navigationItem.rightBarButtonItem = rightButton
+       
+        settingsTableviw.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+       settingsTableviw.register(generalSettingsTableViewCell.self, forCellReuseIdentifier: generalSettingsTableViewCell.identifier)
+        settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
+        settingsTableviw.register(DarkModeTableViewCell.self, forCellReuseIdentifier: DarkModeTableViewCell.identifier)
+        settingsTableviw.translatesAutoresizingMaskIntoConstraints = false
+        settingsTableviw.dataSource = self
+       settingsTableviw.delegate = self
+
+        view.addSubview(settingsTableviw)
+    }
     
-    // getting the balance of the user
+ 
+    private func setUpConstraints() {
+        settingsTableviw.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+    }
+
+    
+    // MARK: helper methods
+    
+    /// getting the balance of the user using parse
     func getBalance() {
         let user  = PFUser.current()!
         user.fetchInBackground() {obj,err in
             if let obj = obj {
-                let balance = obj.value(forKey: "Balance") as? Double
+                let balance = obj.value(forKey:  UserConstants.balance) as? Double
                 self.usBalance = balance!
                 self.settingsTableviw.reloadData()
             } else {
@@ -51,32 +79,7 @@ class SettingsViewcontrollerViewController: UIViewController {
         }
     }
     
-    // setting  up the tableview
-   private func setUpViews() {
-       
-       let rbutton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logOutButtonWasPressed))
-       let rightButton: UIBarButtonItem = rbutton
-       self.navigationItem.rightBarButtonItem = rightButton
-       
-       
-       
-        settingsTableviw.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-       settingsTableviw.register(generalSettingsTableViewCell.self, forCellReuseIdentifier: generalSettingsTableViewCell.identifier)
-        settingsTableviw.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
-        settingsTableviw.register(DarkModeTableViewCell.self, forCellReuseIdentifier: DarkModeTableViewCell.identifier)
-        settingsTableviw.translatesAutoresizingMaskIntoConstraints = false
-        settingsTableviw.dataSource = self
-       settingsTableviw.delegate = self
-//        settingsTableviw.backgroundColor = .red
-        view.addSubview(settingsTableviw)
-    }
-    
-    //
-    private func setUpConstraints() {
-        settingsTableviw.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
-    }
-
-
+    /// getting the balance of the user using parse
     @objc func logOutButtonWasPressed() {
         PFUser.logOut()
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -92,6 +95,7 @@ class SettingsViewcontrollerViewController: UIViewController {
         case retire
     }
     
+    // helper method to delete the user
     private func presentingAlertWithDestruction(action: UserAction) {
         
         let title = action == .delete ? "Deleting Account" : "Going bankrupt"
@@ -112,30 +116,19 @@ class SettingsViewcontrollerViewController: UIViewController {
             //Create an optional action
         let nextAction: UIAlertAction = UIAlertAction(title: nActionTitle, style: .destructive) { action -> Void in
                 
-                
                 // TODO: delete user
                 // take them to home page
-            
-            
-                // TODO: reset the user's transactions
-                //
                 
             }
         
             alertController.addAction(nextAction)
-        
-    
         present(alertController, animated: true)
     }
-    
-    
-    
-    
 
 }
 
-
-extension SettingsViewcontrollerViewController: UITableViewDelegate {
+// conforming to the delegate
+extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let setting = settings[indexPath.row]
         switch setting {
@@ -165,8 +158,8 @@ extension SettingsViewcontrollerViewController: UITableViewDelegate {
     }
 }
 
-
-extension SettingsViewcontrollerViewController: UITableViewDataSource {
+// conforming to the data sourc e
+extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -174,17 +167,9 @@ extension SettingsViewcontrollerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
     }
-    
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        let c = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        
         let setting = settings[indexPath.row]
-        
-        
-        
         switch setting {
         case "Personal info":
             let cell = tableView.dequeueReusableCell(withIdentifier: generalSettingsTableViewCell.identifier, for: indexPath) as! generalSettingsTableViewCell
@@ -229,11 +214,5 @@ extension SettingsViewcontrollerViewController: UITableViewDataSource {
             
             return cell
         }
-        
-        
-  
-        
-        
-
     }
 }

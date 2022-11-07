@@ -45,7 +45,7 @@
 		1CE84FC5291874410001F970 /* DashBoardVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */; };
 		1CE84FC729188ADD0001F970 /* RecommendedStocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */; };
 		1CE84FC92918B5480001F970 /* StocksViewControllerFromRecommended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */; };
-		1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */; };
+		1CEBCADA290DB30B007B45DE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
 		1CEBCAE0290DD5E7007B45DE /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADF290DD5E7007B45DE /* BalanceTableViewCell.swift */; };
@@ -116,7 +116,7 @@
 		1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVCExtension.swift; sourceTree = "<group>"; };
 		1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedStocks.swift; sourceTree = "<group>"; };
 		1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksViewControllerFromRecommended.swift; sourceTree = "<group>"; };
-		1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewcontrollerViewController.swift; sourceTree = "<group>"; };
+		1CEBCAD9290DB30B007B45DE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1CEBCADF290DD5E7007B45DE /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		1C86BA2E2910BF490034730F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				1CEBCAD9290DB30B007B45DE /* SettingsViewcontrollerViewController.swift */,
+				1CEBCAD9290DB30B007B45DE /* SettingsViewController.swift */,
 				1C86BA2F2910C0920034730F /* PersonalnfoViewController.swift */,
 				1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */,
 			);
@@ -576,7 +576,7 @@
 				1CE84F3F291239810001F970 /* StockMarket.swift in Sources */,
 				1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */,
 				1CE84F4D2916E1E10001F970 /* DashboardVCViewController.swift in Sources */,
-				1CEBCADA290DB30B007B45DE /* SettingsViewcontrollerViewController.swift in Sources */,
+				1CEBCADA290DB30B007B45DE /* SettingsViewController.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
 				1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */,

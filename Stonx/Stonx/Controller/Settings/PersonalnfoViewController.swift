@@ -9,7 +9,8 @@ import UIKit
 import Parse
 
 
-// TODO: present errors. For example when information is incorrect. 
+// TODO: present errors. For example when information is incorrect.
+
 class PersonalnfoViewController: UIViewController {
     let tableview = UITableView(frame: .zero, style: .grouped)
     let settings = ["username", "full name"]
@@ -26,6 +27,7 @@ class PersonalnfoViewController: UIViewController {
         addconstraints()
     }
     
+    // MARK: setting up the UI
     private func viewSetups(){
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
@@ -39,11 +41,11 @@ class PersonalnfoViewController: UIViewController {
         tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         
     }
-    
 
 
 }
 
+// conforming to the data source
 extension PersonalnfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
@@ -78,12 +80,14 @@ extension PersonalnfoViewController: UITableViewDataSource {
     
 }
 
+// conforming to the delegate
 extension PersonalnfoViewController: UITableViewDelegate {
     // you might want to get the name of the user from parse and show it in the textfield
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         alertToUpdateParseAttribute(at: indexPath)
     }
     
+    // helper method to display
     func alertToUpdateParseAttribute(at indexpath: IndexPath) {
            let name = settings[indexpath.row]
            let parseColumnName = settingConstants[indexpath.row]

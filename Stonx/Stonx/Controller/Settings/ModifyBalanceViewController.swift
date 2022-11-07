@@ -9,17 +9,38 @@ import UIKit
 import Parse
 
 class ModifyBalanceViewController: UIViewController {
+    // MARK: properties
     let tableview = UITableView(frame: .zero, style: .grouped)
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    
     var usBalance:Double = 0
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add, style: .plain, target: self, action:  #selector(addTapped))
+        getBalance()
+        
+        
+        view.backgroundColor = .white
+        setUpViews()
+        addingConstraints()
+        self.title = "Adding Balance"
+    }
+    
+    // MARK: UI set up
+    private func setUpViews() {
+        view.addSubview(tableview)
+        tableview.translatesAutoresizingMaskIntoConstraints = false
+        tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableview.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
+        tableview.dataSource = self
+    }
+    
+    private func addingConstraints() {
+        //
+        tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        
+    }
+
+    // MARK: helper methods
     // getting the balance of the user
     func getBalance() {
         let user  = PFUser.current()!
@@ -34,22 +55,6 @@ class ModifyBalanceViewController: UIViewController {
             }
         }
     }
-    
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add, style: .plain, target: self, action:  #selector(addTapped))
-        getBalance()
-        
-        
-        view.backgroundColor = .white
-        setUpViews()
-        addingConstraints()
-        self.title = "Adding Balance"
-    }
-
     
     // we are going to present
     @objc func addTapped() {
@@ -98,19 +103,6 @@ class ModifyBalanceViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    private func setUpViews() {
-        view.addSubview(tableview)
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableview.register(BalanceTableViewCell.self, forCellReuseIdentifier: BalanceTableViewCell.identifier)
-        tableview.dataSource = self
-    }
-    
-    private func addingConstraints() {
-        //
-        tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        
-    }
 
 }
 
