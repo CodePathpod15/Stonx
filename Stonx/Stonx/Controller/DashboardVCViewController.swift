@@ -117,6 +117,8 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
     }
     
+    var totalPrice = 0.0
+    
     var ownedStocks = [Stock]() {
         didSet {
             for stock in ownedStocks {
@@ -124,11 +126,13 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     switch result {
                     case .success(let q):
                         stock.price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
+                        self.totalPrice += stock.price
                         stock.chagePercent = q?.globalQuote.the10ChangePercent ?? "x.x"
                         // TODO: refactor this
                         DispatchQueue.main.async {
                             self.contentView.configure(stocks: self.ownedStocks)
                             self.contentView.tableView.reloadData()
+                            self.contentView.stockPrice.text = String(self.totalPrice)
                         }
                         break
                     case .failure(let err):
