@@ -20,6 +20,7 @@ Stonx is a an application to help early investors gain experience in the stock m
 - **Market: Anyone interesting in investing.**
 - **Habit: This app could be used frequently to check on the status of their app**
 - **Scope: We could expand to a more learning based approach to investing. Allowing users to invest in options**
+- **Key Features: All UI is done programmatic, no storyboard or xib files**
 
 
 # 
