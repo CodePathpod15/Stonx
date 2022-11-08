@@ -37,7 +37,7 @@ class StockTableViewCell: UITableViewCell {
         return chartView
     }()
     
-    func configure(with ticker: String, sharesOwned: Int, price: Double) {
+    func configure(with ticker: String, sharesOwned: Int, price: Double, percentChange: String = "0.0%") {
         if sharesOwned == 1 {
             self.sharesOwned.text = "\(sharesOwned) Share"
         } else {
@@ -46,6 +46,7 @@ class StockTableViewCell: UITableViewCell {
         self.stockLbl.text = ticker
         
         self.stockPrice.text = String(price)
+        self.priceChange.text = percentChange
     }
     
     func setData() {

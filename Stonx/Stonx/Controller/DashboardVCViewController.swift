@@ -53,7 +53,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // TODO: add to parse model
     @objc func  lightBulbWasPressed() {
 
-        
         let query = PFQuery(className: "ticker_rating")
         
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
@@ -125,41 +124,31 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     switch result {
                     case .success(let q):
                         stock.price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
-
+                        stock.chagePercent = q?.globalQuote.the10ChangePercent ?? "x.x"
+                        // TODO: refactor this
                         DispatchQueue.main.async {
                             self.contentView.configure(stocks: self.ownedStocks)
                             self.contentView.tableView.reloadData()
-                        
                         }
-                        
                         break
                     case .failure(let err):
                         print(err.localizedDescription)
-                        
                     }
                 }
                 
             }
         }
-        
-        
-        
     }
     
-    
-    
+
     // initializing the tableview
     func initializetheTableview() {
         ParseModel.shared.getStockUserOwns { result in
             switch result {
             case .success(let items):
-    
-                
                 if let items  = items {
                     self.ownedStocks = items
-
                 }
-            
 //                self.contentView.configure(stocks: self.ownedStocks)
 //                self.contentView.tableView.reloadData()
                 break
@@ -329,4 +318,11 @@ class DashboardVCViewController: UIViewController, RateDelegate {
 }
 
 
+
+// So I get all of the ticker names from parse
+
+// How Do I wait till I have all
+
+// I am getting all of the stocks from parse
+// then I want to call the stocks api to get the price of each individual stock
 
