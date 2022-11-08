@@ -16,6 +16,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializetheTableview()
         view.backgroundColor = .white
         getMostRecentInfoOfUser()
     
@@ -44,12 +45,12 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initializetheTableview()
+//        initializetheTableview()
     }
     
     var recommendedStr = ""
 
-    // TODO: add to parse model 
+    // TODO: add to parse model
     @objc func  lightBulbWasPressed() {
 
         
@@ -97,8 +98,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     
                     rstock.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
                 }
-            
-                
             }
             
             if error != nil {
@@ -119,24 +118,50 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
     }
     
-    var ownedStocks = [Stock]()
+    var ownedStocks = [Stock]() {
+        didSet {
+            for stock in ownedStocks {
+                API.getLatestStockPrice2(tickerSymbol: stock.ticker_symbol) { result in
+                    switch result {
+                    case .success(let q):
+                        stock.price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
+
+                        DispatchQueue.main.async {
+                            self.contentView.configure(stocks: self.ownedStocks)
+                            self.contentView.tableView.reloadData()
+                        
+                        }
+                        
+                        break
+                    case .failure(let err):
+                        print(err.localizedDescription)
+                        
+                    }
+                }
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    
     
     // initializing the tableview
     func initializetheTableview() {
-        let query = PFQuery(className: "user_transaction")
-        query.whereKey("user", contains:  PFUser.current()!.objectId)
-        var tickerToOwn:[String: Int] = [String: Int]()
-//        ParseModel.
-        
         ParseModel.shared.getStockUserOwns { result in
             switch result {
             case .success(let items):
-                self.ownedStocks = []
+    
+                
                 if let items  = items {
-                    self.ownedStocks.append(contentsOf: items)
+                    self.ownedStocks = items
+
                 }
-                self.contentView.configure(stocks: self.ownedStocks)
-                self.contentView.tableView.reloadData()
+            
+//                self.contentView.configure(stocks: self.ownedStocks)
+//                self.contentView.tableView.reloadData()
                 break
                         
            case .failure(let error):
@@ -145,6 +170,8 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             }
         }
     }
+    
+    
         
     
     /// in this method we decide whether to survey the suer or not
@@ -261,7 +288,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     
     
     // conforing to the procol
-    // this is called when the user has rated the
+    // this is called whenever the user saves the rating
     // TODO: figure out how to insert unique elements
     func rate(number: Int) {
         surveyedStocks.append(surveyedTicker)
@@ -280,6 +307,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         }
     }
     
+    // this sac
     func saveTickerRating(ticker: String, rating: Int) {
         // we perform the transaction
         let obj = PFObject(className: "ticker_rating")

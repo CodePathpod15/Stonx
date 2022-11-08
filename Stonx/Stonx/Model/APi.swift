@@ -20,12 +20,20 @@ struct FunctionConstants {
     
 }
 
+
+// another API Key
+// LNPPEUV5LWE3TLLZ (5 API Calls per minute)
+
 // TODO: refactor this into one function
 // made different methods for simplicity
 
 
 /// this API is in charge of fetching data from the stocks API
 /// for more info: https://www.alphavantage.co/documentation/#symbolsearch
+///
+///
+///
+
 struct API {
     
     private static let key  = "JPHF6VLB2O59XH8K"
@@ -33,7 +41,7 @@ struct API {
     let baseUrl = "https://www.alphavantage.co/query"
     
     // get the latest price of the stock
-    static func getLatestStockPrice(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void){
+    static func getLatestStockPrice(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void) {
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
         
         let queryItems = [
@@ -59,11 +67,48 @@ struct API {
                 }
             }
         }
-        
         task.resume()
-        
-        
     }
+    
+    //
+    
+    
+    
+    
+    // uses a different
+    static func getLatestStockPrice2(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void){
+        guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
+        
+        let queryItems = [
+            URLQueryItem(name: "function", value: "GLOBAL_QUOTE"),
+            URLQueryItem(name: "symbol", value: tickerSymbol),
+            URLQueryItem(name: "apikey", value: "LNPPEUV5LWE3TLLZ")
+        ]
+        
+        url.queryItems = queryItems
+        
+        var request = URLRequest(url: url.url!)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let searchResponse = try decoder.decode(GlobalQuote.self, from: data) // gets the artists
+                    completion(.success(searchResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    
+    
     
     // gives you the description, EPS,PERatio, and sector.
     // https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=JPHF6VLB2O59XH8K .. try this link in your browser

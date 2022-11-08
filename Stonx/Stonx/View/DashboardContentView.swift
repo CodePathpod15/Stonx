@@ -209,7 +209,7 @@ extension DashboardContentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
         cell.layoutMargins = UIEdgeInsets.zero
-        cell.configure(with: stocks[indexPath.row].ticker_symbol, sharesOwned: stocks[indexPath.row].quantity)
+        cell.configure(with: stocks[indexPath.row].ticker_symbol, sharesOwned: stocks[indexPath.row].quantity, price: stocks[indexPath.row].price)
         return cell
     }
 }
@@ -228,6 +228,7 @@ class Stock {
     var price: Double
     var quantity: Int
     var daysOfOnwerShip = 0
+    var chagePercent: String = "0.0%"
 
     
     init(ticker: String, price: Double, quantity: Int, ticker_fullName: String) {

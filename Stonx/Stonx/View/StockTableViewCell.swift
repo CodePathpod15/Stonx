@@ -15,7 +15,7 @@ class StockTableViewCell: UITableViewCell {
     
     let sharesOwned = UILabel()
     
-    private let stockPrice = UILabel()
+    private var stockPrice = UILabel()
     
     private let priceChange = UILabel()
     
@@ -37,13 +37,15 @@ class StockTableViewCell: UITableViewCell {
         return chartView
     }()
     
-    func configure(with ticker: String, sharesOwned: Int) {
+    func configure(with ticker: String, sharesOwned: Int, price: Double) {
         if sharesOwned == 1 {
             self.sharesOwned.text = "\(sharesOwned) Share"
         } else {
             self.sharesOwned.text = "\(sharesOwned) Shares"
         }
         self.stockLbl.text = ticker
+        
+        self.stockPrice.text = String(price)
     }
     
     func setData() {

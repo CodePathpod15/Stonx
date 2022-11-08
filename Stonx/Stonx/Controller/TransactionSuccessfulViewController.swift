@@ -9,6 +9,7 @@ import UIKit
 import Lottie
 import Parse
 
+
 class TransactionSuccessfulViewController: UIViewController {
 
     // MARK: properties

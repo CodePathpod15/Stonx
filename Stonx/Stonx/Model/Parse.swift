@@ -9,10 +9,10 @@ import Foundation
 import Parse
 
 
-
 class ParseModel {
     static let shared = ParseModel()
     
+    /// this is in charged of getting all of the stocks that the user owns
     func getStockUserOwns(completion: @escaping (Result<[Stock]?, Error>) -> Void) {
             // this contains all of the stocks the user owns
             var stocksUserOwns = [Stock]()
@@ -31,12 +31,14 @@ class ParseModel {
                     completion(.failure(error))
                 }
                 
-                // return nil
+                // we just return an empty array if the object is nil
                 if objects == nil {
                     completion(.success(stocksUserOwns))
                 }
                 
+
                 if let objects = objects {
+                    // if object exists but is empty we
                     if objects.isEmpty {
                         completion(.success(stocksUserOwns))
                     }
@@ -89,5 +91,32 @@ class ParseModel {
                 }
             }
         }
+    
+    // get recommended stock
+    // this will return the stock
+    // TODO: 
+    func getStockRecommendation(completion: @escaping (Result<Stock?, Error>) -> Void) {
+        
+    }
+    
+    
+    
+    
+    
+    
 
+}
+
+
+/// this is the model in charged of the survey
+class Survey {
+    var surveyedStocks = [String]()
+    
+    static let shared = Survey()
+    
+    //
+    func addingRating(rating: Int) {
+        
+    }
+    
 }
