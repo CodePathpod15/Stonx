@@ -21,8 +21,6 @@ extension DashboardVCViewController: RecommendedStockDelegate {
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(StocksViewController(symbol: self.recommendedStr, full_name:  items.name ), animated: true)
                         }
-                        
-                   
                 } else {
                     print("error: heheh")
                 }
@@ -33,11 +31,6 @@ extension DashboardVCViewController: RecommendedStockDelegate {
             }
         }
         // do the request here
-        
-        
-        
-        
-       
     }
     
     

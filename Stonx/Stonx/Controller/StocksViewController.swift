@@ -87,8 +87,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     }()
     
 
-    
-    
     lazy var imageIcon: UIButton = {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
@@ -194,9 +192,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return hStackView
     }()
     
-    
-    
-    
+
     private lazy var stockPriceHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -556,8 +552,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     var stocksOwned = [String: Int]()
-    
-    
+  
     // gets all of the stocks that the user owns
     func getOwnedStocks() {
         let query = PFQuery(className: "user_transaction")

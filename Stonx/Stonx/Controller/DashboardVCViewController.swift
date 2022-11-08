@@ -41,6 +41,8 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         let rightButton: UIBarButtonItem = rbutton
         self.navigationItem.rightBarButtonItem = rightButton
         
+        
+        initializetheTableview()
     }
     
     var recommendedStr = ""
@@ -120,8 +122,58 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
     }
     
+    var ownedStocks = [Stock]()
+
+    func initializetheTableview() {
+        
+        let query = PFQuery(className: "user_transaction")
+        query.whereKey("user", contains:  PFUser.current()!.objectId)
+        var tickerToOwn:[String: Int] = [String: Int]()
+        
+        query.findObjectsInBackground() { (objects: [PFObject]?, error: Error?) in
+            
+            // printing the errror
+            if let error = error {
+                self.showAlert(with: error.localizedDescription ?? "Error")
+            }
+            
+            // return nil
+            if objects == nil { return }
+            
+            if let objects = objects {
+                if objects.isEmpty {
+                    return
+                }
+                for obj in objects {
+                    let tt = obj["ticker_symbol"] as? String
+                    let amount  = obj["Quantity"] as? Int
+                    let price = obj["price"] as? Double
+                    let transaction = obj["purchase"] as! Bool
+                    
+                    if transaction {
+                        tickerToOwn[tt!, default: 0] += amount!
+                    } else {
+                        tickerToOwn[tt!, default: 0] -= amount!
+                    }
+                }
+       
+                for (key, val) in tickerToOwn {
+                    self.ownedStocks.append(Stock(ticker: key, price: 0, quantity: val, ticker_fullName: "x"))
+                }
+        
+                self.contentView.configure(stocks: self.ownedStocks)
+                
+                
+            }
+        }
+    }
+    
+    
+    
+    
     // getting all of the stocks the user owns
-    // TODO: refactor this
+    // TODO: refactor this..
+    // this is used for the
     func getAllOfTheStocksTheUserOwns() {
 
         let query = PFQuery(className: "user_transaction")
@@ -153,7 +205,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                         let transaction = obj["purchase"] as! Bool
                        
                         // we had intitiliazing the ticker_to_hash
-                        let diffInDays = Calendar.current.dateComponents([.day], from:  obj.createdAt!, to: Date()).day
+//                        let diffInDays = Calendar.current.dateComponents([.day], from:  obj.createdAt!, to: Date()).day
                     
                         // give us the amount of days
                         
@@ -185,6 +237,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                         }
                     }
                     
+                    
                     self.surveyedStocks.forEach({
                         tickerToOwn.removeValue(forKey: $0)
                         tickerToHash.removeValue(forKey: $0)
@@ -193,7 +246,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     print(tickerToHash)
                     
                     // we now have all of the stocks that the user hasnt been surveyd own
-
                     
                     // here we check how many days the
                     for (key,val) in tickerToHash {
