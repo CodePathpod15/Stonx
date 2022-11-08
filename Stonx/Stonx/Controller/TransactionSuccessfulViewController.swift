@@ -9,6 +9,7 @@ import UIKit
 import Lottie
 import Parse
 
+
 class TransactionSuccessfulViewController: UIViewController {
 
     // MARK: properties
@@ -345,28 +346,3 @@ class TransactionSuccessfulViewController: UIViewController {
 
 
 
-class Stock: Comparable {
-    static func < (lhs: Stock, rhs: Stock) -> Bool {
-        return false
-    }
-    
-    static func == (lhs: Stock, rhs: Stock) -> Bool {
-        return lhs.typeOfTransactaction == rhs.typeOfTransactaction
-    }
-    
-    var ticker_symbol: String
-    var price: Double
-    var quantity: Int
-    var typeOfTransactaction: TransactionType
-    
-    init(ticker: String, price: Double, quantity: Int, typeOfTransaction: TransactionType) {
-        self.ticker_symbol = ticker
-        self.price = price
-        self.quantity = quantity
-        self.typeOfTransactaction = typeOfTransaction
-        
-        
-        
-    }
-    
-}

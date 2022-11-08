@@ -23,12 +23,9 @@ class Filter {
     
 }
 
-
 class WatchListViewController: UIViewController {
     
-    
     // MARK: properties
-    
     // adding the collection view
     private var filtCollectionView: UICollectionView! // the filter collection view
     private var stocksTableview: UITableView = UITableView(frame: .zero, style: .grouped)
@@ -54,6 +51,10 @@ class WatchListViewController: UIViewController {
         
     }
     
+    func getTheWatchlist() {
+        
+        
+    }
     
     
     
@@ -118,9 +119,6 @@ class WatchListViewController: UIViewController {
         ])
         
     }
-    
-  
-    
 }
 
 extension WatchListViewController: UICollectionViewDataSource {

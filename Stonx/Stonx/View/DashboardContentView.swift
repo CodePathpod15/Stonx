@@ -12,6 +12,8 @@ import Charts
 
 class DashboardContentView: UIView {
     
+    var stocks = [Stock]()
+    
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,12 +87,11 @@ class DashboardContentView: UIView {
         ChartDataEntry(x:40.9,y: 55.0)
     ]
     
-  
-   
+
     
     let stockLbl: UILabel = {
         let sp = UILabel()
-        sp.text = "apple inc"
+        sp.text = "Investing"
         sp.font = FontConstants.boldLargeFont
         sp.textColor = .black
 
@@ -179,6 +180,13 @@ class DashboardContentView: UIView {
   
     }
     
+
+    func configure(stocks: [Stock]) {
+        self.stocks = stocks
+        tableView.reloadData()
+    }
+   
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -187,18 +195,21 @@ class DashboardContentView: UIView {
 
 }
 
+
+
 extension DashboardContentView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return stocks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
         cell.layoutMargins = UIEdgeInsets.zero
+        cell.configure(with: stocks[indexPath.row].ticker_symbol, sharesOwned: stocks[indexPath.row].quantity, price: stocks[indexPath.row].price, percentChange: stocks[indexPath.row].chagePercent)
         return cell
     }
 }
@@ -208,4 +219,23 @@ extension DashboardContentView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         44
     }
+}
+
+
+class Stock {
+    var ticker_symbol: String
+    var ticker_fullName: String
+    var price: Double
+    var quantity: Int
+    var daysOfOnwerShip = 0
+    var chagePercent: String = "x.x%"
+    
+    init(ticker: String, price: Double, quantity: Int, ticker_fullName: String) {
+        self.ticker_symbol = ticker
+        self.price = price
+        self.quantity = quantity
+        self.ticker_fullName = ticker_fullName
+    
+    }
+    
 }

@@ -13,9 +13,9 @@ class StockTableViewCell: UITableViewCell {
     static let identifier = "StockTableViewCell"
     let stockLbl = UILabel()
     
-    let fullStockName = UILabel()
+    let sharesOwned = UILabel()
     
-    private let stockPrice = UILabel()
+    private var stockPrice = UILabel()
     
     private let priceChange = UILabel()
     
@@ -36,6 +36,18 @@ class StockTableViewCell: UITableViewCell {
         
         return chartView
     }()
+    
+    func configure(with ticker: String, sharesOwned: Int, price: Double, percentChange: String = "0.0%") {
+        if sharesOwned == 1 {
+            self.sharesOwned.text = "\(sharesOwned) Share"
+        } else {
+            self.sharesOwned.text = "\(sharesOwned) Shares"
+        }
+        self.stockLbl.text = ticker
+        
+        self.stockPrice.text = String(price)
+        self.priceChange.text = percentChange
+    }
     
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
@@ -119,14 +131,11 @@ class StockTableViewCell: UITableViewCell {
         stockLbl.translatesAutoresizingMaskIntoConstraints = false
         
         // setting up the name of the stock
-        contentView.addSubview(fullStockName)
-        fullStockName.text = "Apple Inc"
-        fullStockName.font = FontConstants.cellSmallFont
-        fullStockName.textColor = .systemGray
-        fullStockName.translatesAutoresizingMaskIntoConstraints = false
-        
-        // setting up the chart
-        contentView.addSubview(lineChartView)
+        contentView.addSubview(sharesOwned)
+        sharesOwned.text = "Apple Inc"
+        sharesOwned.font = FontConstants.cellSmallFont
+        sharesOwned.textColor = .systemGray
+        sharesOwned.translatesAutoresizingMaskIntoConstraints = false
         
         // setting up the stock price
         contentView.addSubview(stockPrice)
@@ -147,24 +156,16 @@ class StockTableViewCell: UITableViewCell {
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
             stockLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 9)
+            stockLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
         ])
         stockLbl.setContentHuggingPriority(UILayoutPriority.init(rawValue: 252), for: .horizontal)
         
             
         NSLayoutConstraint.activate([
-            fullStockName.topAnchor.constraint(equalTo: stockLbl.bottomAnchor, constant: 0),
-            fullStockName.leadingAnchor.constraint(equalTo: stockLbl.leadingAnchor),
-            fullStockName.widthAnchor.constraint(equalToConstant: contentView.frame.width/2)
+            sharesOwned.topAnchor.constraint(equalTo: stockLbl.bottomAnchor, constant: 0),
+            sharesOwned.leadingAnchor.constraint(equalTo: stockLbl.leadingAnchor),
+            sharesOwned.widthAnchor.constraint(equalToConstant: contentView.frame.width/2)
             
-        ])
-            
-        // constraints for chart view
-        NSLayoutConstraint.activate([
-            lineChartView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            lineChartView.leadingAnchor.constraint(equalTo: fullStockName.trailingAnchor),
-            lineChartView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            lineChartView.trailingAnchor.constraint(equalTo: stockPrice.leadingAnchor, constant: -20)
         ])
             
         // setting up constraints for stock price
@@ -175,7 +176,7 @@ class StockTableViewCell: UITableViewCell {
             
         NSLayoutConstraint.activate([
             priceChange.trailingAnchor.constraint(equalTo: stockPrice.trailingAnchor),
-            priceChange.centerYAnchor.constraint(equalTo: fullStockName.centerYAnchor)
+            priceChange.centerYAnchor.constraint(equalTo: sharesOwned.centerYAnchor)
             
         ])
     }
