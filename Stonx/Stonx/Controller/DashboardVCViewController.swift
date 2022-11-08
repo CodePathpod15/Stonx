@@ -53,8 +53,9 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     func getStockUserOwns(completion: @escaping (Result<[Stock]?, Error>) -> Void) {
             // this contains all of the stocks the user owns
             var stocksUserOwns = [Stock]()
-            let query = PFQuery(className: "user_transaction")
-            query.whereKey("user", contains:  PFUser.current()!.objectId)
+            let query = PFQuery(className: user_transaction.object_name)
+            query.whereKey(user_transaction.user, contains:  PFUser.current()!.objectId)
+        
             
             var tickerToOwn:[String: Int] = [String: Int]()
             // hash map: key =  ticker, value is the date
@@ -78,10 +79,10 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     }
                     
                     for obj in objects {
-                        let tt = obj["ticker_symbol"] as? String
-                        let amount  = obj["Quantity"] as? Int
-                        let price = obj["price"] as? Double
-                        let transaction = obj["purchase"] as! Bool
+                        let tt = obj[user_transaction.ticker_symbol] as? String
+                        let amount  = obj[user_transaction.quantity] as? Int
+                        let price = obj[user_transaction.price] as? Double
+                        let transaction = obj[user_transaction.purchase] as! Bool
                         
                         if transaction {
                             tickerToOwn[tt!, default: 0] += amount!
@@ -101,7 +102,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                         }
                     }
                     
-                    // TODO: remove the dates that are not in the stocksUserOwns
                     for (key, val) in tickerToOwn {
                         stocksUserOwns.append(Stock(ticker: key, price: 0, quantity: val, ticker_fullName: "x"))
                     }
@@ -114,19 +114,14 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                         
                         return $0.quantity == 0
                     })
-                    
-                    
+
                     // this initializes each stock with the number of days they have owned each stock
                     for stock in stocksUserOwns {
                         if let dateOfLastTransaction = tickerToHash[stock.ticker_symbol] {
                             let diffInDays = Calendar.current.dateComponents([.day], from:  dateOfLastTransaction, to: Date()).day
                             stock.daysOfOnwerShip = diffInDays!
-                            print(stock.ticker_symbol, "days = ", stock.daysOfOnwerShip)
                         }
-                        
                     }
-                    
-                    
                     completion(.success(stocksUserOwns))
                 }
             }
@@ -266,8 +261,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                   print(error)
               }
         }
-        
-
     }
     
     
