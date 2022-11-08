@@ -134,9 +134,6 @@ class StockTableViewCell: UITableViewCell {
         sharesOwned.textColor = .systemGray
         sharesOwned.translatesAutoresizingMaskIntoConstraints = false
         
-        // setting up the chart
-//        contentView.addSubview(lineChartView)
-        
         // setting up the stock price
         contentView.addSubview(stockPrice)
         stockPrice.translatesAutoresizingMaskIntoConstraints = false

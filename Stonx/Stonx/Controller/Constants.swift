@@ -30,6 +30,7 @@ struct FontConstants {
 
 // related to parse column
 class UserConstants {
+    static let object_name = "User"
      static let username = "username"
      static let password = "password"
      static let fullname = "full_name"
@@ -37,6 +38,22 @@ class UserConstants {
      static let last_surveyed = "last_surveyed"
      static let balance = "Balance"
      static let surveyed = "Surveyed"
-
  }
+
+class ticker_rating {
+    static let object_name = "ticker_rating"
+    static let ticker_symbol = "ticker_symbol"
+    static let user = "user"
+    static let rating = "rating"
+}
+
+class user_transaction {
+    static let object_name = "user_transaction"
+    static let user = ticker_rating.user
+    static let ticker_symbol = ticker_rating.ticker_symbol
+    static let price = "price"
+    static let quantity = "Quantity"
+    static let purchase = "purchase"
+}
+
 

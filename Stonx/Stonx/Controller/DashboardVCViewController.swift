@@ -34,18 +34,104 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
         
+        
         // adding light bulb
-//        let rbutton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(lightBulbWasPressed))
         let rbutton = UIBarButtonItem(image: UIImage(systemName: "lightbulb.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green), landscapeImagePhone: nil, style: .done, target: self, action: #selector(lightBulbWasPressed))
         
         let rightButton: UIBarButtonItem = rbutton
         self.navigationItem.rightBarButtonItem = rightButton
-        
-        
+   
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         initializetheTableview()
     }
     
     var recommendedStr = ""
+    
+    
+    func getStockUserOwns(completion: @escaping (Result<[Stock]?, Error>) -> Void) {
+            // this contains all of the stocks the user owns
+            var stocksUserOwns = [Stock]()
+            let query = PFQuery(className: "user_transaction")
+            query.whereKey("user", contains:  PFUser.current()!.objectId)
+            
+            var tickerToOwn:[String: Int] = [String: Int]()
+            // hash map: key =  ticker, value is the date
+            var tickerToHash:[String: Date] = [:]
+            
+            query.findObjectsInBackground() { (objects: [PFObject]?, error: Error?) in
+                
+                // printing the errror
+                if let error = error {
+                    completion(.failure(error))
+                }
+                
+                // return nil
+                if objects == nil {
+                    completion(.success(stocksUserOwns))
+                }
+                
+                if let objects = objects {
+                    if objects.isEmpty {
+                        completion(.success(stocksUserOwns))
+                    }
+                    
+                    for obj in objects {
+                        let tt = obj["ticker_symbol"] as? String
+                        let amount  = obj["Quantity"] as? Int
+                        let price = obj["price"] as? Double
+                        let transaction = obj["purchase"] as! Bool
+                        
+                        if transaction {
+                            tickerToOwn[tt!, default: 0] += amount!
+                        } else {
+                            tickerToOwn[tt!, default: 0] -= amount!
+                        }
+                        
+                        // put all of the the stocks inside of the ticker to hashDate table
+                        if tickerToHash[tt!] != nil {
+                            // comparing the two dates,
+                            if tickerToHash[tt!]! > obj.createdAt! {
+                                tickerToHash[tt!] = obj.createdAt!
+                            }
+                            // you keeep the same one
+                        } else {
+                            tickerToHash[tt!] = obj.createdAt!
+                        }
+                    }
+                    
+                    // TODO: remove the dates that are not in the stocksUserOwns
+                    for (key, val) in tickerToOwn {
+                        stocksUserOwns.append(Stock(ticker: key, price: 0, quantity: val, ticker_fullName: "x"))
+                    }
+                    // removes the quantities that have zero
+                    stocksUserOwns.removeAll(where: {
+                        // this gets rid of
+                        if $0.quantity == 0 {
+                            tickerToHash.removeValue(forKey: $0.ticker_symbol)
+                        }
+                        
+                        return $0.quantity == 0
+                    })
+                    
+                    
+                    // this initializes each stock with the number of days they have owned each stock
+                    for stock in stocksUserOwns {
+                        if let dateOfLastTransaction = tickerToHash[stock.ticker_symbol] {
+                            let diffInDays = Calendar.current.dateComponents([.day], from:  dateOfLastTransaction, to: Date()).day
+                            stock.daysOfOnwerShip = diffInDays!
+                            print(stock.ticker_symbol, "days = ", stock.daysOfOnwerShip)
+                        }
+                        
+                    }
+                    
+                    
+                    completion(.success(stocksUserOwns))
+                }
+            }
+        }
+    
     
     @objc func  lightBulbWasPressed() {
 
@@ -104,12 +190,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             
         }
 
-        
-        // get the
-        
-        
-    
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,159 +203,75 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     }
     
     var ownedStocks = [Stock]()
-
+    
+    // initializing the tableview
     func initializetheTableview() {
-        
         let query = PFQuery(className: "user_transaction")
         query.whereKey("user", contains:  PFUser.current()!.objectId)
         var tickerToOwn:[String: Int] = [String: Int]()
         
-        query.findObjectsInBackground() { (objects: [PFObject]?, error: Error?) in
-            
-            // printing the errror
-            if let error = error {
-                self.showAlert(with: error.localizedDescription ?? "Error")
-            }
-            
-            // return nil
-            if objects == nil { return }
-            
-            if let objects = objects {
-                if objects.isEmpty {
-                    return
+        getStockUserOwns { result in
+            switch result {
+            case .success(let items):
+                self.ownedStocks = []
+                if let items  = items {
+                    self.ownedStocks.append(contentsOf: items)
                 }
-                for obj in objects {
-                    let tt = obj["ticker_symbol"] as? String
-                    let amount  = obj["Quantity"] as? Int
-                    let price = obj["price"] as? Double
-                    let transaction = obj["purchase"] as! Bool
-                    
-                    if transaction {
-                        tickerToOwn[tt!, default: 0] += amount!
-                    } else {
-                        tickerToOwn[tt!, default: 0] -= amount!
-                    }
-                }
-       
-                for (key, val) in tickerToOwn {
-                    self.ownedStocks.append(Stock(ticker: key, price: 0, quantity: val, ticker_fullName: "x"))
-                }
-        
                 self.contentView.configure(stocks: self.ownedStocks)
-                
-                
+                self.contentView.tableView.reloadData()
+                break
+                        
+           case .failure(let error):
+               // otherwise, print an error to the console
+                print(error.localizedDescription ?? "error")
             }
         }
     }
-    
-    
-    
-    
-    // getting all of the stocks the user owns
-    // TODO: refactor this..
-    // this is used for the
-    func getAllOfTheStocksTheUserOwns() {
-
-        let query = PFQuery(className: "user_transaction")
-        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
         
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            if let error = error {
-                // The request failed
-                print(error.localizedDescription)
-            } else {
-                print("printiung")
-                // if the object exists in the user's database
-                if let objects = objects {
-                    
-                    var tickerToOwn:[String: Int] = [String: Int]()
-                    
-                    var tickerToHash:[String: Date] = [:]
-                    
-                    if objects.isEmpty {
-                        // no need to to anything
+    
+    /// in this method we decide whether to survey the suer or not
+     func surveyUser() {
+        var stocks = [Stock]()
+        getStockUserOwns { result in
+            switch result {
+                case .success(let items):
+                    if let items = items {
+                        stocks = items
+                        
+                        // we remove all of the stocks the use has been surveyed from the
+                        self.surveyedStocks.forEach { ticker in
+                            stocks.removeAll(where: {$0.ticker_symbol == ticker})
+                        }
+                        // we remove all of the stocks that the user has owned for less than 7 days
+                        stocks.removeAll(where: {$0.daysOfOnwerShip < 7})
+                        
+                        // no need to survey the user if the stock is empty
+                        if stocks.isEmpty {
+                                return
+                        }
+                        
+                        // at this point the we know we have stocks we can survey
+                        let stockToSuvey = stocks.first!
+                        self.saveTheSurveyDate()
+                        self.surveyedTicker = stockToSuvey.ticker_symbol
+                        self.displayQuestionaireIfUserHasOwnedStock(with: stockToSuvey.ticker_symbol)
+                    } else {
+                        // it is nil so we return
+                        // no need to survey the user if they dont own any stock
                         return
-                    }
-                    
-                    for obj in objects {
-                      
-                        let tt = obj["ticker_symbol"] as? String
-                        let amount  = obj["Quantity"] as? Int
-                        let price = obj["price"] as? Double
-                        let transaction = obj["purchase"] as! Bool
-                       
-                        // we had intitiliazing the ticker_to_hash
-//                        let diffInDays = Calendar.current.dateComponents([.day], from:  obj.createdAt!, to: Date()).day
-                    
-                        // give us the amount of days
-                        
-                        if transaction {
-                            tickerToOwn[tt!, default: 0] += amount!
-                        } else {
-                            tickerToOwn[tt!, default: 0] -= amount!
-                        }
-                        
-                        // check if the ticker exist in the hash table
-                        if tickerToHash[tt!] != nil {
-                            // comparing the two dates,
-                            if tickerToHash[tt!]! > obj.createdAt! {
-                                tickerToHash[tt!] = obj.createdAt!
-                            }
-                            // you keeep the same one
-                        } else {
-                            tickerToHash[tt!] = obj.createdAt!
-                        }
-
                         
                     }
-                    
-                    // remove all of the stocks where you
-                    tickerToOwn.forEach { key, value in
-                        if value == 0 {
-                            tickerToOwn.removeValue(forKey: key)
-                            tickerToHash.removeValue(forKey: key)
-                        }
-                    }
-                    
-                    
-                    self.surveyedStocks.forEach({
-                        tickerToOwn.removeValue(forKey: $0)
-                        tickerToHash.removeValue(forKey: $0)
-                    })
-                    
-                    print(tickerToHash)
-                    
-                    // we now have all of the stocks that the user hasnt been surveyd own
-                    
-                    // here we check how many days the
-                    for (key,val) in tickerToHash {
-                        // we had intitiliazing the ticker_to_hash
-                        let diffInDays = Calendar.current.dateComponents([.day], from:  val, to: Date()).day
-                        if diffInDays! < 7 {
-                            tickerToHash.removeValue(forKey: key)
-                        }
-                    }
-                    
-                    if tickerToHash.isEmpty {
-                        return
-                    }
-                    
-                    let  n = tickerToHash.first!
-                    
-                    
-                    // save the last time questionaire was presented
-                    self.saveTheSurveyDate()
-                    self.surveyedTicker = n.key
-                    self.displayQuestionaireIfUserHasOwnedStock(with: n.key)
-                    
-                    
-                }
-            }
+              case .failure(let error):
+                  // otherwise, print an error to the console
+                  print(error)
+              }
         }
+        
+
     }
+    
     
     private var surveyedTicker = ""
-    
     
     func saveTheSurveyDate() {
         let usr = PFUser.current()!
@@ -305,13 +301,13 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 
                 // no need to survey the user
                 if last_survey_Date == nil {
-                    self.getAllOfTheStocksTheUserOwns()
+                    self.surveyUser()
                 }
   
                 let diffInDays = Calendar.current.dateComponents([.day], from:  last_survey_Date!, to: Date()).day
                 
                 if diffInDays! >= 7 {
-                    self.getAllOfTheStocksTheUserOwns()
+                    self.surveyUser()
                 }
                 
             } else {

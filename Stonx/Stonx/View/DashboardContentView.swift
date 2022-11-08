@@ -91,7 +91,7 @@ class DashboardContentView: UIView {
     
     let stockLbl: UILabel = {
         let sp = UILabel()
-        sp.text = "apple inc"
+        sp.text = "Investing"
         sp.font = FontConstants.boldLargeFont
         sp.textColor = .black
 
@@ -227,6 +227,8 @@ class Stock {
     var ticker_fullName: String
     var price: Double
     var quantity: Int
+    var daysOfOnwerShip = 0
+
     
     init(ticker: String, price: Double, quantity: Int, ticker_fullName: String) {
         self.ticker_symbol = ticker
