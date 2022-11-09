@@ -12,6 +12,7 @@ class ComparisonView: UIView {
     let verticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
+        sv.spacing = 4
         return sv
     }()
     
@@ -27,7 +28,6 @@ class ComparisonView: UIView {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
-        sv.backgroundColor = .systemPink
         return sv
     }()
     
@@ -40,15 +40,32 @@ class ComparisonView: UIView {
     let leftfirstPrice: UILabel = {
         let lbl = UILabel()
         lbl.text = "4070.00"
+        lbl.textColor = ColorConstants.green
         return lbl
     }()
     
     let firstHorizontalERighttVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
-        sv.backgroundColor = .yellow
+        sv.alignment = .center
         return sv
     }()
+    
+    let secondStock: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "META"
+        return lbl
+    }()
+ 
+    let rightStockPrice: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "4070.00"
+        lbl.textColor = ColorConstants.green
+        return lbl
+    }()
+    
+    
+    
     
     let aboutTitle: UILabel = {
         let lbl = UILabel()
@@ -155,9 +172,106 @@ class ComparisonView: UIView {
         return sv
     }()
     
+    // the markets stats
+    let marketCapLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Market Cap"
+        lbl.font = FontConstants.boldLargeFont
+        lbl.textAlignment = .center
+        return lbl
+    }()
     
     
+    let fouthHorizontalView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.distribution = .fillEqually
+        return sv
+    }()
     
+    let leftMarketCapLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "1.10B"
+        lbl.textColor = UIColor.systemGray2
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let fourthHorizontalLeftVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    let rightMarketCapLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "2.3B"
+        lbl.textColor = UIColor.systemGray2
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let fourthHorizontalRightVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    let volumeLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Volume"
+        lbl.font = FontConstants.boldLargeFont
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let fifthHorizontalView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.distribution = .fillEqually
+        return sv
+    }()
+    
+    let leftVolumeLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "1.12120B"
+        lbl.textColor = UIColor.systemGray2
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let fifthHorizontalLeftVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    let rightVolumeLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "2.31212B"
+        lbl.textColor = UIColor.systemGray2
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let fifthHorizontalRightVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    
+
     
     
     
@@ -173,6 +287,9 @@ class ComparisonView: UIView {
         firstHorizontalLeftVerticalSV.addArrangedSubview(FirstSock)
         firstHorizontalLeftVerticalSV.addArrangedSubview(leftfirstPrice)
         firstHorizontalView.addArrangedSubview(firstHorizontalERighttVerticalSV)
+        firstHorizontalERighttVerticalSV.addArrangedSubview(secondStock)
+        firstHorizontalERighttVerticalSV.addArrangedSubview(rightStockPrice)
+        
         verticalSV.addArrangedSubview(aboutTitle)
         
         
@@ -190,9 +307,17 @@ class ComparisonView: UIView {
         
         thirdHorizontalView.addArrangedSubview(thirdtHorizontalrightVerticalSV)
         thirdtHorizontalrightVerticalSV.addArrangedSubview(rightTypeLBl)
-
-
         
+        //
+        verticalSV.addArrangedSubview(marketCapLbl)
+        verticalSV.addArrangedSubview(fouthHorizontalView)
+        fouthHorizontalView.addArrangedSubview(fourthHorizontalLeftVerticalSV)
+        fourthHorizontalLeftVerticalSV.addArrangedSubview(leftMarketCapLabl)
+        fouthHorizontalView.addArrangedSubview(fourthHorizontalRightVerticalSV)
+        fourthHorizontalRightVerticalSV.addArrangedSubview(rightMarketCapLabl)
+
+        // adding the fifth stuff
+        verticalSV.addArrangedSubview(volumeLbl)
         
     }
     
