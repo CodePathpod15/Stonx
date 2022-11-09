@@ -7,6 +7,24 @@
 
 import UIKit
 
+class VerticalSV: UIStackView {
+    
+    
+    
+    override init(frame:CGRect) {
+           super.init(frame: frame)
+        
+        
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
+
 class ComparisonView: UIView {
     
     let verticalSV: UIStackView = {
@@ -34,12 +52,14 @@ class ComparisonView: UIView {
     let FirstSock: UILabel = {
         let lbl = UILabel()
         lbl.text = "META"
+        lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
     
     let leftfirstPrice: UILabel = {
         let lbl = UILabel()
         lbl.text = "4070.00"
+        lbl.font = FontConstants.cellMediumFont
         lbl.textColor = ColorConstants.green
         return lbl
     }()
@@ -54,18 +74,17 @@ class ComparisonView: UIView {
     let secondStock: UILabel = {
         let lbl = UILabel()
         lbl.text = "META"
+        lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
  
     let rightStockPrice: UILabel = {
         let lbl = UILabel()
         lbl.text = "4070.00"
+        lbl.font = FontConstants.cellMediumFont
         lbl.textColor = ColorConstants.green
         return lbl
     }()
-    
-    
-    
     
     let aboutTitle: UILabel = {
         let lbl = UILabel()
@@ -96,7 +115,7 @@ class ComparisonView: UIView {
     let LeftBiolbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Nabil Bank Limited is a commercial bank in Nepal. Founded in 1984, the bank has branches across the nation and its head office in Kathmandu. Read full bio"
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
 
         lbl.numberOfLines = 9
         lbl.textAlignment = .center
@@ -106,7 +125,7 @@ class ComparisonView: UIView {
     let rightBioLBl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Meta Platforms, Inc. develops products that enable people to connect and share with friends and family through mobile devices, PCs, virtual reality headsets, wearables and home devices around the world. The company is headquartered in Menlo Park, California."
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 9
         lbl.textAlignment = .center
         return lbl
@@ -150,7 +169,7 @@ class ComparisonView: UIView {
         lbl.text = "Commercial Bank"
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
 
         return lbl
     }()
@@ -158,7 +177,7 @@ class ComparisonView: UIView {
     let rightTypeLBl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Commercial Bank"
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
         return lbl
@@ -193,7 +212,7 @@ class ComparisonView: UIView {
     let leftMarketCapLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "1.10B"
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
         return lbl
@@ -209,7 +228,7 @@ class ComparisonView: UIView {
     let rightMarketCapLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "2.3B"
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
         return lbl
@@ -241,7 +260,7 @@ class ComparisonView: UIView {
     let leftVolumeLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "1.12120B"
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
         return lbl
@@ -257,7 +276,7 @@ class ComparisonView: UIView {
     let rightVolumeLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "2.31212B"
-        lbl.textColor = UIColor.systemGray2
+        lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
         return lbl
@@ -270,8 +289,104 @@ class ComparisonView: UIView {
         return sv
     }()
     
+    // P/E ration
+    let PERatio: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "P/E Ratio"
+        lbl.font = FontConstants.boldLargeFont
+        lbl.textAlignment = .center
+        return lbl
+    }()
     
-
+    let sixthHorizontalView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.distribution = .fillEqually
+        return sv
+    }()
+    
+    let leftPERatioLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "3.12120B"
+        lbl.textColor = UIColor.darkGray
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let sixthHorizontalLeftVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    let rightPERatioLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "1.31212B"
+        lbl.textColor = UIColor.darkGray
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let sixthHorizontalRightVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    // adding the EPS
+    let EPSRatioLBL: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "EPS"
+        lbl.font = FontConstants.boldLargeFont
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let seventhHorizontalView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .horizontal
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.distribution = .fillEqually
+        return sv
+    }()
+    
+    let leftPEPSLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "4.12120B"
+        lbl.textColor = UIColor.darkGray
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let seventhHorizontalLeftVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
+    let rightEPSLabl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "5.31B"
+        lbl.textColor = UIColor.darkGray
+        lbl.numberOfLines = 1
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    let seventhHorizontalRightVerticalSV: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .center
+        return sv
+    }()
+    
     
     
     
@@ -318,7 +433,26 @@ class ComparisonView: UIView {
 
         // adding the fifth stuff
         verticalSV.addArrangedSubview(volumeLbl)
+        verticalSV.addArrangedSubview(fifthHorizontalView)
+        fifthHorizontalView.addArrangedSubview(fifthHorizontalLeftVerticalSV)
+        fifthHorizontalLeftVerticalSV.addArrangedSubview(leftVolumeLabl)
+        fifthHorizontalView.addArrangedSubview(fifthHorizontalRightVerticalSV)
+        fifthHorizontalRightVerticalSV.addArrangedSubview(rightVolumeLabl)
         
+        verticalSV.addArrangedSubview(PERatio)
+        verticalSV.addArrangedSubview(sixthHorizontalView)
+        sixthHorizontalView.addArrangedSubview(sixthHorizontalLeftVerticalSV)
+        sixthHorizontalLeftVerticalSV.addArrangedSubview(leftPERatioLabl)
+        sixthHorizontalView.addArrangedSubview(sixthHorizontalRightVerticalSV)
+        sixthHorizontalRightVerticalSV.addArrangedSubview(rightPERatioLabl)
+        
+        // adding the sixth view
+        verticalSV.addArrangedSubview(EPSRatioLBL)
+        verticalSV.addArrangedSubview(seventhHorizontalView)
+        seventhHorizontalView.addArrangedSubview(seventhHorizontalLeftVerticalSV)
+        seventhHorizontalLeftVerticalSV.addArrangedSubview(leftPEPSLabl)
+        seventhHorizontalView.addArrangedSubview(seventhHorizontalRightVerticalSV)
+        seventhHorizontalRightVerticalSV.addArrangedSubview(rightEPSLabl)
     }
     
     required init?(coder: NSCoder) {
