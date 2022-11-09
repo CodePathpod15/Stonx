@@ -17,6 +17,7 @@ class WatchListViewController: UIViewController {
     private var filters: [Filter] = [Filter(name:"all", selected:  true)] // the filters
     private var stocks: [Stock] = [Stock]()
     private var sectionToStocks = [String: [Stock]]()
+    private var selectedFilter = Filter(name:"all", selected:  true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,6 @@ class WatchListViewController: UIViewController {
         
         // this gets the user watchlist
         getTheUserWatchList()
-        
     }
     
     func getTheUserWatchList() {
@@ -147,12 +147,15 @@ class WatchListViewController: UIViewController {
 
 extension WatchListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return filters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        filters.forEach({$0.selected = false}) // deselects
+        filters[indexPath.item].selected = !filters[indexPath.item].selected
+        self.selectedFilter = filters[indexPath.item]
+        collectionView.reloadData()
+        self.stocksTableview.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -161,10 +164,10 @@ extension WatchListViewController: UICollectionViewDataSource {
         cell.configure(filter: filters[indexPath.item])
 
         return cell
-
     }
-    
+ 
 }
+
 
 extension WatchListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -181,52 +184,81 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 0, height: 0)
 
       }
+    
 }
 
 extension WatchListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        var count = 1
         
+        if selectedFilter.name == "all" {
+            count = filters.count - 1
+        }
         
-        
-        
-        return filters.count - 1
+        return count
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if selectedFilter.name == "all" {
+            let filter = filters[section + 1]
+            var count = 0
+            stocks.forEach({
+                if $0.sector == filter.name {
+                    count += 1
+                }
+            })
+            return count
+        }
         
-        let filter = filters[section + 1]
-        var count = 0
+        if let ss = sectionToStocks[selectedFilter.name] {
+            return ss.count
+        }
         
         
-        stocks.forEach({
-            if $0.sector == filter.name {
-                count += 1
-            }
-        })
-        return count
+        return 0
+        
         
     }
   
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return filters[section +  1].name
+    
+        
+        if selectedFilter.name == "all" {
+            return filters[section +  1].name
+        } else {
+            return nil
+        }
+        
     }
-  
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
         
-        let filter = filters[indexPath.section + 1].name
-        if let stocksFrom = sectionToStocks[filter] {
-            let stock = stocksFrom[indexPath.row]
-            cell.configure(stock: stock)
+        if selectedFilter.name == "all" {
+            let filter = filters[indexPath.section + 1].name
+            if let stocksFrom = sectionToStocks[filter] {
+                let stock = stocksFrom[indexPath.row]
+                cell.configure(stock: stock)
+                
+                return cell
+            }
             
             return cell
         }
         
+        if let stocks = sectionToStocks[selectedFilter.name] {
+            
+            let stock = stocks[indexPath.row]
+            cell.configure(stock: stock)
+        }
+        
         return cell
-
     }
+    
+    
+    
     
     // overrided this to change the font size of the header
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
