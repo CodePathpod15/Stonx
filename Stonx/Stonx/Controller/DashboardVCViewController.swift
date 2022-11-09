@@ -119,6 +119,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     
     var totalPrice = 0.0
     
+    // Operation Queue (synchronize them)
     var ownedStocks = [Stock]() {
         didSet {
             for stock in ownedStocks {

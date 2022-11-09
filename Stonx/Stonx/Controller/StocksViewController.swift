@@ -69,13 +69,16 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var imageIconPERatio: UIButton = {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
+
         return button
     }()
     
@@ -83,14 +86,17 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
         return button
     }()
     
 
-    lazy var imageIcon: UIButton = {
+    lazy var marketCapimageIcon: UIButton = {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
+
         return button
     }()
     
@@ -100,7 +106,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         hStackView.axis = .horizontal
         hStackView.spacing = 2
         hStackView.alignment = .center
-        hStackView.addArrangedSubview(imageIcon)
+        hStackView.addArrangedSubview(marketCapimageIcon)
         hStackView.addArrangedSubview(marketCapHeaderLabel)
         
         return hStackView
@@ -440,7 +446,33 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         ChartDataEntry(x: 40.9, y: 55.0)
     ]
     
-    
+    @objc func indicatorWaspressed(button: UIButton) {
+        //  [imageIconVolume, imageIconPERatio, imageIconEPS, marketCapimageIcon]
+        let informationview = InformationView()
+        
+        if imageIconVolume == button {
+            informationview.configure(title: "Volume", caption: "the number of shares traded in a particular stock, index, or other investment over a specific period of time")
+
+        } else if button == imageIconEPS {
+            informationview.configure(title: "EPS", caption: "ernings per share (EPS) is calculated as a company's profit divided by the outstanding shares of its common stock.")
+        } else if button == imageIconPERatio {
+            informationview.configure(title: "P/E", caption: "The P/E for a stock is computed by dividing the price of the stock by the company's annual earnings per share. It tells investors how much a company is worth.")
+        } else if button  == marketCapimageIcon {
+            informationview.configure(title: "Market Cap", caption: "Refers to how much a company is worth as determined by the stock market. It is defined as the total market value of all outstanding shares.")
+        }
+                    
+                    
+                    
+       
+        let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+        currentWindow?.addSubview(informationview)
+        
+        informationview.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+        
+        
+        
+        
+    }
     
     var tickerName = ""
     
@@ -467,7 +499,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         
         tickerName = stockInfo.the1Symbol
 
-        
         API.getStockAboutMe(tickerSymbol: tickerName) { result in
             switch result {
             case .success(let items):
@@ -547,7 +578,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
        
             }
         }
-
         
     }
     

@@ -105,11 +105,6 @@ struct API {
         task.resume()
     }
     
-    
-    
-    
-    
-    
     // gives you the description, EPS,PERatio, and sector.
     // https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=JPHF6VLB2O59XH8K .. try this link in your browser
     static func getStockAboutMe(tickerSymbol:String, completion: @escaping (Result<StockAbout?, Error>) -> Void) {

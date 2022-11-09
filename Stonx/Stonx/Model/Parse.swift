@@ -8,6 +8,8 @@
 import Foundation
 import Parse
 
+// Networking Service
+// create layer
 
 class ParseModel {
     static let shared = ParseModel()

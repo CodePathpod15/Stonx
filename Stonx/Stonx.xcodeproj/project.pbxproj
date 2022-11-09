@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C160C31291AE7A700CE5823 /* Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C30291AE7A700CE5823 /* Parse.swift */; };
+		1C160C33291B17B200CE5823 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C32291B17B200CE5823 /* InformationView.swift */; };
 		1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */; };
 		1C1A74F5290C9E6000C3310C /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */; };
 		1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */; };
@@ -75,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		1C160C30291AE7A700CE5823 /* Parse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parse.swift; sourceTree = "<group>"; };
+		1C160C32291B17B200CE5823 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
 		1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				1CE84F4E2916F7180001F970 /* AutoSizingTableView.swift */,
 				1CE84FC22918333A0001F970 /* RateTheStock.swift */,
 				1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */,
+				1C160C32291B17B200CE5823 /* InformationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */,
 				1C5F0E482901C5EE00101093 /* CreateAnAccountViewcontroller.swift in Sources */,
 				1CE84FC32918333A0001F970 /* RateTheStock.swift in Sources */,
+				1C160C33291B17B200CE5823 /* InformationView.swift in Sources */,
 				1C160C31291AE7A700CE5823 /* Parse.swift in Sources */,
 				1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */,
 				1CE84F3B291223650001F970 /* TradeView.swift in Sources */,
