@@ -9,6 +9,7 @@ import UIKit
 
 // this is displayed whenever the user presses the information vie w
 class InformationView: UIView {
+    
     //MARK: properties
     private let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     private let cContent = UIView()
@@ -37,12 +38,9 @@ class InformationView: UIView {
         return lbl
     }()
 
-
-    
     private let horizontalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
-//        sv.backgroundColor = .red
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.distribution = .equalSpacing
         return sv
@@ -70,9 +68,10 @@ class InformationView: UIView {
         return lbl
     }()
     
-    //
+    // this configures the cell
     func configure(title: String, caption: String) {
-        
+        self.titleLbl.text = title
+        self.descriptionLbl.text = caption
     }
 
     // deals with setting up layout
@@ -86,7 +85,6 @@ class InformationView: UIView {
         cContent.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         cContent.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         cContent.widthAnchor.constraint(equalToConstant: 244).isActive = true
-//        cContent.heightAnchor.constraint(equalToConstant: 151).isActive = true
         
         cContent.addSubview(titleLbl)
         titleLbl.centerXAnchor.constraint(equalTo: cContent.centerXAnchor).isActive = true
@@ -95,12 +93,11 @@ class InformationView: UIView {
         
         cContent.addSubview(horizontalSV)
         
-      
-       horizontalSV.addArrangedSubview(descriptionLbl)
+        horizontalSV.addArrangedSubview(descriptionLbl)
      
         
         horizontalSV.anchor(top: titleLbl.bottomAnchor, leading: titleLbl.leadingAnchor, bottom: nil, trailing: titleLbl.trailingAnchor,padding: .init(top: 15, left: 25, bottom: 0, right: 25))
-        
+
         cContent.addSubview(doneButton)
         doneButton.anchor(top:horizontalSV.bottomAnchor, leading: nil, bottom: cContent.bottomAnchor, trailing: nil, padding: .init(top: 15, left: 0, bottom: 15, right: 0), size: .init(width: 150, height: 30))
 
@@ -108,8 +105,8 @@ class InformationView: UIView {
         
     }
 
+    
     @objc func buyButtonWasPressed() {
-        // number of stars
         delegate?.userWantsToBuy()
         handleDimiss()
     }
@@ -125,7 +122,6 @@ class InformationView: UIView {
     }
     
 
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
