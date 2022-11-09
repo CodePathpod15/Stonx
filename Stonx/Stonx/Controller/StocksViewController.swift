@@ -837,7 +837,6 @@ extension StocksViewController: TradingDelegate {
 
 }
 
-
 extension StocksViewController: TransactionDelegate {
     func transac(of type: TransactionType) {
         let vc = TransactionSuccessfulViewController()

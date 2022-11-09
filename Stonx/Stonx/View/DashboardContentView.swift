@@ -222,20 +222,4 @@ extension DashboardContentView: UITableViewDelegate {
 }
 
 
-class Stock {
-    var ticker_symbol: String
-    var ticker_fullName: String
-    var price: Double
-    var quantity: Int
-    var daysOfOnwerShip = 0
-    var chagePercent: String = "x.x%"
-    
-    init(ticker: String, price: Double, quantity: Int, ticker_fullName: String) {
-        self.ticker_symbol = ticker
-        self.price = price
-        self.quantity = quantity
-        self.ticker_fullName = ticker_fullName
-    
-    }
-    
-}
+

@@ -7,22 +7,6 @@
 
 import UIKit
 
-// filter
-class Filter {
-    var name: String
-    var selected: Bool = false
-    
-    init(name: String, selected: Bool) {
-        self.name = name
-        self.selected = selected
-    }
-    
-    func isSelected() ->Bool {
-        return selected
-    }
-    
-}
-
 class WatchListViewController: UIViewController {
     
     // MARK: properties
@@ -31,8 +15,9 @@ class WatchListViewController: UIViewController {
     private var stocksTableview: UITableView = UITableView(frame: .zero, style: .grouped)
     private let cellPadding: CGFloat = 8
     private var filters: [Filter] = [] // the filters
+    private var stocks: [Stock] = [Stock]()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -43,16 +28,58 @@ class WatchListViewController: UIViewController {
         
         setUpViews()
         setUpConstraints()
+        
+        // this gets the user watchlist
+        getTheUserWatchList()
+        
     }
+    
+    
+    func getTheUserWatchList() {
+        ParseModel.shared.gettingUserWatchlist { result in
+            switch result {
+            case .success(let stocks):
+                // if we have the stocks saved
+                if let stocks = stocks {
+                   
+                    DispatchQueue.main.async {
+                        self.stocks = stocks
+                        self.stocksTableview.reloadData()
+                        }
+                    
+                }
+                
+                break
+            case .failure(let error):
+                self.showAlert(with: error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func getTheUserWatchList(with sector: String) {
+        
+        ParseModel.shared.gettingUserWatchlist(bysector:sector) { result in
+            switch result {
+            case .success(let stocks):
+                stocks?.forEach({print($0.ticker_symbol)})
+                break
+            case .failure(let error):
+                self.showAlert(with: error.localizedDescription)
+                break
+            }
+        }
+        
+        }
+    
+
+    
+    
+    
     
     // here we will call the api to get all of the data
     func getFilterData() {
         filters = [Filter(name:"all", selected:  false), Filter(name:"industry 2", selected:  false), Filter(name:"industry 3", selected:  false), Filter(name:"industry 4", selected:  false)]
-        
-    }
-    
-    func getTheWatchlist() {
-        
         
     }
     
@@ -121,6 +148,7 @@ class WatchListViewController: UIViewController {
     }
 }
 
+
 extension WatchListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filters.count
@@ -159,18 +187,16 @@ extension WatchListViewController: UITableViewDataSource {
         return filters.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return stocks.count
     }
-    
-    
+  
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return filters[section].name
     }
-    
-    
-    
+  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
+        cell.configure(with: stocks[indexPath.row].ticker_symbol, sharesOwned: 0, price: 0)
         
         return cell
 
@@ -184,8 +210,6 @@ extension WatchListViewController: UITableViewDataSource {
         header.textLabel?.textColor = .black
 
     }
-    
-    
 }
 
 extension WatchListViewController: UITableViewDelegate {
@@ -197,6 +221,5 @@ extension WatchListViewController: UITableViewDelegate {
         let tb = StocksViewController()
         navigationController?.pushViewController(tb, animated: true)
     }
-    
-   
+
 }

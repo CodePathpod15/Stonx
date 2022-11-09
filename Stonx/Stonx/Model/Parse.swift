@@ -101,13 +101,49 @@ class ParseModel {
         
     }
     
-    
-    
-    
-    
-    
-
+    // getting the watchlist
+    //this gets the Watchlist
+    func gettingUserWatchlist(bysector: String? = nil, completion: @escaping (Result<[Stock]?, Error>) -> Void) {
+        
+        var stocksUserOwns = [Stock]()
+        let query = PFQuery(className: Watchlist.object_name)
+        query.whereKey(Watchlist.user, contains:  PFUser.current()!.objectId)
+        if let bysector = bysector {
+            query.whereKey(Watchlist.sector, contains:  bysector)
+        }
+        query.findObjectsInBackground() { (objects: [PFObject]?, error: Error?) in
+            // this means that there is an error
+            if let error = error {
+                completion(.failure(error))
+            }
+            // if it is nil, we just return an empty array
+            if let objects = objects {
+                
+                if stocksUserOwns.isEmpty {
+                    completion(.success(stocksUserOwns))
+                }
+                
+                for object in objects {
+                    let sector = object[Watchlist.sector] as? String
+                    let ticker_symbol = object[Watchlist.ticker_symbol] as? String
+                    
+                    if let sector = sector, let ticker_symbol = ticker_symbol {
+                        let stock = Stock(ticker: ticker_symbol, price: 0, quantity: 0, ticker_fullName: "")
+                        stock.sector = sector
+                        stocksUserOwns.append(stock)
+                    }
+                    // if they are both nil we dont really do anything
+                }
+                completion(.success(stocksUserOwns))
+            } else {
+                completion(.success(stocksUserOwns))
+            }
+ 
+        }
+    }
 }
+
+
 
 
 /// this is the model in charged of the survey

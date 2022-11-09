@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1C160C31291AE7A700CE5823 /* Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C30291AE7A700CE5823 /* Parse.swift */; };
 		1C160C33291B17B200CE5823 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C32291B17B200CE5823 /* InformationView.swift */; };
+		1C160C35291B755C00CE5823 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C34291B755C00CE5823 /* Stock.swift */; };
+		1C160C37291B776A00CE5823 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C36291B776A00CE5823 /* Filter.swift */; };
 		1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */; };
 		1C1A74F5290C9E6000C3310C /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */; };
 		1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */; };
@@ -77,6 +79,8 @@
 /* Begin PBXFileReference section */
 		1C160C30291AE7A700CE5823 /* Parse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parse.swift; sourceTree = "<group>"; };
 		1C160C32291B17B200CE5823 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		1C160C34291B755C00CE5823 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		1C160C36291B776A00CE5823 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
 		1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
@@ -176,11 +180,14 @@
 		1C1A74FC290D0BE200C3310C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1CEBCADD290DBDB7007B45DE /* Constants.swift */,
 				1CEBCADB290DB95F007B45DE /* Validate.swift */,
 				1C291DD229048D110058E291 /* APi.swift */,
 				1CEBCAE3290DED4D007B45DE /* JsonCodable.swift */,
 				1CE84F3E291239810001F970 /* StockMarket.swift */,
 				1C160C30291AE7A700CE5823 /* Parse.swift */,
+				1C160C34291B755C00CE5823 /* Stock.swift */,
+				1C160C36291B776A00CE5823 /* Filter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -219,7 +226,6 @@
 				1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */,
 				1C86BA2E2910BF490034730F /* Settings */,
 				1C291DD029048CC80058E291 /* LoginViewController.swift */,
-				1CEBCADD290DBDB7007B45DE /* Constants.swift */,
 				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
 				1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */,
 			);
@@ -564,9 +570,11 @@
 				1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */,
 				1C5F0E482901C5EE00101093 /* CreateAnAccountViewcontroller.swift in Sources */,
 				1CE84FC32918333A0001F970 /* RateTheStock.swift in Sources */,
+				1C160C35291B755C00CE5823 /* Stock.swift in Sources */,
 				1C160C33291B17B200CE5823 /* InformationView.swift in Sources */,
 				1C160C31291AE7A700CE5823 /* Parse.swift in Sources */,
 				1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */,
+				1C160C37291B776A00CE5823 /* Filter.swift in Sources */,
 				1CE84F3B291223650001F970 /* TradeView.swift in Sources */,
 				1CEBCAE0290DD5E7007B45DE /* BalanceTableViewCell.swift in Sources */,
 				1C1A74F5290C9E6000C3310C /* FilterCollectionViewCell.swift in Sources */,

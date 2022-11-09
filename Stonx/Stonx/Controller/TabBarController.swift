@@ -1,7 +1,6 @@
 import UIKit
 
 //TODO: ignore
-
 class sampleVC1:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()

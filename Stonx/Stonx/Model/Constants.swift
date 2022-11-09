@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//Look into this: https://alpaca.markets/docs/market-data/
 
 struct ColorConstants {
     static let gray = UIColor(red: 252/255, green: 252/255, blue: 253/255, alpha: 1)
@@ -54,6 +55,14 @@ class user_transaction {
     static let price = "price"
     static let quantity = "Quantity"
     static let purchase = "purchase"
+}
+
+// the
+class Watchlist {
+    static let object_name = "stocks_booked"
+    static let user = ticker_rating.user
+    static let sector = "sector"
+    static let ticker_symbol = ticker_rating.ticker_symbol
 }
 
 
