@@ -201,6 +201,8 @@ extension WatchListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        
+        
         if selectedFilter.name == "all" {
             let filter = filters[section + 1]
             var count = 0
@@ -212,8 +214,10 @@ extension WatchListViewController: UITableViewDataSource {
             return count
         }
         
-        if let ss = sectionToStocks[selectedFilter.name] {
-            return ss.count
+        
+        
+        if let stocks = sectionToStocks[selectedFilter.name] {
+            return stocks.count
         }
         
         
@@ -223,43 +227,30 @@ extension WatchListViewController: UITableViewDataSource {
     }
   
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    
-        
         if selectedFilter.name == "all" {
             return filters[section +  1].name
         } else {
             return nil
         }
-        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
-        
         if selectedFilter.name == "all" {
             let filter = filters[indexPath.section + 1].name
             if let stocksFrom = sectionToStocks[filter] {
                 let stock = stocksFrom[indexPath.row]
                 cell.configure(stock: stock)
-                
-                return cell
             }
-            
-            return cell
         }
-        
-        if let stocks = sectionToStocks[selectedFilter.name] {
+        else if let stocks = sectionToStocks[selectedFilter.name] {
             
             let stock = stocks[indexPath.row]
             cell.configure(stock: stock)
         }
-        
         return cell
     }
-    
-    
-    
-    
+ 
     // overrided this to change the font size of the header
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
