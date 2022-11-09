@@ -69,13 +69,18 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
         return button
     }()
+    
+   
     
     lazy var imageIconPERatio: UIButton = {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
+
         return button
     }()
     
@@ -87,10 +92,12 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     }()
     
 
-    lazy var imageIcon: UIButton = {
+    lazy var marketCapimageIcon: UIButton = {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(indicatorWaspressed), for: .touchUpInside)
+
         return button
     }()
     
@@ -100,7 +107,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         hStackView.axis = .horizontal
         hStackView.spacing = 2
         hStackView.alignment = .center
-        hStackView.addArrangedSubview(imageIcon)
+        hStackView.addArrangedSubview(marketCapimageIcon)
         hStackView.addArrangedSubview(marketCapHeaderLabel)
         
         return hStackView
@@ -440,7 +447,22 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         ChartDataEntry(x: 40.9, y: 55.0)
     ]
     
-    
+    @objc func indicatorWaspressed(button: UIButton) {
+        //  [imageIconVolume, imageIconPERatio, imageIconEPS, marketCapimageIcon]
+        
+//        if imageIconVolume == button {
+//
+//        }
+        let informationview = InformationView()
+        let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+        currentWindow?.addSubview(informationview)
+        
+        informationview.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+        
+        
+        
+        
+    }
     
     var tickerName = ""
     
