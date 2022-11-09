@@ -14,18 +14,15 @@ class WatchListViewController: UIViewController {
     private var filtCollectionView: UICollectionView! // the filter collection view
     private var stocksTableview: UITableView = UITableView(frame: .zero, style: .grouped)
     private let cellPadding: CGFloat = 8
-    private var filters: [Filter] = [] // the filters
+    private var filters: [Filter] = [Filter(name:"all", selected:  true)] // the filters
     private var stocks: [Stock] = [Stock]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         title = "Watch List"
-        
-        getFilterData()
-        
+
         setUpViews()
         setUpConstraints()
         
@@ -33,7 +30,6 @@ class WatchListViewController: UIViewController {
         getTheUserWatchList()
         
     }
-    
     
     func getTheUserWatchList() {
         ParseModel.shared.gettingUserWatchlist { result in
@@ -44,9 +40,13 @@ class WatchListViewController: UIViewController {
                    
                     DispatchQueue.main.async {
                         self.stocks = stocks
-                        self.stocksTableview.reloadData()
+                       
+                        for stock in stocks {
+                            self.filters.append(Filter(name: stock.sector, selected: false))
                         }
-                    
+                        self.filtCollectionView.reloadData()
+                        self.stocksTableview.reloadData()
+                    }
                 }
                 
                 break
@@ -71,18 +71,7 @@ class WatchListViewController: UIViewController {
         }
         
         }
-    
 
-    
-    
-    
-    
-    // here we will call the api to get all of the data
-    func getFilterData() {
-        filters = [Filter(name:"all", selected:  false), Filter(name:"industry 2", selected:  false), Filter(name:"industry 3", selected:  false), Filter(name:"industry 4", selected:  false)]
-        
-    }
-    
     
     
     //MARK: setting up the layout of the UI
@@ -114,7 +103,7 @@ class WatchListViewController: UIViewController {
 //        stocksTableview.backgroundColor = .red
         stocksTableview.alwaysBounceVertical = false
         stocksTableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        stocksTableview.register(StockTableViewCell.self, forCellReuseIdentifier: StockTableViewCell.identifier)
+        stocksTableview.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
         stocksTableview.translatesAutoresizingMaskIntoConstraints = false
         stocksTableview.backgroundColor = .clear
         
@@ -195,8 +184,9 @@ extension WatchListViewController: UITableViewDataSource {
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: StockTableViewCell.identifier, for: indexPath) as! StockTableViewCell
-        cell.configure(with: stocks[indexPath.row].ticker_symbol, sharesOwned: 0, price: 0)
+        let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
+        
+        cell.configure(stock: stocks[indexPath.row])
         
         return cell
 
