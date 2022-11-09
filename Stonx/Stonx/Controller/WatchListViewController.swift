@@ -189,41 +189,27 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
 
 extension WatchListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        // we return 1 section whenever any filter but all is pressed
         var count = 1
-        
         if selectedFilter.name == "all" {
-            count = filters.count - 1
+            count = filters.count - count
         }
-        
         return count
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        
-        
         if selectedFilter.name == "all" {
-            let filter = filters[section + 1]
-            var count = 0
-            stocks.forEach({
-                if $0.sector == filter.name {
-                    count += 1
-                }
-            })
-            return count
+            let filter = filters[section + 1].name
+            if let stocks = sectionToStocks[filter] {
+                return stocks.count
+            }
         }
-        
-        
-        
         if let stocks = sectionToStocks[selectedFilter.name] {
             return stocks.count
         }
-        
-        
         return 0
-        
-        
+
     }
   
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
