@@ -16,6 +16,7 @@ class WatchListViewController: UIViewController {
     private let cellPadding: CGFloat = 8
     private var filters: [Filter] = [Filter(name:"all", selected:  true)] // the filters
     private var stocks: [Stock] = [Stock]()
+    private var sectionToStocks = [String: [Stock]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +43,16 @@ class WatchListViewController: UIViewController {
                         self.stocks = stocks
                        
                         for stock in stocks {
-                            self.filters.append(Filter(name: stock.sector, selected: false))
+                            let filter = Filter(name: stock.sector, selected: false)
+                            if !self.filters.contains(filter) {
+                                self.filters.append(filter)
+                            }
                         }
+                        
+                        for stock in self.stocks {
+                            self.sectionToStocks[stock.sector, default: []].append(stock)
+                        }
+                        
                         self.filtCollectionView.reloadData()
                         self.stocksTableview.reloadData()
                     }
@@ -100,7 +109,6 @@ class WatchListViewController: UIViewController {
         // setting up the tableview
     
         view.addSubview(stocksTableview)
-//        stocksTableview.backgroundColor = .red
         stocksTableview.alwaysBounceVertical = false
         stocksTableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         stocksTableview.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
@@ -109,8 +117,7 @@ class WatchListViewController: UIViewController {
         
         stocksTableview.dataSource = self
         stocksTableview.delegate = self
-        
-//        view.backgroundColor = .systemGray6
+
         
     }
     
@@ -140,7 +147,12 @@ class WatchListViewController: UIViewController {
 
 extension WatchListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return filters.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -173,20 +185,44 @@ extension WatchListViewController: UICollectionViewDelegateFlowLayout {
 
 extension WatchListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return filters.count
+        
+        
+        
+        
+        return filters.count - 1
     }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stocks.count
+        
+        
+        let filter = filters[section + 1]
+        var count = 0
+        
+        
+        stocks.forEach({
+            if $0.sector == filter.name {
+                count += 1
+            }
+        })
+        return count
+        
     }
   
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return filters[section].name
+        return filters[section +  1].name
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
         
-        cell.configure(stock: stocks[indexPath.row])
+        let filter = filters[indexPath.section + 1].name
+        if let stocksFrom = sectionToStocks[filter] {
+            let stock = stocksFrom[indexPath.row]
+            cell.configure(stock: stock)
+            
+            return cell
+        }
         
         return cell
 

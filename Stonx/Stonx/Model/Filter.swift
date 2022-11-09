@@ -8,7 +8,9 @@
 import UIKit
 
 // filter
-class Filter {
+class Filter: Equatable {
+    
+    
     var name: String
     var selected: Bool = false
     
@@ -19,5 +21,9 @@ class Filter {
     
     func isSelected() ->Bool {
         return selected
+    }
+    
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
+        return lhs.name == rhs.name
     }
 }
