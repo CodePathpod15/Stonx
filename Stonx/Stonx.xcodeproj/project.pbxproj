@@ -185,6 +185,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1C160C40291D884100CE5823 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				1CE84F4C2916E1E10001F970 /* DashboardVCViewController.swift */,
+				1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		1C160C41291D884E00CE5823 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				1CE84F3C29122D210001F970 /* TransactionViewController.swift */,
+				1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		1C160C42291D886700CE5823 /* Looking at a stock */ = {
+			isa = PBXGroup;
+			children = (
+				1CE84F382911D9410001F970 /* StocksViewController.swift */,
+				1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */,
+			);
+			path = "Looking at a stock";
+			sourceTree = "<group>";
+		};
 		1C1A74FC290D0BE200C3310C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,8 +243,8 @@
 				1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */,
 				1C160C32291B17B200CE5823 /* InformationView.swift */,
 				1C160C38291B7AC300CE5823 /* WatchlistTableViewCell.swift */,
-				1C160C3C291C465D00CE5823 /* ComparisonView.swift */,
 				1C160C3E291C768000CE5823 /* VerticalSV.swift */,
+				1C160C3C291C465D00CE5823 /* ComparisonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -226,12 +253,9 @@
 			isa = PBXGroup;
 			children = (
 				1C160C3A291C447700CE5823 /* ComparisonViewController.swift */,
-				1CE84F382911D9410001F970 /* StocksViewController.swift */,
-				1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */,
-				1CE84F4C2916E1E10001F970 /* DashboardVCViewController.swift */,
-				1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */,
-				1CE84F3C29122D210001F970 /* TransactionViewController.swift */,
-				1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */,
+				1C160C42291D886700CE5823 /* Looking at a stock */,
+				1C160C40291D884100CE5823 /* Dashboard */,
+				1C160C41291D884E00CE5823 /* Transaction */,
 				1C291DD429048DA60058E291 /* UserDashboardViewController.swift */,
 				1CC306B32908DCC600CA2125 /* TabBarController.swift */,
 				1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */,

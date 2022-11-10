@@ -270,13 +270,9 @@ class TransactionSuccessfulViewController: UIViewController {
 
     }
     
-    
-
-    
     private func viewSetUp() {
         view.addSubview(label)
-        
-    
+
         whiteVIew.backgroundColor = .white
         whiteVIew.layer.cornerRadius = 8
         view.addSubview(whiteVIew)

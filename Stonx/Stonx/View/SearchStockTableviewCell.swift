@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol ComparisonDelegate: AnyObject {
-    func compareButtonWasPressed()
+    func compareButtonWasPressed(with ticker: String)
 }
 
 // this is the tableview cell that contains no chart, primarly used for searchign
@@ -105,7 +105,7 @@ class SearchStockTableviewCell: UITableViewCell {
     }
     
     @objc func compareBtnWasPressed() {
-        delegate?.compareButtonWasPressed()
+        delegate?.compareButtonWasPressed(with: stockLbl.text!)
     }
      
      private func setUPViews() {
