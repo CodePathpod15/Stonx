@@ -36,6 +36,7 @@ class VerticalSV: UIStackView {
         lbl.text = "4070.00"
         lbl.font = FontConstants.cellMediumFont
         lbl.textColor = ColorConstants.green
+        lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
     
@@ -56,7 +57,7 @@ class VerticalSV: UIStackView {
     let rightStockPrice: UILabel = {
         let lbl = UILabel()
         lbl.text = "4070.00"
-        lbl.font = FontConstants.cellMediumFont
+        lbl.font = FontConstants.boldLargeFont
         lbl.textColor = ColorConstants.green
         return lbl
     }()
