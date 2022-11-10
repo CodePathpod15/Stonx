@@ -56,14 +56,7 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        /*
-         - Create button frame
-         - Add button to SubView
-         - Set background color
-         - Add Button Target
-         - Create Session
-         - Create WebSocket from the session
-         */
+        
         
         button.frame = CGRect(x: self.view.frame.width/2 - 100, y: self.view.frame.width/2, width: 200, height: 100)
         self.view.addSubview(button)
@@ -72,29 +65,13 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
         
         socket.delegate = self
         socket.connect()
-        
-//        socket.dis
-        
-//        var request = URLRequest(url: url)
-//        request.timeoutInterval = 5
-//        let socket = WebSocket(request: request)
-//        socket.delegate = self
-//        socket.connect()
-//
-//
-//        socket.connect()
-        
-        
-
-      
-        
+    
         
     }
    
     
     //MARK: Close Session
     @objc func closeSession(){
-        print("here")
         socket.write(string: "Hey Dude you there")
     }
     
