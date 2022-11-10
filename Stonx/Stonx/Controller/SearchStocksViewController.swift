@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+// three dots to compare icon
+// if clicked we pop a search bar with the user being able to search for a stock  and boom
 class SearchStocksViewController: UIViewController, UISearchControllerDelegate, UITextFieldDelegate {
     
     // MARK: Properties
@@ -41,12 +44,19 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         
         
         
-        // this is how you use the API 
+        // this is how you use the API
+        // add right bar button
 
+        let rbutton = UIBarButtonItem(title: "Compare", style: .plain, target: self, action: #selector(compareBUttonWasPressed))
+        let rightButton: UIBarButtonItem = rbutton
+        self.navigationItem.rightBarButtonItem = rightButton
         
         
         
-        
+    }
+    
+    @objc func compareBUttonWasPressed() {
+        present(ComparisonViewController(), animated: true)
     }
     
     func setUpViews() {
@@ -123,7 +133,7 @@ extension SearchStocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredStocks.count
     }
-    
+  
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchStockTableviewCell.identifier, for: indexPath) as! SearchStockTableviewCell
@@ -140,6 +150,7 @@ extension SearchStocksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bestMatch = filteredStocks[indexPath.row]

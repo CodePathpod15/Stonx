@@ -20,6 +20,7 @@ class ComparisonViewController: UIViewController {
         setUp()
     }
     
+    
     func setUp() {
         view.addSubview(scrollView)
         title = "Dashboard"

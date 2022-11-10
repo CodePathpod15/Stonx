@@ -43,6 +43,7 @@ class SearchStockTableviewCell: UITableViewCell {
         sv.axis = .vertical
         return sv
     }()
+    
      
     
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
