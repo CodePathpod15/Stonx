@@ -12,6 +12,7 @@ PODS:
     - Parse/Core (= 1.19.3)
   - Parse/Core (1.19.3):
     - Bolts/Tasks (= 1.9.1)
+  - Starscream (4.0.4)
   - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - Charts
   - lottie-ios
   - Parse
+  - Starscream (~> 4.0.0)
 
 SPEC REPOS:
   trunk:
@@ -28,6 +30,7 @@ SPEC REPOS:
     - Charts
     - lottie-ios
     - Parse
+    - Starscream
     - SwiftAlgorithms
 
 SPEC CHECKSUMS:
@@ -37,8 +40,9 @@ SPEC CHECKSUMS:
   Charts: 354f86803d11d9c35de280587fef50d1af063978
   lottie-ios: 9ae750cdc7820fecbd3c2f0cfc493038208fcdc4
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: d1ad5a9398f72a1e7cc92587a7b31a948f900514
+PODFILE CHECKSUM: 9e3e731b270ab41db40b5c28bcc467dbc6a51b6e
 
 COCOAPODS: 1.11.3

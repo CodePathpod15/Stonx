@@ -15,6 +15,7 @@
 		1C160C3B291C447700CE5823 /* ComparisonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C3A291C447700CE5823 /* ComparisonViewController.swift */; };
 		1C160C3D291C465D00CE5823 /* ComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C3C291C465D00CE5823 /* ComparisonView.swift */; };
 		1C160C3F291C768000CE5823 /* VerticalSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C3E291C768000CE5823 /* VerticalSV.swift */; };
+		1C160C44291D93B900CE5823 /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C160C43291D93B900CE5823 /* TestingViewController.swift */; };
 		1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */; };
 		1C1A74F5290C9E6000C3310C /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */; };
 		1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */; };
@@ -89,6 +90,7 @@
 		1C160C3A291C447700CE5823 /* ComparisonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonViewController.swift; sourceTree = "<group>"; };
 		1C160C3C291C465D00CE5823 /* ComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonView.swift; sourceTree = "<group>"; };
 		1C160C3E291C768000CE5823 /* VerticalSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSV.swift; sourceTree = "<group>"; };
+		1C160C43291D93B900CE5823 /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
 		1C1A74F2290C9B6400C3310C /* WatchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
 		1C1A74F4290C9E6000C3310C /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 		1C1A74FE290D0BEC00C3310C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1C160C43291D93B900CE5823 /* TestingViewController.swift */,
 				1C160C3A291C447700CE5823 /* ComparisonViewController.swift */,
 				1C160C42291D886700CE5823 /* Looking at a stock */,
 				1C160C40291D884100CE5823 /* Dashboard */,
@@ -628,6 +631,7 @@
 				1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */,
 				1CE84F4D2916E1E10001F970 /* DashboardVCViewController.swift in Sources */,
 				1CEBCADA290DB30B007B45DE /* SettingsViewController.swift in Sources */,
+				1C160C44291D93B900CE5823 /* TestingViewController.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
 				1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */,
