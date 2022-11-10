@@ -14,20 +14,17 @@ protocol ComparisonStock: AnyObject {
 // three dots to compare icon
 // if clicked we pop a search bar with the user being able to search for a stock  and boom
 class SearchStocksViewController: UIViewController, UISearchControllerDelegate, UITextFieldDelegate, ComparisonStock, UINavigationControllerDelegate {
-   
-    
     
     // MARK: Properties
     
-      let searchController = UISearchController(searchResultsController: nil)
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
     
     private let tableview = UITableView(frame: .zero, style: .grouped)
     
     private var searching = false
     
-     var filteredStocks = [BestMatch]()
-    var willCompare = false
-    
+    // I want to use this in my extension
+    fileprivate var filteredStocks = [BestMatch]()
     
    // MARK: This is how you do an initializer
 
@@ -201,14 +198,12 @@ class VC: SearchStocksViewController {
         setUpViews()
         setUpConstrainrs()
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bestMatch = filteredStocks[indexPath.row]
-       
         self.dismiss(animated: true)
         self.dismiss(animated: true)
         self.delegate?.sendTicker(str: bestMatch)
-
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

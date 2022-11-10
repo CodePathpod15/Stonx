@@ -81,8 +81,6 @@ class SearchStockTableviewCell: UITableViewCell {
             compareButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
             compareButton.anchor(top: nil, leading: nil, bottom: nil, trailing: contentView.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: 16), size: .init(width: 20, height: 20))
             
-            
-            
             // setting up the constrains of right stackview
             NSLayoutConstraint.activate([
                
@@ -142,7 +140,7 @@ class SearchStockTableviewCell: UITableViewCell {
          self.stockFullName.text = fullName
 
     }
-     
+
     /// in charge of constraints
      private func setUpConstraints() {
          // setting up the constrains of left stackview
