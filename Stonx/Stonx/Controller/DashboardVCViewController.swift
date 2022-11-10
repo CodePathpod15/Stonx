@@ -144,7 +144,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             }
         }
     }
-    
 
     // initializing the tableview
     func initializetheTableview() {

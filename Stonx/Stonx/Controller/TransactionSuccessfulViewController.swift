@@ -190,7 +190,7 @@ class TransactionSuccessfulViewController: UIViewController {
         user.fetchInBackground() {obj,err in
             if let obj = obj {
                 let balance = obj.value(forKey: "Balance") as? Double
-                self.creditLeftTitle.text = "$\(balance!)"
+                self.creditLeftTitle.text = "$\(balance!.truncate(places: 2))"
                 
             } else {
                 self.showAlert(with: "There was an error with your balance")
@@ -216,9 +216,11 @@ class TransactionSuccessfulViewController: UIViewController {
                     var type: String = transaction! ? "Purchased" : "Sold"
                     var type2: String = transaction! ? "bought" : "Sold"
                     
+                   
+                    
                     self.label.text = "\(tt!) \(type)"
                     self.numberOfSharesBoughtLbl.text = "\(String(amount!))"
-                    self.priceperShare.text = "\(String(price!))"
+                    self.priceperShare.text = "\(String(price!.truncate(places: 4)))"
                     self.numberOfSharesBoughtTitle.text = "Shares \(type2)"
                            
                     // display the current credit of user

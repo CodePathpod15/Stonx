@@ -402,7 +402,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     // sets the data entry for the data
     // https://dremployee.com/time-to-decimal-calculator.php
     let yvalue: [ChartDataEntry] = [
-//        ChartDataEntry(x: <#T##Double#>, y: <#T##Double#>)
         ChartDataEntry(x: 0.0, y: 10.0),
         ChartDataEntry(x: 1.0, y: 5.0),
         ChartDataEntry(x: 2.0, y: 7.0),
@@ -461,9 +460,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             informationview.configure(title: "Market Cap", caption: "Refers to how much a company is worth as determined by the stock market. It is defined as the total market value of all outstanding shares.")
         }
                     
-                    
-                    
-       
+    
         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
         currentWindow?.addSubview(informationview)
         
@@ -527,7 +524,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
                     // update the price and
                     self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
                     self.stockPriceLabel.text = items?.globalQuote.the05Price
-                    
                     
                     // so here we know we have items
                     if let items = items {
@@ -828,7 +824,7 @@ extension StocksViewController: TradingDelegate {
     // enabling the buying of a stock
     func buy() {
         print("going into buy: ", self.tickerName)
-        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!)
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text ?? "0")!)
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen

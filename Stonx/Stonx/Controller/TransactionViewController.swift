@@ -371,7 +371,9 @@ class TransactionViewController: UIViewController {
         user.fetchInBackground() {obj,err in
             if let obj = obj {
                 let balance = obj.value(forKey: "Balance") as? Double
-                self.usrBalance = balance!
+                
+                self.usrBalance = balance!.truncate(places: 2)
+                
                 self.purchasingPower.text = "$\(self.usrBalance)"
             } else {
                 self.showAlert(with: "There was an error with your balance")
@@ -501,4 +503,9 @@ class TransactionViewController: UIViewController {
 
 }
 
-
+// extension to truncate the decimal place
+extension Double {
+    func truncate(places : Int)-> Double {
+        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
+    }
+}
