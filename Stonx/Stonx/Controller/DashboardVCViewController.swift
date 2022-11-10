@@ -116,8 +116,8 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
     }
     
-    var totalPrice = 0.0
     
+    var totalPrice = 0.0
     // Operation Queue (synchronize them)
     var ownedStocks = [Stock]() {
         didSet {
@@ -125,7 +125,9 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 API.getLatestStockPrice2(tickerSymbol: stock.ticker_symbol) { result in
                     switch result {
                     case .success(let q):
-                        stock.price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
+                        let new_Stock_price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
+                        // rounding to two decimal places
+                        stock.price = round(new_Stock_price * 100) / 100.0
                         self.totalPrice += stock.price
                         stock.chagePercent = q?.globalQuote.the10ChangePercent ?? "x.x"
                         // TODO: refactor this
@@ -139,7 +141,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                         print(err.localizedDescription)
                     }
                 }
-                
             }
         }
     }
