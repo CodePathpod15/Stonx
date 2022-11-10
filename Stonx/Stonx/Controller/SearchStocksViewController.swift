@@ -7,18 +7,24 @@
 
 import UIKit
 
-class SearchStocksViewController: UIViewController, UISearchControllerDelegate, UITextFieldDelegate {
+protocol ComparisonStock: AnyObject {
+    func sendTicker(str: BestMatch)
+}
+
+// three dots to compare icon
+// if clicked we pop a search bar with the user being able to search for a stock  and boom
+class SearchStocksViewController: UIViewController, UISearchControllerDelegate, UITextFieldDelegate, ComparisonStock, UINavigationControllerDelegate {
     
     // MARK: Properties
     
-    private  let searchController = UISearchController(searchResultsController: nil)
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
     
     private let tableview = UITableView(frame: .zero, style: .grouped)
     
     private var searching = false
     
-    private var filteredStocks = [BestMatch]()
-    
+    // I want to use this in my extension
+    fileprivate var filteredStocks = [BestMatch]()
     
    // MARK: This is how you do an initializer
 
@@ -41,12 +47,27 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         
         
         
-        // this is how you use the API 
-
+        // this is how you use the API
+        // add right bar button
         
         
         
+    }
+    
+    func sendTicker(str: BestMatch) {
         
+        navigationController?.pushViewController(ComparisonViewController(), animated: true)
+        print("you send data back", str.the1Symbol)
+    }
+    
+    func addRightBarButtod(titled: String) {
+        let rbutton = UIBarButtonItem(title: titled, style: .plain, target: self, action: #selector(compareBUttonWasPressed))
+        let rightButton: UIBarButtonItem = rbutton
+        self.navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    @objc func compareBUttonWasPressed() {
+        self.dismiss(animated: true)
     }
     
     func setUpViews() {
@@ -97,8 +118,6 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
                          
                         self.tableview.reloadData()
                     }
-                        
-                
                     
                 }
             case .failure(let error):
@@ -113,26 +132,25 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
 
 
 
-    private func setUpConstrainrs() {
+     func setUpConstrainrs() {
         tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
 }
 
-//
 extension SearchStocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredStocks.count
     }
-    
+  
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchStockTableviewCell.identifier, for: indexPath) as! SearchStockTableviewCell
+        cell.delegate = self
         var match = filteredStocks[indexPath.row]
-        print(match.the1Symbol, " ",match.the1Symbol.count )
         cell.configure(ticker: match.the1Symbol, fullName: match.the2Name, market:   match.the4Region)
+        cell.enableCompareButton(with: true)
         return cell
     }
-    
     
 }
 
@@ -142,8 +160,58 @@ extension SearchStocksViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let bestMatch = filteredStocks[indexPath.row]
         let vc = StocksViewController(stockInfo: bestMatch)
         navigationController?.pushViewController(vc, animated: true)
+
+    }
+}
+
+extension SearchStocksViewController: ComparisonDelegate {
+
+    func compareButtonWasPressed() {
+        let vc = VC()
+        vc.delegate = self
+        vc.addRightBarButtod(titled: "Done")
+        let sv = UINavigationController(rootViewController: vc)
+        
+        sv.modalPresentationStyle = .formSheet
+        self.present(sv, animated: true)
+    
+    }
+    
+}
+
+
+
+
+
+// extending the search viewcontroller
+class VC: SearchStocksViewController {
+    weak var delegate: ComparisonStock?
+    override func viewDidLoad() {
+        view.backgroundColor = .white
+        // Do any additional setup after loading the view.
+        title = "Search"
+        searchController.searchBar.showsCancelButton = false
+        setUpViews()
+        setUpConstrainrs()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let bestMatch = filteredStocks[indexPath.row]
+        self.dismiss(animated: true)
+        self.dismiss(animated: true)
+        self.delegate?.sendTicker(str: bestMatch)
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchStockTableviewCell.identifier, for: indexPath) as! SearchStockTableviewCell
+        cell.delegate = self
+        var match = filteredStocks[indexPath.row]
+        cell.configure(ticker: match.the1Symbol, fullName: match.the2Name, market:   match.the4Region)
+        cell.enableCompareButton(with: false)
+        return cell
     }
 }

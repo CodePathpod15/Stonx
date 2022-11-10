@@ -57,7 +57,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            let loggedIn = true
 //
 //            if loggedIn {
-//                let vc = TabBarController()
+//                
+//                let vc = UINavigationController(rootViewController: ComparisonViewController())
 //                let root = vc
 //
 //                window.rootViewController = root
