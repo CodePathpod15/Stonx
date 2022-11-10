@@ -7,8 +7,9 @@
 
 import UIKit
 
-class ComparisonView: UIView {
 
+class ComparisonView: UIView {
+    
     let verticalSV: VerticalSV = {
         let sv = VerticalSV()
         sv.axis = .vertical
@@ -16,10 +17,8 @@ class ComparisonView: UIView {
         return sv
     }()
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.addSubview(verticalSV)
         
         verticalSV.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)

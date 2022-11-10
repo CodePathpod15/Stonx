@@ -12,9 +12,6 @@ class ComparisonViewController: UIViewController {
     let contentView = ComparisonView(frame: .zero)
     let scrollView = UIScrollView()
     
-    
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,7 +19,6 @@ class ComparisonViewController: UIViewController {
         // Do any additional setup after loading the view.
         setUp()
     }
-    
     
     func setUp() {
         view.addSubview(scrollView)
