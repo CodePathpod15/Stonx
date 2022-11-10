@@ -10,7 +10,7 @@ import UIKit
 import Charts
 
 
-class DashboardContentView: UIView {
+class DashboardContentView: UIView, UIGestureRecognizerDelegate {
     
     var stocks = [Stock]()
     
