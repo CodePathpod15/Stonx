@@ -47,7 +47,7 @@ struct API {
         let queryItems = [
             URLQueryItem(name: "function", value: "GLOBAL_QUOTE"),
             URLQueryItem(name: "symbol", value: tickerSymbol),
-            URLQueryItem(name: "apikey", value: "838A10HD6X0SVMMM")
+            URLQueryItem(name: "apikey", value: "ETTY470QGQK5ZLSQ")
         ]
         
         url.queryItems = queryItems
@@ -69,12 +69,7 @@ struct API {
         }
         task.resume()
     }
-    
-    //
-    
-    
-    
-    
+  
     // uses a different
     static func getLatestStockPrice2(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void){
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
@@ -135,46 +130,44 @@ struct API {
         }
         
         task.resume()
-        
-        
+
     }
-    
     
     // requires the exact name of the stock
     // this gets
     // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=JPHF6VLB2O59XH8K
-    static func getStockWithTimeSeries(tickerSymbol:String, completion: @escaping (Result<StockData?, Error>) -> Void)  {
-        guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
-        
-        let queryItems = [
-            URLQueryItem(name: "function", value: "TIME_SERIES_INTRADAY"),
-            URLQueryItem(name: "symbol", value: tickerSymbol),
-            URLQueryItem(name: "interval", value: "5min"),
-            URLQueryItem(name: "apikey", value: key)
-        ]
-        
-        url.queryItems = queryItems
-        
-        var request = URLRequest(url: url.url!)
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    let searchResponse = try decoder.decode(StockData.self, from: data) // gets the artists
-                    completion(.success(searchResponse))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        }
-        
-        task.resume()
-        
-        
-    }
+//    static func getStockWithTimeSeries(tickerSymbol:String, completion: @escaping (Result<StockData?, Error>) -> Void)  {
+//        guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
+//        
+//        let queryItems = [
+//            URLQueryItem(name: "function", value: "TIME_SERIES_INTRADAY"),
+//            URLQueryItem(name: "symbol", value: tickerSymbol),
+//            URLQueryItem(name: "interval", value: "5min"),
+//            URLQueryItem(name: "apikey", value: key)
+//        ]
+//        
+//        url.queryItems = queryItems
+//        
+//        var request = URLRequest(url: url.url!)
+//        
+//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//            if let error = error {
+//                completion(.failure(error))
+//            } else if let data = data {
+//                do {
+//                    let decoder = JSONDecoder()
+//                    let searchResponse = try decoder.decode(StockData.self, from: data) // gets the artists
+//                    completion(.success(searchResponse))
+//                } catch {
+//                    completion(.failure(error))
+//                }
+//            }
+//        }
+//        
+//        task.resume()
+//        
+//        
+//    }
     
     /// searches through the api using the a string
     static func search(searchingString: String, completion: @escaping (Result<Search?, Error>) -> Void) {
