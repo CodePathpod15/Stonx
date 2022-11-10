@@ -14,17 +14,22 @@ class DashboardContentView: UIView {
     
     var stocks = [Stock]()
     
+    //func chart
+    // includes press gesture too see past history
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
-        
+        chartView.setScaleEnabled(false)
         chartView.xAxis.axisLineWidth = 0
         chartView.xAxis.enabled = false
-        
+        chartView.legend.enabled = false
         chartView.leftYAxisRenderer.axis.enabled = false
-    
+        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chartTapped))
+        tapRecognizer.minimumPressDuration = 0.01
+        self.addGestureRecognizer(tapRecognizer)
+        tapRecognizer.delegate = self
         return chartView
     }()
     
@@ -36,7 +41,7 @@ class DashboardContentView: UIView {
         set1.gradientPositions = [0, 1]
         set1.fillColor = ColorConstants.lightGreen
         set1.drawFilledEnabled = true
-  
+        set1.drawHorizontalHighlightIndicatorEnabled = false
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
@@ -179,6 +184,23 @@ class DashboardContentView: UIView {
         tableView.anchor(top: verticalSV.bottomAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
   
     }
+    
+    @objc func chartTapped(_ sender: UITapGestureRecognizer) {
+
+            if sender.state == .began || sender.state == .changed {
+                // show change history
+                let position = sender.location(in: lineChartView)
+                let highlight = lineChartView.getHighlightByTouchPoint(position)
+                lineChartView.highlightValue(highlight)
+                lineChartView.drawMarkers = true
+                stockPrice.text = lineChartView.data?.entry(for: highlight!)?.y.description
+
+            } else {
+                // show current total balance
+                stockPrice.text = "4700.00"
+                lineChartView.highlightValue(nil)
+            }
+        }
     
 
     func configure(stocks: [Stock]) {
