@@ -20,6 +20,7 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     
     private let tableview = UITableView(frame: .zero, style: .grouped)
+    fileprivate var stocksTobeCompared = [String]()
     
     private var searching = false
     
@@ -37,6 +38,8 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         }
     }
     
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -44,31 +47,18 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         title = "Search"
         setUpViews()
         setUpConstrainrs()
-        
-        
-        
-        // this is how you use the API
-        // add right bar button
-        
-        
+    
         
     }
     
     func sendTicker(str: BestMatch) {
+        stocksTobeCompared.append(str.the1Symbol)
         
-        navigationController?.pushViewController(ComparisonViewController(), animated: true)
+        
+        navigationController?.pushViewController(ComparisonViewController(stocksToBeCompared: stocksTobeCompared), animated: true)
         print("you send data back", str.the1Symbol)
     }
     
-    func addRightBarButtod(titled: String) {
-        let rbutton = UIBarButtonItem(title: titled, style: .plain, target: self, action: #selector(compareBUttonWasPressed))
-        let rightButton: UIBarButtonItem = rbutton
-        self.navigationItem.rightBarButtonItem = rightButton
-    }
-    
-    @objc func compareBUttonWasPressed() {
-        self.dismiss(animated: true)
-    }
     
     func setUpViews() {
         // setting up the search contronller
@@ -168,18 +158,21 @@ extension SearchStocksViewController: UITableViewDelegate {
     }
 }
 
-extension SearchStocksViewController: ComparisonDelegate {
 
-    func compareButtonWasPressed() {
+// TODO: we have to get the two stock names
+
+extension SearchStocksViewController: ComparisonDelegate {
+    func compareButtonWasPressed(with ticker: String) {
+        stocksTobeCompared.append(ticker)
         let vc = VC()
         vc.delegate = self
-        vc.addRightBarButtod(titled: "Done")
         let sv = UINavigationController(rootViewController: vc)
         
         sv.modalPresentationStyle = .formSheet
         self.present(sv, animated: true)
     
     }
+    
     
 }
 

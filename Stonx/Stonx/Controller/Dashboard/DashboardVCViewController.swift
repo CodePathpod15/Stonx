@@ -277,9 +277,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
     }
     
-    
-    
-    
+   
     // conforing to the procol
     // this is called whenever the user saves the rating
     // TODO: figure out how to insert unique elements
@@ -320,13 +318,4 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     }
 
 }
-
-
-
-// So I get all of the ticker names from parse
-
-// How Do I wait till I have all
-
-// I am getting all of the stocks from parse
-// then I want to call the stocks api to get the price of each individual stock
 

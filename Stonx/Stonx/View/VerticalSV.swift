@@ -7,9 +7,10 @@
 
 import UIKit
 
+// this is the stackview that contains all of the views for the comparisonview 
 class VerticalSV: UIStackView {
     
-    let firstHorizontalView: UIStackView = {
+  private  let firstHorizontalView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -17,21 +18,21 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    let firstHorizontalLeftVerticalSV: UIStackView = {
+    private  let firstHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let FirstSock: UILabel = {
+    private let FirstSock: UILabel = {
         let lbl = UILabel()
         lbl.text = "META"
         lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
     
-    let leftfirstPrice: UILabel = {
+    private let leftfirstPrice: UILabel = {
         let lbl = UILabel()
         lbl.text = "4070.00"
         lbl.font = FontConstants.cellMediumFont
@@ -40,21 +41,21 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let firstHorizontalERighttVerticalSV: UIStackView = {
+    private let firstHorizontalERighttVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let secondStock: UILabel = {
+    private  let secondStock: UILabel = {
         let lbl = UILabel()
         lbl.text = "META"
         lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
  
-    let rightStockPrice: UILabel = {
+    private let rightStockPrice: UILabel = {
         let lbl = UILabel()
         lbl.text = "4070.00"
         lbl.font = FontConstants.boldLargeFont
@@ -62,7 +63,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let aboutTitle: UILabel = {
+    private let aboutTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "About"
         lbl.font = FontConstants.boldLargeFont
@@ -72,7 +73,7 @@ class VerticalSV: UIStackView {
     
     // this is the 2nd horitzontal SV
     // contains the about me portion
-    let secondHorizontalVerticalSV: UIStackView = {
+    private let secondHorizontalVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +81,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    let secondtHorizontalLeftVerticalSV: UIStackView = {
+    private let secondtHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
@@ -88,7 +89,7 @@ class VerticalSV: UIStackView {
     }()
     
     
-    let LeftBiolbl: UILabel = {
+    private let LeftBiolbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Nabil Bank Limited is a commercial bank in Nepal. Founded in 1984, the bank has branches across the nation and its head office in Kathmandu. Read full bio"
         lbl.textColor = UIColor.darkGray
@@ -98,7 +99,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let rightBioLBl: UILabel = {
+    private let rightBioLBl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Meta Platforms, Inc. develops products that enable people to connect and share with friends and family through mobile devices, PCs, virtual reality headsets, wearables and home devices around the world. The company is headquartered in Menlo Park, California."
         lbl.textColor = UIColor.darkGray
@@ -107,14 +108,14 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let righttHorizontalLeftVerticalSV: UIStackView = {
+    private let righttHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let typeTitle: UILabel = {
+    private let typeTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Type"
         lbl.font = FontConstants.boldLargeFont
@@ -124,7 +125,7 @@ class VerticalSV: UIStackView {
     
     // the type of the viewcontroller
     
-    let thirdHorizontalView: UIStackView = {
+    private let thirdHorizontalView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -133,14 +134,14 @@ class VerticalSV: UIStackView {
     }()
     
     
-    let thirdtHorizontalLeftVerticalSV: UIStackView = {
+    private let thirdtHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let leftTypeLBl: UILabel = {
+    private let leftTypeLBl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Commercial Bank"
         lbl.numberOfLines = 1
@@ -150,7 +151,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let rightTypeLBl: UILabel = {
+    private let rightTypeLBl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Commercial Bank"
         lbl.textColor = UIColor.darkGray
@@ -160,7 +161,7 @@ class VerticalSV: UIStackView {
     }()
     
     
-    let thirdtHorizontalrightVerticalSV: UIStackView = {
+    private let thirdtHorizontalrightVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
@@ -168,7 +169,7 @@ class VerticalSV: UIStackView {
     }()
     
     // the markets stats
-    let marketCapLbl: UILabel = {
+    private let marketCapLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Market Cap"
         lbl.font = FontConstants.boldLargeFont
@@ -177,7 +178,7 @@ class VerticalSV: UIStackView {
     }()
     
     
-    let fouthHorizontalView: UIStackView = {
+    private let fouthHorizontalView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -185,7 +186,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    let leftMarketCapLabl: UILabel = {
+    private let leftMarketCapLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "1.10B"
         lbl.textColor = UIColor.darkGray
@@ -194,14 +195,14 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let fourthHorizontalLeftVerticalSV: UIStackView = {
+    private let fourthHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let rightMarketCapLabl: UILabel = {
+    private let rightMarketCapLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "2.3B"
         lbl.textColor = UIColor.darkGray
@@ -210,14 +211,14 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let fourthHorizontalRightVerticalSV: UIStackView = {
+    private let fourthHorizontalRightVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let volumeLbl: UILabel = {
+    private let volumeLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Volume"
         lbl.font = FontConstants.boldLargeFont
@@ -225,7 +226,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let fifthHorizontalView: UIStackView = {
+    private let fifthHorizontalView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -233,7 +234,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    let leftVolumeLabl: UILabel = {
+    private let leftVolumeLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "1.12120B"
         lbl.textColor = UIColor.darkGray
@@ -242,14 +243,14 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let fifthHorizontalLeftVerticalSV: UIStackView = {
+    private let fifthHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let rightVolumeLabl: UILabel = {
+    private let rightVolumeLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "2.31212B"
         lbl.textColor = UIColor.darkGray
@@ -258,7 +259,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let fifthHorizontalRightVerticalSV: UIStackView = {
+    private let fifthHorizontalRightVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
@@ -266,7 +267,7 @@ class VerticalSV: UIStackView {
     }()
     
     // P/E ration
-    let PERatio: UILabel = {
+    private let PERatio: UILabel = {
         let lbl = UILabel()
         lbl.text = "P/E Ratio"
         lbl.font = FontConstants.boldLargeFont
@@ -274,7 +275,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let sixthHorizontalView: UIStackView = {
+    private let sixthHorizontalView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -282,7 +283,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    let leftPERatioLabl: UILabel = {
+    private let leftPERatioLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "3.12120B"
         lbl.textColor = UIColor.darkGray
@@ -291,14 +292,14 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let sixthHorizontalLeftVerticalSV: UIStackView = {
+    private let sixthHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let rightPERatioLabl: UILabel = {
+    private let rightPERatioLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "1.31212B"
         lbl.textColor = UIColor.darkGray
@@ -307,7 +308,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let sixthHorizontalRightVerticalSV: UIStackView = {
+    private let sixthHorizontalRightVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
@@ -315,7 +316,7 @@ class VerticalSV: UIStackView {
     }()
     
     // adding the EPS
-    let EPSRatioLBL: UILabel = {
+    private let EPSRatioLBL: UILabel = {
         let lbl = UILabel()
         lbl.text = "EPS"
         lbl.font = FontConstants.boldLargeFont
@@ -323,7 +324,7 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let seventhHorizontalView: UIStackView = {
+    private let seventhHorizontalView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -331,7 +332,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    let leftPEPSLabl: UILabel = {
+    private let leftPEPSLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "4.12120B"
         lbl.textColor = UIColor.darkGray
@@ -340,14 +341,14 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let seventhHorizontalLeftVerticalSV: UIStackView = {
+    private let seventhHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
-    let rightEPSLabl: UILabel = {
+    private let rightEPSLabl: UILabel = {
         let lbl = UILabel()
         lbl.text = "5.31B"
         lbl.textColor = UIColor.darkGray
@@ -356,14 +357,55 @@ class VerticalSV: UIStackView {
         return lbl
     }()
     
-    let seventhHorizontalRightVerticalSV: UIStackView = {
+    private let seventhHorizontalRightVerticalSV: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .center
         return sv
     }()
     
+
+    func editLeftSide(
+        tickerName: String = "",
+        price: Double = 0,
+        about: String = "",
+        type: String = "",
+        marketCap: String = "",
+        volume: String = " ",
+        PERatio: String=" ",
+        EPS: String = "") {
+            
+        FirstSock.text = tickerName
+        self.leftfirstPrice.text = String(price)
+        self.LeftBiolbl.text = about
+        self.leftTypeLBl.text = type
+        self.leftMarketCapLabl.text = marketCap
+        self.leftVolumeLabl.text = volume
+        self.leftPERatioLabl.text = PERatio
+        self.leftPEPSLabl.text = EPS
+    }
     
+    // editing the EPS
+    func editRightSide(
+        tickerName: String = "",
+        price: Double = 0,
+        about: String = "",
+        type: String = "",
+        marketCap: String = "",
+        volume: String = " ",
+        PERatio: String=" ",
+        EPS: String = "") {
+            
+            self.secondStock.text = tickerName
+            self.rightStockPrice.text = String(price)
+            self.rightBioLBl.text = about
+            self.rightTypeLBl.text = type
+            self.rightMarketCapLabl.text = marketCap
+            self.rightVolumeLabl.text = volume
+            self.rightPERatioLabl.text = PERatio
+            self.rightEPSLabl.text = EPS
+      
+    }
     
     override init(frame:CGRect) {
            super.init(frame: frame)
