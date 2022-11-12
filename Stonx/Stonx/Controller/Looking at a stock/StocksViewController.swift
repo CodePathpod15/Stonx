@@ -791,15 +791,28 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     
     @objc private func chartTapped(_ sender: UITapGestureRecognizer) {
 
-            if sender.state == .began || sender.state == .changed {
-                // show change history
-                let position = sender.location(in: lineChartView)
-                let highlight = lineChartView.getHighlightByTouchPoint(position)
+        if sender.state == .began || sender.state == .changed {
+            // show change history
+            let currentPrice = self.stockPriceLabel.text?.description ?? "0.00"
+            let currentPriceDec = Float(currentPrice)
+            let position = sender.location(in: lineChartView)
+            let highlight = lineChartView.getHighlightByTouchPoint(position)
+            let pastPrice = lineChartView.data?.entry(for: highlight!)?.y.description ?? "0.00"
+            
+            if currentPriceDec! >= Float(pastPrice)! {
+                self.stockPriceLabel.textColor = .systemRed
                 lineChartView.highlightValue(highlight)
                 lineChartView.drawMarkers = true
-                self.stockPriceLabel.text = lineChartView.data?.entry(for: highlight!)?.y.description
+                self.stockPriceLabel.text = pastPrice
+            }
+            else {
+                self.stockPriceLabel.textColor = .systemGreen
+                lineChartView.highlightValue(highlight)
+                lineChartView.drawMarkers = true
+                self.stockPriceLabel.text = pastPrice
 
-            } else {
+            }
+        } else {
                 // show the current price
                 API.getLatestStockPrice(tickerSymbol: tickerName) { result in
                     
@@ -807,6 +820,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     case .success(let items):
                         DispatchQueue.main.async {
                             // update the price and
+                            self.stockPriceLabel.textColor = .systemGreen
                             self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
                             self.stockPriceLabel.text = items?.globalQuote.the05Price
                             
