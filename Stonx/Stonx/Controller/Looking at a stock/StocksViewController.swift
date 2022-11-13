@@ -5,7 +5,7 @@ import Parse
 
 // TODO: clean up
 // ANGY: try subclassing the 
-class StocksViewController: UIViewController, UINavigationControllerDelegate {
+class StocksViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
     /// MARK:  propeties
     private lazy var tickerSymbol: UILabel = {
@@ -361,7 +361,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         floatingButton.backgroundColor = ColorConstants.green
         floatingButton.layer.cornerRadius = 25
         floatingButton.setTitleColor(UIColor.white, for: .normal)
-        floatingButton.addTarget(self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
+        floatingButton.addTarget(StocksViewController.self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
         return floatingButton
     }()
 
@@ -381,22 +381,29 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         return stackView
     }()
     
+    private lazy var discussionHeaderLbl: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Discussions"
+        textLabel.textAlignment = .center
+        textLabel.font = FontConstants.boldLargeFont
+        return textLabel
+    }()
+
+    
     lazy var lineChartView: LineChartView = {
-        let chartView = LineChartView()
+        let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
-        
+        chartView.setScaleEnabled(false)
         chartView.xAxis.axisLineWidth = 0
         chartView.xAxis.enabled = false
         chartView.legend.enabled = false
-        
         chartView.leftYAxisRenderer.axis.enabled = false
         
         return chartView
     }()
-    
-    
     
     // fake data
     // sets the data entry for the data
@@ -480,6 +487,12 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         configureSubviews()
         setupConstraints()
         setData()
+        
+        //Set up dragging feature on line chart
+        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.chartTapped))
+        tapRecognizer.minimumPressDuration = 0.01
+        lineChartView.addGestureRecognizer(tapRecognizer)
+        tapRecognizer.delegate = self
     }
     
     // TODO: intializer
@@ -667,7 +680,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
     
     
     // MARK: view set up
-    
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -685,6 +697,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
         stackView.addArrangedSubview(stockVolumeHStackView)
         stackView.addArrangedSubview(stockPERatioHStackView)
         stackView.addArrangedSubview(stockEPSHStackView)
+        stackView.addArrangedSubview(discussionHeaderLbl)
     }
     
     private func setupConstraints() {
@@ -734,6 +747,10 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
             
             // Market Stats Section Label
             stackView.arrangedSubviews[8].rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            stackView.arrangedSubviews[13].rightAnchor.constraint(equalTo: view.rightAnchor)
+            
+
         ])
                 
         // Layout only needed for the price and % change to clip it to right hand side
@@ -785,22 +802,76 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate {
          
          tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
+    
+    @objc private func chartTapped(_ sender: UITapGestureRecognizer) {
+
+        if sender.state == .began || sender.state == .changed {
+            // show change history
+            let currentPrice = self.stockPriceLabel.text?.description ?? "0.00"
+            let currentPriceDec = Float(currentPrice)
+            let position = sender.location(in: lineChartView)
+            let highlight = lineChartView.getHighlightByTouchPoint(position)
+            let pastPrice = lineChartView.data?.entry(for: highlight!)?.y.description ?? "0.00"
+            
+            if currentPriceDec! >= Float(pastPrice)! {
+                self.stockPriceLabel.textColor = .systemRed
+                lineChartView.highlightValue(highlight)
+                lineChartView.drawMarkers = true
+                self.stockPriceLabel.text = pastPrice
+            }
+            else {
+                self.stockPriceLabel.textColor = .systemGreen
+                lineChartView.highlightValue(highlight)
+                lineChartView.drawMarkers = true
+                self.stockPriceLabel.text = pastPrice
+
+            }
+        } else {
+                // show the current price
+                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+                    
+                    switch result {
+                    case .success(let items):
+                        DispatchQueue.main.async {
+                            // update the price and
+                            self.stockPriceLabel.textColor = .systemGreen
+                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
+                            self.stockPriceLabel.text = items?.globalQuote.the05Price
+                            
+                            // so here we know we have items
+                            if let items = items {
+                                
+                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
+                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+                                } else {
+                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
+                                }
+                                
+                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
+                            }
+                        }
+                        
+                    case .failure(let error):
+                        // otherwise, print an error to the console
+                        print(error)
+                    }
+                    
+                }
+                lineChartView.highlightValue(nil)
+            }
+        }
 
     
     //MARK: Chart set up
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
-        
         set1.drawCirclesEnabled = false
-        set1.lineWidth = 1
-        set1.setColor(UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1))
-        set1.fillAlpha = 0.2
-        set1.gradientPositions = [0, 0.1, 0.9, 1]
-        set1.isDrawLineWithGradientEnabled = true
-        set1.fillColor = UIColor(red: 63/255, green: 191/255, blue: 160/255, alpha: 1)
+        set1.lineWidth = 2
+        set1.setColor(ColorConstants.green)
+        set1.gradientPositions = [0, 1]
+        set1.fillColor = ColorConstants.lightGreen
         set1.drawFilledEnabled = true
         set1.drawHorizontalHighlightIndicatorEnabled = false
-        
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
