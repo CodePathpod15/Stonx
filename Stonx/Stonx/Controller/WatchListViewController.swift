@@ -30,6 +30,21 @@ class WatchListViewController: UIViewController {
         
         // this gets the user watchlist
         getTheUserWatchList()
+        
+        
+        
+        
+        API.getLatestpriceUsingNewEndpoing(tickerSymbol: "AAPL") { result in
+            switch result {
+            case .success(let ltrade):
+                print(ltrade)
+                break
+            case .failure(let error):
+                print("errror \(error.localizedDescription)")
+            }
+        }
+        
+        
     }
     
     func getTheUserWatchList() {

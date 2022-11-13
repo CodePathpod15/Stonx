@@ -50,6 +50,8 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     
         
     }
+
+    
     
     func sendTicker(str: BestMatch) {
         stocksTobeCompared.append(str.the1Symbol)

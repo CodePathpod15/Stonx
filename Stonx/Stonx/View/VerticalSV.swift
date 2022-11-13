@@ -364,6 +364,10 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
+    func editLeft(price: Double, and volume: String) {
+        self.leftfirstPrice.text = String(price)
+        self.leftVolumeLabl.text = volume
+    }
 
     func editLeftSide(
         tickerName: String = "",
@@ -405,6 +409,11 @@ class VerticalSV: UIStackView {
             self.rightPERatioLabl.text = PERatio
             self.rightEPSLabl.text = EPS
       
+    }
+    
+    func editRight(price: Double, volume: String) {
+        self.rightStockPrice.text = String(price)
+        self.rightVolumeLabl.text = volume
     }
     
     override init(frame:CGRect) {
