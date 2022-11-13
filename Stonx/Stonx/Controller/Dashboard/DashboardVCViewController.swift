@@ -121,27 +121,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // Operation Queue (synchronize them)
     var ownedStocks = [Stock]() {
         didSet {
-//            for stock in ownedStocks {
-//                API.getLatestStockForDashBoard(tickerSymbol: stock.ticker_symbol) { result in
-//                    switch result {
-//                    case .success(let q):
-//                        let new_Stock_price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
-//                        // rounding to two decimal places
-//                        stock.price = round(new_Stock_price * 100) / 100.0
-//                        self.totalPrice += stock.price
-//                        stock.chagePercent = q?.globalQuote.the10ChangePercent ?? "x.x"
-//                        // TODO: refactor this
-//                        DispatchQueue.main.async {
-//                            self.contentView.configure(stocks: self.ownedStocks)
-//                            self.contentView.tableView.reloadData()
-//                            self.contentView.stockPrice.text = String(self.totalPrice)
-//                        }
-//                        break
-//                    case .failure(let err):
-//                        print(err.localizedDescription)
-//                    }
-//                }
-//            }
+
             for stock in ownedStocks {
                 API.getLatestpriceUsingNewEndpoing(tickerSymbol: stock.ticker_symbol) { result in
                     switch result {
@@ -155,38 +135,16 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                            self.contentView.tableView.reloadData()
                            self.contentView.stockPrice.text = String(self.totalPrice)
                             }
-
+                        
                     break
                     case .failure(let error):
                         print("error")
                     break
                     }
                 }
-//                API.getLatestStockForDashBoard(tickerSymbol: stock.ticker_symbol) { result in
-//                    switch result {
-//                    case .success(let q):
-//                        let new_Stock_price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
-//                        // rounding to two decimal places
-//                        stock.price = round(new_Stock_price * 100) / 100.0
-//                        self.totalPrice += stock.price
-//                        stock.chagePercent = q?.globalQuote.the10ChangePercent ?? "x.x"
-//                        // TODO: refactor this
-//                        DispatchQueue.main.async {
-//                            self.contentView.configure(stocks: self.ownedStocks)
-//                            self.contentView.tableView.reloadData()
-//                            self.contentView.stockPrice.text = String(self.totalPrice)
-//                        }
-//                        break
-//                    case .failure(let err):
-//                        print(err.localizedDescription)
-//                    }
-//                }
+
             }
-            
-            
-            
-            
-            
+   
         }
     }
 

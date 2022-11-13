@@ -18,7 +18,7 @@ class ComparisonViewController: UIViewController {
     }
     
     
-    func getThePrice(tickerSymbol: String, content: ComparisonView, isLeft: Bool = false) {
+    func getThePrice(tickerSymbol: String, content: ComparisonView, isLeft: Bool) {
         
         API.getStockAboutMe(tickerSymbol: tickerSymbol) { result in
             switch result {
@@ -29,8 +29,7 @@ class ComparisonViewController: UIViewController {
                         content.verticalSV.editLeftSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
                     } else {
                         content.verticalSV.editRightSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
-
-                        
+ 
                     }
                 }
             case .failure(let error):
@@ -66,9 +65,12 @@ class ComparisonViewController: UIViewController {
     
     init(stocksToBeCompared: [String]) {
         super.init(nibName: nil, bundle: nil)
+        
         getThePrice(tickerSymbol: stocksToBeCompared[0], content: contentView, isLeft: true)
         // gets the info for the right side
-        getThePrice(tickerSymbol: stocksToBeCompared[1], content: contentView)
+        
+        
+        getThePrice(tickerSymbol: stocksToBeCompared[1], content: contentView, isLeft: false)
     }
     
     required init?(coder: NSCoder) {

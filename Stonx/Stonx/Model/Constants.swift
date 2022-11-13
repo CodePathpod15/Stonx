@@ -57,6 +57,7 @@ class user_transaction {
     static let purchase = "purchase"
 }
 
+
 // the
 class Watchlist {
     static let object_name = "stocks_booked"
