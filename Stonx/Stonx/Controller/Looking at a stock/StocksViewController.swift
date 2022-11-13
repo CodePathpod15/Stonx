@@ -381,6 +381,16 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return stackView
     }()
     
+    private lazy var discussionHeaderLbl: UILabel = {
+        let textLabel = UILabel()
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.text = "Discussions"
+        textLabel.textAlignment = .center
+        textLabel.font = FontConstants.boldLargeFont
+        return textLabel
+    }()
+
+    
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
@@ -670,22 +680,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     
     
     // MARK: view set up
-    
-    let discussionTxtField: UITextField = {
-        let txtField = UITextField()
-        txtField.placeholder = "Enter comment..."
-        txtField.borderStyle = .roundedRect
-        txtField.backgroundColor = .white
-        return txtField
-    }()
-    private lazy var discussionHeaderLbl: UILabel = {
-        let textLabel = UILabel()
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "Discussions"
-        textLabel.textAlignment = .center
-        textLabel.font = FontConstants.boldLargeFont
-        return textLabel
-    }()
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -704,7 +698,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         stackView.addArrangedSubview(stockPERatioHStackView)
         stackView.addArrangedSubview(stockEPSHStackView)
         stackView.addArrangedSubview(discussionHeaderLbl)
-        stackView.addArrangedSubview(discussionTxtField)
     }
     
     private func setupConstraints() {
@@ -755,10 +748,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             // Market Stats Section Label
             stackView.arrangedSubviews[8].rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            stackView.arrangedSubviews[13].rightAnchor.constraint(equalTo: view.rightAnchor),
+            stackView.arrangedSubviews[13].rightAnchor.constraint(equalTo: view.rightAnchor)
             
-            stackView.arrangedSubviews[14].rightAnchor.constraint(equalTo: view.rightAnchor),
-            stackView.arrangedSubviews[14].heightAnchor.constraint(equalToConstant: 100)
 
         ])
                 
