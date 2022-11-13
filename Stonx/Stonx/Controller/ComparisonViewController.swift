@@ -15,19 +15,60 @@ class ComparisonViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-         
     }
+    
+    
+    func getThePrice(tickerSymbol: String, content: ComparisonView, isLeft: Bool = false) {
+        
+        API.getStockAboutMe(tickerSymbol: tickerSymbol) { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    
+                    if isLeft {
+                        content.verticalSV.editLeftSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
+                    } else {
+                        content.verticalSV.editRightSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
+
+                        
+                    }
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+        }
+        
+        
+        // we update the volume, price
+        //
+        API.getLatestStockPrice(tickerSymbol: tickerSymbol) { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    // update the price and
+                    // so here we know we have items
+                    if let items = items {
+                        if isLeft {
+                            content.configureLeft(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
+                        } else {
+                            content.configureRight(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
+                        }
+                    }
+                }
+            case .failure(let error):
+                // otherwise, print an error to the console
+                print(error)
+            }
+        }
+    }
+    
     
     init(stocksToBeCompared: [String]) {
         super.init(nibName: nil, bundle: nil)
-        print(stocksToBeCompared)
-        
-//        contentView.configureLeftSideOfContentView(ticker: ])
-        contentView.configureLeftSideOfContentView(ticker: stocksToBeCompared[0], price: 32.00, about: "Apple is an innovative company that likes to make things", type: "Technology", marketCap: "1.90B", volume: "3.51B", PERatio: "23.3", EPS: "5.31")
-        
-
-        contentView.configureRightSideOfStockView(ticker: stocksToBeCompared[1], price: 22.00, about: "this company isnt innovative and doesnt do things correctly but oh well", type: "Technology", marketCap: "9.90B", volume: "5.51B", PERatio: "33.3", EPS: "6.31")
-        
+        getThePrice(tickerSymbol: stocksToBeCompared[0], content: contentView, isLeft: true)
+        // gets the info for the right side
+        getThePrice(tickerSymbol: stocksToBeCompared[1], content: contentView)
     }
     
     required init?(coder: NSCoder) {

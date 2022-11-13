@@ -14,8 +14,7 @@ class generalSettingsTableViewCell: UITableViewCell {
     static let identifier = "generalSettingsTableViewCell"
     private let title = UILabel()
 
-    
-  
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

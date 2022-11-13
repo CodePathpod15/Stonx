@@ -17,6 +17,11 @@ class ComparisonView: UIView {
         return sv
     }()
     
+    
+    func configureLeft(price: Double, volume: String) {
+        verticalSV.editLeft(price: price, and: volume)
+    }
+    
     // the ticker
     func configureLeftSideOfContentView(
         ticker: String,
@@ -32,6 +37,10 @@ class ComparisonView: UIView {
         verticalSV.editLeftSide(tickerName: ticker, price: price, about: about, type: type, marketCap: marketCap, volume: volume, PERatio: PERatio, EPS: EPS)
     }
     
+    
+  
+    
+    
     // configuinr the right side of the stockview
     func configureRightSideOfStockView(
         ticker: String,
@@ -45,6 +54,12 @@ class ComparisonView: UIView {
             
         verticalSV.editRightSide(tickerName: ticker, price: price, about: about, type: type, marketCap: marketCap, volume: volume, PERatio: PERatio, EPS: EPS)
     }
+    
+    
+    func configureRight(price: Double, volume: String) {
+        verticalSV.editRight(price: price, volume: volume)
+    }
+
     
 
     override init(frame: CGRect) {

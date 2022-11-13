@@ -472,10 +472,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         currentWindow?.addSubview(informationview)
         
         informationview.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-        
-        
-        
-        
+      
     }
     
     var tickerName = ""

@@ -69,9 +69,38 @@ struct API {
         }
         task.resume()
     }
+    
+    
+    static func getLatestpriceUsingNewEndpoing(tickerSymbol: String, completion: @escaping (Result<LatestTrade?, Error>) -> Void) {
+        
+        guard var url2 = URLComponents(string: "https://data.alpaca.markets/v2/stocks/\(tickerSymbol)/trades/latest") else {return} // creates a component of the url
+        var request = URLRequest(url: url2.url!)
+        request.httpMethod = "GET"
+        request.addValue("PKAQG4B3QL3XEQ97F36G", forHTTPHeaderField: "Apca-Api-Key-Id")
+        request.addValue("MGBfl24lkc9zIKMgtLTy5BhzKDooh8wXKFMIewqp", forHTTPHeaderField: "Apca-Api-Secret-Key")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let searchResponse = try decoder.decode(LatestTrade.self, from: data) // gets the artists
+                    completion(.success(searchResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+        task.resume()
+        
+        
+        
+    }
   
     // uses a different
-    static func getLatestStockPrice2(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void){
+    static func getLatestStockForDashBoard(tickerSymbol:String, completion: @escaping (Result<GlobalQuote?, Error>) -> Void){
         guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
         
         let queryItems = [

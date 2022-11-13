@@ -122,7 +122,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     var ownedStocks = [Stock]() {
         didSet {
             for stock in ownedStocks {
-                API.getLatestStockPrice2(tickerSymbol: stock.ticker_symbol) { result in
+                API.getLatestStockForDashBoard(tickerSymbol: stock.ticker_symbol) { result in
                     switch result {
                     case .success(let q):
                         let new_Stock_price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
@@ -153,10 +153,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 if let items  = items {
                     self.ownedStocks = items
                 }
-//                self.contentView.configure(stocks: self.ownedStocks)
-//                self.contentView.tableView.reloadData()
                 break
-                        
            case .failure(let error):
                // otherwise, print an error to the console
                 print(error.localizedDescription ?? "error")

@@ -148,3 +148,20 @@ struct GlobalQuoteClass: Codable {
         case the10ChangePercent = "10. change percent"
     }
 }
+
+
+// MARK: - LatestTrade
+struct LatestTrade: Codable {
+    let symbol: String?
+    let trade: Trade?
+}
+
+// MARK: - Trade
+struct Trade: Codable {
+    let t, x: String?
+    let p: Double?
+    let s: Int?
+    let c: [String]?
+    let i: Int?
+    let z: String?
+}
