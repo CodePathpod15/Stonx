@@ -9,7 +9,20 @@ import UIKit
 import Starscream
 
 class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDelegate {
-   
+    
+    // I use this to clean the data
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
         case .connected(let headers):
@@ -22,7 +35,10 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
             
         case .disconnected(let reason, let closeCode):
           print("disconnected \(reason) \(closeCode)")
-        case .text(let text):
+        case .text(var text):
+            text.removeAll(where: {$0 == "]"})
+            text.removeAll(where: {$0 == "["})
+            
           print("received text: \(text)")
         case .binary(let data):
           print("received data: \(data)")
@@ -51,24 +67,6 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
         btn.setTitle("sss", for: .normal)
         return btn
     }()
-    
-    
-//    guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
-//
-//            let queryItems = [
-//                URLQueryItem(name: "function", value: "SYMBOL_SEARCH"),
-//                URLQueryItem(name: "keywords", value: searchingString),
-//                URLQueryItem(name: "apikey", value: key),
-//            ]
-//
-//
-//            url.queryItems = queryItems
-            
-    
-//            var request = URLRequest(url: url.url!)
-    
-    
-//    private var webSocket : URLSessionWebSocketTask?
     
 //    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
     var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v1beta2/crypto")!))
@@ -101,12 +99,14 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
   
         
         let sockets = """
-            {"action":"subscribe","trades":["BTC/USD"],"quotes":["LTC/USD","ETH/USD"],"bars":["BCH/USD"]}
+            {"action":"subscribe","trades":["BTC/USD"]}
             """
         socket.write(string: sockets)
         
     }
     
     //MARK: URLSESSION Protocols
+    
+    
     
 }

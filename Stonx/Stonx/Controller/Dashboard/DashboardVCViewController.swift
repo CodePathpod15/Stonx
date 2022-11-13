@@ -6,8 +6,9 @@
 
 import UIKit
 import Parse
+import Starscream
 
-class DashboardVCViewController: UIViewController, RateDelegate {
+class DashboardVCViewController: UIViewController, RateDelegate, WebSocketDelegate {
 
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
@@ -40,12 +41,69 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         
         let rightButton: UIBarButtonItem = rbutton
         self.navigationItem.rightBarButtonItem = rightButton
-   
+        
+        
+        socket.delegate = self
+        socket.connect()
+        
+        
+        
+        
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        initializetheTableview()
+    
+    // TODO:
+    func makeTradeConnections(){
+//        let sockets = """
+//        {"action":"subscribe","trades":["AAPL"],"quotes":["AMD","CLDR"],"bars":["AAPL","VOO"]}
+//        """
+  
+        
+        let sockets = """
+            {"action":"subscribe","trades":["BTC/USD"]}
+            """
+        socket.write(string: sockets)
+        
     }
+    
+    
+    //    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
+    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v1beta2/crypto")!))
+
+    
+    
+    func didReceive(event: WebSocketEvent, client: WebSocket) {
+        switch event {
+        case .connected(let headers):
+          print("connected \(headers)")
+          // authenticated
+            var sockets = """
+                {"action": "auth", "key": "PKAQG4B3QL3XEQ97F36G", "secret": "MGBfl24lkc9zIKMgtLTy5BhzKDooh8wXKFMIewqp"}
+                """
+            socket.write(string: sockets)
+            
+        case .disconnected(let reason, let closeCode):
+          print("disconnected \(reason) \(closeCode)")
+        case .text(let text):
+          print("received text: \(text)")
+        case .binary(let data):
+          print("received data: \(data)")
+        case .pong(let pongData):
+          print("received pong: \(pongData)")
+        case .ping(let pingData):
+          print("received ping: \(pingData)")
+        case .error(let error):
+          print("error \(error)")
+        case .viabilityChanged:
+          print("viabilityChanged")
+        case .reconnectSuggested:
+          print("reconnectSuggested")
+        case .cancelled:
+          print("cancelled")
+        }
+ 
+    }
+    
+    
     
     var recommendedStr = ""
 
