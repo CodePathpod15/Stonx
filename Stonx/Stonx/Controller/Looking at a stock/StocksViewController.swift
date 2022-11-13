@@ -361,7 +361,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         floatingButton.backgroundColor = ColorConstants.green
         floatingButton.layer.cornerRadius = 25
         floatingButton.setTitleColor(UIColor.white, for: .normal)
-        floatingButton.addTarget(StocksViewController.self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
+        floatingButton.addTarget(self, action: #selector(tradeButtonWaspressed), for: .touchUpInside)
         return floatingButton
     }()
 
@@ -890,7 +890,7 @@ extension StocksViewController: TradingDelegate {
     // enabling the buying of a stock
     func buy() {
         print("going into buy: ", self.tickerName)
-        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text ?? "0")!)
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text ?? "0.00")!)
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
