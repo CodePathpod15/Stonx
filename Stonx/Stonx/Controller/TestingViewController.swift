@@ -14,6 +14,12 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
         switch event {
         case .connected(let headers):
           print("connected \(headers)")
+          // authenticated
+            var sockets = """
+                {"action": "auth", "key": "PKAQG4B3QL3XEQ97F36G", "secret": "MGBfl24lkc9zIKMgtLTy5BhzKDooh8wXKFMIewqp"}
+                """
+            socket.write(string: sockets)
+            
         case .disconnected(let reason, let closeCode):
           print("disconnected \(reason) \(closeCode)")
         case .text(let text):
@@ -46,9 +52,26 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
         return btn
     }()
     
+    
+//    guard var url  = URLComponents(string: "https://www.alphavantage.co/query") else {return}
+//
+//            let queryItems = [
+//                URLQueryItem(name: "function", value: "SYMBOL_SEARCH"),
+//                URLQueryItem(name: "keywords", value: searchingString),
+//                URLQueryItem(name: "apikey", value: key),
+//            ]
+//
+//
+//            url.queryItems = queryItems
+            
+    
+//            var request = URLRequest(url: url.url!)
+    
+    
 //    private var webSocket : URLSessionWebSocketTask?
-    let url = URL(string: "wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self")!
-    var socket = WebSocket(request: .init(url: URL(string: "wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self")!))
+    
+    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
+//    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v1beta2/crypto")!))
 
 
     
@@ -72,7 +95,15 @@ class TestingViewController: UIViewController, URLSessionDelegate, WebSocketDele
     
     //MARK: Close Session
     @objc func closeSession(){
-        socket.write(string: "Hey Dude you there")
+        let sockets = """
+        {"action":"subscribe","trades":["AAPL"],"quotes":["AMD","CLDR"],"bars":["AAPL","VOO"]}
+        """
+         
+//        let sockets = """
+//            {"action":"subscribe","trades":["BTC/USD"],"quotes":["LTC/USD","ETH/USD"],"bars":["BCH/USD"]}
+//            """
+        socket.write(string: sockets)
+        
     }
     
     //MARK: URLSESSION Protocols
