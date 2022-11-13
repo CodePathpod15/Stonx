@@ -45,7 +45,7 @@ Stonx is a an application to help early investors gain experience in the stock m
 - [x] user can delete their account 
 - [ ] User can see their dashboard
 - [ ] User can see their history of trades 
-- [ ] Comparing two different stocks
+- [x] Comparing two different stocks
 * ...
 
 **Optional Nice-to-have Stories**
