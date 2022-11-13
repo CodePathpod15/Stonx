@@ -20,12 +20,13 @@ extension DashboardVCViewController: RecommendedStockDelegate {
                         self.navigationController?.pushViewController(StocksViewController(symbol: self.recommendedStr, full_name:  items.name ), animated: true)
                         }
                 } else {
+                    self.showAlert(with: "error: ")
                     print("error: heheh")
                 }
                 
             case .failure(let error):
                 // otherwise, print an error to the console
-                print(error)
+                self.showAlert(with: "error: ")
             }
         }
     }

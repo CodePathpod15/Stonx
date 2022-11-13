@@ -873,8 +873,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         data.setDrawValues(false)
         lineChartView.data = data
     }
-    
-
 }
 
 // implementation of delegates
