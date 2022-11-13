@@ -30,10 +30,7 @@ class WatchListViewController: UIViewController {
         
         // this gets the user watchlist
         getTheUserWatchList()
-        
-        
-        
-        
+
         API.getLatestpriceUsingNewEndpoing(tickerSymbol: "AAPL") { result in
             switch result {
             case .success(let ltrade):
@@ -43,9 +40,9 @@ class WatchListViewController: UIViewController {
                 print("errror \(error.localizedDescription)")
             }
         }
-        
-        
     }
+    
+    
     
     func getTheUserWatchList() {
         ParseModel.shared.gettingUserWatchlist { result in
@@ -81,22 +78,7 @@ class WatchListViewController: UIViewController {
         }
     }
     
-    func getTheUserWatchList(with sector: String) {
-        
-        ParseModel.shared.gettingUserWatchlist(bysector:sector) { result in
-            switch result {
-            case .success(let stocks):
-                stocks?.forEach({print($0.ticker_symbol)})
-                break
-            case .failure(let error):
-                self.showAlert(with: error.localizedDescription)
-                break
-            }
-        }
-        
-        }
 
-    
     
     //MARK: setting up the layout of the UI
     
