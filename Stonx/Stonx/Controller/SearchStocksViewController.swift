@@ -50,13 +50,17 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
 
     
     
     func sendTicker(str: BestMatch) {
         stocksTobeCompared.append(str.the1Symbol)
-        
-        
+
         navigationController?.pushViewController(ComparisonViewController(stocksToBeCompared: stocksTobeCompared), animated: true)
         print("you send data back", str.the1Symbol)
     }
@@ -75,8 +79,8 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         view.addSubview(tableview)
         tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableview.register(SearchStockTableviewCell.self, forCellReuseIdentifier: SearchStockTableviewCell.identifier)
+
         
-//        tableview.backgroundColor = .red
         tableview.dataSource = self
         tableview.delegate = self
         tableview.translatesAutoresizingMaskIntoConstraints = false
@@ -165,6 +169,7 @@ extension SearchStocksViewController: UITableViewDelegate {
 
 extension SearchStocksViewController: ComparisonDelegate {
     func compareButtonWasPressed(with ticker: String) {
+        stocksTobeCompared.removeAll()
         stocksTobeCompared.append(ticker)
         let vc = VC()
         vc.delegate = self
@@ -174,8 +179,7 @@ extension SearchStocksViewController: ComparisonDelegate {
         self.present(sv, animated: true)
     
     }
-    
-    
+   
 }
 
 
@@ -193,6 +197,10 @@ class VC: SearchStocksViewController {
         setUpViews()
         setUpConstrainrs()
     }
+    
+ 
+    
+   
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bestMatch = filteredStocks[indexPath.row]

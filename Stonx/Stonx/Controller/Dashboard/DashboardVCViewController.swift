@@ -121,27 +121,30 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // Operation Queue (synchronize them)
     var ownedStocks = [Stock]() {
         didSet {
+
             for stock in ownedStocks {
-                API.getLatestStockForDashBoard(tickerSymbol: stock.ticker_symbol) { result in
+                API.getLatestpriceUsingNewEndpoing(tickerSymbol: stock.ticker_symbol) { result in
                     switch result {
-                    case .success(let q):
-                        let new_Stock_price = Double(stock.quantity) * Double(q!.globalQuote.the05Price)!
-                        // rounding to two decimal places
+                    case .success(let lTrade):
+                        let new_Stock_price = Double(stock.quantity) * lTrade!.trade!.p!
                         stock.price = round(new_Stock_price * 100) / 100.0
                         self.totalPrice += stock.price
-                        stock.chagePercent = q?.globalQuote.the10ChangePercent ?? "x.x"
-                        // TODO: refactor this
+                        stock.chagePercent = "x.x"
                         DispatchQueue.main.async {
-                            self.contentView.configure(stocks: self.ownedStocks)
-                            self.contentView.tableView.reloadData()
-                            self.contentView.stockPrice.text = String(self.totalPrice)
-                        }
-                        break
-                    case .failure(let err):
-                        print(err.localizedDescription)
+                           self.contentView.configure(stocks: self.ownedStocks)
+                           self.contentView.tableView.reloadData()
+                           self.contentView.stockPrice.text = String(self.totalPrice)
+                            }
+                        
+                    break
+                    case .failure(let error):
+                        print("error")
+                    break
                     }
                 }
+
             }
+   
         }
     }
 

@@ -17,7 +17,6 @@ class StockTableViewCell: UITableViewCell {
     
     private var stockPrice = UILabel()
     
-    private let priceChange = UILabel()
     
     // TODO: use chart pod to create a chart
     // TODO: add gradient
@@ -31,7 +30,7 @@ class StockTableViewCell: UITableViewCell {
         self.stockLbl.text = ticker
         
         self.stockPrice.text = String(price)
-        self.priceChange.text = percentChange
+//        self.priceChange.text = percentChange
     }
     
     
@@ -70,12 +69,6 @@ class StockTableViewCell: UITableViewCell {
         stockPrice.text = "155.74"
         
         // setting up the price change
-        contentView.addSubview(priceChange)
-        priceChange.translatesAutoresizingMaskIntoConstraints = false
-        priceChange.textAlignment = .right
-        priceChange.font = FontConstants.cellSmallFont
-        priceChange.text = "(2.49%)"
-        priceChange.textColor = ColorConstants.green
     }
     
     private func setUpConstraints() {
@@ -96,13 +89,7 @@ class StockTableViewCell: UITableViewCell {
         // setting up constraints for stock price
         NSLayoutConstraint.activate([
             stockPrice.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            stockPrice.centerYAnchor.constraint(equalTo: stockLbl.centerYAnchor)
-        ])
-            
-        NSLayoutConstraint.activate([
-            priceChange.trailingAnchor.constraint(equalTo: stockPrice.trailingAnchor),
-            priceChange.centerYAnchor.constraint(equalTo: sharesOwned.centerYAnchor)
-            
+            stockPrice.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     

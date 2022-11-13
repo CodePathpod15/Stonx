@@ -34,7 +34,6 @@ class SearchStockTableviewCell: UITableViewCell {
     
     weak var delegate: ComparisonDelegate?
     
-    
     private let vStackview: UIStackView = {
         let sv = UIStackView(frame: .zero)
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +51,7 @@ class SearchStockTableviewCell: UITableViewCell {
     
     private let compareButton: UIButton = {
         let btn  = UIButton(type: .system)
-        btn.setImage(UIImage(systemName: "arrow.left.arrow.right"), for: .normal)
+        btn.setImage(UIImage(systemName: "arrow.left.arrow.right")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green), for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(compareBtnWasPressed), for: .touchUpInside)
         return btn
