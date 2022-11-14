@@ -23,9 +23,38 @@ Stonx is a an application to help early investors gain experience in the stock m
 - **Key Features: All UI is done programmatic, no storyboard or xib files**
 
 
-# 
+## Features 
+
+## Comparing stocks
+![video2](https://user-images.githubusercontent.com/29695936/201553036-f028f070-fc15-4934-8263-83a7b7732875.gif)
+
+
+## Viewing Real time stock Data using alpaca markets Socket 
+![video2](https://user-images.githubusercontent.com/29695936/201553221-32bd0bdd-fe13-47ac-b027-1ad742127d95.gif)
+
+## Buying Stocks
+![video2](https://user-images.githubusercontent.com/29695936/201553385-b420c064-6e30-440a-9aed-454094687417.gif)
+
+## Selling Stocks 
+![video2](https://user-images.githubusercontent.com/29695936/201553448-b621f90f-17f0-41e2-973a-dd96fcad4fad.gif)
+
+## Creating A watchlist 
+![video2](https://user-images.githubusercontent.com/29695936/201553881-747c59d2-713d-46c7-b7f3-b93fae40c2b3.gif)
+
+![video2](https://user-images.githubusercontent.com/29695936/201553975-aa8586c2-70f1-4af3-9629-0f01d2d90ba2.gif)
+
+## Smart stocks: receive recommendations based on user surveys 
+
+# user survey
+![video2](https://user-images.githubusercontent.com/29695936/201555430-7eb52f04-9793-453c-81a2-684432dfc4e0.gif)
+
+# Recommendations
+![video2](https://user-images.githubusercontent.com/29695936/201555554-13805d65-7a50-4f0a-8cd3-51aad34ae515.gif)
+
+
 
 ## Product Spec
+
 
 ### 1. User Stories (Required and Optional)
 
