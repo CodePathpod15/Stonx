@@ -248,8 +248,18 @@ extension WatchListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tb = StocksViewController()
-        navigationController?.pushViewController(tb, animated: true)
+      
+        if selectedFilter.name == "all" {
+            let filter = filters[indexPath.section + 1].name
+            if let stocksFrom = sectionToStocks[filter] {
+                let stock = stocksFrom[indexPath.row]
+                print(stock.ticker_symbol)
+            }
+        }
+        else if let stocks = sectionToStocks[selectedFilter.name] {
+            let stock = stocks[indexPath.row]
+            print(stock.ticker_symbol)
+        }
     }
 
 }

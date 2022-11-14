@@ -190,39 +190,7 @@ class UserDashboardViewController: UIViewController {
     
     // create fake stock data
     func createCharData() {
-        // seperated time
-//        API.getStockWithTimeSeries(tickerSymbol: "aapl") { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                    if let item = items {
-//                        let content2 = item.timeSeries5Min
-//                        for (time, val) in content2 {
-//                            let nTime = time.components(separatedBy: " ")[1]
-//                            let SeperatedTime = nTime.components(separatedBy: ":")
-//                            let totalTime:Double = Double(SeperatedTime[0])! + Double(SeperatedTime[1])!
-//                            self.yvalue.append(.init(x: totalTime, y: Double(val.the4Close)!))
-//                            
-//                        }
-//                        // sorted
-//                        let val2 = self.yvalue.sorted { val1, val2 in return val1.x < val2.x }
-//                       
-//                        self.yvalue = val2
-//                    
-//                        self.setData()
-//                        
-//                    }
-//                    
-//                    
-//                }
-//            case .failure(let error):
-//                // otherwise, print an error to the console
-//                print(error)
-//            }
-//
-//        }
-        
-        
+        // TODO: seperated time
         
         
     }

@@ -58,36 +58,17 @@ class ComparisonViewController: UIViewController {
             }
         }
         
-        
-//        API.getLatestStockPrice(tickerSymbol: tickerSymbol) { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                    // update the price and
-//                    // so here we know we have items
-//                    if let items = items {
-//                        if isLeft {
-//                            content.configureLeft(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
-//                        } else {
-//                            content.configureRight(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
-//                        }
-//                    }
-//                }
-//            case .failure(let error):
-//                // otherwise, print an error to the console
-//                print(error)
-//            }
-//        }
     }
     
     
     init(stocksToBeCompared: [String]) {
         super.init(nibName: nil, bundle: nil)
         
+        // get the price of the left side
         getThePrice(tickerSymbol: stocksToBeCompared[0], content: contentView, isLeft: true)
         // gets the info for the right side
         
-        
+        // get the price fo the right side 
         getThePrice(tickerSymbol: stocksToBeCompared[1], content: contentView, isLeft: false)
     }
     
