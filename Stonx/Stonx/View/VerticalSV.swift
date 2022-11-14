@@ -218,13 +218,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    private let volumeLbl: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Volume"
-        lbl.font = FontConstants.boldLargeFont
-        lbl.textAlignment = .center
-        return lbl
-    }()
+  
     
     private let fifthHorizontalView: UIStackView = {
         let sv = UIStackView()
@@ -234,14 +228,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    private let leftVolumeLabl: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "1.12120B"
-        lbl.textColor = UIColor.darkGray
-        lbl.numberOfLines = 1
-        lbl.textAlignment = .center
-        return lbl
-    }()
+  
     
     private let fifthHorizontalLeftVerticalSV: UIStackView = {
         let sv = UIStackView()
@@ -250,14 +237,7 @@ class VerticalSV: UIStackView {
         return sv
     }()
     
-    private let rightVolumeLabl: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "2.31212B"
-        lbl.textColor = UIColor.darkGray
-        lbl.numberOfLines = 1
-        lbl.textAlignment = .center
-        return lbl
-    }()
+ 
     
     private let fifthHorizontalRightVerticalSV: UIStackView = {
         let sv = UIStackView()
@@ -366,7 +346,7 @@ class VerticalSV: UIStackView {
     
     func editLeft(price: Double, and volume: String) {
         self.leftfirstPrice.text = String(price)
-        self.leftVolumeLabl.text = volume
+        
     }
 
     func editLeftSide(
@@ -384,7 +364,7 @@ class VerticalSV: UIStackView {
         self.LeftBiolbl.text = about
         self.leftTypeLBl.text = type
         self.leftMarketCapLabl.text = marketCap
-        self.leftVolumeLabl.text = volume
+
         self.leftPERatioLabl.text = PERatio
         self.leftPEPSLabl.text = EPS
     }
@@ -405,7 +385,7 @@ class VerticalSV: UIStackView {
             self.rightBioLBl.text = about
             self.rightTypeLBl.text = type
             self.rightMarketCapLabl.text = marketCap
-            self.rightVolumeLabl.text = volume
+            
             self.rightPERatioLabl.text = PERatio
             self.rightEPSLabl.text = EPS
       
@@ -413,7 +393,7 @@ class VerticalSV: UIStackView {
     
     func editRight(price: Double, volume: String) {
         self.rightStockPrice.text = String(price)
-        self.rightVolumeLabl.text = volume
+        
     }
     
     override init(frame:CGRect) {
@@ -455,12 +435,12 @@ class VerticalSV: UIStackView {
         fourthHorizontalRightVerticalSV.addArrangedSubview(rightMarketCapLabl)
 
         // adding the fifth stuff
-        self.addArrangedSubview(volumeLbl)
+   
         self.addArrangedSubview(fifthHorizontalView)
         fifthHorizontalView.addArrangedSubview(fifthHorizontalLeftVerticalSV)
-        fifthHorizontalLeftVerticalSV.addArrangedSubview(leftVolumeLabl)
+        
         fifthHorizontalView.addArrangedSubview(fifthHorizontalRightVerticalSV)
-        fifthHorizontalRightVerticalSV.addArrangedSubview(rightVolumeLabl)
+        
         
         self.addArrangedSubview(PERatio)
         self.addArrangedSubview(sixthHorizontalView)
