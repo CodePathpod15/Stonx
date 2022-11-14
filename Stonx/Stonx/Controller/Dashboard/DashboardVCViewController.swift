@@ -12,15 +12,25 @@ import Starscream
 
 class DashboardVCViewController: UIViewController, RateDelegate {
 
+    // MARK: properties
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
+    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
+    var recommendedStr = ""
+    private var surveyedTicker = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializetheTableview()
         view.backgroundColor = .white
         getMostRecentInfoOfUser()
+        setUpViews()
+        socket.delegate = self
+        
+    }
     
+    func setUpViews() {
         view.addSubview(scrollView)
         title = "Dashboard"
 
@@ -36,25 +46,14 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
         
-        
         // adding light bulb
         let rbutton = UIBarButtonItem(image: UIImage(systemName: "lightbulb.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green), landscapeImagePhone: nil, style: .done, target: self, action: #selector(lightBulbWasPressed))
         
         let rightButton: UIBarButtonItem = rbutton
         self.navigationItem.rightBarButtonItem = rightButton
         
-     
-        socket.delegate = self
-        
     }
     
-    
-    // TODO:
-    // THIS IS Up to 30 stocks
-    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
-    
-    var recommendedStr = ""
-
     // TODO: add to parse model
     @objc func  lightBulbWasPressed() {
 
@@ -141,7 +140,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                            self.contentView.tableView.reloadData()
                            self.contentView.stockPrice.text = String(self.totalPrice)
                             }
-                        
                     break
                     case .failure(let error):
                         print("error")
@@ -214,7 +212,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     }
     
     
-    private var surveyedTicker = ""
+
     
     func saveTheSurveyDate() {
         let usr = PFUser.current()!

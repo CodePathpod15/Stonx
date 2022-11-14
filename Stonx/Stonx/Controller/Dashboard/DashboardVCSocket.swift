@@ -11,18 +11,23 @@ import Starscream
 
 extension DashboardVCViewController: WebSocketDelegate {
  
+    // this is a helper method used to convert a string returned by the socket to a
+    // Credits to: https://stackoverflow.com/questions/30480672/how-to-convert-a-json-string-to-a-dictionary
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             } catch {
-                print(error.localizedDescription)
+                // there are some transaction we are ignoring since an array of objects
+                print("error: \(text)")
+          
             }
         }
         return nil
     }
     
-    
+    // this is used to write the connection to the socket
+    // desired:   {"action":"subscribe","trades": ["AAPL, IBM, COOL"]}
     func makeTradeConnections(stocks: [Stock]){
         var str = "["
         
@@ -34,7 +39,6 @@ extension DashboardVCViewController: WebSocketDelegate {
             str.append("\(nstr),")
         }
         str.removeLast()
-     
         let sockets = """
         {"action":"subscribe","trades":\(str)]}
         """
@@ -85,7 +89,7 @@ extension DashboardVCViewController: WebSocketDelegate {
                         
                             if $0.ticker_symbol == s  {
                                 
-                                $0.price = p
+                                $0.price = p *  Double($0.quantity)
                                 
                             }
                             // getting the price difference to update the new price
