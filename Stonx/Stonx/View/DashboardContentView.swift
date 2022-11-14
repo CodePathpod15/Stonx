@@ -26,10 +26,6 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
         chartView.xAxis.enabled = false
         chartView.legend.enabled = false
         chartView.leftYAxisRenderer.axis.enabled = false
-        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chartTapped))
-        tapRecognizer.minimumPressDuration = 0.01
-        self.addGestureRecognizer(tapRecognizer)
-        tapRecognizer.delegate = self
         return chartView
     }()
     
@@ -129,7 +125,7 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
     }()
     
     lazy var horizontalSV: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [stockPrice, priceChange])
+        let sv = UIStackView(arrangedSubviews: [stockPrice])
         sv.axis = .horizontal
 //        sv.backgroundColor = .red
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -185,22 +181,6 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
   
     }
     
-    @objc func chartTapped(_ sender: UITapGestureRecognizer) {
-
-            if sender.state == .began || sender.state == .changed {
-                // show change history
-                let position = sender.location(in: lineChartView)
-                let highlight = lineChartView.getHighlightByTouchPoint(position)
-                lineChartView.highlightValue(highlight)
-                lineChartView.drawMarkers = true
-                stockPrice.text = lineChartView.data?.entry(for: highlight!)?.y.description
-
-            } else {
-                // show current total balance
-                stockPrice.text = "4700.00"
-                lineChartView.highlightValue(nil)
-            }
-        }
     
 
     func configure(stocks: [Stock]) {

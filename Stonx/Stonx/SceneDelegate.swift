@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //
 //            if loggedIn {
 //                
-//                let vc = UINavigationController(rootViewController: ComparisonViewController())
+//                let vc = UINavigationController(rootViewController: TestingViewController())
 //                let root = vc
 //
 //                window.rootViewController = root

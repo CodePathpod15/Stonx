@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     let logOutButton = UIButton(type: .system)
     private var settingsTableviw: UITableView = UITableView(frame: .zero, style: .grouped)
     var usBalance:Double = 0
-    let settings = ["Personal info", "Balance", "delete Account"]
+    let settings = ["Personal info", "Balance"]
     
     
     

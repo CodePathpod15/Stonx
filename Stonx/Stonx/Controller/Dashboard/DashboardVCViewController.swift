@@ -6,19 +6,31 @@
 
 import UIKit
 import Parse
+import Starscream
+
+
 
 class DashboardVCViewController: UIViewController, RateDelegate {
 
+    // MARK: properties
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
-    var calledOnce = true
+    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
+    var recommendedStr = ""
+    private var surveyedTicker = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializetheTableview()
+//        initializetheTableview()
         view.backgroundColor = .white
         getMostRecentInfoOfUser()
+        setUpViews()
+        socket.delegate = self
+        
+    }
     
+    func setUpViews() {
         view.addSubview(scrollView)
         title = "Dashboard"
 
@@ -34,21 +46,14 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
         
-        
         // adding light bulb
         let rbutton = UIBarButtonItem(image: UIImage(systemName: "lightbulb.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green), landscapeImagePhone: nil, style: .done, target: self, action: #selector(lightBulbWasPressed))
         
         let rightButton: UIBarButtonItem = rbutton
         self.navigationItem.rightBarButtonItem = rightButton
-   
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        initializetheTableview()
+        
     }
     
-    var recommendedStr = ""
-
     // TODO: add to parse model
     @objc func  lightBulbWasPressed() {
 
@@ -121,6 +126,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // Operation Queue (synchronize them)
     var ownedStocks = [Stock]() {
         didSet {
+            self.totalPrice = 0
 
             for stock in ownedStocks {
                 API.getLatestpriceUsingNewEndpoing(tickerSymbol: stock.ticker_symbol) { result in
@@ -135,7 +141,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                            self.contentView.tableView.reloadData()
                            self.contentView.stockPrice.text = String(self.totalPrice)
                             }
-                        
                     break
                     case .failure(let error):
                         print("error")
@@ -144,8 +149,13 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 }
 
             }
-   
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initializetheTableview()
+      
     }
 
     // initializing the tableview
@@ -155,7 +165,12 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             case .success(let items):
                 if let items  = items {
                     self.ownedStocks = items
+                 
                 }
+                
+                // make the connection after we have the stocks
+                self.socket.connect()
+                
                 break
            case .failure(let error):
                // otherwise, print an error to the console
@@ -163,10 +178,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             }
         }
     }
-    
-    
-        
-    
+ 
     /// in this method we decide whether to survey the suer or not
      func surveyUser() {
         var stocks = [Stock]()
@@ -207,7 +219,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     }
     
     
-    private var surveyedTicker = ""
+
     
     func saveTheSurveyDate() {
         let usr = PFUser.current()!
@@ -224,7 +236,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     }
     
     var surveyedStocks = [String]()
-    
     
     func getMostRecentInfoOfUser() {
         let user  = PFUser.current()!
@@ -297,6 +308,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             }
         }
     }
+    
     
     // this sac
     func saveTickerRating(ticker: String, rating: Int) {

@@ -10,6 +10,7 @@ target 'Stonx' do
    pod 'AlamofireImage'
    pod 'Charts'
    pod 'lottie-ios'
+   pod 'Starscream', '~> 4.0.0'
 
   target 'StonxTests' do
     inherit! :search_paths

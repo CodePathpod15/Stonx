@@ -32,10 +32,12 @@
 		1C5F0E5B2901C5EF00101093 /* StonxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E5A2901C5EF00101093 /* StonxTests.swift */; };
 		1C5F0E652901C5EF00101093 /* StonxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E642901C5EF00101093 /* StonxUITests.swift */; };
 		1C5F0E672901C5EF00101093 /* StonxUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E662901C5EF00101093 /* StonxUITestsLaunchTests.swift */; };
+		1C79C54C2921A51B00B3432F /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79C54B2921A51B00B3432F /* TestingViewController.swift */; };
 		1C86BA302910C0920034730F /* PersonalnfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C86BA2F2910C0920034730F /* PersonalnfoViewController.swift */; };
 		1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B32908DCC600CA2125 /* TabBarController.swift */; };
 		1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */; };
 		1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */; };
+		1CD4669F2922A83200AE9EAF /* DashboardVCSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD4669E2922A83200AE9EAF /* DashboardVCSocket.swift */; };
 		1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */; };
 		1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */; };
 		1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F382911D9410001F970 /* StocksViewController.swift */; };
@@ -110,10 +112,12 @@
 		1C5F0E602901C5EF00101093 /* StonxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StonxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C5F0E642901C5EF00101093 /* StonxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StonxUITests.swift; sourceTree = "<group>"; };
 		1C5F0E662901C5EF00101093 /* StonxUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StonxUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1C79C54B2921A51B00B3432F /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
 		1C86BA2F2910C0920034730F /* PersonalnfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalnfoViewController.swift; sourceTree = "<group>"; };
 		1CC306B32908DCC600CA2125 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
+		1CD4669E2922A83200AE9EAF /* DashboardVCSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVCSocket.swift; sourceTree = "<group>"; };
 		1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generalSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyBalanceViewController.swift; sourceTree = "<group>"; };
 		1CE84F382911D9410001F970 /* StocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			children = (
 				1CE84F4C2916E1E10001F970 /* DashboardVCViewController.swift */,
 				1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */,
+				1CD4669E2922A83200AE9EAF /* DashboardVCSocket.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				1C291DD029048CC80058E291 /* LoginViewController.swift */,
 				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
 				1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */,
+				1C79C54B2921A51B00B3432F /* TestingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -628,6 +634,8 @@
 				1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */,
 				1CE84F4D2916E1E10001F970 /* DashboardVCViewController.swift in Sources */,
 				1CEBCADA290DB30B007B45DE /* SettingsViewController.swift in Sources */,
+				1C79C54C2921A51B00B3432F /* TestingViewController.swift in Sources */,
+				1CD4669F2922A83200AE9EAF /* DashboardVCSocket.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
 				1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */,
@@ -814,7 +822,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = anOrg.Stonx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -843,7 +851,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = anOrg.Stonx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

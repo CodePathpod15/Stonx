@@ -111,8 +111,6 @@ class ModifyBalanceViewController: UIViewController {
 
 }
 
-
-
 extension ModifyBalanceViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
