@@ -8,11 +8,23 @@ import UIKit
 import Parse
 import Starscream
 
-class DashboardVCViewController: UIViewController, RateDelegate, WebSocketDelegate {
+
+
+class DashboardVCViewController: UIViewController, RateDelegate {
 
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
-    var calledOnce = true
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,68 +54,40 @@ class DashboardVCViewController: UIViewController, RateDelegate, WebSocketDelega
         let rightButton: UIBarButtonItem = rbutton
         self.navigationItem.rightBarButtonItem = rightButton
         
-        
+     
         socket.delegate = self
-        socket.connect()
-        
-        
         
         
     }
     
+    
     // TODO:
-    func makeTradeConnections(){
-//        let sockets = """
-//        {"action":"subscribe","trades":["AAPL"],"quotes":["AMD","CLDR"],"bars":["AAPL","VOO"]}
-//        """
-  
+    // THIS IS Up to 30 stocks
+    
+    func makeTradeConnections(stocks: [Stock]){
+        var str = "["
         
-        let sockets = """
-            {"action":"subscribe","trades":["BTC/USD"]}
+        for stock in stocks {
+            let nstr = """
+            "\(stock.ticker_symbol)"
             """
+            
+            str.append("\(nstr),")
+        }
+        str.removeLast()
+     
+        let sockets = """
+        {"action":"subscribe","trades":\(str)]}
+        """
+        print(sockets)
+     
+  
         socket.write(string: sockets)
         
     }
     
     
-    //    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
-    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v1beta2/crypto")!))
-
-    
-    
-    func didReceive(event: WebSocketEvent, client: WebSocket) {
-        switch event {
-        case .connected(let headers):
-          print("connected \(headers)")
-          // authenticated
-            var sockets = """
-                {"action": "auth", "key": "PKAQG4B3QL3XEQ97F36G", "secret": "MGBfl24lkc9zIKMgtLTy5BhzKDooh8wXKFMIewqp"}
-                """
-            socket.write(string: sockets)
-            
-        case .disconnected(let reason, let closeCode):
-          print("disconnected \(reason) \(closeCode)")
-        case .text(let text):
-          print("received text: \(text)")
-        case .binary(let data):
-          print("received data: \(data)")
-        case .pong(let pongData):
-          print("received pong: \(pongData)")
-        case .ping(let pingData):
-          print("received ping: \(pingData)")
-        case .error(let error):
-          print("error \(error)")
-        case .viabilityChanged:
-          print("viabilityChanged")
-        case .reconnectSuggested:
-          print("reconnectSuggested")
-        case .cancelled:
-          print("cancelled")
-        }
- 
-    }
-    
-    
+    var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
     
     var recommendedStr = ""
 
@@ -202,7 +186,6 @@ class DashboardVCViewController: UIViewController, RateDelegate, WebSocketDelega
                 }
 
             }
-   
         }
     }
 
@@ -213,7 +196,12 @@ class DashboardVCViewController: UIViewController, RateDelegate, WebSocketDelega
             case .success(let items):
                 if let items  = items {
                     self.ownedStocks = items
+                 
                 }
+                
+                // make the connection after we have the stocks
+                self.socket.connect()
+                
                 break
            case .failure(let error):
                // otherwise, print an error to the console
@@ -282,7 +270,6 @@ class DashboardVCViewController: UIViewController, RateDelegate, WebSocketDelega
     }
     
     var surveyedStocks = [String]()
-    
     
     func getMostRecentInfoOfUser() {
         let user  = PFUser.current()!
