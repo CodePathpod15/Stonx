@@ -42,8 +42,6 @@ class WatchListViewController: UIViewController {
         }
     }
     
-    
-    
     func getTheUserWatchList() {
         ParseModel.shared.gettingUserWatchlist { result in
             switch result {

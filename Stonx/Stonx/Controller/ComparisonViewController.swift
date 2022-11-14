@@ -40,26 +40,44 @@ class ComparisonViewController: UIViewController {
         
         
         // we update the volume, price
-        //
-        API.getLatestStockPrice(tickerSymbol: tickerSymbol) { result in
-            switch result {
-            case .success(let items):
+        
+        API.getLatestpriceUsingNewEndpoing(tickerSymbol: tickerSymbol) { res in
+            switch res {
+            case .success(let latestTrade):
                 DispatchQueue.main.async {
-                    // update the price and
-                    // so here we know we have items
-                    if let items = items {
-                        if isLeft {
-                            content.configureLeft(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
-                        } else {
-                            content.configureRight(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
-                        }
+                    print(latestTrade?.trade?.p)
+                    if isLeft {
+                        content.configureLeft(price: (latestTrade?.trade?.p)!, volume: "")
+                    } else {
+                        content.configureRight(price: (latestTrade?.trade?.p)!, volume: "")
                     }
                 }
+                break
             case .failure(let error):
-                // otherwise, print an error to the console
-                print(error)
+                break
             }
         }
+        
+        
+//        API.getLatestStockPrice(tickerSymbol: tickerSymbol) { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    // update the price and
+//                    // so here we know we have items
+//                    if let items = items {
+//                        if isLeft {
+//                            content.configureLeft(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
+//                        } else {
+//                            content.configureRight(price: Double(items.globalQuote.the05Price) ?? 0.00, volume: items.globalQuote.the06Volume)
+//                        }
+//                    }
+//                }
+//            case .failure(let error):
+//                // otherwise, print an error to the console
+//                print(error)
+//            }
+//        }
     }
     
     
