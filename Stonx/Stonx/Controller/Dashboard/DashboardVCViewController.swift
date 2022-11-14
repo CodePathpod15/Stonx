@@ -22,7 +22,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializetheTableview()
+//        initializetheTableview()
         view.backgroundColor = .white
         getMostRecentInfoOfUser()
         setUpViews()
@@ -126,6 +126,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // Operation Queue (synchronize them)
     var ownedStocks = [Stock]() {
         didSet {
+            self.totalPrice = 0
 
             for stock in ownedStocks {
                 API.getLatestpriceUsingNewEndpoing(tickerSymbol: stock.ticker_symbol) { result in
@@ -149,6 +150,12 @@ class DashboardVCViewController: UIViewController, RateDelegate {
 
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initializetheTableview()
+      
     }
 
     // initializing the tableview

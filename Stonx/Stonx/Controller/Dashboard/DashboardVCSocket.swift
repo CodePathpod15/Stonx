@@ -28,7 +28,17 @@ extension DashboardVCViewController: WebSocketDelegate {
     
     // this is used to write the connection to the socket
     // desired:   {"action":"subscribe","trades": ["AAPL, IBM, COOL"]}
+    // TODO: for a moment it shows duplicated prices before it updates
+    static var prevTrades = "["
     func makeTradeConnections(stocks: [Stock]){
+        if stocks.isEmpty {
+            let sockets = """
+            {"action":"unsubscribe","trades":\(DashboardVCViewController.prevTrades)]}
+            """
+            socket.write(string: sockets)
+            return
+        }
+        
         var str = "["
         
         for stock in stocks {
@@ -42,6 +52,7 @@ extension DashboardVCViewController: WebSocketDelegate {
         let sockets = """
         {"action":"subscribe","trades":\(str)]}
         """
+        DashboardVCViewController.prevTrades = sockets
         print(sockets)
      
   
