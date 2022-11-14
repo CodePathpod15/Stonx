@@ -9,7 +9,7 @@
 ## Overview
 ### Description
 
-Stonx is a an application to help early investors gain experience in the stock market. Our app allows every investors to simulate what it is like to invest in the stock market without actually losing any money. Along with simulating transactions, we use user feedback to create a rating system for each stock. We use this system call smart stocks to create  stocks suggestions every single day (click on the lightbulb). Our app also allows users to save their favorite app and to also compare stocks with one another (this is till in progress). 
+Stonx is a an application to help early investors gain experience in the stock market. Our app allows every investors to simulate what it is like to invest in the stock market without actually losing any money. Along with simulating transactions, we use user feedback to create a rating system for each stock. We use this system call smart stocks to create  stocks suggestions every single day (click on the lightbulb). Our app also allows users to save their favorite app and to also compare stocks with one another while looking at real time data. 
 
 
 ### App Evaluation
@@ -30,7 +30,8 @@ Stonx is a an application to help early investors gain experience in the stock m
 
 
 ## Viewing Real time stock Data using alpaca markets Socket 
-![video2](https://user-images.githubusercontent.com/29695936/201553221-32bd0bdd-fe13-47ac-b027-1ad742127d95.gif)
+![video2](https://user-images.githubusercontent.com/29695936/201725667-0a738425-0eb3-4092-806c-5650263f86b5.gif)
+
 
 ## Buying Stocks
 ![video2](https://user-images.githubusercontent.com/29695936/201553385-b420c064-6e30-440a-9aed-454094687417.gif)
@@ -52,7 +53,6 @@ Stonx is a an application to help early investors gain experience in the stock m
 ![video2](https://user-images.githubusercontent.com/29695936/201555554-13805d65-7a50-4f0a-8cd3-51aad34ae515.gif)
 
 
-
 ## Product Spec
 
 
@@ -61,7 +61,7 @@ Stonx is a an application to help early investors gain experience in the stock m
 **Required Must-have Stories**
 - [x] User can log in 
 - [x] user can create an account 
-- [x] Reset password
+- [x] reset password using email 
 - [x] User can search for stock 
 - [x] user can see the information of a stock 
 - [x] User can buy a stock
@@ -72,7 +72,8 @@ Stonx is a an application to help early investors gain experience in the stock m
 - [x] User can see their profit from the stock 
 - [x] User can change their profile information
 - [x] user can delete their account 
-- [ ] User can see their dashboard
+- [x] User can see their dashboard
+- [x] user can see their updated stock chart
 - [ ] User can see their history of trades 
 - [x] Comparing two different stocks
 * ...
