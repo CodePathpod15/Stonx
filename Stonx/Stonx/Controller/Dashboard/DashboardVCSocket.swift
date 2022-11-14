@@ -11,6 +11,40 @@ import Starscream
 
 extension DashboardVCViewController: WebSocketDelegate {
  
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    
+    func makeTradeConnections(stocks: [Stock]){
+        var str = "["
+        
+        for stock in stocks {
+            let nstr = """
+            "\(stock.ticker_symbol)"
+            """
+            
+            str.append("\(nstr),")
+        }
+        str.removeLast()
+     
+        let sockets = """
+        {"action":"subscribe","trades":\(str)]}
+        """
+        print(sockets)
+     
+  
+        socket.write(string: sockets)
+        
+    }
+    
     
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {

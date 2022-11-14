@@ -15,17 +15,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     let scrollView = UIScrollView()
     let contentView = DashboardContentView(frame: .zero)
     
-    func convertToDictionary(text: String) -> [String: Any]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        return nil
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initializetheTableview()
@@ -57,36 +46,11 @@ class DashboardVCViewController: UIViewController, RateDelegate {
      
         socket.delegate = self
         
-        
     }
     
     
     // TODO:
     // THIS IS Up to 30 stocks
-    
-    func makeTradeConnections(stocks: [Stock]){
-        var str = "["
-        
-        for stock in stocks {
-            let nstr = """
-            "\(stock.ticker_symbol)"
-            """
-            
-            str.append("\(nstr),")
-        }
-        str.removeLast()
-     
-        let sockets = """
-        {"action":"subscribe","trades":\(str)]}
-        """
-        print(sockets)
-     
-  
-        socket.write(string: sockets)
-        
-    }
-    
-    
     var socket = WebSocket(request: .init(url: URL(string: "wss://stream.data.alpaca.markets/v2/iex")!))
     
     var recommendedStr = ""
@@ -209,10 +173,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             }
         }
     }
-    
-    
-        
-    
+ 
     /// in this method we decide whether to survey the suer or not
      func surveyUser() {
         var stocks = [Stock]()
