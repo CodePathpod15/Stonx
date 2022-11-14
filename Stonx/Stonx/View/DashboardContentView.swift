@@ -26,10 +26,6 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
         chartView.xAxis.enabled = false
         chartView.legend.enabled = false
         chartView.leftYAxisRenderer.axis.enabled = false
-        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chartTapped))
-        tapRecognizer.minimumPressDuration = 0.01
-        self.addGestureRecognizer(tapRecognizer)
-        tapRecognizer.delegate = self
         return chartView
     }()
     
@@ -185,9 +181,6 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
   
     }
     
-    @objc func chartTapped(_ sender: UITapGestureRecognizer) {
-
-        }
     
 
     func configure(stocks: [Stock]) {
