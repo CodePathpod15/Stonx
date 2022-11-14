@@ -302,6 +302,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         }
     }
     
+    
     // this sac
     func saveTickerRating(ticker: String, rating: Int) {
         // we perform the transaction
