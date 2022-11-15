@@ -26,7 +26,7 @@ Stonx is a an application to help early investors gain experience in the stock m
    ```sh
    git clone https://github.com/your_username_/Project-Name.git
    ```
- 2. Note that since our alphavantage API only allows us to do 5 request per minute, the app may not always return the stock in the stock page
+ 2. Note that since our alphavantage API only allows us to do 5 request per minute, the app may not always return the about, sector,market cap,volume,P/E Ratio and EPS sections. 
 
 
 ## Features 
