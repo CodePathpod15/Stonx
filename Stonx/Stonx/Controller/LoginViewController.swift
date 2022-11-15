@@ -147,6 +147,8 @@ class LoginViewController: UIViewController {
         // set up for textfield
         setUpTextfield(textfield: usernameTextfield, defaultText: "Enter your username")
         setUpTextfield(textfield: passWordTextfield, defaultText: "Enter your password")
+        usernameTextfield.addKeyboardDoneButton()
+        passWordTextfield.addKeyboardDoneButton()
         
         // set up loginButton
         loginButton.backgroundColor = ColorConstants.green
@@ -281,5 +283,24 @@ extension UIViewController {
     
 }
 
-
-
+// adding done button to textfield
+// Used: https://gist.github.com/shanecowherd/02f86757f9340c5a268f956e82e1409a
+extension UITextField {
+    func addKeyboardDoneButton() {
+        let keyboardToolBar = UIToolbar()
+        keyboardToolBar.sizeToFit()
+         
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem:
+            UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem:
+            UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.donePressed) )
+         
+        keyboardToolBar.setItems([flexibleSpace, doneButton], animated: true)
+         
+        self.inputAccessoryView = keyboardToolBar
+    }
+    
+    @objc private func donePressed() {
+        self.endEditing(true)
+    }
+}
