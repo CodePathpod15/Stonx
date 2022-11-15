@@ -17,20 +17,14 @@ struct FunctionConstants {
     static let global =  "GLOBAL_QUOTE"
     static let overview = "OVERVIEW"
     static let time_series = "TIME_SERIES_INTRADAY"
-    
 }
-
 
 // another API Key
 // LNPPEUV5LWE3TLLZ (5 API Calls per minute)
-
 // TODO: refactor this into one function
 // made different methods for simplicity
-
-
 /// this API is in charge of fetching data from the stocks API
 /// for more info: https://www.alphavantage.co/documentation/#symbolsearch
-
 struct API {
     
     private static let key  = "JPHF6VLB2O59XH8K"
@@ -118,10 +112,19 @@ struct API {
                 completion(.failure(error))
             } else if let data = data {
                 do {
+                    if let response = response as? HTTPURLResponse {
+                        print("response: ", response)
+                    } else {
+                        print("no response")
+                    }
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(StockAbout.self, from: data) // gets the artists
+                    
+                    print("search response: \(searchResponse)")
+                    
                     completion(.success(searchResponse))
                 } catch {
+
                     completion(.failure(error))
                 }
             }

@@ -24,12 +24,12 @@ class ComparisonViewController: UIViewController {
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
+                    print("result: ", result)
                     
                     if isLeft {
                         content.verticalSV.editLeftSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
                     } else {
                         content.verticalSV.editRightSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
- 
                     }
                 }
             case .failure(let error):
@@ -45,7 +45,6 @@ class ComparisonViewController: UIViewController {
             switch res {
             case .success(let latestTrade):
                 DispatchQueue.main.async {
-                    print(latestTrade?.trade?.p)
                     if isLeft {
                         content.configureLeft(price: (latestTrade?.trade?.p)!, volume: "")
                     } else {
@@ -57,7 +56,6 @@ class ComparisonViewController: UIViewController {
                 break
             }
         }
-        
     }
     
     
@@ -100,8 +98,6 @@ class ComparisonViewController: UIViewController {
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
-
-
     }
 
 }
