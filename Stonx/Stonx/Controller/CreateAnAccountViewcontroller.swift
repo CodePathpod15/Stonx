@@ -100,7 +100,7 @@ class CreateAnAccountViewcontroller: UIViewController {
         // create the account
         
         var user = PFUser()
-        user.username = usernametxtfield.text
+        user.username = usernametxtfield.text?.lowercased()
         user.email = emailtxtField.text
         user.password = passwordtxtField.text
         user[UserConstants.last_surveyed] = user.createdAt ?? Date()
