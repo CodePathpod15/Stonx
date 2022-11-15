@@ -11,7 +11,6 @@
 
 Stonx is a an application to help early investors gain experience in the stock market. Our app allows every investors to simulate what it is like to invest in the stock market without actually losing any money. Along with simulating transactions, we use user feedback to create a rating system for each stock. We use this system call smart stocks to create  stocks suggestions every single day (click on the lightbulb). Our app also allows users to save their favorite app and to also compare stocks with one another while looking at real time data. 
 
-
 ### App Evaluation
 [Evaluation of your app across the following attributes]
 - **Category: Finance + Education**
@@ -22,14 +21,23 @@ Stonx is a an application to help early investors gain experience in the stock m
 - **Scope: We could expand to a more learning based approach to investing. Allowing users to invest in options**
 - **Key Features: All UI is done programmatic, no storyboard or xib files. The app also uses websockets to retrieve real time data**
 
+## Installation & tips 
+ 1. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+ 2. Note that since our alphavantage API only allows us to do 5 request per minute, the app may not always return the stock in the stock page
+
 
 ## Features 
-
 ## Comparing stocks
+ - user can search for two different stocks to compare
 ![video2](https://user-images.githubusercontent.com/29695936/201553036-f028f070-fc15-4934-8263-83a7b7732875.gif)
 
 
 ## Viewing Real time stock Data using alpaca markets Socket 
+ - we provide our users with real time data using the stockets 
+ - https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/realtime/
 ![video2](https://user-images.githubusercontent.com/29695936/201725667-0a738425-0eb3-4092-806c-5650263f86b5.gif)
 
 
