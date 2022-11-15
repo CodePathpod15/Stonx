@@ -86,7 +86,11 @@ class LoginViewController: UIViewController {
             return
         }
         
-        PFUser.logInWithUsername(inBackground: usernameTextfield.text ?? "", password:passWordTextfield.text ?? "") {
+        // makes the username all lowercased
+        let username = usernameTextfield.text!.lowercased()
+        let password = passWordTextfield.text!
+        
+        PFUser.logInWithUsername(inBackground: username, password:password) {
           (user: PFUser?, error: Error?) -> Void in
           
             if user != nil {
