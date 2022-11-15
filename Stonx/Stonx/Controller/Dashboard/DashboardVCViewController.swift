@@ -27,6 +27,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         getMostRecentInfoOfUser()
         setUpViews()
         socket.delegate = self
+        // TODO: update socket if we bought something
         
     }
     

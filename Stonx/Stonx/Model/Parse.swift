@@ -143,6 +143,11 @@ class ParseModel {
     }
 }
 
+//TODO: create survey model
+
+
+//TODO: transaction model
+
 
 
 
