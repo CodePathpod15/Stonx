@@ -19,8 +19,6 @@ extension DashboardVCViewController: WebSocketDelegate {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             } catch {
                 // there are some transaction we are ignoring since an array of objects
-                print("error: \(text)")
-          
             }
         }
         return nil
@@ -64,7 +62,7 @@ extension DashboardVCViewController: WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
         case .connected(let headers):
-          print("connected \(headers)")
+//          print("connected \(headers)")
           // authenticated
             var sockets = """
                 {"action": "auth", "key": "PKAQG4B3QL3XEQ97F36G", "secret": "MGBfl24lkc9zIKMgtLTy5BhzKDooh8wXKFMIewqp"}
@@ -74,7 +72,7 @@ extension DashboardVCViewController: WebSocketDelegate {
         case .disconnected(let reason, let closeCode):
           print("disconnected \(reason) \(closeCode)")
         case .text(var text):
-          print("received text: \(text)")
+//          print("received text: \(text)")
             text.removeAll(where: {$0 == "]" || $0 == "["})
             let mapped = convertToDictionary(text: text)
             
@@ -121,7 +119,8 @@ extension DashboardVCViewController: WebSocketDelegate {
         case .ping(let pingData):
           print("received ping: \(pingData)")
         case .error(let error):
-          print("error \(error)")
+//          print("error \(error)")
+            break
         case .viabilityChanged:
           print("viabilityChanged")
         case .reconnectSuggested:
