@@ -62,6 +62,7 @@ https://testflight.apple.com/join/mONZP92n
 ## Smart stocks: receive recommendations based on user surveys 
 
 # user survey
+ - We survey users that have owned stocks every 7 days.
 ![video2](https://user-images.githubusercontent.com/29695936/201555430-7eb52f04-9793-453c-81a2-684432dfc4e0.gif)
 
 # Recommendations
