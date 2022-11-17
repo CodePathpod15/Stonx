@@ -145,6 +145,7 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
     
     let tableView : AutoSizingTableView = {
         let table = AutoSizingTableView()
+        table.isScrollEnabled = false
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         table.register(StockTableViewCell.self, forCellReuseIdentifier: StockTableViewCell.identifier)
         return table
@@ -192,8 +193,6 @@ class DashboardContentView: UIView, UIGestureRecognizerDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    
 
 }
 

@@ -4,7 +4,8 @@ import Parse
 
 
 // TODO: clean up
-// ANGY: try subclassing the 
+// ANGY: try subclassing the
+// dont let user buy if the api calls have reached their limit
 class StocksViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
     /// MARK:  propeties
