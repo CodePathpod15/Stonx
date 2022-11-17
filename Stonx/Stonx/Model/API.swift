@@ -19,6 +19,11 @@ struct FunctionConstants {
     static let time_series = "TIME_SERIES_INTRADAY"
 }
 
+enum APIERRORS: Error {
+    case limit
+}
+
+
 // another API Key
 // LNPPEUV5LWE3TLLZ (5 API Calls per minute)
 // TODO: refactor this into one function
@@ -52,6 +57,12 @@ struct API {
                 do {
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(GlobalQuote.self, from: data) // gets the artists
+                    
+                    // added the error for when we are given an error
+                    if searchResponse.Note != nil {
+                        completion(.failure(APIERRORS.limit))
+                    }
+                    
                     completion(.success(searchResponse))
                 } catch {
                     completion(.failure(error))
@@ -86,8 +97,6 @@ struct API {
         
         task.resume()
         
-        
-        
     }
   
     
@@ -112,15 +121,12 @@ struct API {
                 completion(.failure(error))
             } else if let data = data {
                 do {
-                    if let response = response as? HTTPURLResponse {
-                        print("response: ", response)
-                    } else {
-                        print("no response")
-                    }
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(StockAbout.self, from: data) // gets the artists
                     
-                    print("search response: \(searchResponse)")
+                    if searchResponse.Note != nil {
+                        completion(.failure(APIERRORS.limit))
+                    }
                     
                     completion(.success(searchResponse))
                 } catch {
@@ -144,10 +150,8 @@ struct API {
             URLQueryItem(name: "keywords", value: searchingString),
             URLQueryItem(name: "apikey", value: key),
         ]
-        
-        
+
         url.queryItems = queryItems
-        
         var request = URLRequest(url: url.url!)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -157,6 +161,12 @@ struct API {
                 do {
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(Search.self, from: data) // gets the artists
+                    
+                    // the note happens whenever the user
+                    if searchResponse.Note != nil  {
+                        completion(.failure(APIERRORS.limit))
+                    }
+    
                     completion(.success(searchResponse))
                 } catch {
                     completion(.failure(error))
@@ -169,3 +179,6 @@ struct API {
     }
     
 }
+
+
+

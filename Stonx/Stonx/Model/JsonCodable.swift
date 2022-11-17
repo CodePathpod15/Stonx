@@ -11,14 +11,15 @@ import Foundation
 // for more info look into codable please or ask me
 
 struct StockAbout: Codable {
-    let symbol, assetType, name, stockAboutDescription: String
-    let cik, exchange, currency, country: String
-    let sector, industry, address, peRatio: String
-    let eps, revenuePerShareTTM, profitMargin, operatingMarginTTM: String
-    let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String
-    let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String
-    let trailingPE, forwardPE: String
-    let marketCap: String
+    let symbol, assetType, name, stockAboutDescription: String?
+    let cik, exchange, currency, country: String?
+    let sector, industry, address, peRatio: String?
+    let eps, revenuePerShareTTM, profitMargin, operatingMarginTTM: String?
+    let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String?
+    let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String?
+    let trailingPE, forwardPE: String?
+    let marketCap: String?
+    let Note: String?
 
 
     enum CodingKeys: String, CodingKey {
@@ -49,13 +50,15 @@ struct StockAbout: Codable {
         case trailingPE = "TrailingPE"
         case forwardPE = "ForwardPE"
         case marketCap = "MarketCapitalization"
+        case Note = "Note"
     }
 }
 
 
 // MARK: - Welcome
 struct Search: Codable {
-    let bestMatches: [BestMatch]
+    let bestMatches: [BestMatch]?
+    let Note: String?
 }
 
 // MARK: - BestMatch
@@ -123,9 +126,11 @@ struct TimeSeries5Min: Codable {
 // MARK: - GlobalQuote
 struct GlobalQuote: Codable {
     let globalQuote: GlobalQuoteClass
+    let Note: String?
 
     enum CodingKeys: String, CodingKey {
         case globalQuote = "Global Quote"
+        case Note = "Note"
     }
 }
 

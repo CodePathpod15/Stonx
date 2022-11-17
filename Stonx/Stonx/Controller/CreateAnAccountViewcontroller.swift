@@ -26,8 +26,7 @@ class CreateAnAccountViewcontroller: UIViewController {
 
     private let createAccButton = UIButton(type: .system)
     
-    
-    
+  
     let whatIsYourEmail: UILabel = {
         let lbl = UILabel()
         lbl.text = "What is your Info??"

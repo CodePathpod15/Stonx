@@ -97,6 +97,7 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
                 DispatchQueue.main.async {
                     // updae UI here and data. reload stuff etc
                     // making sure that we have matches
+                    print("Note", items?.Note)
                     
                     if let matches = items?.bestMatches {
                         self.filteredStocks = matches
@@ -116,7 +117,17 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
                 }
             case .failure(let error):
                 // otherwise, print an error to the console
-                print(error)
+                DispatchQueue.main.async {
+                    switch error {
+                    case APIERRORS.limit:
+                        self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+                        break
+                    default:
+                        self.showAlert(with: error.localizedDescription)
+                        break
+                    }
+                }
+  
             }
         }
         
@@ -130,6 +141,9 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
         tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
 }
+
+
+
 
 extension SearchStocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

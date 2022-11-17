@@ -19,28 +19,33 @@ class ComparisonViewController: UIViewController {
     
     
     func getThePrice(tickerSymbol: String, content: ComparisonView, isLeft: Bool) {
-        
         API.getStockAboutMe(tickerSymbol: tickerSymbol) { result in
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
-                    print("result: ", result)
-                    
                     if isLeft {
-                        content.verticalSV.editLeftSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
+                        content.verticalSV.editLeftSide(tickerName: tickerSymbol, about: items?.stockAboutDescription , type: items?.sector , marketCap: items?.marketCap, PERatio: items?.peRatio , EPS: items?.eps)
                     } else {
-                        content.verticalSV.editRightSide(tickerName: tickerSymbol, price: 0, about: items?.stockAboutDescription ?? "xx", type: items?.sector ?? "xx", marketCap: items?.marketCap ?? "xx", volume: "xx", PERatio: items?.peRatio ?? "", EPS: items?.eps ?? "")
+                        content.verticalSV.editRightSide(tickerName: tickerSymbol, about: items?.stockAboutDescription , type: items?.sector , marketCap: items?.marketCap, PERatio: items?.peRatio, EPS: items?.eps)
                     }
                 }
+                
             case .failure(let error):
                 // otherwise, print an error to the console
-                print(error)
+                DispatchQueue.main.async {
+                    switch error {
+                    case APIERRORS.limit:
+                        self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+                      
+                    default:
+                        self.showAlert(with: error.localizedDescription)
+               
+                    }
+                }
             }
         }
         
-        
         // we update the volume, price
-        
         API.getLatestpriceUsingNewEndpoing(tickerSymbol: tickerSymbol) { res in
             switch res {
             case .success(let latestTrade):
@@ -53,7 +58,8 @@ class ComparisonViewController: UIViewController {
                 }
                 break
             case .failure(let error):
-                break
+                print(error.localizedDescription)
+             
             }
         }
     }

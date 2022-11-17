@@ -185,8 +185,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return hStackView
     }()
     
-    
-    
     private lazy var stockEPSHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -479,7 +477,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationItem.title = tickerName
+        
         getOwnedStocks()
         configureSubviews()
         setupConstraints()
@@ -510,7 +508,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
-                    //
                     self.aboutTextLabel.text = items?.stockAboutDescription
                     self.sectorTextLabel.text = items?.sector
                     self.sect = items?.sector
@@ -521,13 +518,23 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                 }
             case .failure(let error):
                 // otherwise, print an error to the console
-                print(error)
+            
+                DispatchQueue.main.async {
+                    switch error {
+                    case APIERRORS.limit:
+                        self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+                        break
+                    default:
+                        self.showAlert(with: error.localizedDescription)
+                        break
+                    }
+                }
+                
             }
         }
         
         // we update the volume,  price and percent change
         API.getLatestStockPrice(tickerSymbol: tickerName) { result in
-            
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
@@ -549,8 +556,16 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                 }
                 
             case .failure(let error):
-                // otherwise, print an error to the console
-                print(error)
+                DispatchQueue.main.async {
+                    switch error {
+                    case APIERRORS.limit:
+                        self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+                        break
+                    default:
+                        self.showAlert(with: error.localizedDescription)
+                        break
+                    }
+                }
             }
             
         }
@@ -825,37 +840,47 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             }
         } else {
                 // show the current price
-                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
-                    
-                    switch result {
-                    case .success(let items):
-                        DispatchQueue.main.async {
-                            // update the price and
-                            self.stockPriceLabel.textColor = .systemGreen
-                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
-                            self.stockPriceLabel.text = items?.globalQuote.the05Price
-                            
-                            // so here we know we have items
-                            if let items = items {
-                                
-                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
-                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
-                                } else {
-                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
-                                }
-                                
-                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
-                            }
-                        }
-                        
-                    case .failure(let error):
-                        // otherwise, print an error to the console
-                        print(error)
-                    }
-                    
-                }
-                lineChartView.highlightValue(nil)
+//                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+//
+//                    switch result {
+//                    case .success(let items):
+//                        DispatchQueue.main.async {
+//                            // update the price and
+//                            self.stockPriceLabel.textColor = .systemGreen
+//                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
+//                            self.stockPriceLabel.text = items?.globalQuote.the05Price
+//
+//                            // so here we know we have items
+//                            if let items = items {
+//
+//                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
+//                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+//                                } else {
+//                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
+//                                }
+//
+//                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
+//                            }
+//                        }
+//
+//                    case .failure(let error):
+//                        // otherwise, print an error to the console
+//                        DispatchQueue.main.async {
+//                            switch error {
+//                            case APIERRORS.limit:
+//                                self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+//                                break
+//                            default:
+//                                self.showAlert(with: error.localizedDescription)
+//                                break
+//                            }
+//                        }
+//                    }
+//
+//                }
+//                lineChartView.highlightValue(nil)
             }
+        
         }
 
     
