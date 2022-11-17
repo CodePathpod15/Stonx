@@ -817,69 +817,69 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     
     @objc private func chartTapped(_ sender: UITapGestureRecognizer) {
 
-        if sender.state == .began || sender.state == .changed {
-            // show change history
-            let currentPrice = self.stockPriceLabel.text?.description ?? "0.00"
-            let currentPriceDec = Float(currentPrice)
-            let position = sender.location(in: lineChartView)
-            let highlight = lineChartView.getHighlightByTouchPoint(position)
-            let pastPrice = lineChartView.data?.entry(for: highlight!)?.y.description ?? "0.00"
-            
-            if currentPriceDec! >= Float(pastPrice)! {
-                self.stockPriceLabel.textColor = .systemRed
-                lineChartView.highlightValue(highlight)
-                lineChartView.drawMarkers = true
-                self.stockPriceLabel.text = pastPrice
-            }
-            else {
-                self.stockPriceLabel.textColor = .systemGreen
-                lineChartView.highlightValue(highlight)
-                lineChartView.drawMarkers = true
-                self.stockPriceLabel.text = pastPrice
-
-            }
-        } else {
-                // show the current price
-//                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+//        if sender.state == .began || sender.state == .changed {
+//            // show change historyIB
+//            let currentPrice = self.stockPriceLabel.text?.description ?? "0.00"
+//            let currentPriceDec = Float(currentPrice)
+//            let position = sender.location(in: lineChartView)
+//            let highlight = lineChartView.getHighlightByTouchPoint(position)
+//            let pastPrice = lineChartView.data?.entry(for: highlight!)?.y.description ?? "0.00"
 //
-//                    switch result {
-//                    case .success(let items):
-//                        DispatchQueue.main.async {
-//                            // update the price and
-//                            self.stockPriceLabel.textColor = .systemGreen
-//                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
-//                            self.stockPriceLabel.text = items?.globalQuote.the05Price
+//            if currentPriceDec! >= Float(pastPrice)! {
+//                self.stockPriceLabel.textColor = .systemRed
+//                lineChartView.highlightValue(highlight)
+//                lineChartView.drawMarkers = true
+//                self.stockPriceLabel.text = pastPrice
+//            }
+//            else {
+//                self.stockPriceLabel.textColor = .systemGreen
+//                lineChartView.highlightValue(highlight)
+//                lineChartView.drawMarkers = true
+//                self.stockPriceLabel.text = pastPrice
 //
-//                            // so here we know we have items
-//                            if let items = items {
-//
-//                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
-//                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
-//                                } else {
-//                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
-//                                }
-//
-//                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
-//                            }
-//                        }
-//
-//                    case .failure(let error):
-//                        // otherwise, print an error to the console
-//                        DispatchQueue.main.async {
-//                            switch error {
-//                            case APIERRORS.limit:
-//                                self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
-//                                break
-//                            default:
-//                                self.showAlert(with: error.localizedDescription)
-//                                break
-//                            }
-//                        }
-//                    }
-//
-//                }
-//                lineChartView.highlightValue(nil)
-            }
+//            }
+//        } else {
+//                // show the current price
+////                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+////
+////                    switch result {
+////                    case .success(let items):
+////                        DispatchQueue.main.async {
+////                            // update the price and
+////                            self.stockPriceLabel.textColor = .systemGreen
+////                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
+////                            self.stockPriceLabel.text = items?.globalQuote.the05Price
+////
+////                            // so here we know we have items
+////                            if let items = items {
+////
+////                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
+////                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+////                                } else {
+////                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
+////                                }
+////
+////                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
+////                            }
+////                        }
+////
+////                    case .failure(let error):
+////                        // otherwise, print an error to the console
+////                        DispatchQueue.main.async {
+////                            switch error {
+////                            case APIERRORS.limit:
+////                                self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+////                                break
+////                            default:
+////                                self.showAlert(with: error.localizedDescription)
+////                                break
+////                            }
+////                        }
+////                    }
+////
+////                }
+////                lineChartView.highlightValue(nil)
+//            }
         
         }
 
