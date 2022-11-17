@@ -127,10 +127,7 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
                         break
                     }
                 }
-               
-                
-                
-                
+  
             }
         }
         
@@ -145,10 +142,7 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     }
 }
 
-enum IntParsingError: Error {
-    case overflow
-    case invalidInput(Character)
-}
+
 
 
 extension SearchStocksViewController: UITableViewDataSource {

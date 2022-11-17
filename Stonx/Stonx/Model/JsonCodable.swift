@@ -19,6 +19,7 @@ struct StockAbout: Codable {
     let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String
     let trailingPE, forwardPE: String
     let marketCap: String
+    let Note: String?
 
 
     enum CodingKeys: String, CodingKey {
@@ -49,6 +50,7 @@ struct StockAbout: Codable {
         case trailingPE = "TrailingPE"
         case forwardPE = "ForwardPE"
         case marketCap = "MarketCapitalization"
+        case Note = "Note"
     }
 }
 
@@ -124,9 +126,11 @@ struct TimeSeries5Min: Codable {
 // MARK: - GlobalQuote
 struct GlobalQuote: Codable {
     let globalQuote: GlobalQuoteClass
+    let Note: String?
 
     enum CodingKeys: String, CodingKey {
         case globalQuote = "Global Quote"
+        case Note = "Note"
     }
 }
 

@@ -523,10 +523,17 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                 }
             case .failure(let error):
                 // otherwise, print an error to the console
-                print("this error: ", error)
-                
-                self.showAlert(with: "Looks like we have reached our limit of API calls. Unable to retrieve some information")
-                
+            
+                DispatchQueue.main.async {
+                    switch error {
+                    case APIERRORS.limit:
+                        self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+                        break
+                    default:
+                        self.showAlert(with: error.localizedDescription)
+                        break
+                    }
+                }
                 
             }
         }
@@ -856,12 +863,22 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                         
                     case .failure(let error):
                         // otherwise, print an error to the console
-                        print(error)
+                        DispatchQueue.main.async {
+                            switch error {
+                            case APIERRORS.limit:
+                                self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+                                break
+                            default:
+                                self.showAlert(with: error.localizedDescription)
+                                break
+                            }
+                        }
                     }
                     
                 }
                 lineChartView.highlightValue(nil)
             }
+        
         }
 
     

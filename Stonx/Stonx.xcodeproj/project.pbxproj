@@ -22,7 +22,7 @@
 		1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */; };
 		1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */; };
 		1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD029048CC80058E291 /* LoginViewController.swift */; };
-		1C291DD329048D110058E291 /* APi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD229048D110058E291 /* APi.swift */; };
+		1C291DD329048D110058E291 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD229048D110058E291 /* API.swift */; };
 		1C291DD529048DA60058E291 /* UserDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD429048DA60058E291 /* UserDashboardViewController.swift */; };
 		1C5F0E442901C5EE00101093 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E432901C5EE00101093 /* AppDelegate.swift */; };
 		1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E452901C5EE00101093 /* SceneDelegate.swift */; };
@@ -98,7 +98,7 @@
 		1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockTableviewCell.swift; sourceTree = "<group>"; };
 		1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		1C291DD029048CC80058E291 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1C291DD229048D110058E291 /* APi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APi.swift; sourceTree = "<group>"; };
+		1C291DD229048D110058E291 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		1C291DD429048DA60058E291 /* UserDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewController.swift; sourceTree = "<group>"; };
 		1C5F0E402901C5EE00101093 /* Stonx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stonx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C5F0E432901C5EE00101093 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			children = (
 				1CEBCADD290DBDB7007B45DE /* Constants.swift */,
 				1CEBCADB290DB95F007B45DE /* Validate.swift */,
-				1C291DD229048D110058E291 /* APi.swift */,
+				1C291DD229048D110058E291 /* API.swift */,
 				1CEBCAE3290DED4D007B45DE /* JsonCodable.swift */,
 				1CE84F3E291239810001F970 /* StockMarket.swift */,
 				1C160C30291AE7A700CE5823 /* Parse.swift */,
@@ -640,7 +640,7 @@
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
 				1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */,
 				1C160C3F291C768000CE5823 /* VerticalSV.swift in Sources */,
-				1C291DD329048D110058E291 /* APi.swift in Sources */,
+				1C291DD329048D110058E291 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

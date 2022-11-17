@@ -57,6 +57,12 @@ struct API {
                 do {
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(GlobalQuote.self, from: data) // gets the artists
+                    
+                    // added the error for when we are given an error
+                    if searchResponse.Note != nil {
+                        completion(.failure(APIERRORS.limit))
+                    }
+                    
                     completion(.success(searchResponse))
                 } catch {
                     completion(.failure(error))
@@ -123,7 +129,9 @@ struct API {
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(StockAbout.self, from: data) // gets the artists
                     
-                    print("search response: \(searchResponse)")
+                    if searchResponse.Note != nil {
+                        completion(.failure(APIERRORS.limit))
+                    }
                     
                     completion(.success(searchResponse))
                 } catch {
