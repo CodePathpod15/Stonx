@@ -56,7 +56,6 @@ class ComparisonViewController: UIViewController {
                         content.configureRight(price: (latestTrade?.trade?.p)!, volume: "")
                     }
                 }
-                break
             case .failure(let error):
                 print(error.localizedDescription)
              

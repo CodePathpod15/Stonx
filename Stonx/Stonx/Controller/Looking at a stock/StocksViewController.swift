@@ -523,10 +523,10 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     switch error {
                     case APIERRORS.limit:
                         self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
-                        break
+                       
                     default:
                         self.showAlert(with: error.localizedDescription)
-                        break
+                  
                     }
                 }
                 
@@ -560,10 +560,10 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     switch error {
                     case APIERRORS.limit:
                         self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
-                        break
+                        
                     default:
                         self.showAlert(with: error.localizedDescription)
-                        break
+                        
                     }
                 }
             }
