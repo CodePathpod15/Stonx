@@ -49,11 +49,11 @@ class SearchStockTableviewCell: UITableViewCell {
         return sv
     }()
     
-    private let compareButton: UIButton = {
+     let compareButton: UIButton = {
         let btn  = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "arrow.left.arrow.right")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green), for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(compareBtnWasPressed), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(SearchStocksViewController.compareBTN), for: .touchUpInside)
         return btn
     }()
     
@@ -79,6 +79,8 @@ class SearchStockTableviewCell: UITableViewCell {
             ])
             compareButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
             compareButton.anchor(top: nil, leading: nil, bottom: nil, trailing: contentView.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: 16), size: .init(width: 20, height: 20))
+            
+            contentView.bringSubviewToFront(compareButton)
             
             // setting up the constrains of right stackview
             NSLayoutConstraint.activate([
@@ -127,6 +129,7 @@ class SearchStockTableviewCell: UITableViewCell {
          stockFullName.numberOfLines = 2
          stockFullName.text = "155.74"
          
+
          contentView.addSubview(compareButton)
          
      }

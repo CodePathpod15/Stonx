@@ -13,7 +13,17 @@ protocol ComparisonStock: AnyObject {
 
 // three dots to compare icon
 // if clicked we pop a search bar with the user being able to search for a stock  and boom
-class SearchStocksViewController: UIViewController, UISearchControllerDelegate, UITextFieldDelegate, ComparisonStock, UINavigationControllerDelegate {
+class SearchStocksViewController: UIViewController, UISearchControllerDelegate, UITextFieldDelegate, ComparisonStock, UINavigationControllerDelegate, UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+
+        let searchText = (searchController.searchBar.text ?? "")
+        if searchText.count > 3 {
+
+        }
+
+    }
+    
     
     // MARK: Properties
     
@@ -30,7 +40,7 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
    // MARK: This is how you do an initializer
 
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-       
+        
         if let textfield = textField.text {
             // we fetch the stocks using the api
             fetchStocks(query: textfield)
@@ -66,9 +76,12 @@ class SearchStocksViewController: UIViewController, UISearchControllerDelegate, 
     
     func setUpViews() {
         // setting up the search contronller
-        navigationItem.searchController = searchController
-        
-        // TODO: enable searching
+       
+//        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search by name or by symbol"
+        self.navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
+
          searchController.delegate = self
         
         searchController.searchBar.searchTextField.delegate = self
@@ -156,6 +169,7 @@ extension SearchStocksViewController: UITableViewDataSource {
         cell.delegate = self
         var match = filteredStocks[indexPath.row]
         cell.configure(ticker: match.the1Symbol, fullName: match.the2Name, market:   match.the4Region)
+        cell.compareButton.tag = indexPath.row
         cell.enableCompareButton(with: true)
         return cell
     }
@@ -180,16 +194,31 @@ extension SearchStocksViewController: UITableViewDelegate {
 // TODO: we have to get the two stock names
 
 extension SearchStocksViewController: ComparisonDelegate {
+    // ideally I would want to use this
     func compareButtonWasPressed(with ticker: String) {
+//        stocksTobeCompared.removeAll()
+//        stocksTobeCompared.append(ticker)
+//        let vc = VC()
+//        vc.delegate = self
+//        let sv = UINavigationController(rootViewController: vc)
+//
+//        sv.modalPresentationStyle = .formSheet
+//        self.present(sv, animated: true)
+//
+    
+    }
+    
+    // method above didnt work on the actual simulator so had to change to this
+    @objc func compareBTN(button: UIButton) {
+        // getting the symbol
+        let tickerSymbol = filteredStocks[button.tag].the1Symbol
         stocksTobeCompared.removeAll()
-        stocksTobeCompared.append(ticker)
+        self.stocksTobeCompared.append(tickerSymbol)
         let vc = VC()
         vc.delegate = self
         let sv = UINavigationController(rootViewController: vc)
-        
         sv.modalPresentationStyle = .formSheet
         self.present(sv, animated: true)
-    
     }
    
 }
