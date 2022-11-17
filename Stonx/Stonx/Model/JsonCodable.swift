@@ -55,7 +55,8 @@ struct StockAbout: Codable {
 
 // MARK: - Welcome
 struct Search: Codable {
-    let bestMatches: [BestMatch]
+    let bestMatches: [BestMatch]?
+    let Note: String?
 }
 
 // MARK: - BestMatch

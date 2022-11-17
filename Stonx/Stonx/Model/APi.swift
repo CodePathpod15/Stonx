@@ -19,6 +19,11 @@ struct FunctionConstants {
     static let time_series = "TIME_SERIES_INTRADAY"
 }
 
+enum APIERRORS: Error {
+    case limit
+}
+
+
 // another API Key
 // LNPPEUV5LWE3TLLZ (5 API Calls per minute)
 // TODO: refactor this into one function
@@ -86,8 +91,6 @@ struct API {
         
         task.resume()
         
-        
-        
     }
   
     
@@ -144,10 +147,8 @@ struct API {
             URLQueryItem(name: "keywords", value: searchingString),
             URLQueryItem(name: "apikey", value: key),
         ]
-        
-        
+
         url.queryItems = queryItems
-        
         var request = URLRequest(url: url.url!)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -157,6 +158,12 @@ struct API {
                 do {
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(Search.self, from: data) // gets the artists
+                    
+                    // the note happens whenever the user
+                    if searchResponse.Note != nil  {
+                        completion(.failure(APIERRORS.limit))
+                    }
+    
                     completion(.success(searchResponse))
                 } catch {
                     completion(.failure(error))
@@ -169,3 +176,6 @@ struct API {
     }
     
 }
+
+
+

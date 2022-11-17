@@ -510,6 +510,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
+                    print("result about me: \(result)")
+                    
                     //
                     self.aboutTextLabel.text = items?.stockAboutDescription
                     self.sectorTextLabel.text = items?.sector
@@ -521,7 +523,11 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                 }
             case .failure(let error):
                 // otherwise, print an error to the console
-                print(error)
+                print("this error: ", error)
+                
+                self.showAlert(with: "Looks like we have reached our limit of API calls. Unable to retrieve some information")
+                
+                
             }
         }
         
