@@ -23,36 +23,31 @@ class ComparisonView: UIView {
     }
     
     // the ticker
+    /// configures everything on the left side without the
     func configureLeftSideOfContentView(
-        ticker: String,
-        price: Double = 0,
-        about: String = "",
-        type: String = "",
-        marketCap: String = "",
-        volume: String = " ",
-        PERatio: String=" ",
-        EPS: String = "") {
+        tickerName: String,
+        about: String?,
+        type: String?,
+        marketCap: String?,
+        volume: String?,
+        PERatio: String?,
+        EPS: String?) {
         
-        // editing the left side
-        verticalSV.editLeftSide(tickerName: ticker, price: price, about: about, type: type, marketCap: marketCap, volume: volume, PERatio: PERatio, EPS: EPS)
-    }
-    
-    
-  
+        verticalSV.editLeftSide(tickerName: tickerName, about: about, type: type, marketCap: marketCap, PERatio: PERatio, EPS: PERatio)
+
+        }
     
     
     // configuinr the right side of the stockview
     func configureRightSideOfStockView(
-        ticker: String,
-        price: Double = 0,
-        about: String = "",
-        type: String = "",
-        marketCap: String = "",
-        volume: String = " ",
-        PERatio: String=" ",
-        EPS: String = "") {
+        tickerName: String ,
+        about: String? ,
+        type: String? ,
+        marketCap: String? ,
+        PERatio: String? ,
+        EPS: String?) {
             
-        verticalSV.editRightSide(tickerName: ticker, price: price, about: about, type: type, marketCap: marketCap, volume: volume, PERatio: PERatio, EPS: EPS)
+        verticalSV.editRightSide(tickerName: tickerName, about: about, type: type, marketCap: marketCap, PERatio: PERatio, EPS: PERatio)
     }
     
     

@@ -121,11 +121,6 @@ struct API {
                 completion(.failure(error))
             } else if let data = data {
                 do {
-                    if let response = response as? HTTPURLResponse {
-                        print("response: ", response)
-                    } else {
-                        print("no response")
-                    }
                     let decoder = JSONDecoder()
                     let searchResponse = try decoder.decode(StockAbout.self, from: data) // gets the artists
                     

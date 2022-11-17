@@ -27,7 +27,6 @@ class VerticalSV: UIStackView {
     
     private let FirstSock: UILabel = {
         let lbl = UILabel()
-        lbl.text = "META"
         lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
@@ -50,7 +49,6 @@ class VerticalSV: UIStackView {
     
     private  let secondStock: UILabel = {
         let lbl = UILabel()
-        lbl.text = "META"
         lbl.font = FontConstants.boldLargeFont
         return lbl
     }()
@@ -91,20 +89,18 @@ class VerticalSV: UIStackView {
     
     private let LeftBiolbl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Nabil Bank Limited is a commercial bank in Nepal. Founded in 1984, the bank has branches across the nation and its head office in Kathmandu. Read full bio"
         lbl.textColor = UIColor.darkGray
 
         lbl.numberOfLines = 9
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
         return lbl
     }()
     
     private let rightBioLBl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Meta Platforms, Inc. develops products that enable people to connect and share with friends and family through mobile devices, PCs, virtual reality headsets, wearables and home devices around the world. The company is headquartered in Menlo Park, California."
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 9
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
         return lbl
     }()
     
@@ -143,7 +139,6 @@ class VerticalSV: UIStackView {
     
     private let leftTypeLBl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Commercial Bank"
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
         lbl.textColor = UIColor.darkGray
@@ -153,7 +148,6 @@ class VerticalSV: UIStackView {
     
     private let rightTypeLBl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Commercial Bank"
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -188,7 +182,6 @@ class VerticalSV: UIStackView {
     
     private let leftMarketCapLabl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "1.10B"
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -204,7 +197,6 @@ class VerticalSV: UIStackView {
     
     private let rightMarketCapLabl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "2.3B"
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -265,7 +257,7 @@ class VerticalSV: UIStackView {
     
     private let leftPERatioLabl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "3.12120B"
+
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -281,7 +273,6 @@ class VerticalSV: UIStackView {
     
     private let rightPERatioLabl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "1.31212B"
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -314,7 +305,7 @@ class VerticalSV: UIStackView {
     
     private let leftPEPSLabl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "4.12120B"
+
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -330,7 +321,6 @@ class VerticalSV: UIStackView {
     
     private let rightEPSLabl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "5.31B"
         lbl.textColor = UIColor.darkGray
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
@@ -350,44 +340,52 @@ class VerticalSV: UIStackView {
     }
 
     func editLeftSide(
-        tickerName: String = "",
-        price: Double = 0,
-        about: String = "",
-        type: String = "",
-        marketCap: String = "",
-        volume: String = " ",
-        PERatio: String=" ",
-        EPS: String = "") {
+        tickerName: String?,
+        about: String?,
+        type: String?,
+        marketCap: String?,
+        PERatio: String?,
+        EPS: String?) {
             
-        FirstSock.text = tickerName
-        self.leftfirstPrice.text = String(price)
-        self.LeftBiolbl.text = about
-        self.leftTypeLBl.text = type
-        self.leftMarketCapLabl.text = marketCap
+        // this is initially given
+        if let tickerName = tickerName {
+            FirstSock.text = tickerName
+        }
+       
+        if let about = about, let type = type, let marketCap = marketCap, let PERatio = PERatio, let EPS = EPS  {
+            self.LeftBiolbl.text = about
+            self.leftTypeLBl.text = type
+            self.leftMarketCapLabl.text = marketCap
 
-        self.leftPERatioLabl.text = PERatio
-        self.leftPEPSLabl.text = EPS
+            self.leftPERatioLabl.text = PERatio
+            self.leftPEPSLabl.text = EPS
+        }
+    
     }
     
     // editing the EPS
     func editRightSide(
-        tickerName: String = "",
-        price: Double = 0,
-        about: String = "",
-        type: String = "",
-        marketCap: String = "",
-        volume: String = " ",
-        PERatio: String=" ",
-        EPS: String = "") {
+        tickerName: String? ,
+        about: String? ,
+        type: String? ,
+        marketCap: String? ,
+        PERatio: String? ,
+        EPS: String?) {
+        
+        // this is initially given
+        if let tickerName = tickerName {
+            secondStock.text = tickerName
+        }
             
-            self.secondStock.text = tickerName
-            self.rightStockPrice.text = String(price)
-            self.rightBioLBl.text = about
-            self.rightTypeLBl.text = type
-            self.rightMarketCapLabl.text = marketCap
-            
-            self.rightPERatioLabl.text = PERatio
-            self.rightEPSLabl.text = EPS
+        if let about = about, let type = type, let marketCap = marketCap, let PERatio = PERatio, let EPS = EPS  {
+           
+           self.rightBioLBl.text = about
+           self.rightTypeLBl.text = type
+           self.rightMarketCapLabl.text = marketCap
+           self.rightPERatioLabl.text = PERatio
+           self.rightEPSLabl.text = EPS
+        }
+
       
     }
     
