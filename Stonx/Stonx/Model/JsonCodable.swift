@@ -11,14 +11,14 @@ import Foundation
 // for more info look into codable please or ask me
 
 struct StockAbout: Codable {
-    let symbol, assetType, name, stockAboutDescription: String
-    let cik, exchange, currency, country: String
-    let sector, industry, address, peRatio: String
-    let eps, revenuePerShareTTM, profitMargin, operatingMarginTTM: String
-    let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String
-    let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String
-    let trailingPE, forwardPE: String
-    let marketCap: String
+    let symbol, assetType, name, stockAboutDescription: String?
+    let cik, exchange, currency, country: String?
+    let sector, industry, address, peRatio: String?
+    let eps, revenuePerShareTTM, profitMargin, operatingMarginTTM: String?
+    let returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM: String?
+    let dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice: String?
+    let trailingPE, forwardPE: String?
+    let marketCap: String?
     let Note: String?
 
 
