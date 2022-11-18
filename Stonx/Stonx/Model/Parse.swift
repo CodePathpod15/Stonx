@@ -150,6 +150,8 @@ class ParseModel {
 class Survey {
     static let shared = Survey()
     let recommendedStr: String? = nil
+    var surveyedStocks = [String]()
+    private var surveyedTicker = ""
     
     // returns nil if there is no symbol to recommend
      func getTheRecommendedTickerSymbol(completion: @escaping (Result<Stock?, Error>) -> Void) {
@@ -210,5 +212,38 @@ class Survey {
             }
         }
     }
+    
+    
+    // saves the rating to ticker rating table
+    func saveTickerRatingToRatingsTable(ticker: String, rating: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        // we perform the transaction
+        let obj = PFObject(className: "ticker_rating")
+        obj["user"] = PFUser.current()!
+        obj["ticker_symbol"] = ticker
+        obj["rating"] = rating
+        
+        // TODO: fix the
+        obj.saveInBackground { success, error in
+            if let error = error {
+                completion(.success(true))
+            }
+            
+            if success {
+                // do nothing
+                completion(.success(true))
+            } else {
+                completion(.success(false))
+//                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                return
+            }
+        }
+    }
+    
+   
+
+   
+    
+    
+    
     
 }

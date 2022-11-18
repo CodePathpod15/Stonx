@@ -272,6 +272,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 // do nothing
                 print("rating was saved in user ")
                 self.saveTickerRating(ticker: self.surveyedTicker, rating: number)
+                
             } else {
                 self.showAlert(with: error?.localizedDescription ?? "an error")
             }
