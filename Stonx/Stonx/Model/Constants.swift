@@ -41,7 +41,7 @@ class UserConstants {
      static let surveyed = "Surveyed"
  }
 
-class ticker_rating {
+class Ticker_rating {
     static let object_name = "ticker_rating"
     static let ticker_symbol = "ticker_symbol"
     static let user = "user"
@@ -50,8 +50,8 @@ class ticker_rating {
 
 class user_transaction {
     static let object_name = "user_transaction"
-    static let user = ticker_rating.user
-    static let ticker_symbol = ticker_rating.ticker_symbol
+    static let user = Ticker_rating.user
+    static let ticker_symbol = Ticker_rating.ticker_symbol
     static let price = "price"
     static let quantity = "Quantity"
     static let purchase = "purchase"
@@ -61,9 +61,9 @@ class user_transaction {
 // the
 class Watchlist {
     static let object_name = "stocks_booked"
-    static let user = ticker_rating.user
+    static let user = Ticker_rating.user
     static let sector = "sector"
-    static let ticker_symbol = ticker_rating.ticker_symbol
+    static let ticker_symbol = Ticker_rating.ticker_symbol
 }
 
 

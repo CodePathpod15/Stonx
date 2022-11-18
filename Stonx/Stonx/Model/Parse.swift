@@ -148,13 +148,67 @@ class ParseModel {
 
 /// this is the model in charged of the survey
 class Survey {
-    var surveyedStocks = [String]()
-    
     static let shared = Survey()
+    let recommendedStr: String? = nil
     
-    //
-    func addingRating(rating: Int) {
+    // returns nil if there is no symbol to recommend
+     func getTheRecommendedTickerSymbol(completion: @escaping (Result<Stock?, Error>) -> Void) {
+        let query = PFQuery(className: Ticker_rating.object_name)
         
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            
+            // check if there is any error
+            if let error = error {
+                completion(.failure(error))
+            }
+           
+            // this maps a symbol to the added overall added rating
+            var symbolToRating = [String: Int]()
+            // this maps the symbol to the amount of ratings the symbol has received.
+            var symbolToAmountOfRatings = [String: Int]()
+            
+            // this is calculted by diving a symbolToRating[sym] / symbolToAmountOfRatings[symbol]
+            var symtolToAvgRating = [String:Double]()
+            
+            if let objects = objects {
+                
+                if objects.isEmpty {
+                    // returns an ampty array
+                    completion(.success(nil))
+                }
+                
+                
+                for object in objects {
+                    let symbol = object["ticker_symbol"] as! String
+                    let rating = object["rating"]  as! Int
+                    symbolToRating[symbol, default: 0] += rating
+                    symbolToAmountOfRatings[symbol, default: 0] += 1
+                }
+            
+                
+                for (tik, rating) in symbolToRating {
+                    symtolToAvgRating[tik] = Double(symbolToRating[tik]!) / Double(symbolToAmountOfRatings[tik]!)
+                }
+                
+                // check if there is any recommended symbol to recommend
+                // there is no symbol to recommend
+                if symtolToAvgRating.isEmpty {
+                    completion(.success(nil))
+                }
+                
+                
+                // this gets the max rating of them all
+                let recommendedSymbol = symtolToAvgRating.max { $0.value < $1.value }
+                
+                if let recommendedSymbol = recommendedSymbol {
+                    let stock = Stock(ticker: recommendedSymbol.key, price: 0, quantity: 0, ticker_fullName: "")
+                    stock.rating = recommendedSymbol.value
+                    completion(.success(stock))
+                } else {
+                    completion(.success(nil))
+                }
+            }
+        }
     }
     
 }

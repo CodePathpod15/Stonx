@@ -57,58 +57,28 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // TODO: add to parse model
     @objc func  lightBulbWasPressed() {
 
-        let query = PFQuery(className: "ticker_rating")
-        
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            
-            var symbolToRating = [String: Int]()
-            var symbolToAmountOfRatings = [String: Int]()
-            
-            var symtolToAvgRating = [String:Double]()
-            
-            if let objects = objects {
-                
-                if objects.isEmpty {
-                    print("no ratings to show")
-                    return
-                }
-                
-                for object in objects {
-                    let symbol = object["ticker_symbol"] as! String
-                    let rating = object["rating"]  as! Int
-                    symbolToRating[symbol, default: 0] += rating
-                    symbolToAmountOfRatings[symbol, default: 0] += 1
-                }
-            
-                var maxRating = 0
-                var ticker = ""
-                
-                for (tik, rating) in symbolToRating {
-                    symtolToAvgRating[tik] = Double(symbolToRating[tik]!) / Double(symbolToAmountOfRatings[tik]!)
-                }
-                
-                let recommendedSymbol = symtolToAvgRating.max { $0.value < $1.value }
-                self.recommendedStr = recommendedSymbol!.key
-
-                if let recommendedSymbol = recommendedSymbol {
+        Survey.shared.getTheRecommendedTickerSymbol { result in
+            switch result {
+            case .success(let stock):
+                print(stock)
+                if let stock = stock {
                     let rstock = RecommendedStocks()
-                    rstock.configure(rating: recommendedSymbol.value, tickerName: recommendedSymbol.key)
+                    rstock.configure(rating: stock.rating ?? 1, tickerName: stock.ticker_symbol )
                     rstock.delegate = self
                     rstock.translatesAutoresizingMaskIntoConstraints = false
-                    
                     let currentWindow: UIWindow? = UIApplication.shared.keyWindow
                     currentWindow?.addSubview(rstock)
-                    
-                    rstock.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-                }
-            }
-            
-            if error != nil {
-                self.showAlert(with: error?.localizedDescription ?? "an error retrieving the reconmmended stock")
-            }
-            
-        }
 
+                    rstock.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+                } else {
+                    self.showAlert(with: "There is currently no Stock to show ")
+                }
+                break
+                
+            case .failure(let error):
+                self.showAlert(with: error.localizedDescription )
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -165,7 +135,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             case .success(let items):
                 if let items  = items {
                     self.ownedStocks = items
-                 
                 }
                 
                 // make the connection after we have the stocks
