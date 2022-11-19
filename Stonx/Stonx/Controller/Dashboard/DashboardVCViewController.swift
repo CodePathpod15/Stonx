@@ -10,7 +10,39 @@ import Starscream
 
 
 
-class DashboardVCViewController: UIViewController, RateDelegate {
+class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelegate, TransactionDelegate {
+    
+    // transaction was completed
+    // Conformance to TransactionDelegate
+    func transac(of type: TransactionType) {
+        let vc = TransactionSuccessfulViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
+   
+    func buyWasPressed(stock: Stock) {
+        
+        
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: stock.ticker_symbol, latestPrice: stock.price/Double(stock.quantity))
+        vc.delegate = self
+        let view = UINavigationController(rootViewController: vc)
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true)
+    }
+    
+    func sellWaspressed(stock: Stock) {
+        
+        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: stock.ticker_symbol, latestPrice: stock.price/Double(stock.quantity), sharesOwned: stock.quantity)
+        vc.delegate = self
+        let view = UINavigationController(rootViewController: vc)
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true)
+    }
+    
+    
+   
+    
 
     // MARK: properties
     let scrollView = UIScrollView()
@@ -37,7 +69,9 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
   
         // add content view
+        contentView.delegate = self
         scrollView.addSubview(contentView)
+        
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor)
@@ -57,58 +91,28 @@ class DashboardVCViewController: UIViewController, RateDelegate {
     // TODO: add to parse model
     @objc func  lightBulbWasPressed() {
 
-        let query = PFQuery(className: "ticker_rating")
-        
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            
-            var symbolToRating = [String: Int]()
-            var symbolToAmountOfRatings = [String: Int]()
-            
-            var symtolToAvgRating = [String:Double]()
-            
-            if let objects = objects {
-                
-                if objects.isEmpty {
-                    print("no ratings to show")
-                    return
-                }
-                
-                for object in objects {
-                    let symbol = object["ticker_symbol"] as! String
-                    let rating = object["rating"]  as! Int
-                    symbolToRating[symbol, default: 0] += rating
-                    symbolToAmountOfRatings[symbol, default: 0] += 1
-                }
-            
-                var maxRating = 0
-                var ticker = ""
-                
-                for (tik, rating) in symbolToRating {
-                    symtolToAvgRating[tik] = Double(symbolToRating[tik]!) / Double(symbolToAmountOfRatings[tik]!)
-                }
-                
-                let recommendedSymbol = symtolToAvgRating.max { $0.value < $1.value }
-                self.recommendedStr = recommendedSymbol!.key
-
-                if let recommendedSymbol = recommendedSymbol {
+        Survey.shared.getTheRecommendedTickerSymbol { result in
+            switch result {
+            case .success(let stock):
+                print(stock)
+                if let stock = stock {
                     let rstock = RecommendedStocks()
-                    rstock.configure(rating: recommendedSymbol.value, tickerName: recommendedSymbol.key)
+                    rstock.configure(rating: stock.rating ?? 1, tickerName: stock.ticker_symbol )
                     rstock.delegate = self
                     rstock.translatesAutoresizingMaskIntoConstraints = false
-                    
                     let currentWindow: UIWindow? = UIApplication.shared.keyWindow
                     currentWindow?.addSubview(rstock)
-                    
-                    rstock.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-                }
-            }
-            
-            if error != nil {
-                self.showAlert(with: error?.localizedDescription ?? "an error retrieving the reconmmended stock")
-            }
-            
-        }
 
+                    rstock.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+                } else {
+                    self.showAlert(with: "There is currently no Stock to show ")
+                }
+                break
+                
+            case .failure(let error):
+                self.showAlert(with: error.localizedDescription )
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -165,7 +169,6 @@ class DashboardVCViewController: UIViewController, RateDelegate {
             case .success(let items):
                 if let items  = items {
                     self.ownedStocks = items
-                 
                 }
                 
                 // make the connection after we have the stocks
@@ -257,6 +260,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     self.surveyUser()
                 }
                 
+                 
             } else {
                 self.showAlert(with: "There was an error with your balance")
                 
@@ -303,6 +307,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                 // do nothing
                 print("rating was saved in user ")
                 self.saveTickerRating(ticker: self.surveyedTicker, rating: number)
+                
             } else {
                 self.showAlert(with: error?.localizedDescription ?? "an error")
             }

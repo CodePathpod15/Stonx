@@ -15,6 +15,7 @@ class Stock {
     var daysOfOnwerShip = 0
     var chagePercent: String = "x.x%"
     var sector: String = ""
+    var rating: Double?  = nil
     
     init(ticker: String, price: Double, quantity: Int, ticker_fullName: String) {
         self.ticker_symbol = ticker

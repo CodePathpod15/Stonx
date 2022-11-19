@@ -10,10 +10,16 @@ import UIKit
 import Charts
 
 
+protocol dashboardDelegate: AnyObject {
+    func buyWasPressed(stock: Stock)
+    func sellWaspressed(stock: Stock)
+}
+
 class DashboardContentView: UIView, UIGestureRecognizerDelegate {
     
     var stocks = [Stock]()
-    
+    weak var delegate: dashboardDelegate?
+ 
     //func chart
     // includes press gesture too see past history
     lazy var lineChartView: LineChartView = {
@@ -203,6 +209,8 @@ extension DashboardContentView: UITableViewDataSource {
         return 1
     }
     
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stocks.count
     }
@@ -220,6 +228,40 @@ extension DashboardContentView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         44
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let modifyAction = UIContextualAction(style: .normal, title: "Buy", handler: {
+            (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            
+            self.delegate?.buyWasPressed(stock: self.stocks[indexPath.row])
+            
+            
+            
+            success(true)
+        })
+        
+        modifyAction.backgroundColor = ColorConstants.green
+        
+        let modifyAction2 = UIContextualAction(style: .normal, title: "Sell", handler: {
+            (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("Update action ...")
+            self.delegate?.sellWaspressed(stock: self.stocks[indexPath.row])
+            
+            success(true)
+        })
+        
+        modifyAction2.backgroundColor = ColorConstants.red
+        
+        return UISwipeActionsConfiguration(actions: [modifyAction2,modifyAction])
+    }
+    
+    
+   
 }
 
 
