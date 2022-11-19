@@ -247,3 +247,120 @@ class Survey {
     
     
 }
+
+
+class Survey2 {
+    var surveyedStocks = [String]()
+    
+    init() {
+        
+        
+        
+    }
+    
+    func canBeSurveyed(completion: @escaping (Result<Bool, Error>)-> Void)  {
+        let user  = PFUser.current()!
+        user.fetchInBackground() {obj,err in
+            if let err = err {
+                completion(.failure(err))
+            }
+            
+            if let obj = obj {
+                let surveyed = obj.value(forKey: "Surveyed") as? [String]
+                self.surveyedStocks = surveyed ?? []
+                
+                let last_survey_Date =  user["last_surveyed"] as? Date
+                
+                // no need to survey the user
+                if last_survey_Date == nil {
+//                    self.surveyUser()
+                    completion(.success(true))
+                }
+  
+                let diffInDays = Calendar.current.dateComponents([.day], from:  last_survey_Date!, to: Date()).day
+                
+                if diffInDays! >= 7 {
+//                    self.surveyUser()
+                    completion(.success(true))
+                }
+                
+                completion(.success(false))
+            } else {
+                // if user object doesnt exsit
+                completion(.success(false))
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    func getSurveyEyedStock()->Stock? {
+        
+        canBeSurveyed { result in
+            switch result {
+            case .success(let reType):
+                if reType {
+                  
+                }
+            
+            print("hehe")
+            case .failure(let err):
+            print("hehe")
+            
+            }
+        }
+        
+        // check the last time the user was surveyed
+        
+        
+        
+        
+        return nil
+    }
+    
+    
+    func surveyUser(completion: @escaping (Result<Stock?, Error>)-> Void) {
+       var stocks = [Stock]()
+        ParseModel.shared.getStockUserOwns { result in
+           switch result {
+               case .success(let items):
+                   if let items = items {
+                       stocks = items
+                       
+                       // we remove all of the stocks the use has been surveyed from the
+                       self.surveyedStocks.forEach { ticker in
+                           stocks.removeAll(where: {$0.ticker_symbol == ticker})
+                       }
+                       // we remove all of the stocks that the user has owned for less than 7 days
+                       stocks.removeAll(where: {$0.daysOfOnwerShip < 7})
+                       
+                       // no need to survey the user if the stock is empty
+                       if stocks.isEmpty {
+                           completion(.success(nil))
+                       }
+                       
+                       // at this point the we know we have stocks we can survey
+                       let stockToSuvey = stocks.first!
+                    
+                       completion(.success(stockToSuvey))
+                   } else {
+                       // it is nil so we return
+                       // no need to survey the user if they dont own any stock
+                       return
+                       
+                   }
+             case .failure(let error):
+                 // otherwise, print an error to the console
+                 print(error)
+             }
+       }
+        
+   }
+    
+    
+    
+    
+}

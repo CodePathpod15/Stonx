@@ -226,6 +226,7 @@ class DashboardVCViewController: UIViewController, RateDelegate {
                     self.surveyUser()
                 }
                 
+                 
             } else {
                 self.showAlert(with: "There was an error with your balance")
                 
