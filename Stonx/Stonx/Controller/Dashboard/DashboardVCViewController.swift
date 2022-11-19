@@ -10,7 +10,39 @@ import Starscream
 
 
 
-class DashboardVCViewController: UIViewController, RateDelegate {
+class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelegate, TransactionDelegate {
+    
+    // transaction was completed
+    // Conformance to TransactionDelegate
+    func transac(of type: TransactionType) {
+        let vc = TransactionSuccessfulViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
+   
+    func buyWasPressed(stock: Stock) {
+        
+        
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: stock.ticker_symbol, latestPrice: stock.price/Double(stock.quantity))
+        vc.delegate = self
+        let view = UINavigationController(rootViewController: vc)
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true)
+    }
+    
+    func sellWaspressed(stock: Stock) {
+        
+        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: stock.ticker_symbol, latestPrice: stock.price/Double(stock.quantity), sharesOwned: stock.quantity)
+        vc.delegate = self
+        let view = UINavigationController(rootViewController: vc)
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true)
+    }
+    
+    
+   
+    
 
     // MARK: properties
     let scrollView = UIScrollView()
@@ -37,7 +69,9 @@ class DashboardVCViewController: UIViewController, RateDelegate {
         scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
   
         // add content view
+        contentView.delegate = self
         scrollView.addSubview(contentView)
+        
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor)
