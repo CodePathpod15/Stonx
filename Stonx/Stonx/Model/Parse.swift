@@ -315,9 +315,6 @@ class Survey2 {
         
         // check the last time the user was surveyed
         
-        
-        
-        
         return nil
     }
     
