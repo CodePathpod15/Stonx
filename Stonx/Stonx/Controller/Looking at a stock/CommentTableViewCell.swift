@@ -61,14 +61,14 @@ class CommentTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             usernameLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             usernameLbl.leadingAnchor.constraint(equalTo: profImageView.trailingAnchor, constant: 10),
-            usernameLbl.trailingAnchor.constraint(equalTo: commentLbl.leadingAnchor, constant: -10)
+            //usernameLbl.trailingAnchor.constraint(equalTo: commentLbl.leadingAnchor, constant: -10)
         ])
         
         NSLayoutConstraint.activate([
-            commentLbl.leadingAnchor.constraint(equalTo: usernameLbl.trailingAnchor),
+            commentLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             commentLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            commentLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
-        
+            commentLbl.topAnchor.constraint(equalTo: profImageView.bottomAnchor, constant: 10),
+            commentLbl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
         

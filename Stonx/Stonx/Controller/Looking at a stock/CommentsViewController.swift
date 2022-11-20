@@ -9,8 +9,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     private var showsCommentBar = false
     var stockName = ""
     
-    let tableView: UITableView = {
-        let table = UITableView()
+    let tableView: AutoSizingTableView = {
+        let table = AutoSizingTableView()
         table.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
