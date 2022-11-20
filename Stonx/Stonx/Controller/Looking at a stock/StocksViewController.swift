@@ -1,14 +1,13 @@
 import Charts
-import UIKit
 import Parse
-
+import UIKit
 
 // TODO: clean up
 // ANGY: try subclassing the
 // dont let user buy if the api calls have reached their limit
 class StocksViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
-    
-    /// MARK:  propeties
+    // MARK: propeties
+
     private lazy var tickerSymbol: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +90,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return button
     }()
     
-
     lazy var marketCapimageIcon: UIButton = {
         let image = UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(ColorConstants.green)
         let button = UIButton(type: .system)
@@ -112,7 +110,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         
         return hStackView
     }()
-    
     
     private lazy var marketCapHStackView: UIStackView = {
         let hStackView = UIStackView()
@@ -161,7 +158,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return hStackView
     }()
     
-    
     private lazy var stockPERatioHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -172,7 +168,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         hStackView.addArrangedSubview(stockPERatioTextLabel)
         return hStackView
     }()
-    
     
     private lazy var stockEPSAndIconSV: UIStackView = {
         let hStackView = UIStackView()
@@ -197,7 +192,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return hStackView
     }()
     
-
     private lazy var stockPriceHStackView: UIStackView = {
         let hStackView = UIStackView()
         hStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -287,7 +281,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return textLabel
     }()
     
-    
     private lazy var stockPriceChangeLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -352,7 +345,6 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return textLabel
     }()
     
-  
     private let tradeButtonBottom: UIButton = {
         let floatingButton = UIButton(type: .system)
         floatingButton.setTitle("Trade", for: .normal)
@@ -389,9 +381,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return textLabel
     }()
 
-    
     lazy var lineChartView: LineChartView = {
-        let chartView  =  LineChartView()
+        let chartView = LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
@@ -462,16 +453,14 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             informationview.configure(title: "EPS", caption: "ernings per share (EPS) is calculated as a company's profit divided by the outstanding shares of its common stock.")
         } else if button == imageIconPERatio {
             informationview.configure(title: "P/E", caption: "The P/E for a stock is computed by dividing the price of the stock by the company's annual earnings per share. It tells investors how much a company is worth.")
-        } else if button  == marketCapimageIcon {
+        } else if button == marketCapimageIcon {
             informationview.configure(title: "Market Cap", caption: "Refers to how much a company is worth as determined by the stock market. It is defined as the total market value of all outstanding shares.")
         }
                     
-    
         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
         currentWindow?.addSubview(informationview)
         
-        informationview.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-      
+        informationview.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     var tickerName = ""
@@ -484,8 +473,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         setupConstraints()
         setData()
         
-        //Set up dragging feature on line chart
-        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.chartTapped))
+        // Set up dragging feature on line chart
+        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chartTapped))
         tapRecognizer.minimumPressDuration = 0.01
         lineChartView.addGestureRecognizer(tapRecognizer)
         tapRecognizer.delegate = self
@@ -493,13 +482,13 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // TODO: intializer
     
-    var sect: String? = nil
-    var stockObject: PFObject? = nil
+    var sect: String?
+    var stockObject: PFObject?
     
     // so we pass the bestMatch from the previos vc
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)
-        self.title = stockInfo.the1Symbol
+        title = stockInfo.the1Symbol
         
         tickerSymbol.text = stockInfo.the2Name
         
@@ -512,7 +501,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     self.aboutTextLabel.text = items?.stockAboutDescription
                     self.sectorTextLabel.text = items?.sector
                     self.sect = items?.sector
-                    self.stockEPSTextLabel.text =  items?.eps
+                    self.stockEPSTextLabel.text = items?.eps
                     self.stockPERatioTextLabel.text = items?.peRatio
                     // market cap
                     self.marketCapTextLabel.text = items?.marketCap
@@ -527,10 +516,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                        
                     default:
                         self.showAlert(with: error.localizedDescription)
-                  
                     }
                 }
-                
             }
         }
         
@@ -545,9 +532,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     
                     // so here we know we have items
                     if let items = items {
-                        
-                        if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
-                               self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+                        if items.globalQuote.the10ChangePercent.contains(where: { $0 == "-" }) {
+                            self.stockPricePercentChangeLabel.textColor = ColorConstants.red
                         } else {
                             self.stockPricePercentChangeLabel.textColor = ColorConstants.green
                         }
@@ -564,16 +550,14 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                         
                     default:
                         self.showAlert(with: error.localizedDescription)
-                        
                     }
                 }
             }
-            
         }
         
         // query to check if this stock exists in the database
-        let query = PFQuery(className:"stocks_booked")
-        query.whereKey("ticker_symbol", equalTo:tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
+        let query = PFQuery(className: "stocks_booked")
+        query.whereKey("ticker_symbol", equalTo: tickerName).whereKey("user", contains: PFUser.current()!.objectId)
 
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
@@ -596,18 +580,15 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                         let rightButton: UIBarButtonItem = rbutton
                         self.navigationItem.rightBarButtonItems = [rightButton, commentsButton]
                         self.stockObject = objects[0]
-                    
                     }
                 }
-       
             }
         }
-        
     }
     
-    @objc func viewComments(){
+    @objc func viewComments() {
         let comments = CommentsViewController()
-        comments.stockName = self.title!
+        comments.stockName = title!
         comments.title = "Discussion"
         show(comments, sender: self)
     }
@@ -617,34 +598,30 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     // gets all of the stocks that the user owns
     func getOwnedStocks() {
         let query = PFQuery(className: "user_transaction")
-        query.whereKey("ticker_symbol", equalTo: self.tickerName).whereKey("user", contains:  PFUser.current()!.objectId)
-        do{
+        query.whereKey("ticker_symbol", equalTo: tickerName).whereKey("user", contains: PFUser.current()!.objectId)
+        do {
             var totalBought = 0
-           var sold = 0
+            var sold = 0
             let obj = try query.findObjects()
             for object in obj {
-                
                 let pur = object["purchase"] as? Bool
                 let quantity = object["Quantity"] as? Int
                 if pur == true {
-                   totalBought += quantity!
-                 } else {
-                     sold += quantity!
-                 }
+                    totalBought += quantity!
+                } else {
+                    sold += quantity!
+                }
             }
-            stocksOwned[self.tickerName] = totalBought - sold
-            
-        }
-        catch {
+            stocksOwned[tickerName] = totalBought - sold
+        } catch {
             print("error")
         }
     }
     
-    
     @objc func addToWatchList() {
         // create parse object
         
-        if  self.navigationItem.rightBarButtonItem?.title == "favorite" {
+        if navigationItem.rightBarButtonItem?.title == "favorite" {
             let watchlist = PFObject(className: "stocks_booked")
             // saves the ticker name
             watchlist["ticker_symbol"] = tickerName
@@ -670,8 +647,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             if let stockObject = stockObject {
                 let array = [stockObject]
               
-                PFObject.deleteAll(inBackground: array) { (succeeded, error) in
-                    if (succeeded) {
+                PFObject.deleteAll(inBackground: array) { succeeded, error in
+                    if succeeded {
                         // The array of objects was successfully deleted.
                         self.navigationItem.rightBarButtonItem?.title = "favorite"
                     } else {
@@ -680,28 +657,26 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     }
                 }
             }
-
         }
     }
     
     @objc func unaddFromWatchList() {
         // deletes parse objects from database
-        
     }
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     // this is actually fake data no needed
     // ignore
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // MARK: view set up
+
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -742,28 +717,27 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
         ])
                 
-
         // Constraints for views that are not horizontal stack views in the main vertical stack view
         // Let auto layout handle each stack height, chart height must be explicit though
         NSLayoutConstraint.activate([
             // Ticker Symbol layout
             stackView.arrangedSubviews[0].leftAnchor.constraint(equalTo: view.leftAnchor, constant: padding),
             stackView.arrangedSubviews[0].rightAnchor.constraint(equalTo: view.rightAnchor),
-
+            
             // Chart Layout
             stackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor),
             stackView.arrangedSubviews[2].heightAnchor.constraint(equalToConstant: 200),
             stackView.arrangedSubviews[2].leftAnchor.constraint(equalTo: view.leftAnchor),
-
+            
             // About Section Header
             stackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor),
             
             // About Section Text
             stackView.arrangedSubviews[5].rightAnchor.constraint(equalTo: view.rightAnchor),
-           
+            
             // Type Section Label
             stackView.arrangedSubviews[6].rightAnchor.constraint(equalTo: view.rightAnchor),
-
+            
             // Type Section Text Label
             stackView.arrangedSubviews[7].rightAnchor.constraint(equalTo: view.rightAnchor),
             
@@ -772,17 +746,15 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             
             stackView.arrangedSubviews[13].rightAnchor.constraint(equalTo: view.rightAnchor)
             
-
         ])
                 
         // Layout only needed for the price and % change to clip it to right hand side
         NSLayoutConstraint.activate([
-            
             stockPriceHStackView.arrangedSubviews[1].rightAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[2].leftAnchor),
             
             stockPriceHStackView.arrangedSubviews[1].leftAnchor.constraint(equalTo: stockPriceHStackView.arrangedSubviews[0].rightAnchor),
-
-            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            
+            stockPriceHStackView.arrangedSubviews[2].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding)
         ])
         
         // Provide layout for the right hand side labels
@@ -803,30 +775,27 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Action methods
     
-     @objc private func tradeButtonWaspressed() {
+    @objc private func tradeButtonWaspressed() {
+        let tradeView = TradeView()
          
-         let tradeView = TradeView()
+        if stocksOwned[tickerName] != nil {
+            let owned = stocksOwned[tickerName]!
+            if owned == 0 {
+                tradeView.sellButton.isEnabled = false
+                tradeView.sellButton.backgroundColor = .systemGray
+            }
+        }
          
-         if stocksOwned[self.tickerName] != nil {
-             let owned = stocksOwned[self.tickerName]!
-             if owned == 0 {
-                 tradeView.sellButton.isEnabled = false
-                 tradeView.sellButton.backgroundColor = .systemGray
-             }
-         }
+        tradeView.translatesAutoresizingMaskIntoConstraints = false
+        tradeView.delegate = self
          
-         tradeView.translatesAutoresizingMaskIntoConstraints = false
-         tradeView.delegate = self
+        let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+        currentWindow?.addSubview(tradeView)
          
-         
-         let currentWindow: UIWindow? = UIApplication.shared.keyWindow
-         currentWindow?.addSubview(tradeView)
-         
-         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     @objc private func chartTapped(_ sender: UITapGestureRecognizer) {
-
 //        if sender.state == .began || sender.state == .changed {
 //            // show change historyIB
 //            let currentPrice = self.stockPriceLabel.text?.description ?? "0.00"
@@ -850,51 +819,50 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
 //            }
 //        } else {
 //                // show the current price
-////                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
-////
-////                    switch result {
-////                    case .success(let items):
-////                        DispatchQueue.main.async {
-////                            // update the price and
-////                            self.stockPriceLabel.textColor = .systemGreen
-////                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
-////                            self.stockPriceLabel.text = items?.globalQuote.the05Price
-////
-////                            // so here we know we have items
-////                            if let items = items {
-////
-////                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
-////                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
-////                                } else {
-////                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
-////                                }
-////
-////                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
-////                            }
-////                        }
-////
-////                    case .failure(let error):
-////                        // otherwise, print an error to the console
-////                        DispatchQueue.main.async {
-////                            switch error {
-////                            case APIERRORS.limit:
-////                                self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
-////                                break
-////                            default:
-////                                self.showAlert(with: error.localizedDescription)
-////                                break
-////                            }
-////                        }
-////                    }
-////
-////                }
-////                lineChartView.highlightValue(nil)
+        ////                API.getLatestStockPrice(tickerSymbol: tickerName) { result in
+        ////
+        ////                    switch result {
+        ////                    case .success(let items):
+        ////                        DispatchQueue.main.async {
+        ////                            // update the price and
+        ////                            self.stockPriceLabel.textColor = .systemGreen
+        ////                            self.stockVolumeTextLabel.text = items?.globalQuote.the06Volume
+        ////                            self.stockPriceLabel.text = items?.globalQuote.the05Price
+        ////
+        ////                            // so here we know we have items
+        ////                            if let items = items {
+        ////
+        ////                                if items.globalQuote.the10ChangePercent.contains(where: {return $0=="-"}) {
+        ////                                       self.stockPricePercentChangeLabel.textColor = ColorConstants.red
+        ////                                } else {
+        ////                                    self.stockPricePercentChangeLabel.textColor = ColorConstants.green
+        ////                                }
+        ////
+        ////                                self.stockPricePercentChangeLabel.text = items.globalQuote.the10ChangePercent
+        ////                            }
+        ////                        }
+        ////
+        ////                    case .failure(let error):
+        ////                        // otherwise, print an error to the console
+        ////                        DispatchQueue.main.async {
+        ////                            switch error {
+        ////                            case APIERRORS.limit:
+        ////                                self.showAlert(with: "You have reached the five api calls per minute or 500 api calls per day")
+        ////                                break
+        ////                            default:
+        ////                                self.showAlert(with: error.localizedDescription)
+        ////                                break
+        ////                            }
+        ////                        }
+        ////                    }
+        ////
+        ////                }
+        ////                lineChartView.highlightValue(nil)
 //            }
-        
-        }
+    }
 
-    
-    //MARK: Chart set up
+    // MARK: Chart set up
+
     func setData() {
         let set1 = LineChartDataSet(entries: yvalue)
         set1.drawCirclesEnabled = false
@@ -913,33 +881,29 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
 // implementation of delegates
 extension StocksViewController: TradingDelegate {
     func sell() {
-        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text!)!, sharesOwned: stocksOwned[self.tickerName]!)
+        let vc = TransactionViewController(typeOfTransaction: .sell, ticker: tickerName, latestPrice: Double(stockPriceLabel.text!)!, sharesOwned: stocksOwned[tickerName]!)
         
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
-        self.present(view, animated: true)
+        present(view, animated: true)
     }
-    
     
     // enabling the buying of a stock
     func buy() {
-        print("going into buy: ", self.tickerName)
-        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: self.tickerName, latestPrice: Double(self.stockPriceLabel.text ?? "0.00")!)
+        print("going into buy: ", tickerName)
+        let vc = TransactionViewController(typeOfTransaction: .buy, ticker: tickerName, latestPrice: Double(stockPriceLabel.text ?? "0.00")!)
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)
         view.modalPresentationStyle = .fullScreen
-        self.present(view, animated: true)
+        present(view, animated: true)
     }
-
 }
 
 extension StocksViewController: TransactionDelegate {
     func transac(of type: TransactionType) {
         let vc = TransactionSuccessfulViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        present(vc, animated: true)
     }
-    
-    
 }
