@@ -60,6 +60,8 @@
 		1CEBCAE0290DD5E7007B45DE /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADF290DD5E7007B45DE /* BalanceTableViewCell.swift */; };
 		1CEBCAE2290DDBA7007B45DE /* DarkModeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAE1290DDBA7007B45DE /* DarkModeTableViewCell.swift */; };
 		1CEBCAE4290DED4D007B45DE /* JsonCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAE3290DED4D007B45DE /* JsonCodable.swift */; };
+		41C78ED5292AD58E00A570F9 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C78ED4292AD58E00A570F9 /* CommentTableViewCell.swift */; };
+		41C78ED7292AD5AB00A570F9 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C78ED6292AD5AB00A570F9 /* CommentsViewController.swift */; };
 		81B612AC10D0091BF0A09FCB /* Pods_Stonx_StonxUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3FCE78D503BF9336F40CE9 /* Pods_Stonx_StonxUITests.framework */; };
 		9DBB5ED189DA26AFFE67A0CE /* Pods_Stonx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68A2A9DB7BA6A32B98852571 /* Pods_Stonx.framework */; };
 		D825BCBBF2E885A72A7692F2 /* Pods_StonxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94185B74ED0AB28934C1D3B1 /* Pods_StonxTests.framework */; };
@@ -142,6 +144,8 @@
 		1CEBCAE3290DED4D007B45DE /* JsonCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCodable.swift; sourceTree = "<group>"; };
 		2ABFD521B36AE67DCC1090CD /* Pods-Stonx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stonx.release.xcconfig"; path = "Target Support Files/Pods-Stonx/Pods-Stonx.release.xcconfig"; sourceTree = "<group>"; };
 		304DFE0699EDECB5C9C4EAED /* Pods-Stonx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stonx.debug.xcconfig"; path = "Target Support Files/Pods-Stonx/Pods-Stonx.debug.xcconfig"; sourceTree = "<group>"; };
+		41C78ED4292AD58E00A570F9 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		41C78ED6292AD5AB00A570F9 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		5C3FCE78D503BF9336F40CE9 /* Pods_Stonx_StonxUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stonx_StonxUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		669A4A1201FCAC036277D952 /* Pods-StonxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StonxTests.debug.xcconfig"; path = "Target Support Files/Pods-StonxTests/Pods-StonxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		68A2A9DB7BA6A32B98852571 /* Pods_Stonx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stonx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				1CE84F382911D9410001F970 /* StocksViewController.swift */,
+				41C78ED4292AD58E00A570F9 /* CommentTableViewCell.swift */,
+				41C78ED6292AD5AB00A570F9 /* CommentsViewController.swift */,
 				1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */,
 			);
 			path = "Looking at a stock";
@@ -628,6 +634,7 @@
 				1C160C3D291C465D00CE5823 /* ComparisonView.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
 				1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */,
+				41C78ED5292AD58E00A570F9 /* CommentTableViewCell.swift in Sources */,
 				1CE84FC5291874410001F970 /* DashBoardVCExtension.swift in Sources */,
 				1C160C39291B7AC400CE5823 /* WatchlistTableViewCell.swift in Sources */,
 				1CE84F3F291239810001F970 /* StockMarket.swift in Sources */,
@@ -638,6 +645,7 @@
 				1CD4669F2922A83200AE9EAF /* DashboardVCSocket.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
+				41C78ED7292AD5AB00A570F9 /* CommentsViewController.swift in Sources */,
 				1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */,
 				1C160C3F291C768000CE5823 /* VerticalSV.swift in Sources */,
 				1C291DD329048D110058E291 /* API.swift in Sources */,

@@ -586,21 +586,30 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     // Can probably clean this up as well
                     if objects.isEmpty {
                         let rbutton = UIBarButtonItem(title: "favorite", style: .plain, target: self, action: #selector(self.addToWatchList))
+                        let commentsButton = UIBarButtonItem(image: UIImage(systemName: "text.bubble"), style: .plain, target: self, action: #selector(self.viewComments))
                         let rightButton: UIBarButtonItem = rbutton
-                        self.navigationItem.rightBarButtonItem = rightButton
+                        self.navigationItem.rightBarButtonItems = [rightButton, commentsButton]
                         
                     } else {
                         let rbutton = UIBarButtonItem(title: "remove", style: .plain, target: self, action: #selector(self.addToWatchList))
+                        let commentsButton = UIBarButtonItem(image: UIImage(systemName: "text.bubble"), style: .plain, target: self, action: #selector(self.viewComments))
                         let rightButton: UIBarButtonItem = rbutton
-                        self.navigationItem.rightBarButtonItem = rightButton
+                        self.navigationItem.rightBarButtonItems = [rightButton, commentsButton]
                         self.stockObject = objects[0]
-                        
+                    
                     }
                 }
        
             }
         }
         
+    }
+    
+    @objc func viewComments(){
+        let comments = CommentsViewController()
+        comments.stockName = self.title!
+        comments.title = "Discussion"
+        show(comments, sender: self)
     }
     
     var stocksOwned = [String: Int]()

@@ -8,6 +8,9 @@ PODS:
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
   - lottie-ios (3.4.3)
+  - MessageInputBar (0.4.1):
+    - MessageInputBar/Core (= 0.4.1)
+  - MessageInputBar/Core (0.4.1)
   - Parse (1.19.3):
     - Parse/Core (= 1.19.3)
   - Parse/Core (1.19.3):
@@ -19,6 +22,7 @@ DEPENDENCIES:
   - AlamofireImage
   - Charts
   - lottie-ios
+  - MessageInputBar
   - Parse
   - Starscream (~> 4.0.0)
 
@@ -29,6 +33,7 @@ SPEC REPOS:
     - Bolts
     - Charts
     - lottie-ios
+    - MessageInputBar
     - Parse
     - Starscream
     - SwiftAlgorithms
@@ -39,10 +44,11 @@ SPEC CHECKSUMS:
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Charts: 354f86803d11d9c35de280587fef50d1af063978
   lottie-ios: 9ae750cdc7820fecbd3c2f0cfc493038208fcdc4
+  MessageInputBar: e81c7535347f1f7b923de7080409a535a004b6e4
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: 002b3128ec58adc4f9ea3c19dca99abf73b30e82
+PODFILE CHECKSUM: 7e74ec2ffed388e4f50dfd6fcbf606a015337174
 
 COCOAPODS: 1.11.3
