@@ -46,38 +46,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         // commented out the parse implementation here
-//        parseLogInImplementation()
-        
-//        
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-
-            // if the user is logged in
-            // You will do your parse stuff here
-            let loggedIn = true
-
-            if loggedIn {
-                
-                let vc = UINavigationController(rootViewController: ChartsViewController())
-                let root = vc
-
-                window.rootViewController = root
-
-
-                self.window = window
-                window.makeKeyAndVisible()
-            } else {
-
-                let vc = UINavigationController(rootViewController: LoginViewController())
-                let root = vc
-
-                window.rootViewController = root
-
-                self.window = window
-                window.makeKeyAndVisible()
-            }
-
-        }
+        parseLogInImplementation()
+            
+//        if let windowScene = scene as? UIWindowScene {
+//            let window = UIWindow(windowScene: windowScene)
+//
+//            // if the user is logged in
+//            // You will do your parse stuff here
+//            let loggedIn = true
+//
+//            if loggedIn {
+//
+//                let vc = UINavigationController(rootViewController: ChartsViewController())
+//                let root = vc
+//
+//                window.rootViewController = root
+//
+//
+//                self.window = window
+//                window.makeKeyAndVisible()
+//            } else {
+//
+//                let vc = UINavigationController(rootViewController: LoginViewController())
+//                let root = vc
+//
+//                window.rootViewController = root
+//
+//                self.window = window
+//                window.makeKeyAndVisible()
+//            }
+//
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

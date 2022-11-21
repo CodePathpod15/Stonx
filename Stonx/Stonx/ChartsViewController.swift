@@ -14,8 +14,15 @@ import Charts
 class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
     func rate(number: Int) {
         // save the rating
-       
-        
+        Survey2.shared.completeSurvey(rating: number) { rest in
+            switch rest {
+            case .success(let res):
+                print(res)
+            case .failure(let err):
+                print(err)
+            }
+        }
+
         
         
     }
@@ -155,25 +162,20 @@ class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
                 } else {
                     print("cannt survey the user")
                 }
-
-                print(res)
+                
             case .failure(let err):
                 print(err.localizedDescription)
             }
         }
-        
-        
-
     }
+    
     
     func getTheUserSurvey() {
         Survey2.shared.surveyUser { rest in
             switch rest {
             case .success(let st):
                 DispatchQueue.main.async {
-                    
                     if let st = st {
-                        print(st.ticker_symbol)
                         self.displayQuestionaireIfUserHasOwnedStock(with: st.ticker_symbol)
                     }
                 }

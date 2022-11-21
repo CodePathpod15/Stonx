@@ -178,8 +178,7 @@ class Survey {
                     // returns an ampty array
                     completion(.success(nil))
                 }
-                
-                
+          
                 for object in objects {
                     let symbol = object["ticker_symbol"] as! String
                     let rating = object["rating"]  as! Int
@@ -250,11 +249,9 @@ class Survey {
 
 
 class Survey2 {
-    
     static var shared = Survey2()
-    
-    
     var surveyedStocks = [String]()
+    var stockBeingSurvyed: Stock? = nil
     
     init() {
     
@@ -301,8 +298,6 @@ class Survey2 {
     
     
     // check if they can be surveyed
-
-    
     
     func surveyUser(completion: @escaping (Result<Stock?, Error>)-> Void) {
        var stocks = [Stock]()
@@ -322,13 +317,14 @@ class Survey2 {
                        // no need to survey the user if the stock is empty
                        if stocks.isEmpty {
                            completion(.success(nil))
+                           return
                        }
                        
                        // at this point the we know we have stocks we can survey
                        let stockToSuvey = stocks.first!
                        
                        // survey the user
-                       
+                       self.stockBeingSurvyed = stockToSuvey
                        completion(.success(stockToSuvey))
                    } else {
                        // it is nil so we return
@@ -344,8 +340,95 @@ class Survey2 {
         
    }
     // complete the survey
+    func completeSurvey(rating: Int, completion: @escaping (Result<Bool?, Error>)-> Void) {
+        
+        guard let stockBeingSurvyed =  stockBeingSurvyed else {return}
+        
+
+        // this saves the ticker to the ratings table
+        saveTickerRatingToRatingsTable(ticker: stockBeingSurvyed.ticker_symbol, rating: rating) { res in
+            switch res {
+            case .failure(let c):
+                completion(.failure(c))
+            case .success(let b):
+                completion(.success(true))
+            }
+        }
+
+        saveTheSurveyDateAndSurveyedStocks(ticker: stockBeingSurvyed.ticker_symbol) { res in
+            switch res {
+            case .failure(let c):
+                completion(.failure(c))
+            case .success(let b):
+                completion(.success(true))
+            }
+        }
+            
+    }
     
     
+    // saving the the content
+    func saveTheSurveyDateAndSurveyedStocks(ticker: String, completion: @escaping (Result<Bool, Error>)-> Void) {
+        let usr = PFUser.current()!
+        usr["last_surveyed"] = Date()
+        surveyedStocks.append(ticker)
+        usr["Surveyed"] = surveyedStocks
+        
+        usr.saveInBackground() { success, error in
+            if success {
+                // do nothing
+                print("survey date was done")
+                completion(.success(true))
+            }
+            
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
+    func saveTheUserDate(completion: @escaping (Result<Bool, Error>)-> Void) {
+        let usr = PFUser.current()!
+        usr["last_surveyed"] = Date()
+        
+        usr.saveInBackground() { success, error in
+            if success {
+                // do nothing
+                print("survey date was done")
+                completion(.success(true))
+            }
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+        }
+    }
     
     
+    func saveTickerRatingToRatingsTable(ticker: String, rating: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        // we perform the transaction
+        let obj = PFObject(className: "ticker_rating")
+        obj["user"] = PFUser.current()!
+        obj["ticker_symbol"] = ticker
+        obj["rating"] = rating
+        
+        // TODO: fix the
+        obj.saveInBackground { success, error in
+            if let error = error {
+                completion(.success(true))
+            }
+            
+            if success {
+                // do nothing
+                completion(.success(true))
+            } else {
+                completion(.success(false))
+//                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                return
+            }
+        }
+    }
+    
+
 }
