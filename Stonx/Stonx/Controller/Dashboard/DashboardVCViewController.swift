@@ -51,12 +51,11 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     var recommendedStr = ""
     private var surveyedTicker = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        Survey2.shared.canBeSurveyed { result in
+        Survey.shared.canBeSurveyed { result in
             switch result {
             case .success(let res):
                 if res {
@@ -69,8 +68,6 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
                 print(err.localizedDescription)
             }
         }
-        
-        
         
         setUpViews()
         socket.delegate = self
@@ -201,7 +198,7 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     }
  
     func getTheUserSurvey() {
-        Survey2.shared.surveyUser { rest in
+        Survey.shared.surveyUser { rest in
             switch rest {
             case .success(let st):
                 DispatchQueue.main.async {
@@ -245,7 +242,7 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     // TODO: figure out how to insert unique elements
     func rate(number: Int) {
         
-        Survey2.shared.completeSurvey(rating: number) { result in
+        Survey.shared.completeSurvey(rating: number) { result in
             switch result {
             case .success(let res):
                 print("it was saved")

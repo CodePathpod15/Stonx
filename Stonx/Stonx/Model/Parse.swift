@@ -94,12 +94,6 @@ class ParseModel {
             }
         }
     
-    // get recommended stock
-    // this will return the stock
-    // TODO: 
-    func getStockRecommendation(completion: @escaping (Result<Stock?, Error>) -> Void) {
-        
-    }
     
     // getting the watchlist
     //this gets the Watchlist
@@ -138,9 +132,15 @@ class ParseModel {
             } else {
                 completion(.success(stocksUserOwns))
             }
- 
         }
     }
+    
+    // buy a stock
+    
+ 
+    // sell a sto
+    
+    
 }
 
 
@@ -151,7 +151,7 @@ class Survey {
     static let shared = Survey()
     let recommendedStr: String? = nil
     var surveyedStocks = [String]()
-    private var surveyedTicker = ""
+    var stockBeingSurvyed: Stock? = nil
     
     // returns nil if there is no symbol to recommend
      func getTheRecommendedTickerSymbol(completion: @escaping (Result<Stock?, Error>) -> Void) {
@@ -210,52 +210,11 @@ class Survey {
                 }
             }
         }
+         
     }
     
     
     // saves the rating to ticker rating table
-    func saveTickerRatingToRatingsTable(ticker: String, rating: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
-        // we perform the transaction
-        let obj = PFObject(className: "ticker_rating")
-        obj["user"] = PFUser.current()!
-        obj["ticker_symbol"] = ticker
-        obj["rating"] = rating
-        
-        // TODO: fix the
-        obj.saveInBackground { success, error in
-            if let error = error {
-                completion(.success(true))
-            }
-            
-            if success {
-                // do nothing
-                completion(.success(true))
-            } else {
-                completion(.success(false))
-//                self.showAlert(with: error?.localizedDescription ?? "Errror")
-                return
-            }
-        }
-    }
-    
-   
-
-   
-    
-    
-    
-    
-}
-
-
-class Survey2 {
-    static var shared = Survey2()
-    var surveyedStocks = [String]()
-    var stockBeingSurvyed: Stock? = nil
-    
-    init() {
-    
-    }
     
     // check if the person can be surveyed
     func canBeSurveyed(completion: @escaping (Result<Bool, Error>)-> Void)  {
@@ -282,7 +241,7 @@ class Survey2 {
                 if diffInDays! >= 7 {
                     completion(.success(true))
                     return
-                }  
+                }
                 
                 completion(.success(false))
                 return
@@ -352,8 +311,6 @@ class Survey2 {
     func completeSurvey(rating: Int, completion: @escaping (Result<Bool?, Error>)-> Void) {
         
         guard let stockBeingSurvyed =  stockBeingSurvyed else {return}
-        
-
         // this saves the ticker to the ratings table
         saveTickerRatingToRatingsTable(ticker: stockBeingSurvyed.ticker_symbol, rating: rating) { res in
             switch res {
@@ -422,11 +379,12 @@ class Survey2 {
                 completion(.success(true))
             } else {
                 completion(.success(false))
-//                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                
                 return
             }
         }
     }
-    
-
+     
 }
+
+

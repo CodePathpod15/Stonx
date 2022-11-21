@@ -14,7 +14,7 @@ import Charts
 class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
     func rate(number: Int) {
         // save the rating
-        Survey2.shared.completeSurvey(rating: number) { rest in
+        Survey.shared.completeSurvey(rating: number) { rest in
             switch rest {
             case .success(let res):
                 print(res)
@@ -154,7 +154,7 @@ class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
         
         // Do any additional setup after loading the view.
         
-        Survey2.shared.canBeSurveyed { result in
+        Survey.shared.canBeSurveyed { result in
             switch result {
             case .success(let res):
                 if res {
@@ -171,7 +171,7 @@ class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
     
     
     func getTheUserSurvey() {
-        Survey2.shared.surveyUser { rest in
+        Survey.shared.surveyUser { rest in
             switch rest {
             case .success(let st):
                 DispatchQueue.main.async {
