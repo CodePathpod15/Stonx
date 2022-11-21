@@ -54,7 +54,6 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        initializetheTableview()
         view.backgroundColor = .white
         getMostRecentInfoOfUser()
         setUpViews()
@@ -143,7 +142,7 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
                         DispatchQueue.main.async {
                            self.contentView.configure(stocks: self.ownedStocks)
                            self.contentView.tableView.reloadData()
-                           self.contentView.stockPrice.text = String(self.totalPrice)
+                            self.contentView.stockPrice.text = String(self.totalPrice.truncate(places: 2))
                             }
                     break
                     case .failure(let error):

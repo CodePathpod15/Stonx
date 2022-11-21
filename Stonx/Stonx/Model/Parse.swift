@@ -250,16 +250,20 @@ class Survey {
 
 
 class Survey2 {
+    
+    static var shared = Survey2()
+    
+    
     var surveyedStocks = [String]()
     
     init() {
-        
-        
-        
+    
     }
     
+    // check if the person can be surveyed
     func canBeSurveyed(completion: @escaping (Result<Bool, Error>)-> Void)  {
         let user  = PFUser.current()!
+        
         user.fetchInBackground() {obj,err in
             if let err = err {
                 completion(.failure(err))
@@ -282,41 +286,22 @@ class Survey2 {
                 if diffInDays! >= 7 {
 //                    self.surveyUser()
                     completion(.success(true))
-                }
+                    return
+                }  
                 
                 completion(.success(false))
+                return
             } else {
                 // if user object doesnt exsit
                 completion(.success(false))
+                return
             }
         }
-        
-        
     }
     
     
-    
-    
-    func getSurveyEyedStock()->Stock? {
-        
-        canBeSurveyed { result in
-            switch result {
-            case .success(let reType):
-                if reType {
-                  
-                }
-            
-            print("hehe")
-            case .failure(let err):
-            print("hehe")
-            
-            }
-        }
-        
-        // check the last time the user was surveyed
-        
-        return nil
-    }
+    // check if they can be surveyed
+
     
     
     func surveyUser(completion: @escaping (Result<Stock?, Error>)-> Void) {
@@ -341,7 +326,9 @@ class Survey2 {
                        
                        // at this point the we know we have stocks we can survey
                        let stockToSuvey = stocks.first!
-                    
+                       
+                       // survey the user
+                       
                        completion(.success(stockToSuvey))
                    } else {
                        // it is nil so we return
@@ -356,6 +343,7 @@ class Survey2 {
        }
         
    }
+    // complete the survey
     
     
     

@@ -11,7 +11,17 @@ import Charts
 
 // https://www.youtube.com/watch?v=mWhwe_tLNE8
 
-class ChartsViewController: UIViewController, ChartViewDelegate {
+class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
+    func rate(number: Int) {
+        // save the rating
+       
+        
+        
+        
+    }
+    
+   
+    
     
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
@@ -94,24 +104,113 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
         ChartDataEntry(x:40.9,y: 55.0)
     ]
     
-  
+    let lbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Hey!!"
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    let btn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("Enter", for: .normal)
+        btn.addTarget(self, action: #selector(btnWasPressed), for: .touchUpInside)
+        
+        return btn
+    }()
+    
+    // create rating
+    @objc func btnWasPressed() {
+        
+    }
+    
+    
+    
+    
+    func setUpUI() {
+        view.addSubview(lbl)
+        lbl.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0))
+        lbl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(btn)
+        btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        btn.anchor(top: lbl.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+        
+    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setUpUI()
+        
         // Do any additional setup after loading the view.
         
-        view.addSubview(lineChartView)
-        lineChartView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        lineChartView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        lineChartView.widthAnchor.constraint(equalToConstant: 359.21).isActive = true
-        lineChartView.heightAnchor.constraint(equalToConstant: 146.87).isActive = true
-        
-        setData()
+        Survey2.shared.canBeSurveyed { result in
+            switch result {
+            case .success(let res):
+                if res {
+                    self.getTheUserSurvey()
+                } else {
+                    print("cannt survey the user")
+                }
 
+                print(res)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+        
+        
+
+    }
+    
+    func getTheUserSurvey() {
+        Survey2.shared.surveyUser { rest in
+            switch rest {
+            case .success(let st):
+                DispatchQueue.main.async {
+                    
+                    if let st = st {
+                        print(st.ticker_symbol)
+                        self.displayQuestionaireIfUserHasOwnedStock(with: st.ticker_symbol)
+                    }
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
         
     }
+    
+    func displayQuestionaireIfUserHasOwnedStock(with recommended: String) {
+        // we need to get all of the stocks the user
+        
+        let userGaveUsPermissons = true
+        
+        if userGaveUsPermissons {
+            let rstock = RateTheStock()
+            rstock.delegate = self
+            rstock.titleLbl.text = "Please rate your experience with \(recommended)"
+            // user has owned any of his stocks for seven days
+            
+            rstock.translatesAutoresizingMaskIntoConstraints = false
+//            rstock.delegate = self
+            
+            let currentWindow: UIWindow? = UIApplication.shared.keyWindow
+            currentWindow?.addSubview(rstock)
+            
+            rstock.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        
+        }
+        
+    }
+    
+    
+    
+    
     
 
 
