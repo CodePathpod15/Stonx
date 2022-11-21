@@ -274,14 +274,12 @@ class Survey2 {
                 
                 // no need to survey the user
                 if last_survey_Date == nil {
-//                    self.surveyUser()
                     completion(.success(true))
                 }
   
                 let diffInDays = Calendar.current.dateComponents([.day], from:  last_survey_Date!, to: Date()).day
                 
                 if diffInDays! >= 7 {
-//                    self.surveyUser()
                     completion(.success(true))
                     return
                 }  
@@ -322,6 +320,17 @@ class Survey2 {
                        
                        // at this point the we know we have stocks we can survey
                        let stockToSuvey = stocks.first!
+                       
+                       
+                       // save the the date of the survey
+                       self.saveTheSurveyDateAndSurveyedStocks { res in
+                           switch res {
+                           case .failure(let err):
+                               completion(.failure(err))
+                           case .success(let re):
+                               print("he")
+                           }
+                       }
                        
                        // survey the user
                        self.stockBeingSurvyed = stockToSuvey
@@ -367,12 +376,16 @@ class Survey2 {
     }
     
     
+    
     // saving the the content
-    func saveTheSurveyDateAndSurveyedStocks(ticker: String, completion: @escaping (Result<Bool, Error>)-> Void) {
+    func saveTheSurveyDateAndSurveyedStocks(ticker: String? = nil, completion: @escaping (Result<Bool, Error>)-> Void) {
         let usr = PFUser.current()!
         usr["last_surveyed"] = Date()
-        surveyedStocks.append(ticker)
-        usr["Surveyed"] = surveyedStocks
+        
+        if let ticker = ticker {
+            surveyedStocks.append(ticker)
+            usr["Surveyed"] = surveyedStocks
+        }
         
         usr.saveInBackground() { success, error in
             if success {
@@ -388,22 +401,7 @@ class Survey2 {
         }
     }
     
-    func saveTheUserDate(completion: @escaping (Result<Bool, Error>)-> Void) {
-        let usr = PFUser.current()!
-        usr["last_surveyed"] = Date()
-        
-        usr.saveInBackground() { success, error in
-            if success {
-                // do nothing
-                print("survey date was done")
-                completion(.success(true))
-            }
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-        }
-    }
+    
     
     
     func saveTickerRatingToRatingsTable(ticker: String, rating: Int, completion: @escaping (Result<Bool, Error>) -> Void) {

@@ -236,7 +236,7 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
             rstock.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
 
         }
-
+        
     }
     
    
@@ -245,7 +245,14 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     // TODO: figure out how to insert unique elements
     func rate(number: Int) {
         
-
+        Survey2.shared.completeSurvey(rating: number) { result in
+            switch result {
+            case .success(let res):
+                print("it was saved")
+            case .failure(let err):
+                print("there was an error")
+            }
+        }
         
     }
     
