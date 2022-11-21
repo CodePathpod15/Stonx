@@ -161,13 +161,19 @@ class TransactionViewController: UIViewController {
     // this contains the number being sold
     private var sharesOwned = 0
     
+    var transactionManger = TransactionManager()
+    
+    
     // Would recommend using this initializer since it contains the shares owned
     init(typeOfTransaction: TransactionType, ticker: String, latestPrice: Double, sharesOwned: Int) {
         super.init(nibName: nil, bundle: nil)
         
+    
+        
         self.tickerSym = ticker
         self.transacType = typeOfTransaction
         self.latestPrice = latestPrice
+        
         switch transacType {
         case .buy:
             self.title = "buying \(ticker)"
@@ -259,6 +265,7 @@ class TransactionViewController: UIViewController {
         if number > sharesOwned {
             showAlert(with: "You do not owened that many stocks")
         }
+    
         
         // we perform the transaction
         let obj = PFObject(className: "user_transaction")
@@ -367,19 +374,15 @@ class TransactionViewController: UIViewController {
             transactionButton.setTitle("Sell", for: .normal)
         }
         
-        let user  = PFUser.current()!
-        user.fetchInBackground() {obj,err in
-            if let obj = obj {
-                let balance = obj.value(forKey: "Balance") as? Double
-                
-                self.usrBalance = balance!.truncate(places: 2)
-                
-                self.purchasingPower.text = "$\(self.usrBalance)"
-            } else {
-                self.showAlert(with: "There was an error with your balance")
-                
+        transactionManger.unpdateUsrBalance { res in
+            switch res {
+            case .success(let usrBalance):
+                self.purchasingPower.text = String(usrBalance ?? 0.0)
+            case .failure(let err):
+                self.showAlert(with: "failed to get usr balance")
             }
         }
+        
         self.marketPriceLbl.text = ("$\(latestPrice)")
     
     }
@@ -446,48 +449,25 @@ class TransactionViewController: UIViewController {
                 
                 showAlert(with: "Please enter a valid number")
                 return
-    } else {
+                } else {
                 
                 // check if the user has enough purchasing power
-                if usrBalance < (latestPrice * Double(numberStr)!) {
+                    if self.transactionManger.usrBalance ?? 0.0 < (latestPrice * Double(numberStr)!) {
                     showAlert(with: "No enough purchasing power")
                     return
                 }
                 // we perform the transaction
-                let obj = PFObject(className: "user_transaction")
-                obj["user"] = PFUser.current()!
-                obj["price"] = latestPrice
-                obj["ticker_symbol"] = tickerSym!
-                obj["Quantity"] = Int(numberStr)!
+
                 
                 if transacType == .buy {
-                    obj["purchase"] = true
+                    transactionManger.createTransaction(latestPrice: latestPrice, tickerSym: tickerSym!, number: Int(numberStr)!, type: .buy)
+                    
                 } else if transacType == .sell {
-                    obj["purchase"] = false
+                    transactionManger.createTransaction(latestPrice: latestPrice, tickerSym: tickerSym!, number: Int(numberStr)!, type: .sell)
                 } else {
                     showAlert(with: "there is an error!!!")
                     return
                 }
-        
-                obj.saveInBackground { success, error in
-                    if success {
-                        let newBalance = self.usrBalance - (self.latestPrice * Double(numberStr)!)
-                        
-                        let usr = PFUser.current()!
-                        usr["Balance"] = newBalance
-                        
-                        do {
-                            try usr.save()
-                            
-                        } catch {
-                            self.showAlert(with: error.localizedDescription)
-                        }
-                        
-                    } else {
-                        self.showAlert(with: error?.localizedDescription ?? "Errror")
-                    }
-                }
-        
         
         
                 self.dismiss(animated: true) { [self] in

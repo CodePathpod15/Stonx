@@ -139,9 +139,104 @@ class ParseModel {
     
  
     // sell a sto
+    func sell() {
+        // update the transactions table
+        
+        // update the user's
+    }
+    
     
     
 }
+
+/// in charrge of commiting transactions to the database d
+class TransactionManager {
+    
+    enum TType {
+    case buy, sell
+    }
+    var usrBalance: Double? = nil
+    
+    
+    init() {
+//        unpdateUsrBalance()
+        // get the stocks that the user
+    
+    }
+    
+    func unpdateUsrBalance(completion: @escaping (Result<Double?, Error>) -> Void) {
+        let user  = PFUser.current()!
+        user.fetchInBackground() {obj,err in
+            // the main thread
+            
+            DispatchQueue.main.async {
+                if let obj = obj {
+                    
+                    let balance = obj.value(forKey: "Balance") as? Double
+                    
+                    self.usrBalance = balance!.truncate(places: 2)
+                    completion(.success(self.usrBalance))
+                }
+                
+                
+            }
+
+        }
+        
+    }
+    
+    
+    func createTransaction(latestPrice: Double,tickerSym: String, number: Int, type: TType) {
+        let obj = PFObject(className: "user_transaction")
+        obj["user"] = PFUser.current()!
+        obj["price"] = latestPrice
+        obj["ticker_symbol"] = tickerSym
+        obj["Quantity"] = number
+        
+        if type == .buy {
+            obj["purchase"] = true
+        } else if type == .sell {
+            obj["purchase"] = false
+        }
+    
+        // TODO: fix the
+        obj.saveInBackground { success, error in
+            if success {
+                // save the transaction
+            } else {
+//                self.showAlert(with: error?.localizedDescription ?? "Errror")
+                return
+            }
+        }
+        
+        
+        
+        // update the user's balance
+        if let usrBalance = self.usrBalance {
+            self.usrBalance = (type == .buy) ? (usrBalance - (latestPrice * Double(number))) : (usrBalance + (latestPrice * Double(number)))
+            
+            let usr = PFUser.current()!
+            usr["Balance"] = self.usrBalance
+            
+            usr.saveInBackground() { success, error in
+                if success {
+                    // do nothing
+                }
+                if let error = error {
+                    // throw an error
+                    
+                }
+                
+            }
+        }
+        
+    }
+    
+    
+    
+
+}
+
 
 
 
