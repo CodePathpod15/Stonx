@@ -18,9 +18,6 @@ protocol TransactionDelegate: AnyObject {
 }
 
 
-// TODO: probably make
-// we can repurpose this view for both buying and cell
-// this view controller is in charge of both selling and buying of a stock
 class TransactionViewController: UIViewController {
     
     weak var delegate: TransactionDelegate?
@@ -151,20 +148,20 @@ class TransactionViewController: UIViewController {
     
     private var tickerSym: String? = nil
     
-    
-    // MARK: add custom initializer
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        
-    }
-    
     // this contains the number being sold
     private var sharesOwned = 0
     
+    
+    // this in charged of performing transactions
     var transactionManger = TransactionManager()
     
     
     // Would recommend using this initializer since it contains the shares owned
+    // MARK: Initializers
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+    }
     init(typeOfTransaction: TransactionType, ticker: String, latestPrice: Double, sharesOwned: Int) {
         super.init(nibName: nil, bundle: nil)
         
@@ -184,7 +181,7 @@ class TransactionViewController: UIViewController {
             self.stockOwnerShip.text = "\(sharesOwned)"
             self.stockOwnerSV.addArrangedSubview(stockOwnerShiptitle)
             self.stockOwnerSV.addArrangedSubview(stockOwnerShip)
-            self.transactionButton.addTarget(self, action: #selector(sellingButtonWasPressed), for: .touchUpInside)
+            self.transactionButton.addTarget(self, action: #selector(transactionButtonWaspressed), for: .touchUpInside)
             self.sharesOwned = sharesOwned
             break
         case .none:
@@ -208,7 +205,7 @@ class TransactionViewController: UIViewController {
             self.title = "selling \(ticker)"
             self.stockOwnerSV.addArrangedSubview(stockOwnerShiptitle)
             self.stockOwnerSV.addArrangedSubview(stockOwnerShip)
-            self.transactionButton.addTarget(self, action: #selector(sellingButtonWasPressed), for: .touchUpInside)
+            self.transactionButton.addTarget(self, action: #selector(transactionButtonWaspressed), for: .touchUpInside)
             break
         case .none:
             break
@@ -245,80 +242,6 @@ class TransactionViewController: UIViewController {
         }
         
         return true
-    }
-    
-    @objc func sellingButtonWasPressed() {
-    
-        if numberOfSharesTextfield.text == nil {
-            showAlert(with: "enter a valid integer")
-            return
-        }
-        
-        if !isValidInteger(str: numberOfSharesTextfield.text!) {
-            showAlert(with: "enter a valid integer")
-            return
-        }
-            
-        
-        let number = Int(numberOfSharesTextfield.text!)!
-        
-        if number > sharesOwned {
-            showAlert(with: "You do not owened that many stocks")
-        }
-    
-        
-        // we perform the transaction
-        let obj = PFObject(className: "user_transaction")
-        obj["user"] = PFUser.current()!
-        obj["price"] = latestPrice
-        obj["ticker_symbol"] = tickerSym!
-        obj["Quantity"] = number
-        
-        if transacType == .buy {
-            obj["purchase"] = true
-        } else if transacType == .sell {
-            obj["purchase"] = false
-        } else {
-            showAlert(with: "there is an error!!!")
-            return
-        }
-    
-        // TODO: fix the
-        obj.saveInBackground { success, error in
-            if success {
-//                do {
-//                    try usr.save()
-//
-//                } catch {
-//                    self.showAlert(with: error.localizedDescription)
-//                }
-
-            } else {
-                self.showAlert(with: error?.localizedDescription ?? "Errror")
-                return
-            }
-        }
-        
-        
-        let newBalance = self.usrBalance + (self.latestPrice * Double(number))
-        let usr = PFUser.current()!
-        usr["Balance"] = newBalance
-        
-        usr.saveInBackground() { success, error in
-            if success {
-                // do nothing
-            } else {
-                self.showAlert(with: error?.localizedDescription ?? "an error")
-            }
-        }
-        
-    
-        self.dismiss(animated: true) { [self] in
-            self.delegate?.transac(of: tType)
-        }
-        
-        
-    
     }
     
     
@@ -409,7 +332,7 @@ class TransactionViewController: UIViewController {
     }
     
     
-    
+    // updates the textfirldds
     @objc func didEnterTextInsideOfTextfield() {
         if let numberStr = numberOfSharesTextfield.text {
             if numberStr.isInt {

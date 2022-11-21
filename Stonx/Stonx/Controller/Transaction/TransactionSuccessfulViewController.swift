@@ -174,8 +174,8 @@ class TransactionSuccessfulViewController: UIViewController {
 
         animationView?.contentMode = .scaleAspectFit
         animationView?.animationSpeed = 1.5
-        
         animationView?.play()
+        
         
         
         // TODO:
@@ -204,7 +204,7 @@ class TransactionSuccessfulViewController: UIViewController {
                 // The request failed
                 print(error.localizedDescription)
             } else {
-                print("printiung")
+                
                 // if the object exists in the user's database
                 if let objects = objects {
                     let obj = objects[0]
@@ -227,7 +227,7 @@ class TransactionSuccessfulViewController: UIViewController {
                     // finds it synchronously as
                     let secondQuery = PFQuery(className: "user_transaction")
                     secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt)
-//                    
+                    
                     do {
                         var totalBought = 0
                         var sold = 0
@@ -259,13 +259,6 @@ class TransactionSuccessfulViewController: UIViewController {
         // check the transaction type
      
 
-        
-        
-        
-        
-        
-        
-        
         
 
     }
