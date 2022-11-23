@@ -13,10 +13,10 @@ import Parse
 class TransactionSuccessfulViewController: UIViewController {
 
     // MARK: properties
-    
     var animationView: AnimationView?
 
    private let whiteVIew = UIView()
+    
     private let label: UILabel = {
        let titleLbl = UILabel()
         titleLbl.text = "APPL Purchased"
@@ -149,22 +149,27 @@ class TransactionSuccessfulViewController: UIViewController {
         return btn
     }()
   
+    // keeps track of the latest transaction
+    var transaction: TransactionManager = TransactionManager()
     
-    @objc func buttonWasPressed() {
-        self.dismiss(animated: true, completion: nil)
+    
+    // MARK: Initializers
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
     }
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       
-        animationView = .init(name: "90469-confetti")
-        
-        view.addSubview(animationView!)
-       
-        view.backgroundColor = ColorConstants.green
-        viewSetUp()
-        setUpContraints()
-        
+
+    init(transaction: TransactionManager) {
+        super.init(nibName: nil, bundle: nil)
+        self.transaction = transaction
+    }
+    
+    // we can ignore this
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addingAnimation() {
         animationView?.translatesAutoresizingMaskIntoConstraints = false
         animationView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         animationView?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -174,101 +179,57 @@ class TransactionSuccessfulViewController: UIViewController {
 
         animationView?.contentMode = .scaleAspectFit
         animationView?.animationSpeed = 1.5
-        
         animationView?.play()
-        
-        
-        // TODO:
-        // check the transaction type
-        let query = PFQuery(className: "user_transaction")
-        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
-        query.limit = 1
-        
-        // get the balance of the use r
-        // we need to get the most recent balance from the user
-        let user  = PFUser.current()!
-        user.fetchInBackground() {obj,err in
-            if let obj = obj {
-                let balance = obj.value(forKey: "Balance") as? Double
-                self.creditLeftTitle.text = "$\(balance!.truncate(places: 2))"
-                
-            } else {
-                self.showAlert(with: "There was an error with your balance")
-
-            }
-        }
-
-        // this finds the latest transaction
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            if let error = error {
-                // The request failed
-                print(error.localizedDescription)
-            } else {
-                print("printiung")
-                // if the object exists in the user's database
-                if let objects = objects {
-                    let obj = objects[0]
-                    let tt = obj["ticker_symbol"] as? String
-                    let amount  = obj["Quantity"] as? Int
-                    let price = obj["price"] as? Double
-                    let transaction = obj["purchase"] as? Bool
-                    
-                    var type: String = transaction! ? "Purchased" : "Sold"
-                    var type2: String = transaction! ? "bought" : "Sold"
-                    
-                   
-                    
-                    self.label.text = "\(tt!) \(type)"
-                    self.numberOfSharesBoughtLbl.text = "\(String(amount!))"
-                    self.priceperShare.text = "\(String(price!.truncate(places: 4)))"
-                    self.numberOfSharesBoughtTitle.text = "Shares \(type2)"
-                           
-                    // display the current credit of user
-                    // finds it synchronously as
-                    let secondQuery = PFQuery(className: "user_transaction")
-                    secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt)
-//                    
-                    do {
-                        var totalBought = 0
-                        var sold = 0
-                        let objects = try secondQuery.findObjects()
-                        for obj in objects {
-                            let pur = obj["purchase"] as? Bool
-                            let quantity = obj["Quantity"] as? Int
-                            if pur == true {
-                                totalBought += quantity!
-                            } else {
-                                sold += quantity!
-                            }
-                            
-                        }
-                        // this gets the shares the user current owns of the specific stock
-                        let total = totalBought - sold
-                        self.newPositionNumber.text = "\(total)"
-                        
-                    } catch {
-                        self.showAlert(with: error.localizedDescription)
-                    }
-                    
-                }
-            }
-        }
-        
-        
-        // display the total number of stock that were purchased owned by the user
-        // check the transaction type
-     
-
-        
-        
-        
-        
-        
-        
-        
-        
-
     }
+    
+ 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        animationView = .init(name: "90469-confetti")
+        
+        view.addSubview(animationView!)
+       
+        view.backgroundColor = ColorConstants.green
+        viewSetUp()
+        setUpContraints()
+        addingAnimation()
+        
+        updateUIForStockInformation()
+        
+    }
+    
+    
+    // this gets the most current balance
+    func updatingUIforCurrentBalance() {
+        if let transactionBalance = transaction.usrBalance {
+            creditLeftTitle.text = String(transactionBalance.truncate(places: 2))
+        } else {
+            self.showAlert(with: "there was an error retrieving your balance")
+        }
+    }
+    
+    fileprivate func updateUIForStockInformation() {
+        ParseModel.shared.getLatestTransaction { result in
+            switch result {
+            case .success(let transaction):
+                
+                var type: String = transaction.type ? "Purchased" : "Sold"
+                var type2: String = transaction.type ? "bought" : "Sold"
+                
+                self.label.text = "\(transaction.stockPurchaased.ticker_symbol) \(type)"
+                
+                self.numberOfSharesBoughtLbl.text = "\(String(transaction.stockPurchaased.quantity))"
+                self.priceperShare.text = "\(String(transaction.stockPurchaased.price.truncate(places: 4)))"
+                self.newPositionNumber.text = "\(transaction.new_position)"
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
     
     private func viewSetUp() {
         view.addSubview(label)
@@ -305,7 +266,6 @@ class TransactionSuccessfulViewController: UIViewController {
         
         whiteVIew.addSubview(button)
        
-        
     }
     
     
@@ -337,6 +297,12 @@ class TransactionSuccessfulViewController: UIViewController {
 
         button.centerXAnchor.constraint(equalTo: whiteVIew.centerXAnchor).isActive = true
 
+    }
+    
+    
+    // MARK: IBactions
+    @objc func buttonWasPressed() {
+        self.dismiss(animated: true, completion: nil)
     }
 
 

@@ -11,14 +11,16 @@ import Starscream
 
 
 class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelegate, TransactionDelegate {
-    
-    // transaction was completed
-    // Conformance to TransactionDelegate
-    func transac(of type: TransactionType) {
+    func transac(of type: TransactionType, transaction: TransactionManager) {
         let vc = TransactionSuccessfulViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
+    
+    
+    // transaction was completed
+    // Conformance to TransactionDelegate
+  
     
    
     func buyWasPressed(stock: Stock) {
@@ -51,16 +53,31 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     var recommendedStr = ""
     private var surveyedTicker = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        initializetheTableview()
         view.backgroundColor = .white
-        getMostRecentInfoOfUser()
+        
+        Survey.shared.canBeSurveyed { result in
+            switch result {
+            case .success(let res):
+                if res {
+                    self.getTheUserSurvey()
+                } else {
+                    print("cannt survey the user")
+                }
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+        
         setUpViews()
         socket.delegate = self
         
     }
+    
+    
+    
     
     func setUpViews() {
         view.addSubview(scrollView)
@@ -143,7 +160,7 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
                         DispatchQueue.main.async {
                            self.contentView.configure(stocks: self.ownedStocks)
                            self.contentView.tableView.reloadData()
-                           self.contentView.stockPrice.text = String(self.totalPrice)
+                            self.contentView.stockPrice.text = String(self.totalPrice.truncate(places: 2))
                             }
                     break
                     case .failure(let error):
@@ -182,112 +199,41 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
         }
     }
  
-    /// in this method we decide whether to survey the suer or not
-     func surveyUser() {
-        var stocks = [Stock]()
-         ParseModel.shared.getStockUserOwns { result in
-            switch result {
-                case .success(let items):
-                    if let items = items {
-                        stocks = items
-                        
-                        // we remove all of the stocks the use has been surveyed from the
-                        self.surveyedStocks.forEach { ticker in
-                            stocks.removeAll(where: {$0.ticker_symbol == ticker})
-                        }
-                        // we remove all of the stocks that the user has owned for less than 7 days
-                        stocks.removeAll(where: {$0.daysOfOnwerShip < 7})
-                        
-                        // no need to survey the user if the stock is empty
-                        if stocks.isEmpty {
-                                return
-                        }
-                        
-                        // at this point the we know we have stocks we can survey
-                        let stockToSuvey = stocks.first!
-                        self.saveTheSurveyDate()
-                        self.surveyedTicker = stockToSuvey.ticker_symbol
-                        self.displayQuestionaireIfUserHasOwnedStock(with: stockToSuvey.ticker_symbol)
-                    } else {
-                        // it is nil so we return
-                        // no need to survey the user if they dont own any stock
-                        return
-                        
+    func getTheUserSurvey() {
+        Survey.shared.surveyUser { rest in
+            switch rest {
+            case .success(let st):
+                DispatchQueue.main.async {
+                    if let st = st {
+                        self.displayQuestionaireIfUserHasOwnedStock(with: st.ticker_symbol)
                     }
-              case .failure(let error):
-                  // otherwise, print an error to the console
-                  print(error)
-              }
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
         }
-    }
-    
-    
-
-    
-    func saveTheSurveyDate() {
-        let usr = PFUser.current()!
-        usr["last_surveyed"] = Date()
         
-        usr.saveInBackground() { success, error in
-            if success {
-                // do nothing
-                print("survey date was done")
-            } else {
-                self.showAlert(with: error?.localizedDescription ?? "an error")
-            }
-        }
     }
-    
-    var surveyedStocks = [String]()
-    
-    func getMostRecentInfoOfUser() {
-        let user  = PFUser.current()!
-        user.fetchInBackground() {obj,err in
-            if let obj = obj {
-                let surveyed = obj.value(forKey: "Surveyed") as? [String]
-                self.surveyedStocks = surveyed ?? []
-                
-                let last_survey_Date =  user["last_surveyed"] as? Date
-                
-                // no need to survey the user
-                if last_survey_Date == nil {
-                    self.surveyUser()
-                }
-  
-                let diffInDays = Calendar.current.dateComponents([.day], from:  last_survey_Date!, to: Date()).day
-                
-                if diffInDays! >= 7 {
-                    self.surveyUser()
-                }
-                
-                 
-            } else {
-                self.showAlert(with: "There was an error with your balance")
-                
-            }
-        }
-    }
-    
-    
     
     func displayQuestionaireIfUserHasOwnedStock(with recommended: String) {
         // we need to get all of the stocks the user
-        
+
         let userGaveUsPermissons = true
-        
+
         if userGaveUsPermissons {
             let rstock = RateTheStock()
             rstock.titleLbl.text = "Please rate your experience with \(recommended)"
             // user has owned any of his stocks for seven days
-            
+
             rstock.translatesAutoresizingMaskIntoConstraints = false
             rstock.delegate = self
-            
+
             let currentWindow: UIWindow? = UIApplication.shared.keyWindow
             currentWindow?.addSubview(rstock)
-            
+
             rstock.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        
+
         }
         
     }
@@ -297,42 +243,18 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
     // this is called whenever the user saves the rating
     // TODO: figure out how to insert unique elements
     func rate(number: Int) {
-        surveyedStocks.append(surveyedTicker)
         
-        let usr = PFUser.current()!
-        usr["Surveyed"] = surveyedStocks
-        
-        usr.saveInBackground() { success, error in
-            if success {
-                // do nothing
-                print("rating was saved in user ")
-                self.saveTickerRating(ticker: self.surveyedTicker, rating: number)
-                
-            } else {
-                self.showAlert(with: error?.localizedDescription ?? "an error")
+        Survey.shared.completeSurvey(rating: number) { result in
+            switch result {
+            case .success(let res):
+                print("it was saved")
+            case .failure(let err):
+                print("there was an error")
             }
         }
+        
     }
     
     
-    // this sac
-    func saveTickerRating(ticker: String, rating: Int) {
-        // we perform the transaction
-        let obj = PFObject(className: "ticker_rating")
-        obj["user"] = PFUser.current()!
-        obj["ticker_symbol"] = ticker
-        obj["rating"] = rating
-        
-        // TODO: fix the
-        obj.saveInBackground { success, error in
-            if success {
-                // do nothing
-            } else {
-                self.showAlert(with: error?.localizedDescription ?? "Errror")
-                return
-            }
-        }
-    }
-
 }
 

@@ -47,8 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // commented out the parse implementation here
         parseLogInImplementation()
-        
-//        
+            
 //        if let windowScene = scene as? UIWindowScene {
 //            let window = UIWindow(windowScene: windowScene)
 //
@@ -57,8 +56,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            let loggedIn = true
 //
 //            if loggedIn {
-//                
-//                let vc = UINavigationController(rootViewController: TestingViewController())
+//
+//                let vc = UINavigationController(rootViewController: ChartsViewController())
 //                let root = vc
 //
 //                window.rootViewController = root
