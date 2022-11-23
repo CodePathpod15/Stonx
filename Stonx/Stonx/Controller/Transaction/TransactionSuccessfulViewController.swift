@@ -150,12 +150,35 @@ class TransactionSuccessfulViewController: UIViewController {
     }()
   
     
-    @objc func buttonWasPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
+   
         
+    // MARK: Initializers
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    var transaction: TransactionManager = TransactionManager()
+    
+    init(transaction: TransactionManager) {
+        super.init(nibName: nil, bundle: nil)
+        self.transaction = transaction
+    }
+    
+    
+    // we can ignore this
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+      
+        
        
         animationView = .init(name: "90469-confetti")
         
@@ -178,6 +201,7 @@ class TransactionSuccessfulViewController: UIViewController {
         
         
         
+        
         // TODO:
         // check the transaction type
         let query = PFQuery(className: "user_transaction")
@@ -186,19 +210,16 @@ class TransactionSuccessfulViewController: UIViewController {
         
         // get the balance of the use r
         // we need to get the most recent balance from the user
-        let user  = PFUser.current()!
-        user.fetchInBackground() {obj,err in
-            if let obj = obj {
-                let balance = obj.value(forKey: "Balance") as? Double
-                self.creditLeftTitle.text = "$\(balance!.truncate(places: 2))"
-                
-            } else {
-                self.showAlert(with: "There was an error with your balance")
-
-            }
+        
+        if let transactionBalance = transaction.usrBalance {
+            print("balance: \(transactionBalance.truncate(places: 2))")
+        } else {
+            self.showAlert(with: "there was an error retrieving your balance")
         }
+        
 
         // this finds the latest transaction
+        // TODO: fix bug here
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
                 // The request failed
@@ -222,25 +243,34 @@ class TransactionSuccessfulViewController: UIViewController {
                     self.numberOfSharesBoughtLbl.text = "\(String(amount!))"
                     self.priceperShare.text = "\(String(price!.truncate(places: 4)))"
                     self.numberOfSharesBoughtTitle.text = "Shares \(type2)"
-                           
+                 
+                    
+                    
+                    
                     // display the current credit of user
                     // finds it synchronously as
                     let secondQuery = PFQuery(className: "user_transaction")
-                    secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt)
+                    secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tt).whereKey("purchase", equalTo: true)
+                    
+                    
                     
                     do {
                         var totalBought = 0
                         var sold = 0
                         let objects = try secondQuery.findObjects()
+                        
                         for obj in objects {
+                            let tiker = obj["ticker_symbol"] as? String
                             let pur = obj["purchase"] as? Bool
                             let quantity = obj["Quantity"] as? Int
-                            if pur == true {
-                                totalBought += quantity!
-                            } else {
-                                sold += quantity!
+                            if let pur = pur {
+                                if pur {
+                                    totalBought += quantity!
+                                } else {
+                                    sold += quantity!
+                                }
                             }
-                            
+
                         }
                         // this gets the shares the user current owns of the specific stock
                         let total = totalBought - sold
@@ -298,7 +328,6 @@ class TransactionSuccessfulViewController: UIViewController {
         
         whiteVIew.addSubview(button)
        
-        
     }
     
     
@@ -330,6 +359,13 @@ class TransactionSuccessfulViewController: UIViewController {
 
         button.centerXAnchor.constraint(equalTo: whiteVIew.centerXAnchor).isActive = true
 
+    }
+    
+    
+    // MARK: IBactions
+    
+    @objc func buttonWasPressed() {
+        self.dismiss(animated: true, completion: nil)
     }
 
 

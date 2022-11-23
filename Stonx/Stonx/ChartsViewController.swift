@@ -7,7 +7,7 @@
 
 import UIKit
 import Charts
-
+import Parse
 
 // https://www.youtube.com/watch?v=mWhwe_tLNE8
 
@@ -154,19 +154,58 @@ class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
         
         // Do any additional setup after loading the view.
         
-        Survey.shared.canBeSurveyed { result in
-            switch result {
-            case .success(let res):
-                if res {
-                    self.getTheUserSurvey()
-                } else {
-                    print("cannt survey the user")
+        ParseModel.shared.getLatestTransaction()
+        
+//        let query = PFQuery(className: "user_transaction")
+//        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
+//        query.limit = 1
+//
+//        // get the balance of the use r
+//        // we need to get the most recent balance from the user
+//
+//        // this finds the latest transaction git
+        
+        
+    }
+    
+    func getTheStock(tickerSymbol: String) {
+        let secondQuery = PFQuery(className: "user_transaction")
+            secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tickerSymbol)
+        
+        secondQuery.findObjectsInBackground(){ objects, err in
+            print(objects?.count)
+            
+            
+            var totalSold = 0
+            var totalBought = 0
+            if let objects = objects {
+                for stock in objects {
+                    let symbol = stock["ticker_symbol"] as? String
+                    let price = stock["price"] as? Double
+                    let quantity = stock["Quantity"] as? Int
+                    let purschar = stock["purchase"] as? Bool
+                    
+                    
+                    if let purchase = purschar, let quantity = quantity {
+                        if purchase {
+                            totalBought += quantity
+                        } else {
+                            totalSold += quantity
+                        }
+                    }
+                    
                 }
                 
-            case .failure(let err):
-                print(err.localizedDescription)
             }
+            
+            
+            print(totalBought - totalSold)
+            
+            
         }
+
+        
+        
     }
     
     

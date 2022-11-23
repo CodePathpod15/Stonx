@@ -11,14 +11,16 @@ import Starscream
 
 
 class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelegate, TransactionDelegate {
-    
-    // transaction was completed
-    // Conformance to TransactionDelegate
-    func transac(of type: TransactionType) {
+    func transac(of type: TransactionType, transaction: TransactionManager) {
         let vc = TransactionSuccessfulViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
+    
+    
+    // transaction was completed
+    // Conformance to TransactionDelegate
+  
     
    
     func buyWasPressed(stock: Stock) {

@@ -134,12 +134,57 @@ class ParseModel {
             }
         }
     }
+        
+    // will return the stock
+    // - with the ticker, number of shares bought and the price at which it was purcharged
+    // calls method to get the number
+    func getLatestTransaction() {
+        let query = PFQuery(className: user_transaction.object_name)
+        query.whereKey(user_transaction.user, contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
+        query.limit = 1
+        
+        // get the balance of the use r
+        // we need to get the most recent balance from the user
+
+        // this finds the latest transaction
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                // The request failed
+                print(error.localizedDescription)
+            } else {
+                
+                // if the object exists in the user's database
+                if let objects = objects {
+                    let obj = objects[0]
+                    let tt = obj[user_transaction.ticker_symbol] as? String
+                    let amount  = obj[user_transaction.quantity] as? Int
+                    let price = obj[user_transaction.price] as? Double
+                    let transaction = obj[user_transaction.purchase] as? Bool
+                    
+                    var type: String = transaction! ? "Purchased" : "Sold"
+                    var type2: String = transaction! ? "bought" : "Sold"
+                    
+                   
+                    print("what we found", tt)
+                    
+                    if let tt = tt {
+                        self.getTheStock(tickerSymbol: tt )
+                    }
+                    
+                    
+                }
+            }
+        }
+    }
+    
     
     // buy a stock
     
+    
+    
  
     // sell a sto
-    func sell() {
+    func getTheStock(tickerSymbol: String) {
         // update the transactions table
         
         // update the user's

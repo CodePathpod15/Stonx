@@ -14,7 +14,7 @@ enum TransactionType {
 }
 
 protocol TransactionDelegate: AnyObject {
-    func transac(of type: TransactionType) // this is called when we press the button
+    func transac(of type: TransactionType, transaction: TransactionManager) // this is called when we press the button
 }
 
 
@@ -162,6 +162,7 @@ class TransactionViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
     }
+    
     init(typeOfTransaction: TransactionType, ticker: String, latestPrice: Double, sharesOwned: Int) {
         super.init(nibName: nil, bundle: nil)
         
@@ -394,7 +395,7 @@ class TransactionViewController: UIViewController {
         
         
                 self.dismiss(animated: true) { [self] in
-                    self.delegate?.transac(of: tType)
+                    self.delegate?.transac(of: tType, transaction: transactionManger)
                 }
         
         

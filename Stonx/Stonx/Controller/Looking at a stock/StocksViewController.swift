@@ -926,11 +926,13 @@ extension StocksViewController: TradingDelegate {
 }
 
 extension StocksViewController: TransactionDelegate {
-    func transac(of type: TransactionType) {
-        let vc = TransactionSuccessfulViewController()
+    func transac(of type: TransactionType, transaction: TransactionManager) {
+        let vc = TransactionSuccessfulViewController(transaction: transaction)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
+    
+
     
     
 }
