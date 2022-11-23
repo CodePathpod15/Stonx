@@ -109,6 +109,17 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
         lineChartView.heightAnchor.constraint(equalToConstant: 146.87).isActive = true
         
         setData()
+        
+        Comments.shared.gettingTheCount(ticker_id: "IBM") { res in
+            switch res {
+            case .success(let count):
+                print("count is ", count)
+                
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
 
         
     }

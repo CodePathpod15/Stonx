@@ -94,6 +94,7 @@ class ParseModel {
             }
         }
     
+    
     // get recommended stock
     // this will return the stock
     // TODO: 

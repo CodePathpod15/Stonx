@@ -372,6 +372,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return stackView
     }()
     
+    
     private lazy var discussionHeaderLbl: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -380,6 +381,25 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         textLabel.font = FontConstants.boldLargeFont
         return textLabel
     }()
+    
+    private lazy var commentsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(viewAllCommentsLlbl)
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var viewAllCommentsLlbl: UIButton = {
+        let textLabel = UIButton(type: .system)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.setTitle("View 12 Comments", for: .normal)
+        textLabel.addTarget(self, action: #selector(viewComments), for: .touchUpInside)
+        return textLabel
+    }()
+    
 
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
@@ -586,6 +606,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         }
     }
     
+    
     @objc func viewComments() {
         let comments = CommentsViewController()
         comments.stockName = title!
@@ -695,6 +716,9 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         stackView.addArrangedSubview(stockPERatioHStackView)
         stackView.addArrangedSubview(stockEPSHStackView)
         stackView.addArrangedSubview(discussionHeaderLbl)
+        stackView.addArrangedSubview(commentsStackView)
+        
+        
     }
     
     private func setupConstraints() {
@@ -747,6 +771,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
             stackView.arrangedSubviews[13].rightAnchor.constraint(equalTo: view.rightAnchor)
             
         ])
+        
                 
         // Layout only needed for the price and % change to clip it to right hand side
         NSLayoutConstraint.activate([
@@ -768,7 +793,9 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         
         // offset the all time frame button to match right hand side offsets
         NSLayoutConstraint.activate([
-            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding)
+            timeFrameHStackView.arrangedSubviews[4].rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padding),
+            viewAllCommentsLlbl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            viewAllCommentsLlbl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
 
         ])
     }
@@ -900,6 +927,7 @@ extension StocksViewController: TradingDelegate {
     }
 }
 
+// implementation of transaction delegate
 extension StocksViewController: TransactionDelegate {
     func transac(of type: TransactionType) {
         let vc = TransactionSuccessfulViewController()
