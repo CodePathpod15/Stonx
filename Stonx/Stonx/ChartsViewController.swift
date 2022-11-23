@@ -153,22 +153,13 @@ class ChartsViewController: UIViewController, ChartViewDelegate, RateDelegate {
         setUpUI()
         
         // Do any additional setup after loading the view.
-        
-        ParseModel.shared.getLatestTransaction()
-        
-//        let query = PFQuery(className: "user_transaction")
-//        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
-//        query.limit = 1
-//
-//        // get the balance of the use r
-//        // we need to get the most recent balance from the user
-//
-//        // this finds the latest transaction git
-        
+        //
+    
         
     }
     
     func getTheStock(tickerSymbol: String) {
+       
         let secondQuery = PFQuery(className: "user_transaction")
             secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: tickerSymbol)
         
