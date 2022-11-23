@@ -138,7 +138,15 @@ class ParseModel {
     // will return the stock
     // - with the ticker, number of shares bought and the price at which it was purcharged
     // calls method to get the number
-    func getLatestTransaction() {
+    //the new position
+    //
+    struct Transaction {
+        var stockPurchaased: Stock
+        var new_position: Int
+        var type: Bool
+    }
+    
+    func getLatestTransaction(completion: @escaping (Result<Transaction,Error>) -> Void) {
         let query = PFQuery(className: user_transaction.object_name)
         query.whereKey(user_transaction.user, contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
         query.limit = 1
@@ -161,15 +169,30 @@ class ParseModel {
                     let price = obj[user_transaction.price] as? Double
                     let transaction = obj[user_transaction.purchase] as? Bool
                     
-                    var type: String = transaction! ? "Purchased" : "Sold"
-                    var type2: String = transaction! ? "bought" : "Sold"
+                    
                     
                    
-                    print("what we found", tt)
-                    
-                    if let tt = tt {
-                        self.getTheStock(tickerSymbol: tt )
+                    // getting the values
+                    if let tt = tt, let amount = amount, let price = price, let transaction = transaction {
+//                        var type: String = transaction ? "Purchased" : "Sold"
+                        
+                        var transaction: Transaction = Transaction(stockPurchaased: Stock(ticker: tt, price: price, quantity: amount, ticker_fullName: ""), new_position: 0, type: transaction)
+                        
+                        
+                        self.getTheLengthOfTheStock(transaction: transaction) { res in
+                            switch res {
+                            case .success(let transaction):
+                                completion(.success(transaction))
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+                        }
+
+        
+                    } else { // there was some type of error
+                        
                     }
+                    
                     
                     
                 }
@@ -178,14 +201,49 @@ class ParseModel {
     }
     
     
-    // buy a stock
-    
-    
-    
- 
-    // sell a sto
-    func getTheStock(tickerSymbol: String) {
+    // gettig the total length of the stock
+    func getTheLengthOfTheStock(transaction: Transaction,completion: @escaping (Result<Transaction,Error>) -> Void) {
         // update the transactions table
+        // using the ticker symbol we get the
+        let secondQuery = PFQuery(className: "user_transaction")
+        secondQuery.whereKey("user", contains:  PFUser.current()!.objectId).whereKey("ticker_symbol", contains: transaction.stockPurchaased.ticker_symbol)
+        
+        secondQuery.findObjectsInBackground(){ objects, err in
+            
+            // if there is an error, we return the error
+            
+            
+            var totalSold = 0
+            var totalBought = 0
+            if let objects = objects {
+                for stock in objects {
+                    let symbol = stock["ticker_symbol"] as? String
+                    let price = stock["price"] as? Double
+                    let quantity = stock["Quantity"] as? Int
+                    let purschar = stock["purchase"] as? Bool
+                    
+                    
+                    if let purchase = purschar, let quantity = quantity {
+                        if purchase {
+                            totalBought += quantity
+                        } else {
+                            totalSold += quantity
+                        }
+                    }
+                    
+                }
+                
+            }
+            
+            var trans = transaction
+            let new_pos = totalBought - totalSold
+            trans.new_position = new_pos
+            
+            completion(.success(trans))
+            
+        }
+
+        
         
         // update the user's
     }
