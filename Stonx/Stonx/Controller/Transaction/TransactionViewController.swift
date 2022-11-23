@@ -20,11 +20,15 @@ protocol TransactionDelegate: AnyObject {
 
 class TransactionViewController: UIViewController {
     
-    weak var delegate: TransactionDelegate?
+    // MARK: propertes
+    
+   
 
     let numberOfSharesToPurchase = UILabel()
     
     private let numberOfSharesTextfield = TextField()
+    
+    weak var delegate: TransactionDelegate?
     
     let tType: TransactionType = .buy
     
@@ -144,10 +148,10 @@ class TransactionViewController: UIViewController {
     var transacType: TransactionType? =  nil
     // sets the initial price to
     var latestPrice: Double = 0.0
+    // the current balance of the use r
     var usrBalance: Double = 0.0
-    
+    // the symbol for the transaction
     private var tickerSym: String? = nil
-    
     // this contains the number being sold
     private var sharesOwned = 0
     
@@ -158,6 +162,7 @@ class TransactionViewController: UIViewController {
     
     // Would recommend using this initializer since it contains the shares owned
     // MARK: Initializers
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         
@@ -165,8 +170,6 @@ class TransactionViewController: UIViewController {
     
     init(typeOfTransaction: TransactionType, ticker: String, latestPrice: Double, sharesOwned: Int) {
         super.init(nibName: nil, bundle: nil)
-        
-    
         
         self.tickerSym = ticker
         self.transacType = typeOfTransaction
@@ -229,22 +232,7 @@ class TransactionViewController: UIViewController {
     
     
     
-    
-    func isValidInteger(str: String) -> Bool {
-       
-        if !str.isInt {
-            return false
-        }
-        
-        let amount = Int(str)!
-
-        if amount == 0 || amount < 0 {
-            return false
-        }
-        
-        return true
-    }
-    
+ 
     
     private func viewSetup() {
         
@@ -321,6 +309,20 @@ class TransactionViewController: UIViewController {
     }
     
     
+    // MARK: helper methods
+    // returns true when the string contains the a valid integer
+    func isValidInteger(str: String) -> Bool {
+        if !str.isInt {
+            return false
+        }
+        let amount = Int(str)!
+        if amount == 0 || amount < 0 {
+            return false
+        }
+        return true
+    }
+    
+    
     
     // helper method to set up the the textfield
     func setUpTextfield(textfield: UITextField, defaultText: String) {
@@ -343,8 +345,6 @@ class TransactionViewController: UIViewController {
             }
             
         }
-   
-        
     }
     
     @objc func doneButtonPressed() {
@@ -365,6 +365,8 @@ class TransactionViewController: UIViewController {
     
     // this will check if the usr is even able to buy the stock
     // if the usr has enough balance the stock will be purchased, else error will be thrownedspot
+    // performs transaction if string in textfield is acceptable and
+    //  if there is enough balance
     @objc func transactionButtonWaspressed() {
        
         if let numberStr = numberOfSharesTextfield.text {
@@ -374,15 +376,12 @@ class TransactionViewController: UIViewController {
                 showAlert(with: "Please enter a valid number")
                 return
                 } else {
-                
                 // check if the user has enough purchasing power
                     if self.transactionManger.usrBalance ?? 0.0 < (latestPrice * Double(numberStr)!) {
                     showAlert(with: "No enough purchasing power")
                     return
                 }
                 // we perform the transaction
-
-                
                 if transacType == .buy {
                     transactionManger.createTransaction(latestPrice: latestPrice, tickerSym: tickerSym!, number: Int(numberStr)!, type: .buy)
                     
@@ -392,19 +391,13 @@ class TransactionViewController: UIViewController {
                     showAlert(with: "there is an error!!!")
                     return
                 }
-        
-        
+                // say goodbye :-) to VC
                 self.dismiss(animated: true) { [self] in
                     self.delegate?.transac(of: tType, transaction: transactionManger)
                 }
-        
-        
             }
-            
         }
     }
-       
-
 }
 
 // extension to truncate the decimal place

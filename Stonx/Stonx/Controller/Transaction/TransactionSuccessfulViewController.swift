@@ -13,10 +13,10 @@ import Parse
 class TransactionSuccessfulViewController: UIViewController {
 
     // MARK: properties
-    
     var animationView: AnimationView?
 
    private let whiteVIew = UIView()
+    
     private let label: UILabel = {
        let titleLbl = UILabel()
         titleLbl.text = "APPL Purchased"
@@ -149,41 +149,27 @@ class TransactionSuccessfulViewController: UIViewController {
         return btn
     }()
   
+    var transaction: TransactionManager = TransactionManager()
     
-   
-        
+    
+    
     // MARK: Initializers
     init() {
         super.init(nibName: nil, bundle: nil)
         
     }
-    
-    var transaction: TransactionManager = TransactionManager()
-    
+
     init(transaction: TransactionManager) {
         super.init(nibName: nil, bundle: nil)
         self.transaction = transaction
     }
-    
     
     // we can ignore this
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        animationView = .init(name: "90469-confetti")
-        
-        view.addSubview(animationView!)
-       
-        view.backgroundColor = ColorConstants.green
-        viewSetUp()
-        setUpContraints()
-        
+    func addingAnimation() {
         animationView?.translatesAutoresizingMaskIntoConstraints = false
         animationView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         animationView?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -194,62 +180,56 @@ class TransactionSuccessfulViewController: UIViewController {
         animationView?.contentMode = .scaleAspectFit
         animationView?.animationSpeed = 1.5
         animationView?.play()
+    }
+    
+ 
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        animationView = .init(name: "90469-confetti")
         
+        view.addSubview(animationView!)
+       
+        view.backgroundColor = ColorConstants.green
+        viewSetUp()
+        setUpContraints()
+        addingAnimation()
         
+        updateUIForStockInformation()
         
-        // TODO:
-        // check the transaction type
-        let query = PFQuery(className: "user_transaction")
-        query.whereKey("user", contains:  PFUser.current()!.objectId).order(byDescending: "createdAt")
-        query.limit = 1
-        
-        // get the balance of the use r
-        // we need to get the most recent balance from the user
-        
+    }
+    
+    
+    // this gets the most current balance
+    func updatingUIforCurrentBalance() {
         if let transactionBalance = transaction.usrBalance {
-            print("balance: \(transactionBalance.truncate(places: 2))")
             creditLeftTitle.text = String(transactionBalance.truncate(places: 2))
         } else {
             self.showAlert(with: "there was an error retrieving your balance")
         }
-        
-
-        
+    }
+    
+    fileprivate func updateUIForStockInformation() {
         ParseModel.shared.getLatestTransaction { result in
             switch result {
             case .success(let transaction):
-        
-                
-                print("stock symbol",transaction.stockPurchaased.ticker_symbol)
-                print("stock price",transaction.stockPurchaased.price)
-                print("stock quantity",transaction.stockPurchaased.quantity)
-                print("type of transaction",transaction.type)
-                print("new position", transaction.new_position)
                 
                 var type: String = transaction.type ? "Purchased" : "Sold"
                 var type2: String = transaction.type ? "bought" : "Sold"
-              
+                
                 self.label.text = "\(transaction.stockPurchaased.ticker_symbol) \(type)"
-                
-                
                 
                 self.numberOfSharesBoughtLbl.text = "\(String(transaction.stockPurchaased.quantity))"
                 self.priceperShare.text = "\(String(transaction.stockPurchaased.price.truncate(places: 4)))"
-//                self.numberOfSharesBoughtTitle.text = "Shares \(transaction.stockPurchaased.quantity)"
                 self.newPositionNumber.text = "\(transaction.new_position)"
-                
-                
                 
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-        
-        
-
-
     }
+    
+    
     
     private func viewSetUp() {
         view.addSubview(label)
@@ -321,7 +301,6 @@ class TransactionSuccessfulViewController: UIViewController {
     
     
     // MARK: IBactions
-    
     @objc func buttonWasPressed() {
         self.dismiss(animated: true, completion: nil)
     }
