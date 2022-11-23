@@ -392,7 +392,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         return stackView
     }()
     
-    private lazy var viewAllCommentsLlbl: UIButton = {
+     lazy var viewAllCommentsLlbl: UIButton = {
         let textLabel = UIButton(type: .system)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.setTitle("View 12 Comments", for: .normal)
@@ -492,6 +492,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
         configureSubviews()
         setupConstraints()
         setData()
+        // adding the
+        updateTheStocksCount()
         
         // Set up dragging feature on line chart
         let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chartTapped))
@@ -590,15 +592,13 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
                     // Can probably clean this up as well
                     if objects.isEmpty {
                         let rbutton = UIBarButtonItem(title: "favorite", style: .plain, target: self, action: #selector(self.addToWatchList))
-                        let commentsButton = UIBarButtonItem(image: UIImage(systemName: "text.bubble"), style: .plain, target: self, action: #selector(self.viewComments))
                         let rightButton: UIBarButtonItem = rbutton
-                        self.navigationItem.rightBarButtonItems = [rightButton, commentsButton]
+                        self.navigationItem.rightBarButtonItems = [rightButton]
                         
                     } else {
                         let rbutton = UIBarButtonItem(title: "remove", style: .plain, target: self, action: #selector(self.addToWatchList))
-                        let commentsButton = UIBarButtonItem(image: UIImage(systemName: "text.bubble"), style: .plain, target: self, action: #selector(self.viewComments))
                         let rightButton: UIBarButtonItem = rbutton
-                        self.navigationItem.rightBarButtonItems = [rightButton, commentsButton]
+                        self.navigationItem.rightBarButtonItems = [rightButton]
                         self.stockObject = objects[0]
                     }
                 }
@@ -821,6 +821,8 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
          
         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
+    
+    
     
     @objc private func chartTapped(_ sender: UITapGestureRecognizer) {
 //        if sender.state == .began || sender.state == .changed {
