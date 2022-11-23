@@ -149,8 +149,8 @@ class TransactionSuccessfulViewController: UIViewController {
         return btn
     }()
   
+    // keeps track of the latest transaction
     var transaction: TransactionManager = TransactionManager()
-    
     
     
     // MARK: Initializers
