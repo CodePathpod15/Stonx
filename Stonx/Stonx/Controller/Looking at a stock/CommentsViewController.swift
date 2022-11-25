@@ -3,8 +3,11 @@ import Parse
 import UIKit
 
 class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MessageInputBarDelegate {
-    let comments = [PFObject]()
+   
     let commentBar = MessageInputBar()
+    
+    // this contains all of the comments
+    var comments = [Comment]()
     var selectedStock = [PFObject]()
     private var showsCommentBar = false
     var stockName = ""
@@ -21,41 +24,22 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         setUpViews()
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let stock = PFObject(className: "Stocks")
-        let query = PFQuery(className: "Stocks")
-        query.whereKey("symbol", equalTo: stockName)
-        query.includeKeys(["Comments", "Comments.author"])
-        // The query should only find one match as every stock will be unique
-        query.findObjectsInBackground { result, _ in
-            if result != nil {
-                self.selectedStock = result!
-                
-                // If the stock entry hasn't been made, make the entry and save it as the current stock
-                if self.selectedStock.count == 0 {
-                    stock["symbol"] = self.stockName
-                    stock["comments"] = [PFObject]()
-                    stock.saveInBackground { success, error in
-                        if success {
-                            query.findObjectsInBackground { result, _ in
-                                if result != nil {
-                                    self.selectedStock = result!
-                                }
-                            }
-                            print("SAVING DATA SUCCESSFUL")
-                        }
-                        else {
-                            print("ERROR: \(String(describing: error?.localizedDescription))")
-                        }
-                    }
-                }
+        
+        
+        Comments.shared.gettingComments(stockName: stockName) { result in
+            switch result {
+            case .success(let commentsss):
+                print(commentsss)
+                self.comments = commentsss
                 self.tableView.reloadData()
-            }
-            else {
-                print("QUERY RETURNED NULL")
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
+        
     }
     
     private func setUpViews() {
@@ -110,7 +94,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         tableView.reloadData()
-
+        
         // Clear and dismiss the input bar
         commentBar.inputTextView.text = nil
         showsCommentBar = false
@@ -127,25 +111,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let stock = selectedStock.first {
-            let comments = (stock["Comments"] as? [PFObject]) ?? []
-            return comments.count
-        }
-        return 0
+        
+        return comments.count
     }
     
+    // indexpath
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier) as! CommentTableViewCell
-        
-        if let stock = selectedStock.first {
-            let comments = (stock["Comments"] as? [PFObject]) ?? []
-            
-            let profile = comments[indexPath.row]["author"] as! PFUser
-            
-            let comment = comments[indexPath.row]["text"] as! String
-            
-            cell.configure(username: profile.username!, comment: comment)
-        }
+        cell.configure(comment: comments[indexPath.row])
         
         return cell
     }

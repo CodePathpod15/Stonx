@@ -53,6 +53,11 @@ class CommentTableViewCell: UITableViewCell {
         commentLbl.text = comment
     }
     
+    func configure(comment: Comment) {
+        self.usernameLbl.text = comment.username
+        self.commentLbl.text = comment.comment
+    }
+    
     private func setLayouts() {
         NSLayoutConstraint.activate([
             profImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
