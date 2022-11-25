@@ -52,6 +52,9 @@ class StocksVC: UIViewController {
 
         tickerName = stockInfo.the1Symbol
 
+        
+        
+        
         API.getStockAboutMe(tickerSymbol: tickerName) { result in
             switch result {
             case .success(let items):
@@ -185,6 +188,10 @@ class StocksVC: UIViewController {
         tradeView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
     
+    init() {
+            super.init(nibName: nil, bundle: nil)
+        }
+    
     
     @objc func addToWatchList() {
         if navigationItem.rightBarButtonItem?.title == "favorite" {
@@ -257,7 +264,6 @@ class StocksVC: UIViewController {
         NSLayoutConstraint.activate([
             tradeButtonBottom.widthAnchor.constraint(equalToConstant: 150),
             tradeButtonBottom.heightAnchor.constraint(equalToConstant: 50),
-            tradeButtonBottom.centerXAnchor.constraint(equalTo: view.trailingAnchor),
             tradeButtonBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tradeButtonBottom.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
         ])

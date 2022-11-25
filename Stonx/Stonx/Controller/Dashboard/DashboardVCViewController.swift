@@ -114,6 +114,7 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
                 print(stock)
                 if let stock = stock {
                     let rstock = RecommendedStocks()
+                    self.recommendedStr = stock.ticker_symbol
                     rstock.configure(rating: stock.rating ?? 1, tickerName: stock.ticker_symbol )
                     rstock.delegate = self
                     rstock.translatesAutoresizingMaskIntoConstraints = false

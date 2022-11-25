@@ -308,7 +308,7 @@ extension UserDashboardViewController: UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tb = StocksViewController()
+        let tb = StocksVC()
         navigationController?.pushViewController(tb, animated: true)
     }
     

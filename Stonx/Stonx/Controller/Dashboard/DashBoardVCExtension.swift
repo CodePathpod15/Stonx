@@ -17,8 +17,11 @@ extension DashboardVCViewController: RecommendedStockDelegate {
             case .success(let items):
                 if let items = items {
                     DispatchQueue.main.async {
+                        
+                        
+                        
                         // TOODO: fix items.name
-                        self.navigationController?.pushViewController(StocksViewController(symbol: self.recommendedStr, full_name:  items.name ?? "xx" ), animated: true)
+                        self.navigationController?.pushViewController(StocksVC(symbol: self.recommendedStr, full_name:  items.name ?? "xx" ), animated: true)
                         }
                 } else {
                     self.showAlert(with: "error: ")
