@@ -9,7 +9,6 @@ import UIKit
 import Parse
 
 // TODO: present error as alert if email does not exist in our database.
-
 class ForgotPassViewController: UIViewController {
     
     private let emailTextfield = TextField()
