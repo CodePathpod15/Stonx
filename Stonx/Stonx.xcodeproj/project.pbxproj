@@ -37,6 +37,9 @@
 		1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */; };
 		1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */; };
 		1CD4669F2922A83200AE9EAF /* DashboardVCSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD4669E2922A83200AE9EAF /* DashboardVCSocket.swift */; };
+		1CD9B02829317860009A7A00 /* GettingInfoIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02729317860009A7A00 /* GettingInfoIcons.swift */; };
+		1CD9B02C29318558009A7A00 /* StocksVCCommentCountSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */; };
+		1CD9B02E29318614009A7A00 /* StockVCFromRecommended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */; };
 		1CE134B5292E847C00610451 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B4292E847C00610451 /* Comments.swift */; };
 		1CE134B7292E97EA00610451 /* StocksCommentCountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */; };
 		1CE134B9292EE1F400610451 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B8292EE1F400610451 /* Comment.swift */; };
@@ -127,6 +130,9 @@
 		1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
 		1CD4669E2922A83200AE9EAF /* DashboardVCSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVCSocket.swift; sourceTree = "<group>"; };
+		1CD9B02729317860009A7A00 /* GettingInfoIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingInfoIcons.swift; sourceTree = "<group>"; };
+		1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksVCCommentCountSections.swift; sourceTree = "<group>"; };
+		1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockVCFromRecommended.swift; sourceTree = "<group>"; };
 		1CE134B4292E847C00610451 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksCommentCountSection.swift; sourceTree = "<group>"; };
 		1CE134B8292EE1F400610451 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -236,6 +242,9 @@
 				1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */,
 				1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */,
 				1CE134BF293137E200610451 /* StocksVC.swift */,
+				1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */,
+				1CD9B02729317860009A7A00 /* GettingInfoIcons.swift */,
+				1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */,
 			);
 			path = "Looking at a stock";
 			sourceTree = "<group>";
@@ -635,6 +644,8 @@
 			files = (
 				1CEBCAE4290DED4D007B45DE /* JsonCodable.swift in Sources */,
 				1C291DD529048DA60058E291 /* UserDashboardViewController.swift in Sources */,
+				1CD9B02E29318614009A7A00 /* StockVCFromRecommended.swift in Sources */,
+				1CD9B02829317860009A7A00 /* GettingInfoIcons.swift in Sources */,
 				1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */,
 				1CE84F41291311BA0001F970 /* TransactionSuccessfulViewController.swift in Sources */,
 				1C1A74F9290D007500C3310C /* SearchStocksViewController.swift in Sources */,
@@ -659,6 +670,7 @@
 				1C160C33291B17B200CE5823 /* InformationView.swift in Sources */,
 				1C160C31291AE7A700CE5823 /* Parse.swift in Sources */,
 				1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */,
+				1CD9B02C29318558009A7A00 /* StocksVCCommentCountSections.swift in Sources */,
 				1CE134B9292EE1F400610451 /* Comment.swift in Sources */,
 				1C160C37291B776A00CE5823 /* Filter.swift in Sources */,
 				1CE84F3B291223650001F970 /* TradeView.swift in Sources */,

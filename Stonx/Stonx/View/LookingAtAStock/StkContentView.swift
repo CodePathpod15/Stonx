@@ -14,9 +14,14 @@ protocol MarketProtocol: AnyObject {
     func volumeInfoWasPressed()
     func PERatioWaspressed()
     func EPSWasPressed()
+    func viewAllCommentsPressed()
 }
 
 class StkContentView: UIView {
+    
+    
+    weak var delegate: MarketProtocol? 
+    
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
@@ -201,8 +206,7 @@ class StkContentView: UIView {
     let volumeSV = statSV()
     let peRatioSV = statSV()
     let epsSV = statSV()
-    
-    
+
     lazy var viewAllCommentsLlbl: UIButton = {
        let textLabel = UIButton(type: .system)
        textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -213,7 +217,7 @@ class StkContentView: UIView {
     
     
     @objc func viewComments() {
-        
+        delegate?.viewAllCommentsPressed()
     }
     
     override init(frame: CGRect) {
@@ -222,19 +226,19 @@ class StkContentView: UIView {
         self.addSubview(verticalSV)
         verticalSV.addArrangedSubview(marketCap)
         marketCap.configure(title: "Market Cap")
-        marketCap.configure(amount: "133327602000")
+        marketCap.configure(amount: "xxxxx")
         
         verticalSV.addArrangedSubview(volumeSV)
         volumeSV.configure(title: "Volume")
-        volumeSV.configure(amount: "3658459")
+        volumeSV.configure(amount: "xxxx")
         
         verticalSV.addArrangedSubview(peRatioSV)
         peRatioSV.configure(title: "P/E Ratio")
-        peRatioSV.configure(amount: "24.43")
+        peRatioSV.configure(amount: "xxx")
         
         verticalSV.addArrangedSubview(epsSV)
         epsSV.configure(title: "EPS")
-        epsSV.configure(amount: "6.09")
+        epsSV.configure(amount: "x.xx")
         
         
         verticalSV.addArrangedSubview(discussionsSectionTitle)
@@ -245,6 +249,71 @@ class StkContentView: UIView {
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
         lineChartView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         setData()
+        
+        
+        
+        marketCap.imageIconVolume.addTarget(self, action: #selector(btnWasPressed), for: .touchUpInside)
+        volumeSV.imageIconVolume.addTarget(self, action: #selector(btnWasPressed), for: .touchUpInside)
+        peRatioSV.imageIconVolume.addTarget(self, action: #selector(btnWasPressed), for: .touchUpInside)
+        epsSV.imageIconVolume.addTarget(self, action: #selector(btnWasPressed), for: .touchUpInside)
+      
+    }
+    
+    func configure(fullStockname: String) {
+        self.fullNameStockLbl.text = fullStockname
+    }
+    
+    
+    func configure(price: String) {
+        self.stockPrice.text = price
+    }
+    
+    func configure(pricePercentChance: String) {
+        self.pricePercentChange.text = pricePercentChance
+    }
+    
+    func configure(aboutText: String) {
+        self.AboutText.text = aboutText
+    }
+    
+    func configure(sector: String) {
+        self.sectorText.text = sector
+    }
+    
+    func configure(volume: String) {
+        self.volumeSV.configure(amount: volume)
+    }
+    
+    
+//    self.stockEPSTextLabel.text = items?.eps
+ //                    self.stockPERatioTextLabel.text = items?.peRatio
+ //                    // market cap
+ //                    self.marketCapTextLabel.text = items?.marketCap
+    
+    func configure(eps: String, peRatio: String, marketCap: String) {
+        self.epsSV.configure(amount: eps)
+        self.peRatioSV.configure(amount: peRatio)
+        self.marketCap.configure(amount: marketCap)
+    }
+    
+    
+    
+    
+    @objc func btnWasPressed(button: UIButton) {
+        
+        switch button {
+        case marketCap.imageIconVolume:
+            delegate?.marketCapWasPressed()
+        case volumeSV.imageIconVolume:
+            delegate?.volumeInfoWasPressed()
+        case peRatioSV.imageIconVolume:
+            delegate?.PERatioWaspressed()
+        case epsSV.imageIconVolume:
+            delegate?.EPSWasPressed()
+        default:
+            print("none")
+        }
+                
         
     }
     

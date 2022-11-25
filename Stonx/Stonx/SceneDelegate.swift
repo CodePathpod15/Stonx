@@ -56,8 +56,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let loggedIn = true
 
             if loggedIn {
+                
 
-                let vc = UINavigationController(rootViewController: StocksVC())
+                let vc = UINavigationController(rootViewController: StocksVC(stockInfo: .init(the1Symbol: "IBM", the2Name: "International Business Machines Corp", the3Type: "", the4Region: "", the5MarketOpen: "", the6MarketClose: "", the7Timezone: "", the8Currency: "", the9MatchScore: "")))
                 let root = vc
 
                 window.rootViewController = root
