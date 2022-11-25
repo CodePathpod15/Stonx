@@ -90,6 +90,12 @@ class LoginViewController: UIViewController {
         let username = usernameTextfield.text!.lowercased()
         let password = passWordTextfield.text!
         
+        // logging the user
+        logTheUserIn(with: username, password: password)
+        
+    }
+    
+    func logTheUserIn(with username: String, password: String) {
         PFUser.logInWithUsername(inBackground: username, password:password) {
           (user: PFUser?, error: Error?) -> Void in
           
@@ -105,7 +111,6 @@ class LoginViewController: UIViewController {
           }
             
         }
-        
     }
     
     

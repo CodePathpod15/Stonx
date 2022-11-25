@@ -11,24 +11,32 @@ import Parse
 
 // this is in charged of all of the API calls for the comments
 
-struct stocksConstants {
+struct StocksConstants {
     static let objectName = "Stocks"
     static let symbol = "symbol"
     static let comments = "Comments"
     static let comment_Author = "Comments.author"
 }
 
+struct CommentsConstants {
+    static let objectName = "comments"
+    static let author = "author"
+    static let text = "text"
+    static let stock = "stock"
+}
 
 
-// this is in charged of the comment feature inside of the
+
+// comments networking layer to retrieve the comments
+
 class Comments {
     static var shared  = Comments()
     // this retuns the count for the specific stock
     func gettingTheCount(ticker_id: String,  completion: @escaping (Result<Int, Error>) -> Void) {
         var selectedStock = [PFObject]()
-        let query = PFQuery(className: "Stocks")
-        query.whereKey("symbol", equalTo: ticker_id)
-        query.includeKeys(["Comments", "Comments.author"])
+        let query = PFQuery(className: StocksConstants.objectName)
+        query.whereKey(StocksConstants.symbol, equalTo: ticker_id)
+        query.includeKeys([StocksConstants.comments, StocksConstants.comment_Author])
         // The query should only find one match as every stock will be unique
         query.findObjectsInBackground { result, error in
             // returns an error
@@ -48,13 +56,10 @@ class Comments {
                     completion(.success(0))
                     
                 }
-                
-                
-                
+   
             }
             else {
                 completion(.success(0))
-                print("QUERY RETURNED NULL")
             }
         }
     }
@@ -65,20 +70,19 @@ class Comments {
     // TODO: add pagination to the comments
     // getting the comments for an objec
     func gettingComments(stockName: String, completion: @escaping (Result<[Comment], Error>)-> Void) {
-       
-        let stock = PFObject(className: "Stocks")
-        let query = PFQuery(className: "Stocks")
-        query.whereKey("symbol", equalTo: stockName)
-        query.includeKeys(["Comments", "Comments.author"])
+        let stock = PFObject(className: StocksConstants.objectName)
+        let query = PFQuery(className: StocksConstants.objectName)
+        query.whereKey(StocksConstants.symbol, equalTo: stockName)
+        query.includeKeys([StocksConstants.comments, StocksConstants.comment_Author])
         // The query should only find one match as every stock will be unique
-        query.findObjectsInBackground { result, _ in
+        query.findObjectsInBackground { result, error in
             if result != nil {
                 self.selectedStock = result!
                 
                 // If the stock entry hasn't been made, make the entry and save it as the current stock
                 if self.selectedStock.count == 0 {
-                    stock["symbol"] = stockName
-                    stock["comments"] = [PFObject]()
+                    stock[StocksConstants.symbol] = stockName
+                    stock[CommentsConstants.objectName] = [PFObject]()
                     stock.saveInBackground { success, error in
                         if success {
                             query.findObjectsInBackground { result, _ in
@@ -86,11 +90,12 @@ class Comments {
                                     self.selectedStock = result!
                                 }
                             }
-                            print("SAVING DATA SUCCESSFUL")
                         }
-                        else {
-                            print("ERROR: \(String(describing: error?.localizedDescription))")
+                        // returns an error
+                        if let error = error {
+                            completion(.failure(error))
                         }
+
                     }
                 }
                 
@@ -98,11 +103,11 @@ class Comments {
                 
                 if let stock = self.selectedStock.first {
                     
-                    let comments = (stock["Comments"] as? [PFObject]) ?? []
+                    let comments = (stock[StocksConstants.comments] as? [PFObject]) ?? []
                     
                     for comment in comments {
-                        let profile = comment["author"] as! PFUser
-                        let comment = comment["text"] as! String
+                        let profile = comment[CommentsConstants.author] as! PFUser
+                        let comment = comment[CommentsConstants.text] as! String
                         
                         // create the comment
                         if let username = profile.username  {
@@ -112,7 +117,6 @@ class Comments {
                     }
                     
                 }
-                
                 completion(.success(commentObjects))
             }
             else {
@@ -121,16 +125,15 @@ class Comments {
         }
     }
     
-    
     // this is in charged of creating a comment
     func creatingAComment(with text: String,completion: @escaping (Result<Comment, Error>)-> Void) {
-        let comment = PFObject(className: "comments")
+        let comment = PFObject(className: CommentsConstants.objectName)
         let stock = selectedStock.first!
-        comment["text"] = text
-        comment["author"] = PFUser.current()!
-        comment["stock"] = stock
+        comment[CommentsConstants.text] = text
+        comment[CommentsConstants.author] = PFUser.current()!
+        comment[CommentsConstants.stock] = stock
 
-        stock.add(comment, forKey: "Comments")
+        stock.add(comment, forKey: StocksConstants.comments)
         stock.saveInBackground { success, error in
             // check if there are any errors
             if let error = error {

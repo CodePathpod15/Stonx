@@ -27,9 +27,8 @@ extension StocksViewController {
                 self.showAlert(with: error.localizedDescription)
             }
         }
-        
-        
     }
+    
     
     // changes the text of the button when no comment has been added yet.
     func enableOrDisableCommentLblAndButton(with count: Int) {

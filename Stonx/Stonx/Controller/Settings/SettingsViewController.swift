@@ -16,8 +16,6 @@ class SettingsViewController: UIViewController {
     var usBalance:Double = 0
     let settings = ["Personal info", "Balance"]
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getBalance()
@@ -37,7 +35,6 @@ class SettingsViewController: UIViewController {
     }
 
     // MARK: setting up the UI
-    
     // setting  up the tableview
    private func setUpViews() {
        
@@ -105,9 +102,7 @@ class SettingsViewController: UIViewController {
         
         let title = action == .delete ? "Deleting Account" : "Going bankrupt"
         let supportingText = action == .delete ? "Are you sure you want to delete your account?" : "You will be resetting all of your transactions"
-        
         let nActionTitle = action == .delete ? "Delete Account" : "Reset"
-        
         
         let alertController: UIAlertController = UIAlertController(title: title, message: supportingText, preferredStyle: .alert)
 
