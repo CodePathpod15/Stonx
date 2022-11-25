@@ -207,34 +207,3 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
    | updatedAt     | DateTime | date when post is last updated (default field)      |
   
 
-### Networking
-API: 
-https://www.alphavantage.co/documentation/
-
-- Home (Dashboard)
-  - (Read/GET) Query all stocks owned by the user from user_stocks
-
-- Favorites (Watch list)
-  - (Read/GET) Query all stocks owned by the user from user_stocks
-- Search Stock 
-  - (Read/GET) Query stock from stocks API 
-  - (Read/GET) Query individual stock from API 
-- View Stock 
-  - (Read/GET) Query stock from stocks API 
-  - (create/POST) Add stock to Stocks_Bookmarked
-  - (create/POST) Add stock to user_stocks
-  - (create/POST) Add stock to stock_discussion
-- Settings
-  - (edit/Patch) edit name of user
-  - (edit/Patch) modifying quantity 
- 
- 1st Submission Gif:
- version 1
-![video2](https://user-images.githubusercontent.com/29695936/199633533-55cd7cdf-e20d-4c80-8389-1913481650e4.gif)
-
-
-Version 2: 
-![video2](https://user-images.githubusercontent.com/29695936/200395220-3c1a61ec-a35d-4a44-af91-8a3be1ce1eb7.gif)
-
-
-
