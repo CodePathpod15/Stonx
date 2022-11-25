@@ -10,16 +10,22 @@ import Parse
 
 
 // this is in charged of all of the API calls for the comments
+
+struct stocksConstants {
+    static let objectName = "Stocks"
+    static let symbol = "symbol"
+    static let comments = "Comments"
+    static let comment_Author = "Comments.author"
+}
+
+
+
+
 class Comments {
     static var shared  = Comments()
-
-    var selectedStock = [PFObject]()
-    var stockName = ""
-
-    
     // this retuns the count for the specific stock
     func gettingTheCount(ticker_id: String,  completion: @escaping (Result<Int, Error>) -> Void) {
-        let stock = PFObject(className: "Stocks")
+        var selectedStock = [PFObject]()
         let query = PFQuery(className: "Stocks")
         query.whereKey("symbol", equalTo: ticker_id)
         query.includeKeys(["Comments", "Comments.author"])
@@ -27,11 +33,10 @@ class Comments {
         query.findObjectsInBackground { result, _ in
             
             if result != nil {
-                self.selectedStock = result!
+                selectedStock = result!
                 
                 // If the stock entry hasn't been made, make the entry and save it as the current stock
-                
-                if let stock = self.selectedStock.first {
+                if let stock = selectedStock.first {
                     let comments = (stock["Comments"] as? [PFObject]) ?? []
                     completion(.success(comments.count))
                 }
@@ -43,6 +48,13 @@ class Comments {
             }
         }
     }
+    
+    // getting the comments for an object
+    
+    
+    
+    
+    
     
     
     
