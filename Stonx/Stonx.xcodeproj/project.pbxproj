@@ -32,7 +32,6 @@
 		1C5F0E5B2901C5EF00101093 /* StonxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E5A2901C5EF00101093 /* StonxTests.swift */; };
 		1C5F0E652901C5EF00101093 /* StonxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E642901C5EF00101093 /* StonxUITests.swift */; };
 		1C5F0E672901C5EF00101093 /* StonxUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F0E662901C5EF00101093 /* StonxUITestsLaunchTests.swift */; };
-		1C79C54C2921A51B00B3432F /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79C54B2921A51B00B3432F /* TestingViewController.swift */; };
 		1C86BA302910C0920034730F /* PersonalnfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C86BA2F2910C0920034730F /* PersonalnfoViewController.swift */; };
 		1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B32908DCC600CA2125 /* TabBarController.swift */; };
 		1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */; };
@@ -117,7 +116,6 @@
 		1C5F0E602901C5EF00101093 /* StonxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StonxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C5F0E642901C5EF00101093 /* StonxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StonxUITests.swift; sourceTree = "<group>"; };
 		1C5F0E662901C5EF00101093 /* StonxUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StonxUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1C79C54B2921A51B00B3432F /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
 		1C86BA2F2910C0920034730F /* PersonalnfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalnfoViewController.swift; sourceTree = "<group>"; };
 		1CC306B32908DCC600CA2125 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1CC306B5290AE72C00CA2125 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 				1C291DD029048CC80058E291 /* LoginViewController.swift */,
 				1C5F0E472901C5EE00101093 /* CreateAnAccountViewcontroller.swift */,
 				1CC306B7290B33FD00CA2125 /* ForgotPassViewController.swift */,
-				1C79C54B2921A51B00B3432F /* TestingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -653,7 +650,6 @@
 				1CE134B5292E847C00610451 /* Comments.swift in Sources */,
 				1CE84F4D2916E1E10001F970 /* DashboardVCViewController.swift in Sources */,
 				1CEBCADA290DB30B007B45DE /* SettingsViewController.swift in Sources */,
-				1C79C54C2921A51B00B3432F /* TestingViewController.swift in Sources */,
 				1CD4669F2922A83200AE9EAF /* DashboardVCSocket.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
