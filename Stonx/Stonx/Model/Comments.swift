@@ -27,7 +27,8 @@ struct CommentsConstants {
 
 
 
-// this is in charged of the comment feature inside of the
+// comments networking layer to retrieve the comments
+
 class Comments {
     static var shared  = Comments()
     // this retuns the count for the specific stock
@@ -65,22 +66,6 @@ class Comments {
     
     
     var selectedStock = [PFObject]()
-
-    
-//    struct StocksConstants {
-//        static let objectName = "Stocks"
-//        static let symbol = "symbol"
-//        static let comments = "Comments"
-//        static let comment_Author = "Comments.author"
-//    }
-//
-//    struct CommentsConstants {
-//        static let objectName = "comments"
-//        static let author = "author"
-//        static let text = "text"
-//        static let stock = "stock"
-//    }
-    
     
     // TODO: add pagination to the comments
     // getting the comments for an objec
@@ -141,15 +126,29 @@ class Comments {
     }
     
     
+//    struct StocksConstants {
+//        static let objectName = "Stocks"
+//        static let symbol = "symbol"
+//        static let comments = "Comments"
+//        static let comment_Author = "Comments.author"
+//    }
+//
+//    struct CommentsConstants {
+//        static let objectName = "comments"
+//        static let author = "author"
+//        static let text = "text"
+//        static let stock = "stock"
+//    }
+    
     // this is in charged of creating a comment
     func creatingAComment(with text: String,completion: @escaping (Result<Comment, Error>)-> Void) {
-        let comment = PFObject(className: "comments")
+        let comment = PFObject(className: CommentsConstants.objectName)
         let stock = selectedStock.first!
-        comment["text"] = text
-        comment["author"] = PFUser.current()!
-        comment["stock"] = stock
+        comment[CommentsConstants.text] = text
+        comment[CommentsConstants.author] = PFUser.current()!
+        comment[CommentsConstants.stock] = stock
 
-        stock.add(comment, forKey: "Comments")
+        stock.add(comment, forKey: StocksConstants.comments)
         stock.saveInBackground { success, error in
             // check if there are any errors
             if let error = error {
