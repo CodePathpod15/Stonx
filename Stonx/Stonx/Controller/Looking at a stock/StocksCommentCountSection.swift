@@ -31,15 +31,12 @@ extension StocksViewController {
         
     }
     
+    // changes the text of the button when no comment has been added yet.
     func enableOrDisableCommentLblAndButton(with count: Int) {
         if count == 0 {
             self.viewAllCommentsLlbl.setTitle("Add a comment", for: .normal)
-
-            
         } else {
-
             self.viewAllCommentsLlbl.setTitle("View All \(count) Comments", for: .normal)
-
         }
     }
     
