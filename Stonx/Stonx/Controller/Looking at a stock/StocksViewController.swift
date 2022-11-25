@@ -373,7 +373,7 @@ class StocksViewController: UIViewController, UINavigationControllerDelegate, UI
     }()
 
 
-    private lazy var discussionHeaderLbl: UILabel = {
+     lazy var discussionHeaderLbl: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Discussions"

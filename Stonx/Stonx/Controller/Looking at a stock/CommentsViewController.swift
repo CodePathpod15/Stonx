@@ -32,11 +32,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         Comments.shared.gettingComments(stockName: stockName) { result in
             switch result {
             case .success(let commentsss):
-                print(commentsss)
                 self.comments = commentsss
                 self.tableView.reloadData()
             case .failure(let error):
-                print(error.localizedDescription)
+                self.showAlert(with: error.localizedDescription)
             }
         }
         

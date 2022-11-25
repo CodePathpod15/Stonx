@@ -30,7 +30,11 @@ class Comments {
         query.whereKey("symbol", equalTo: ticker_id)
         query.includeKeys(["Comments", "Comments.author"])
         // The query should only find one match as every stock will be unique
-        query.findObjectsInBackground { result, _ in
+        query.findObjectsInBackground { result, error in
+            // returns an error
+            if let error = error {
+                completion(.failure(error))
+            }
             
             if result != nil {
                 selectedStock = result!
@@ -39,7 +43,13 @@ class Comments {
                 if let stock = selectedStock.first {
                     let comments = (stock["Comments"] as? [PFObject]) ?? []
                     completion(.success(comments.count))
+                } else {
+                    // means we have have an object with no comments
+                    completion(.success(0))
+                    
                 }
+                
+                
                 
             }
             else {

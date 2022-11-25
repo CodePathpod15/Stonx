@@ -15,20 +15,32 @@ extension StocksViewController {
     func updateTheStocksCount() {
         
         Comments.shared.gettingTheCount(ticker_id: tickerName) { result in
+            
             switch result {
             case .success(let commentCount):
                 DispatchQueue.main.async {
-                    
-                    self.viewAllCommentsLlbl.setTitle("View All \(commentCount) Comments", for: .normal) 
-                    
+                    // TODO:
+                    self.enableOrDisableCommentLblAndButton(with: commentCount)
                 }
                 print(commentCount)
             case .failure(let error):
-                print(error.localizedDescription)
+                self.showAlert(with: error.localizedDescription)
             }
         }
         
         
+    }
+    
+    func enableOrDisableCommentLblAndButton(with count: Int) {
+        if count == 0 {
+            self.viewAllCommentsLlbl.setTitle("Add a comment", for: .normal)
+
+            
+        } else {
+
+            self.viewAllCommentsLlbl.setTitle("View All \(count) Comments", for: .normal)
+
+        }
     }
     
     
