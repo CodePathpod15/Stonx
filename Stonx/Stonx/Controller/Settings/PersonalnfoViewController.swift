@@ -41,6 +41,14 @@ class PersonalnfoViewController: UIViewController {
         tableview.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         
     }
+    // this method is in charged of getting the
+    func configure(cell: BalanceTableViewCell) {
+        if currentUser.value(forKey: "full_name") as? String  == nil {
+            cell.configure(name: "")
+        } else {
+            cell.configure(name:  currentUser.value(forKey: "full_name") as! String)
+        }
+    }
 
 
 }
@@ -56,22 +64,15 @@ extension PersonalnfoViewController: UITableViewDataSource {
         // configuring the title
         if indexPath.row == 0 {
                    cell.accessoryType = .disclosureIndicator
-                   cell.configure(with: "Username")
+                   cell.configure(with: "Username") // sets the title
                    cell.configure(name: currentUser.username!)
                    return cell
-               } else {
-                   cell.accessoryType = .disclosureIndicator
-                   cell.configure(with: "full name")
-
-                   // TODO: clean this up
-                   if currentUser.value(forKey: "full_name") as? String  == nil {
-                       cell.configure(name: "")
-                   } else {
-                       cell.configure(name:  currentUser.value(forKey: "full_name") as! String)
-                   }
-
-                   cell.isUserInteractionEnabled = true
-               }
+       } else {
+           cell.accessoryType = .disclosureIndicator
+           cell.configure(with: "full name") // sets the title
+           configure(cell: cell)
+           cell.isUserInteractionEnabled = true
+       }
 
             return cell
         
@@ -104,13 +105,11 @@ extension PersonalnfoViewController: UITableViewDelegate {
            let nextAction = UIAlertAction(title: "Ok", style: .default) { _ in
                let text = (alertController.textFields?.first as! UITextField).text
 
-               //
                self.currentUser[parseColumnName] = text
                self.currentUser.saveInBackground() { success, error in
                    if success {
                        self.tableview.reloadData()
                    }
-
                }
            }
 

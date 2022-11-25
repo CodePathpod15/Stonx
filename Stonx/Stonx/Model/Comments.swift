@@ -48,9 +48,7 @@ class Comments {
                     completion(.success(0))
                     
                 }
-                
-                
-                
+   
             }
             else {
                 completion(.success(0))

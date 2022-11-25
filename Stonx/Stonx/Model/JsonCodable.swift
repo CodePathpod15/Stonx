@@ -10,6 +10,7 @@ import Foundation
 // I useed these to convert our received json to an object
 // for more info look into codable please or ask me
 
+// this are the models used when doing the API requests
 struct StockAbout: Codable {
     let symbol, assetType, name, stockAboutDescription: String?
     let cik, exchange, currency, country: String?
