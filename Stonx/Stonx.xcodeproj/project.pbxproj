@@ -222,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				1CE84F382911D9410001F970 /* StocksViewController.swift */,
-				41C78ED4292AD58E00A570F9 /* CommentTableViewCell.swift */,
 				41C78ED6292AD5AB00A570F9 /* CommentsViewController.swift */,
 				1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */,
 				1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */,
@@ -265,6 +264,7 @@
 				1C160C38291B7AC300CE5823 /* WatchlistTableViewCell.swift */,
 				1C160C3E291C768000CE5823 /* VerticalSV.swift */,
 				1C160C3C291C465D00CE5823 /* ComparisonView.swift */,
+				41C78ED4292AD58E00A570F9 /* CommentTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
