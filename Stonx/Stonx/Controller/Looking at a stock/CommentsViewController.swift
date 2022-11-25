@@ -78,22 +78,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         // Create the comment
-        let comment = PFObject(className: "comments")
-        let stock = selectedStock.first!
-        comment["text"] = text
-        comment["author"] = PFUser.current()!
-        comment["stock"] = stock
-
-        stock.add(comment, forKey: "Comments")
-        stock.saveInBackground { success, error in
-            if success {
-                print("Comment successful")
-            }
-            else {
-                print("Comment error: \(String(describing: error?.localizedDescription))")
+        Comments.shared.creatingAComment(with: text) { result in
+            switch result {
+            case .success(let comment):
+                self.comments.append(comment)
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
-        tableView.reloadData()
         
         // Clear and dismiss the input bar
         commentBar.inputTextView.text = nil

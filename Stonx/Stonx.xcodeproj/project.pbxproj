@@ -239,10 +239,10 @@
 				1CEBCAE3290DED4D007B45DE /* JsonCodable.swift */,
 				1CE84F3E291239810001F970 /* StockMarket.swift */,
 				1C160C30291AE7A700CE5823 /* Parse.swift */,
-				1C160C34291B755C00CE5823 /* Stock.swift */,
-				1C160C36291B776A00CE5823 /* Filter.swift */,
 				1CE134B4292E847C00610451 /* Comments.swift */,
 				1CE134B8292EE1F400610451 /* Comment.swift */,
+				1C160C34291B755C00CE5823 /* Stock.swift */,
+				1C160C36291B776A00CE5823 /* Filter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

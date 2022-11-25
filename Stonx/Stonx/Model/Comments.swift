@@ -20,7 +20,7 @@ struct stocksConstants {
 
 
 
-
+// this is in charged of the comment feature inside of the
 class Comments {
     static var shared  = Comments()
     // this retuns the count for the specific stock
@@ -51,6 +51,8 @@ class Comments {
     
     
     var selectedStock = [PFObject]()
+    
+    // TODO: add pagination to the comments
     // getting the comments for an objec
     func gettingComments(stockName: String, completion: @escaping (Result<[Comment], Error>)-> Void) {
        
@@ -102,10 +104,6 @@ class Comments {
                 }
                 
                 completion(.success(commentObjects))
-                
-                
-    
-//                self.tableView.reloadData()
             }
             else {
                 print("QUERY RETURNED NULL")
@@ -113,14 +111,32 @@ class Comments {
         }
     }
     
-    // helper method to get
-//    func
+    
+    // this is in charged of creating a comment
+    func creatingAComment(with text: String,completion: @escaping (Result<Comment, Error>)-> Void) {
+        let comment = PFObject(className: "comments")
+        let stock = selectedStock.first!
+        comment["text"] = text
+        comment["author"] = PFUser.current()!
+        comment["stock"] = stock
+
+        stock.add(comment, forKey: "Comments")
+        stock.saveInBackground { success, error in
+            // check if there are any errors
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+            if success {
+                if let username = PFUser.current()?.username {
+                 completion(.success(Comment(username: username, comment: text, imageUrl: nil)))
+                }
+                
+            }
+        }
+    }
     
     
     
-    
-    
-    
-    
-    
+
 }
