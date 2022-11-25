@@ -196,15 +196,25 @@ class StkContentView: UIView {
         return sv
     }()
     
-    
+    // these all part of the market
     let marketCap = statSV()
     let volumeSV = statSV()
     let peRatioSV = statSV()
     let epsSV = statSV()
     
     
-
+    lazy var viewAllCommentsLlbl: UIButton = {
+       let textLabel = UIButton(type: .system)
+       textLabel.translatesAutoresizingMaskIntoConstraints = false
+       textLabel.setTitle("View 12 Comments", for: .normal)
+       textLabel.addTarget(self, action: #selector(viewComments), for: .touchUpInside)
+       return textLabel
+   }()
     
+    
+    @objc func viewComments() {
+        
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -228,8 +238,9 @@ class StkContentView: UIView {
         
         
         verticalSV.addArrangedSubview(discussionsSectionTitle)
+        verticalSV.addArrangedSubview(viewAllCommentsLlbl)
         
-        verticalSV.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
+        verticalSV.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10))
         
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
         lineChartView.heightAnchor.constraint(equalToConstant: 200).isActive = true
