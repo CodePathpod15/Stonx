@@ -11,6 +11,7 @@ target 'Stonx' do
    pod 'Charts'
    pod 'lottie-ios'
    pod 'Starscream', '~> 4.0.0'
+   pod 'MessageInputBar'
 
   target 'StonxTests' do
     inherit! :search_paths
