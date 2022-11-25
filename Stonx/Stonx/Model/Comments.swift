@@ -125,21 +125,6 @@ class Comments {
         }
     }
     
-    
-//    struct StocksConstants {
-//        static let objectName = "Stocks"
-//        static let symbol = "symbol"
-//        static let comments = "Comments"
-//        static let comment_Author = "Comments.author"
-//    }
-//
-//    struct CommentsConstants {
-//        static let objectName = "comments"
-//        static let author = "author"
-//        static let text = "text"
-//        static let stock = "stock"
-//    }
-    
     // this is in charged of creating a comment
     func creatingAComment(with text: String,completion: @escaping (Result<Comment, Error>)-> Void) {
         let comment = PFObject(className: CommentsConstants.objectName)
