@@ -28,49 +28,9 @@ Stonx is a an application to help early investors gain experience in the stock m
    ```
  2. Note that since our alphavantage API only allows us to do 5 request per minute, the app may not always return the about, sector,market cap,volume,P/E Ratio and EPS sections. 
  
- or download the app using our testflight link: 
-
-https://testflight.apple.com/join/mONZP92n
-
- 
- 
-
-
-## Features 
-## Comparing stocks
- - user can search for two different stocks to compare
-![video2](https://user-images.githubusercontent.com/29695936/201553036-f028f070-fc15-4934-8263-83a7b7732875.gif)
-
-
-## Viewing Real time stock Data using alpaca markets Socket 
- - we provide our users with real time data using the stockets 
- - https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/realtime/
-![video2](https://user-images.githubusercontent.com/29695936/201725667-0a738425-0eb3-4092-806c-5650263f86b5.gif)
-
-
-## Buying Stocks
-![video2](https://user-images.githubusercontent.com/29695936/201553385-b420c064-6e30-440a-9aed-454094687417.gif)
-
-## Selling Stocks 
-![video2](https://user-images.githubusercontent.com/29695936/201553448-b621f90f-17f0-41e2-973a-dd96fcad4fad.gif)
-
-## Creating A watchlist 
-![video2](https://user-images.githubusercontent.com/29695936/201553881-747c59d2-713d-46c7-b7f3-b93fae40c2b3.gif)
-
-![video2](https://user-images.githubusercontent.com/29695936/201553975-aa8586c2-70f1-4af3-9629-0f01d2d90ba2.gif)
-
-## Smart stocks: receive recommendations based on user surveys 
-
-# user survey
- - We survey users that have owned stocks every 7 days.
-![video2](https://user-images.githubusercontent.com/29695936/201555430-7eb52f04-9793-453c-81a2-684432dfc4e0.gif)
-
-# Recommendations
-![video2](https://user-images.githubusercontent.com/29695936/201555554-13805d65-7a50-4f0a-8cd3-51aad34ae515.gif)
-
+ or download the app using our testflight link: https://testflight.apple.com/join/mONZP92n
 
 ## Product Spec
-
 
 ### 1. User Stories (Required and Optional)
 
@@ -91,6 +51,7 @@ https://testflight.apple.com/join/mONZP92n
 - [x] User can see their dashboard
 - [x] user can see their updated stock chart
 - [ ] User can see their history of trades 
+- [x] user sees real time stock data via web sockets
 - [x] Comparing two different stocks
 - [x] programmatic UI
 * ...
@@ -98,11 +59,10 @@ https://testflight.apple.com/join/mONZP92n
 **Optional Nice-to-have Stories**
 
 - [ ] User can change their profile (e.g. dark mode, ligth mode)
-- [ ] User can comment on a specific stock (discussion)
+- [x] User can comment on a specific stock (discussion)
 - [ ] Walkthrough of the app
 - [ ] News headline 
 - [ ] ask the user for the number of experiences (1 to 2 years)
-
 
 
 ### 2. Screen Archetypes
@@ -158,6 +118,7 @@ https://testflight.apple.com/join/mONZP92n
    * Delete account 
 
 
+
 ## Wireframes
 
 
@@ -206,4 +167,34 @@ https://www.figma.com/file/uEPK45BGlDkHqQEa1qiZb6/Stonx?node-id=0%3A1
    | createdAt     | DateTime | date when post is created (default field)           |
    | updatedAt     | DateTime | date when post is last updated (default field)      |
   
+## Features 
+## Comparing stocks
+ - user can search for two different stocks to compare
+![video2](https://user-images.githubusercontent.com/29695936/201553036-f028f070-fc15-4934-8263-83a7b7732875.gif)
 
+
+## Viewing Real time stock Data using alpaca markets Socket 
+ - we provide our users with real time data using the stockets 
+ - https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/realtime/
+![video2](https://user-images.githubusercontent.com/29695936/201725667-0a738425-0eb3-4092-806c-5650263f86b5.gif)
+
+
+## Buying Stocks
+![video2](https://user-images.githubusercontent.com/29695936/201553385-b420c064-6e30-440a-9aed-454094687417.gif)
+
+## Selling Stocks 
+![video2](https://user-images.githubusercontent.com/29695936/201553448-b621f90f-17f0-41e2-973a-dd96fcad4fad.gif)
+
+## Creating A watchlist 
+![video2](https://user-images.githubusercontent.com/29695936/201553881-747c59d2-713d-46c7-b7f3-b93fae40c2b3.gif)
+
+![video2](https://user-images.githubusercontent.com/29695936/201553975-aa8586c2-70f1-4af3-9629-0f01d2d90ba2.gif)
+
+## Smart stocks: receive recommendations based on user surveys 
+
+# user survey
+ - We survey users that have owned stocks every 7 days.
+![video2](https://user-images.githubusercontent.com/29695936/201555430-7eb52f04-9793-453c-81a2-684432dfc4e0.gif)
+
+# Recommendations
+![video2](https://user-images.githubusercontent.com/29695936/201555554-13805d65-7a50-4f0a-8cd3-51aad34ae515.gif)
