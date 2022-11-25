@@ -97,7 +97,7 @@ class Comments {
                         // create the comment
                         if let username = profile.username  {
                             
-                            commentObjects.append(Comment(username: username, comment: comment, imageUrl: nil))
+                            commentObjects.append(Comment(username: username, comment: comment))
                         }
                     }
                     
@@ -129,7 +129,7 @@ class Comments {
             
             if success {
                 if let username = PFUser.current()?.username {
-                 completion(.success(Comment(username: username, comment: text, imageUrl: nil)))
+                 completion(.success(Comment(username: username, comment: text)))
                 }
                 
             }

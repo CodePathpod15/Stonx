@@ -11,5 +11,4 @@ import Foundation
 struct Comment {
     let username: String
     let comment: String
-    let imageUrl: URL?
 }
