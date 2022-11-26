@@ -15,6 +15,47 @@ class WatchList {
     static let shared  = WatchList()
     var stockObject: PFObject?
     
+    
+    
+    func gettingUserWatchlist(bysector: String? = nil, completion: @escaping (Result<[Stock]?, Error>) -> Void) {
+ 
+         var stocksUserOwns = [Stock]()
+         let query = PFQuery(className: WatchlistConstants.object_name)
+         query.whereKey(WatchlistConstants.user, contains:  PFUser.current()!.objectId)
+         if let bysector = bysector {
+             query.whereKey(WatchlistConstants.sector, contains:  bysector)
+         }
+         query.findObjectsInBackground() { (objects: [PFObject]?, error: Error?) in
+             // this means that there is an error
+             if let error = error {
+                 completion(.failure(error))
+             }
+             // if it is nil, we just return an empty array
+             if let objects = objects {
+ 
+                 if stocksUserOwns.isEmpty {
+                     completion(.success(stocksUserOwns))
+                 }
+ 
+                 for object in objects {
+                     let sector = object[WatchlistConstants.sector] as? String
+                     let ticker_symbol = object[WatchlistConstants.ticker_symbol] as? String
+ 
+                     if let sector = sector, let ticker_symbol = ticker_symbol {
+                         let stock = Stock(ticker: ticker_symbol, price: 0, quantity: 0, ticker_fullName: "")
+                         stock.sector = sector
+                         stocksUserOwns.append(stock)
+                     }
+                     // if they are both nil we dont really do anything
+                 }
+                 completion(.success(stocksUserOwns))
+             } else {
+                 completion(.success(stocksUserOwns))
+             }
+         }
+     }
+    
+    
     // checking if the user has watchedlisted the stock
     func stockisWatchlisted(tickerName: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let query = PFQuery(className: "stocks_booked")

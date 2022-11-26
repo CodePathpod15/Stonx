@@ -8,7 +8,6 @@
 import UIKit
 import Parse
 
-
 class StocksVC: UIViewController {
     let scrollView = UIScrollView()
     let contentView = StkContentView(frame: .zero)
@@ -33,21 +32,15 @@ class StocksVC: UIViewController {
         setUpViews()
         getOwnedStocks()
         updateTheStocksCount()
-        // Do any additional setup after loading the view.
     }
     
     var tickerName = ""
 
-
-    
-    
     init(stockInfo: BestMatch) {
         super.init(nibName: nil, bundle: nil)
         title = stockInfo.the1Symbol
-
         // initializes the ticket symbol
         contentView.configure(fullStockname: stockInfo.the2Name)
-        
 
         tickerName = stockInfo.the1Symbol
 
@@ -58,12 +51,10 @@ class StocksVC: UIViewController {
                     self.contentView.configure(aboutText: items?.stockAboutDescription ?? "")
                     self.contentView.configure(sector: items?.sector ?? " ")
  
-                    
                     self.contentView.configure(eps: items?.eps ?? " ", peRatio: items?.peRatio ?? " ", marketCap: items?.marketCap ?? " ")
                 }
             case .failure(let error):
                 // otherwise, print an error to the console
-
                 DispatchQueue.main.async {
                     switch error {
                     case APIERRORS.limit:
@@ -215,18 +206,11 @@ class StocksVC: UIViewController {
     }
     
     func setUpViews() {
-        
-       
-
-        
         view.addSubview(scrollView)
-//        title = "IBM"
-        
         view.addSubview(scrollView)
 
         scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
 
-        // add content view
         scrollView.addSubview(contentView)
         contentView.delegate = self
         
@@ -244,12 +228,8 @@ class StocksVC: UIViewController {
             tradeButtonBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tradeButtonBottom.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
         ])
-        
     }
-  
-    
 }
-
 
 extension StocksVC: TradingDelegate {
     func sell() {

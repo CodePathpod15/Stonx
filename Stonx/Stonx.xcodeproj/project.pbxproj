@@ -41,10 +41,10 @@
 		1CD9B02C29318558009A7A00 /* StocksVCCommentCountSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */; };
 		1CD9B02E29318614009A7A00 /* StockVCFromRecommended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */; };
 		1CD9B030293193FE009A7A00 /* WatchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02F293193FE009A7A00 /* WatchList.swift */; };
+		1CD9B0322931BEDF009A7A00 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B0312931BEDF009A7A00 /* TransactionManager.swift */; };
+		1CD9B0342931BF33009A7A00 /* SurveyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B0332931BF33009A7A00 /* SurveyManager.swift */; };
 		1CE134B5292E847C00610451 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B4292E847C00610451 /* Comments.swift */; };
-		1CE134B7292E97EA00610451 /* StocksCommentCountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */; };
 		1CE134B9292EE1F400610451 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B8292EE1F400610451 /* Comment.swift */; };
-		1CE134BD29312F5F00610451 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134BC29312F5F00610451 /* Account.swift */; };
 		1CE134C0293137E200610451 /* StocksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134BF293137E200610451 /* StocksVC.swift */; };
 		1CE134C229313A7500610451 /* StockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C129313A7500610451 /* StockContentView.swift */; };
 		1CE134C429314E7400610451 /* statSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C329314E7400610451 /* statSV.swift */; };
@@ -52,10 +52,8 @@
 		1CE134C82931681800610451 /* StkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C72931681800610451 /* StkContentView.swift */; };
 		1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */; };
 		1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */; };
-		1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F382911D9410001F970 /* StocksViewController.swift */; };
 		1CE84F3B291223650001F970 /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3A291223650001F970 /* TradeView.swift */; };
 		1CE84F3D29122D210001F970 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3C29122D210001F970 /* TransactionViewController.swift */; };
-		1CE84F3F291239810001F970 /* StockMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F3E291239810001F970 /* StockMarket.swift */; };
 		1CE84F41291311BA0001F970 /* TransactionSuccessfulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */; };
 		1CE84F432913480C0001F970 /* 74694-confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE84F422913480C0001F970 /* 74694-confetti.json */; };
 		1CE84F4529134AE10001F970 /* 90469-confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE84F4429134AE10001F970 /* 90469-confetti.json */; };
@@ -65,7 +63,6 @@
 		1CE84FC32918333A0001F970 /* RateTheStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC22918333A0001F970 /* RateTheStock.swift */; };
 		1CE84FC5291874410001F970 /* DashBoardVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */; };
 		1CE84FC729188ADD0001F970 /* RecommendedStocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */; };
-		1CE84FC92918B5480001F970 /* StocksViewControllerFromRecommended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */; };
 		1CEBCADA290DB30B007B45DE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCAD9290DB30B007B45DE /* SettingsViewController.swift */; };
 		1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADB290DB95F007B45DE /* Validate.swift */; };
 		1CEBCADE290DBDB7007B45DE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBCADD290DBDB7007B45DE /* Constants.swift */; };
@@ -135,10 +132,10 @@
 		1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksVCCommentCountSections.swift; sourceTree = "<group>"; };
 		1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockVCFromRecommended.swift; sourceTree = "<group>"; };
 		1CD9B02F293193FE009A7A00 /* WatchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchList.swift; sourceTree = "<group>"; };
+		1CD9B0312931BEDF009A7A00 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
+		1CD9B0332931BF33009A7A00 /* SurveyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyManager.swift; sourceTree = "<group>"; };
 		1CE134B4292E847C00610451 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
-		1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksCommentCountSection.swift; sourceTree = "<group>"; };
 		1CE134B8292EE1F400610451 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		1CE134BC29312F5F00610451 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		1CE134BF293137E200610451 /* StocksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksVC.swift; sourceTree = "<group>"; };
 		1CE134C129313A7500610451 /* StockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockContentView.swift; sourceTree = "<group>"; };
 		1CE134C329314E7400610451 /* statSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statSV.swift; sourceTree = "<group>"; };
@@ -146,10 +143,8 @@
 		1CE134C72931681800610451 /* StkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StkContentView.swift; sourceTree = "<group>"; };
 		1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generalSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyBalanceViewController.swift; sourceTree = "<group>"; };
-		1CE84F382911D9410001F970 /* StocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksViewController.swift; sourceTree = "<group>"; };
 		1CE84F3A291223650001F970 /* TradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeView.swift; sourceTree = "<group>"; };
 		1CE84F3C29122D210001F970 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
-		1CE84F3E291239810001F970 /* StockMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockMarket.swift; sourceTree = "<group>"; };
 		1CE84F40291311BA0001F970 /* TransactionSuccessfulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSuccessfulViewController.swift; sourceTree = "<group>"; };
 		1CE84F422913480C0001F970 /* 74694-confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "74694-confetti.json"; sourceTree = "<group>"; };
 		1CE84F4429134AE10001F970 /* 90469-confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "90469-confetti.json"; sourceTree = "<group>"; };
@@ -159,7 +154,6 @@
 		1CE84FC22918333A0001F970 /* RateTheStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTheStock.swift; sourceTree = "<group>"; };
 		1CE84FC4291874410001F970 /* DashBoardVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVCExtension.swift; sourceTree = "<group>"; };
 		1CE84FC629188ADD0001F970 /* RecommendedStocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedStocks.swift; sourceTree = "<group>"; };
-		1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksViewControllerFromRecommended.swift; sourceTree = "<group>"; };
 		1CEBCAD9290DB30B007B45DE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1CEBCADB290DB95F007B45DE /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		1CEBCADD290DBDB7007B45DE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -239,10 +233,7 @@
 		1C160C42291D886700CE5823 /* Looking at a stock */ = {
 			isa = PBXGroup;
 			children = (
-				1CE84F382911D9410001F970 /* StocksViewController.swift */,
 				41C78ED6292AD5AB00A570F9 /* CommentsViewController.swift */,
-				1CE84FC82918B5480001F970 /* StocksViewControllerFromRecommended.swift */,
-				1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */,
 				1CE134BF293137E200610451 /* StocksVC.swift */,
 				1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */,
 				1CD9B02729317860009A7A00 /* GettingInfoIcons.swift */,
@@ -255,17 +246,12 @@
 			isa = PBXGroup;
 			children = (
 				1CEBCADD290DBDB7007B45DE /* Constants.swift */,
+				1CD9B0352931BF6C009A7A00 /* Parse */,
 				1CEBCADB290DB95F007B45DE /* Validate.swift */,
 				1C291DD229048D110058E291 /* API.swift */,
 				1CEBCAE3290DED4D007B45DE /* JsonCodable.swift */,
-				1CE84F3E291239810001F970 /* StockMarket.swift */,
-				1C160C30291AE7A700CE5823 /* Parse.swift */,
-				1CE134B4292E847C00610451 /* Comments.swift */,
-				1CE134B8292EE1F400610451 /* Comment.swift */,
 				1C160C34291B755C00CE5823 /* Stock.swift */,
 				1C160C36291B776A00CE5823 /* Filter.swift */,
-				1CE134BC29312F5F00610451 /* Account.swift */,
-				1CD9B02F293193FE009A7A00 /* WatchList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -379,6 +365,19 @@
 				1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		1CD9B0352931BF6C009A7A00 /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				1CD9B0332931BF33009A7A00 /* SurveyManager.swift */,
+				1CD9B0312931BEDF009A7A00 /* TransactionManager.swift */,
+				1CE134B4292E847C00610451 /* Comments.swift */,
+				1CE134B8292EE1F400610451 /* Comment.swift */,
+				1CD9B02F293193FE009A7A00 /* WatchList.swift */,
+				1C160C30291AE7A700CE5823 /* Parse.swift */,
+			);
+			path = Parse;
 			sourceTree = "<group>";
 		};
 		1CE134BE293137C200610451 /* LookingAtAStock */ = {
@@ -657,9 +656,6 @@
 				1CEBCAE2290DDBA7007B45DE /* DarkModeTableViewCell.swift in Sources */,
 				1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */,
 				1CE84FC729188ADD0001F970 /* RecommendedStocks.swift in Sources */,
-				1CE84FC92918B5480001F970 /* StocksViewControllerFromRecommended.swift in Sources */,
-				1CE134B7292E97EA00610451 /* StocksCommentCountSection.swift in Sources */,
-				1CE134BD29312F5F00610451 /* Account.swift in Sources */,
 				1CE84F4F2916F7180001F970 /* AutoSizingTableView.swift in Sources */,
 				1CE134C62931630300610451 /* StockContentproperties.swift in Sources */,
 				1C86BA302910C0920034730F /* PersonalnfoViewController.swift in Sources */,
@@ -684,7 +680,6 @@
 				1CE84F3D29122D210001F970 /* TransactionViewController.swift in Sources */,
 				1C5F0E442901C5EE00101093 /* AppDelegate.swift in Sources */,
 				1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */,
-				1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */,
 				1C160C3D291C465D00CE5823 /* ComparisonView.swift in Sources */,
 				1CD9B030293193FE009A7A00 /* WatchList.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
@@ -693,7 +688,7 @@
 				41C78ED5292AD58E00A570F9 /* CommentTableViewCell.swift in Sources */,
 				1CE84FC5291874410001F970 /* DashBoardVCExtension.swift in Sources */,
 				1C160C39291B7AC400CE5823 /* WatchlistTableViewCell.swift in Sources */,
-				1CE84F3F291239810001F970 /* StockMarket.swift in Sources */,
+				1CD9B0342931BF33009A7A00 /* SurveyManager.swift in Sources */,
 				1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */,
 				1CE134B5292E847C00610451 /* Comments.swift in Sources */,
 				1CE84F4D2916E1E10001F970 /* DashboardVCViewController.swift in Sources */,
@@ -701,6 +696,7 @@
 				1CD4669F2922A83200AE9EAF /* DashboardVCSocket.swift in Sources */,
 				1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */,
 				1CC306B6290AE72C00CA2125 /* Extensions+UIView.swift in Sources */,
+				1CD9B0322931BEDF009A7A00 /* TransactionManager.swift in Sources */,
 				41C78ED7292AD5AB00A570F9 /* CommentsViewController.swift in Sources */,
 				1C1A74F3290C9B6400C3310C /* WatchListViewController.swift in Sources */,
 				1C160C3F291C768000CE5823 /* VerticalSV.swift in Sources */,

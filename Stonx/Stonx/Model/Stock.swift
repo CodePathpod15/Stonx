@@ -22,9 +22,7 @@ class Stock {
         self.price = price
         self.quantity = quantity
         self.ticker_fullName = ticker_fullName
-    
     }
-    
 }
 
 

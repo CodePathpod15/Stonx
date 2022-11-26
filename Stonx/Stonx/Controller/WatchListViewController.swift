@@ -43,7 +43,8 @@ class WatchListViewController: UIViewController {
     }
     
     func getTheUserWatchList() {
-        ParseModel.shared.gettingUserWatchlist { result in
+        
+        WatchList.shared.gettingUserWatchlist { result in
             switch result {
             case .success(let stocks):
                 // if we have the stocks saved

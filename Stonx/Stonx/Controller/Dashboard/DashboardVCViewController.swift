@@ -111,7 +111,6 @@ class DashboardVCViewController: UIViewController, RateDelegate, dashboardDelega
         Survey.shared.getTheRecommendedTickerSymbol { result in
             switch result {
             case .success(let stock):
-                print(stock)
                 if let stock = stock {
                     let rstock = RecommendedStocks()
                     self.recommendedStr = stock.ticker_symbol
