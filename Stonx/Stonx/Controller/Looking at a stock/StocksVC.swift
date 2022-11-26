@@ -122,6 +122,7 @@ class StocksVC: UIViewController {
     var stocksOwned = [String: Int]()
 
     // gets all of the stocks that the user owns
+    // TODO: add to the parse model 
     func getOwnedStocks() {
         let query = PFQuery(className: "user_transaction")
         query.whereKey("ticker_symbol", equalTo: tickerName).whereKey("user", contains: PFUser.current()!.objectId)

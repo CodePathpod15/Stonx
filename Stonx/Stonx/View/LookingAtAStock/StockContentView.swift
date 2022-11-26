@@ -11,7 +11,6 @@ import Charts
 class StockContentView: UIView {
     
     // MARK: properties
-    
     lazy var lineChartView: LineChartView = {
         let chartView  =  LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
@@ -252,14 +251,7 @@ class StockContentView: UIView {
         
     }
     
-    
-//    lazy var volumeSV = statSV()
-//    lazy var peRatioSV = statSV()
-//    lazy var EPSSV = statSV()
     func setupViews() {
-        // adding the
-
-        
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
         lineChartView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
@@ -269,22 +261,7 @@ class StockContentView: UIView {
         verticalSV.addArrangedSubview(btn)
         
         verticalSV.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 10, left: 16, bottom: 10, right: 16))
-   
-        
-        
-        
-//        volumeSV.configure(title: "Volume")
-//        volumeSV.configure(amount: "3658459")
-//
-//        peRatioSV.configure(title: "P/E Ratio")
-//        peRatioSV.configure(amount: "24.43")
-//
-//        EPSSV.configure(title: "EPS")
-//        EPSSV.configure(amount: "6.09")
-        
-        
-        
-     
+
     }
     
     @objc func imageIconVolumePressed() {
