@@ -20,7 +20,6 @@
 		1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */; };
 		1C1A74F9290D007500C3310C /* SearchStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */; };
 		1C1A74FB290D041B00C3310C /* SearchStockTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */; };
-		1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */; };
 		1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD029048CC80058E291 /* LoginViewController.swift */; };
 		1C291DD329048D110058E291 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD229048D110058E291 /* API.swift */; };
 		1C291DD529048DA60058E291 /* UserDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C291DD429048DA60058E291 /* UserDashboardViewController.swift */; };
@@ -47,8 +46,7 @@
 		1CE134B9292EE1F400610451 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B8292EE1F400610451 /* Comment.swift */; };
 		1CE134C0293137E200610451 /* StocksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134BF293137E200610451 /* StocksVC.swift */; };
 		1CE134C229313A7500610451 /* StockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C129313A7500610451 /* StockContentView.swift */; };
-		1CE134C429314E7400610451 /* statSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C329314E7400610451 /* statSV.swift */; };
-		1CE134C62931630300610451 /* StockContentproperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C52931630300610451 /* StockContentproperties.swift */; };
+		1CE134C429314E7400610451 /* StatSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C329314E7400610451 /* StatSV.swift */; };
 		1CE134C82931681800610451 /* StkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134C72931681800610451 /* StkContentView.swift */; };
 		1CE84F312911C0BB0001F970 /* generalSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */; };
 		1CE84F332911C6770001F970 /* ModifyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */; };
@@ -107,7 +105,6 @@
 		1C1A74F6290CA77700C3310C /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
 		1C1A74F8290D007500C3310C /* SearchStocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchStocksViewController.swift; sourceTree = "<group>"; };
 		1C1A74FA290D041B00C3310C /* SearchStockTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockTableviewCell.swift; sourceTree = "<group>"; };
-		1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		1C291DD029048CC80058E291 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C291DD229048D110058E291 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		1C291DD429048DA60058E291 /* UserDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewController.swift; sourceTree = "<group>"; };
@@ -138,8 +135,7 @@
 		1CE134B8292EE1F400610451 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		1CE134BF293137E200610451 /* StocksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksVC.swift; sourceTree = "<group>"; };
 		1CE134C129313A7500610451 /* StockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockContentView.swift; sourceTree = "<group>"; };
-		1CE134C329314E7400610451 /* statSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statSV.swift; sourceTree = "<group>"; };
-		1CE134C52931630300610451 /* StockContentproperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockContentproperties.swift; sourceTree = "<group>"; };
+		1CE134C329314E7400610451 /* StatSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatSV.swift; sourceTree = "<group>"; };
 		1CE134C72931681800610451 /* StkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StkContentView.swift; sourceTree = "<group>"; };
 		1CE84F302911C0BB0001F970 /* generalSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generalSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		1CE84F322911C6770001F970 /* ModifyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyBalanceViewController.swift; sourceTree = "<group>"; };
@@ -326,7 +322,6 @@
 			children = (
 				1C5F0E432901C5EE00101093 /* AppDelegate.swift */,
 				1C5F0E452901C5EE00101093 /* SceneDelegate.swift */,
-				1C23C244290F1E8B000F2BB6 /* ChartsViewController.swift */,
 				1C1A74FC290D0BE200C3310C /* Model */,
 				1C1A74FD290D0BE800C3310C /* View */,
 				1C1A74FE290D0BEC00C3310C /* Controller */,
@@ -383,9 +378,8 @@
 		1CE134BE293137C200610451 /* LookingAtAStock */ = {
 			isa = PBXGroup;
 			children = (
-				1CE134C52931630300610451 /* StockContentproperties.swift */,
 				1CE134C129313A7500610451 /* StockContentView.swift */,
-				1CE134C329314E7400610451 /* statSV.swift */,
+				1CE134C329314E7400610451 /* StatSV.swift */,
 				1CE134C72931681800610451 /* StkContentView.swift */,
 			);
 			path = LookingAtAStock;
@@ -657,13 +651,12 @@
 				1C291DD129048CC80058E291 /* LoginViewController.swift in Sources */,
 				1CE84FC729188ADD0001F970 /* RecommendedStocks.swift in Sources */,
 				1CE84F4F2916F7180001F970 /* AutoSizingTableView.swift in Sources */,
-				1CE134C62931630300610451 /* StockContentproperties.swift in Sources */,
 				1C86BA302910C0920034730F /* PersonalnfoViewController.swift in Sources */,
 				1CEBCADC290DB95F007B45DE /* Validate.swift in Sources */,
 				1CC306B8290B33FD00CA2125 /* ForgotPassViewController.swift in Sources */,
 				1C1A74F7290CA77700C3310C /* StockTableViewCell.swift in Sources */,
 				1C5F0E482901C5EE00101093 /* CreateAnAccountViewcontroller.swift in Sources */,
-				1CE134C429314E7400610451 /* statSV.swift in Sources */,
+				1CE134C429314E7400610451 /* StatSV.swift in Sources */,
 				1CE84FC32918333A0001F970 /* RateTheStock.swift in Sources */,
 				1C160C35291B755C00CE5823 /* Stock.swift in Sources */,
 				1C160C33291B17B200CE5823 /* InformationView.swift in Sources */,
@@ -684,7 +677,6 @@
 				1CD9B030293193FE009A7A00 /* WatchList.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
 				1CE134C82931681800610451 /* StkContentView.swift in Sources */,
-				1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */,
 				41C78ED5292AD58E00A570F9 /* CommentTableViewCell.swift in Sources */,
 				1CE84FC5291874410001F970 /* DashBoardVCExtension.swift in Sources */,
 				1C160C39291B7AC400CE5823 /* WatchlistTableViewCell.swift in Sources */,

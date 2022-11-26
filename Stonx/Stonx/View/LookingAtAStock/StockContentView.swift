@@ -216,17 +216,12 @@ class StockContentView: UIView {
         return sv
     }()
 
-    lazy var marketCap = statSV(frame: .zero)
+    lazy var marketCap = StatSV(frame: .zero)
     var btn: UIButton = UIButton(type: .system)
     
-    lazy var volumeSV = statSV()
-    lazy var peRatioSV = statSV()
-    lazy var EPSSV = statSV()
-    
-    
-
-    
-    
+    lazy var volumeSV = StatSV()
+    lazy var peRatioSV = StatSV()
+    lazy var EPSSV = StatSV()
     
     lazy var verticalSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [fullNameStockLbl, horizontalSV,lineChartView, AboutSectionTitle, AboutText, sectiorSectionTitle,sectorText,marketStatsSectionTitle])

@@ -66,7 +66,6 @@ class StocksVC: UIViewController {
                 }
             }
         }
-
         // we update the volume,  price and percent change
         API.getLatestStockPrice(tickerSymbol: tickerName) { result in
             switch result {
@@ -100,8 +99,6 @@ class StocksVC: UIViewController {
                 }
             }
         }
-
-        
         WatchList.shared.stockisWatchlisted(tickerName: tickerName) { result in
             switch result {
             case .success(let isWatchlisted):
@@ -157,7 +154,6 @@ class StocksVC: UIViewController {
                 tradeView.sellButton.backgroundColor = .systemGray
             }
         }
-
         tradeView.translatesAutoresizingMaskIntoConstraints = false
         tradeView.delegate = self
 

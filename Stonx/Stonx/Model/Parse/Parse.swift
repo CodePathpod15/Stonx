@@ -96,7 +96,6 @@ class ParseModel {
 
     
     // check if the user is
-
     // will return the stock
     // - with the ticker, number of shares bought and the price at which it was purcharged
     // calls method to get the number

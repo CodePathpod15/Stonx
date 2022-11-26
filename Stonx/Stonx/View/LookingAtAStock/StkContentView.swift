@@ -202,10 +202,10 @@ class StkContentView: UIView {
     }()
     
     // these all part of the market
-    let marketCap = statSV()
-    let volumeSV = statSV()
-    let peRatioSV = statSV()
-    let epsSV = statSV()
+    let marketCap = StatSV()
+    let volumeSV = StatSV()
+    let peRatioSV = StatSV()
+    let epsSV = StatSV()
 
     lazy var viewAllCommentsLlbl: UIButton = {
        let textLabel = UIButton(type: .system)
@@ -284,21 +284,12 @@ class StkContentView: UIView {
         self.volumeSV.configure(amount: volume)
     }
     
-    
-//    self.stockEPSTextLabel.text = items?.eps
- //                    self.stockPERatioTextLabel.text = items?.peRatio
- //                    // market cap
- //                    self.marketCapTextLabel.text = items?.marketCap
-    
     func configure(eps: String, peRatio: String, marketCap: String) {
         self.epsSV.configure(amount: eps)
         self.peRatioSV.configure(amount: peRatio)
         self.marketCap.configure(amount: marketCap)
     }
-    
-    
-    
-    
+  
     @objc func btnWasPressed(button: UIButton) {
         
         switch button {

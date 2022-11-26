@@ -14,8 +14,8 @@
             filePath = "Stonx/View/LookingAtAStock/StockContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "imageIconVolumePressed()"
             landmarkType = "7">
          </BreakpointContent>

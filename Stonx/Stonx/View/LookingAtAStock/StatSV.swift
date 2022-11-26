@@ -7,7 +7,7 @@
 
 import UIKit
 
-class statSV: UIStackView {
+class StatSV: UIStackView {
     private lazy var stockVolumeTextLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
