@@ -184,7 +184,7 @@ extension SearchStocksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let bestMatch = filteredStocks[indexPath.row]
-        let vc = StocksViewController(stockInfo: bestMatch)
+        let vc = StocksVC(stockInfo: bestMatch)
         navigationController?.pushViewController(vc, animated: true)
 
     }

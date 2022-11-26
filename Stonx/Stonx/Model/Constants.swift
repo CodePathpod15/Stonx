@@ -59,7 +59,7 @@ class user_transaction {
 
 
 // the
-class Watchlist {
+class WatchlistConstants {
     static let object_name = "stocks_booked"
     static let user = Ticker_rating.user
     static let sector = "sector"

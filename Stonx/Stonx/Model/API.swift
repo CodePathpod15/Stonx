@@ -23,7 +23,6 @@ enum APIERRORS: Error {
     case limit
 }
 
-
 // another API Key
 // LNPPEUV5LWE3TLLZ (5 API Calls per minute)
 // TODO: refactor this into one function

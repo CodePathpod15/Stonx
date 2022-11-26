@@ -10,7 +10,6 @@ import Parse
 
 
 // this is in charged of all of the API calls for the comments
-
 struct StocksConstants {
     static let objectName = "Stocks"
     static let symbol = "symbol"

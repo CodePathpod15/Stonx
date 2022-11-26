@@ -43,7 +43,8 @@ class WatchListViewController: UIViewController {
     }
     
     func getTheUserWatchList() {
-        ParseModel.shared.gettingUserWatchlist { result in
+        
+        WatchList.shared.gettingUserWatchlist { result in
             switch result {
             case .success(let stocks):
                 // if we have the stocks saved
@@ -253,14 +254,14 @@ extension WatchListViewController: UITableViewDelegate {
             let filter = filters[indexPath.section + 1].name
             if let stocksFrom = sectionToStocks[filter] {
                 let stock = stocksFrom[indexPath.row]
-                let tb = StocksViewController(symbol: stock.ticker_symbol, full_name: " ")
+                let tb = StocksVC(symbol: stock.ticker_symbol, full_name: " ")
                 navigationController?.pushViewController(tb, animated: true)
             }
             
         }
         else if let stocks = sectionToStocks[selectedFilter.name] {
             let stock = stocks[indexPath.row]
-            let tb = StocksViewController(symbol: stock.ticker_symbol, full_name: " ")
+            let tb = StocksVC(symbol: stock.ticker_symbol, full_name: " ")
             navigationController?.pushViewController(tb, animated: true)
             print(stock.ticker_symbol)
         }

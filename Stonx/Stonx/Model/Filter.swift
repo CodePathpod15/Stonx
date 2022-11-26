@@ -7,10 +7,8 @@
 
 import UIKit
 
-// filter
+// using this model to filter the watchlist collection view 
 class Filter: Equatable {
-    
-    
     var name: String
     var selected: Bool = false
     

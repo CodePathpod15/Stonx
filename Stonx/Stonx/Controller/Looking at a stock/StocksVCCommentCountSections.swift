@@ -1,21 +1,15 @@
 //
-//  StocksCommentCountSection.swift
+//  StocksVCCommentCountSections.swift
 //  Stonx
 //
-//  Created by Angel Zambrano on 11/23/22.
+//  Created by Angel Zambrano on 11/25/22.
 //
 
-import Foundation
+import UIKit
 
-
-extension StocksViewController {
-    
-    
-    // update
+extension StocksVC {
     func updateTheStocksCount() {
-        
         Comments.shared.gettingTheCount(ticker_id: tickerName) { result in
-            
             switch result {
             case .success(let commentCount):
                 DispatchQueue.main.async {
@@ -33,11 +27,9 @@ extension StocksViewController {
     // changes the text of the button when no comment has been added yet.
     func enableOrDisableCommentLblAndButton(with count: Int) {
         if count == 0 {
-            self.viewAllCommentsLlbl.setTitle("Add a comment", for: .normal)
+            self.contentView.viewAllCommentsLlbl.setTitle("Add a comment", for: .normal)
         } else {
-            self.viewAllCommentsLlbl.setTitle("View All \(count) Comments", for: .normal)
+            self.contentView.viewAllCommentsLlbl.setTitle("View All \(count) Comments", for: .normal)
         }
     }
-    
-    
 }
