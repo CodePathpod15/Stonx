@@ -40,6 +40,7 @@
 		1CD9B02829317860009A7A00 /* GettingInfoIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02729317860009A7A00 /* GettingInfoIcons.swift */; };
 		1CD9B02C29318558009A7A00 /* StocksVCCommentCountSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */; };
 		1CD9B02E29318614009A7A00 /* StockVCFromRecommended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */; };
+		1CD9B030293193FE009A7A00 /* WatchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9B02F293193FE009A7A00 /* WatchList.swift */; };
 		1CE134B5292E847C00610451 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B4292E847C00610451 /* Comments.swift */; };
 		1CE134B7292E97EA00610451 /* StocksCommentCountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */; };
 		1CE134B9292EE1F400610451 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE134B8292EE1F400610451 /* Comment.swift */; };
@@ -133,6 +134,7 @@
 		1CD9B02729317860009A7A00 /* GettingInfoIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingInfoIcons.swift; sourceTree = "<group>"; };
 		1CD9B02B29318558009A7A00 /* StocksVCCommentCountSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksVCCommentCountSections.swift; sourceTree = "<group>"; };
 		1CD9B02D29318614009A7A00 /* StockVCFromRecommended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockVCFromRecommended.swift; sourceTree = "<group>"; };
+		1CD9B02F293193FE009A7A00 /* WatchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchList.swift; sourceTree = "<group>"; };
 		1CE134B4292E847C00610451 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		1CE134B6292E97EA00610451 /* StocksCommentCountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksCommentCountSection.swift; sourceTree = "<group>"; };
 		1CE134B8292EE1F400610451 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				1C160C34291B755C00CE5823 /* Stock.swift */,
 				1C160C36291B776A00CE5823 /* Filter.swift */,
 				1CE134BC29312F5F00610451 /* Account.swift */,
+				1CD9B02F293193FE009A7A00 /* WatchList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				1CC306B42908DCC600CA2125 /* TabBarController.swift in Sources */,
 				1CE84F392911D9410001F970 /* StocksViewController.swift in Sources */,
 				1C160C3D291C465D00CE5823 /* ComparisonView.swift in Sources */,
+				1CD9B030293193FE009A7A00 /* WatchList.swift in Sources */,
 				1C5F0E462901C5EE00101093 /* SceneDelegate.swift in Sources */,
 				1CE134C82931681800610451 /* StkContentView.swift in Sources */,
 				1C23C245290F1E8B000F2BB6 /* ChartsViewController.swift in Sources */,

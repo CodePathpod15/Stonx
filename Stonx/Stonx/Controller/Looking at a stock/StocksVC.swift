@@ -26,7 +26,6 @@ class StocksVC: UIViewController {
         return floatingButton
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,9 +51,6 @@ class StocksVC: UIViewController {
 
         tickerName = stockInfo.the1Symbol
 
-        
-        
-        
         API.getStockAboutMe(tickerSymbol: tickerName) { result in
             switch result {
             case .success(let items):
@@ -113,34 +109,26 @@ class StocksVC: UIViewController {
                 }
             }
         }
-//
-        // query to check if this stock exists in the database
-        let query = PFQuery(className: "stocks_booked")
-        query.whereKey("ticker_symbol", equalTo: tickerName).whereKey("user", contains: PFUser.current()!.objectId)
 
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            if let error = error {
-                // The request failed
-                print(error.localizedDescription)
-            } else {
-                // if the object exists in the user's database
-                if let objects = objects {
-                    // if it doesnt exist in the database
-                    // Can probably clean this up as well
-                    if objects.isEmpty {
-                        let rbutton = UIBarButtonItem(title: "favorite", style: .plain, target: self, action: #selector(self.addToWatchList))
-                        let rightButton: UIBarButtonItem = rbutton
-                        self.navigationItem.rightBarButtonItems = [rightButton]
-
-                    } else {
-                        let rbutton = UIBarButtonItem(title: "remove", style: .plain, target: self, action: #selector(self.addToWatchList))
-                        let rightButton: UIBarButtonItem = rbutton
-                        self.navigationItem.rightBarButtonItems = [rightButton]
-                        self.stockObject = objects[0]
-                    }
+        
+        WatchList.shared.stockisWatchlisted(tickerName: tickerName) { result in
+            switch result {
+            case .success(let isWatchlisted):
+                if !isWatchlisted {
+                    let rbutton = UIBarButtonItem(title: "favorite", style: .plain, target: self, action: #selector(self.addToWatchList))
+                    let rightButton: UIBarButtonItem = rbutton
+                     self.navigationItem.rightBarButtonItems = [rightButton]
+                } else {
+                    let rbutton = UIBarButtonItem(title: "remove", style: .plain, target: self, action: #selector(self.addToWatchList))
+                    let rightButton: UIBarButtonItem = rbutton
+                    self.navigationItem.rightBarButtonItems = [rightButton]
                 }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
+        
+
     }
     
     var stocksOwned = [String: Int]()
@@ -194,40 +182,29 @@ class StocksVC: UIViewController {
     
     
     @objc func addToWatchList() {
+        
         if navigationItem.rightBarButtonItem?.title == "favorite" {
-            let watchlist = PFObject(className: "stocks_booked")
-            // saves the ticker name
-            watchlist["ticker_symbol"] = tickerName
-            // saves it to the current user
-            watchlist["user"] = PFUser.current()!
-
-            // adding the sector
-            if let sect = sect {
-                watchlist["sector"] = sect
-            }
-
-            // saves the sector
-            watchlist.saveInBackground { success, error in
-                if success {
-                    self.stockObject = watchlist
+            
+            WatchList.shared.addToWatchlist(tickerName: tickerName, sect: sect) { result in
+                switch result {
+                case .success(let succeed):
+                    self.stockObject = WatchList.shared.stockObject
                     self.navigationItem.rightBarButtonItem?.title = "remove"
-                } else {
-                    self.showAlert(with: error?.localizedDescription ?? "Errror")
+                case .failure(let error):
+                    self.showAlert(with: error.localizedDescription)
                 }
+                
             }
 
-        } else { // delete object from
-            if let stockObject = stockObject {
-                let array = [stockObject]
-
-                PFObject.deleteAll(inBackground: array) { succeeded, error in
-                    if succeeded {
-                        // The array of objects was successfully deleted.
+        } else {
+            WatchList.shared.removeFromWatchlist { result in
+                switch result {
+                case .success(let res):
+                    if res {
                         self.navigationItem.rightBarButtonItem?.title = "favorite"
-                    } else {
-                        // There was an error. Check the errors localizedDescription.
-                        self.showAlert(with: error?.localizedDescription ?? "Errror")
                     }
+                case .failure(let err):
+                    self.showAlert(with: err.localizedDescription)
                 }
             }
         }
@@ -243,7 +220,7 @@ class StocksVC: UIViewController {
 
         
         view.addSubview(scrollView)
-        title = "IBM"
+//        title = "IBM"
         
         view.addSubview(scrollView)
 
@@ -287,7 +264,6 @@ extension StocksVC: TradingDelegate {
 
     // enabling the buying of a stock
     func buy() {
-        print("going into buy: ", tickerName)
         let vc = TransactionViewController(typeOfTransaction: .buy, ticker: tickerName, latestPrice: Double(contentView.stockPrice.text!)!)
         vc.delegate = self
         let view = UINavigationController(rootViewController: vc)

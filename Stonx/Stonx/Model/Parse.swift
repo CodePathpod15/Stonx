@@ -100,10 +100,10 @@ class ParseModel {
     func gettingUserWatchlist(bysector: String? = nil, completion: @escaping (Result<[Stock]?, Error>) -> Void) {
 
         var stocksUserOwns = [Stock]()
-        let query = PFQuery(className: Watchlist.object_name)
-        query.whereKey(Watchlist.user, contains:  PFUser.current()!.objectId)
+        let query = PFQuery(className: WatchlistConstants.object_name)
+        query.whereKey(WatchlistConstants.user, contains:  PFUser.current()!.objectId)
         if let bysector = bysector {
-            query.whereKey(Watchlist.sector, contains:  bysector)
+            query.whereKey(WatchlistConstants.sector, contains:  bysector)
         }
         query.findObjectsInBackground() { (objects: [PFObject]?, error: Error?) in
             // this means that there is an error
@@ -118,8 +118,8 @@ class ParseModel {
                 }
 
                 for object in objects {
-                    let sector = object[Watchlist.sector] as? String
-                    let ticker_symbol = object[Watchlist.ticker_symbol] as? String
+                    let sector = object[WatchlistConstants.sector] as? String
+                    let ticker_symbol = object[WatchlistConstants.ticker_symbol] as? String
 
                     if let sector = sector, let ticker_symbol = ticker_symbol {
                         let stock = Stock(ticker: ticker_symbol, price: 0, quantity: 0, ticker_fullName: "")
@@ -134,6 +134,8 @@ class ParseModel {
             }
         }
     }
+    
+    // check if the user is
 
     // will return the stock
     // - with the ticker, number of shares bought and the price at which it was purcharged
@@ -199,6 +201,8 @@ class ParseModel {
             }
         }
     }
+    
+    
 
 
     // gettig the total length of the stock
